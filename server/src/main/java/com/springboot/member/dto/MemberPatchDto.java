@@ -2,10 +2,11 @@ package com.springboot.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-
+@Setter
 @Getter
 @AllArgsConstructor
 public class MemberPatchDto {
