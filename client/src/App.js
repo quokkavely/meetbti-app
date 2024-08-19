@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-rou
 import MainPage from './pages/MainPage';
 import TestMain from './pages/TestMain';
 import LoginPage from './pages/loginpage/LoginPage';
+import RegistrationPage from './pages/registration/RegistrationPage';
+import MbtiTestPage from './pages/mbti-test/MbtiTestPage';
 // import TestResult from './pages/TestResult';
 // import LoginMainPage from './pages/LoginMainPage';
 // import ResultWaiting from './pages/ResultWaiting';
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/testmain" element={<TestMain />} />
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path='/registration' element={<RegistrationPage/>}/>
+        <Route path='/mbti-test' element={<MbtiTestPage/>}/>
         {/* <Route path="/resultwaiting" element={<ResultWaiting />} />
         <Route path="/testresult" element={<TestResult />} />
         <Route path="/loginmain" element={<LoginMainPage />} />
