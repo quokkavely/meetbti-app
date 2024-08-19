@@ -1,6 +1,7 @@
 package com.springboot.member.controller;
 
 import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

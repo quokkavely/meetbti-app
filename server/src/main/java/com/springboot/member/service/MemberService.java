@@ -1,6 +1,7 @@
 package com.springboot.member.service;
 
 import com.springboot.member.entity.Member;
+import com.springboot.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -69,5 +70,4 @@ public class MemberService {
         if(optionalMember.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.NICKNAME_ALREADY_EXIST);
         }
-
     }
