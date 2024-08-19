@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: MeetBTI issue template
 about: MeetBTI Issue Templete
 title: ''
 labels: ''
