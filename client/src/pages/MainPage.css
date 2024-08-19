@@ -1,0 +1,199 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 앱 컨테이너 */
+  .app {
+    max-width: 480px; /* 모바일 크기 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 패딩 추가 */
+  }
+
+  /* 헤더 */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 130px;
+    padding: 10px;
+    margin-top: 26px;
+  }
+  
+  .logo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo-img {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+  }
+
+  .logo-img img {
+    width: 170px;
+    height: 40px;
+  }
+
+  .user-icon-container {
+    margin-left: auto;
+    width: 30px;
+    height: 36px;
+    cursor: pointer;
+  }
+
+  .user-icon-container img {
+    width: 30px;
+    height: 36px;
+  }
+
+  .logo-text {
+    text-align: center;
+    margin-right: auto;
+    font-size: 10px;
+    color:#3C3C3C
+  }
+  
+  /* MBTI 테스트 섹션 */
+  .mbti-test-card {
+    width: 440px;
+    height: 440px;
+    background-color: #f5f5f5;
+    display: flex; /* Flex박스를 사용하여 자식 요소들을 정렬 */
+    flex-direction: column-reverse; /* 자식 요소들을 세로 방향으로 정렬. reverse뺴고 */
+    align-items: flex-end; /* 자식 요소들을 수직 방향의 끝(아래쪽)에 배치 */
+    align-self: auto; /* 현재 요소의 부모 컨테이너 내에서의 정렬 방식을 자동으로 설정(기본값) */
+    border-radius: 10px; /* 모서리를 둥글게 (10px) */
+    /* 아래는 이미지 삽입으로 인해 추가 */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .mbti-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .mbti-test {
+    position: absolute; /* 자식 박스가 가려지지 않고 위에 위치하게 */
+    width: 260px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙에 배치 */
+    align-items: center; /* 자식 요소들을 세로 방향으로 중앙에 배치 */
+    align-self: center; /* 현재 요소를 부모 컨테이너 내에서 가로 방향으로 중앙에 배치 */
+    text-align: center; /* 텍스트 중앙 배치 */
+    background-color: #fff;
+    gap: 10px; /* 자식 요소들 사이에 20px의 간격을 추가 */
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
+    opacity: 0.9;
+    border-radius: 5px;
+  }
+
+  .mbti-test h2 {
+    color: #6b2cff;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .mbti-test button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #6b2cff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+
+  /* 다른 MBTI 섹션 */
+  .other-mbti, 
+  .snack {
+    display: flex;
+    height: 75px;
+    gap: 15px;
+    padding-top: 50px;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3C3C3C;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .other-mbti-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* 스낵 스타일 */
+  .snack-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* 바로가기 */
+  .go-point {
+    display: flex;
+    width: 30px;
+    height: 36px;
+  }
+
+   /* 카드 스타일 */
+   .card-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 20px 0;
+  }
+  
+  .card {
+    position: relative; /* 자식 요소의 절대 위치 지정을 위해 relative 설정 */
+    width: 200px; /* 카드의 너비를 설정 */
+    height: 300px; /* 카드의 높이를 설정 */
+    overflow: hidden; /* 카드 내용이 넘치지 않도록 설정 */
+    border: 1px solid #ccc; /* 카드 테두리 */
+    border-radius: 8px; /* 카드 모서리 둥글게 */
+  }
+  
+  .card-image {
+    width: 100%; /* 이미지가 카드의 너비에 맞게 조정 */
+    height: auto; /* 이미지 비율 유지 */
+  }
+  
+  .card-content {
+    position: absolute; /* 절대 위치 지정 */
+    bottom: 0; /* 카드의 아래쪽에 위치 */
+    background-color: rgba(255, 255, 255, 0.3); /* 배경색과 투명도 설정 */
+    color: #fff;
+    padding: 10px; /* 패딩 추가 */
+    width: 100%;
+    height: 75px;
+    text-align: right;
+  }
+
+  .card-title {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 24px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  .card-description {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 14px;
+    padding-right: 10px;
+  }
