@@ -1,0 +1,111 @@
+.background{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.register-input-container{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-self: center;
+}
+
+.logo-section {
+    display: flex;
+    width: 480px;
+    max-width: 100%;
+}
+
+.logo{
+    display: flex;
+    width: 350px;
+    /* height: 50px; */
+    margin: 0 auto;
+    justify-self: center;
+    align-self: center;
+}
+.input-container{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.find-password{
+    display: flex;
+}
+.find-password-button{
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width:190px;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    background-color: white;
+    color: blueviolet;
+    font-size: 20px;
+    font-weight: bold;
+}
+.login-input{
+    border: none;
+    resize: none;
+    outline: none;
+    align-self: center;
+    width: 500px;
+    height: 80px;
+    border-radius: 20px;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.login-input::placeholder{
+    color: rgb(200,200,200);
+}
+.login-button{
+    border: none;
+    width: 508px;
+    height: 80px;
+    align-self: center;
+    margin-top: 30px;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: blueviolet;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+.input-container{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.or{
+    display: flex;
+    color: rgb(200,200,200);
+    margin-top: 50px;
+    margin-bottom: 40px;
+    align-self: center;
+    justify-content: center;
+}
+.oauth-logo{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 80px;
+    height: 80px
+}
+.right{
+    margin-top: 100px;
+    margin-bottom: 80px;
+    color: rgb(200,200,200);
+    font-size: 20px;
+}
+.oauth-container{
+    display: flex;
+    justify-content: center;
+}
+
