@@ -1,5 +1,7 @@
 package com.springboot.balancegame.entity;
 
+import com.springboot.balancegame_comment.entity.BalanceGameComment;
+import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.gamestatus.GameStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
