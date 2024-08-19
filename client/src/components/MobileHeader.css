@@ -1,0 +1,14 @@
+
+.mobile-header {
+    display: flex;
+    align-items: center;
+    height: 130px;
+    padding: 10px;
+    margin-top: 26px;
+}
+.small-logo{
+    width: 200px;
+}
+.back-icon{
+    width: 50px;
+}
