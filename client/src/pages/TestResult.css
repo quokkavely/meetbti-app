@@ -1,0 +1,343 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 앱 컨테이너 */
+  .app {
+    max-width: 480px; /* 모바일 크기 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 패딩 추가 */
+  }
+
+  /* 헤더 */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 130px;
+    padding: 10px;
+    margin-top: 26px;
+  }
+  
+  .logo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo-img {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .back-icon {
+    width: 45px;
+    height: 38px;
+    cursor: pointer;
+  }
+  
+  .back-icon img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .logo-text {
+    text-align: center;
+    margin-right: auto;
+    font-size: 10px;
+    color:#3C3C3C
+  }
+  
+
+
+  /* MBTI 결과 이미지 섹션 */
+
+  .mbti-test-result {
+    width: 440px;
+    height: 440px;
+  }
+  
+  .mbti-test-result-image {
+    width: 100%;
+    height: auto;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+  }
+
+
+  /* 결과 특징 섹션 */
+
+  .mbti-feature {
+    display: flex;
+    height: 400px;
+    width: 440px;
+    gap: 15px;
+    padding-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3C3C3C;
+    flex-direction: column;
+  }
+
+  .mbti-feature-title-box {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    color: #8C2BDE;
+  }
+
+  .mbti-type {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 10px;
+  }
+
+  .my-mbti-type-title {
+    margin-left: 30px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+  .mbti-feature-content {
+    font-size: 16px;
+    justify-content: center; 
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 400px;
+    background-color: #ececec;   
+  }
+
+  /* 구분 선 */
+
+  .line {
+    width: 100%;
+    height: 50px;
+    border-top: 3px solid #c6c6c6;
+    margin-top: 40px;
+
+  }
+
+  /* 그래프 섹션 */
+
+  .graph-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8C2BDE;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+
+  .mbti-graph-section {
+    width: 440px;
+    height: 400px;
+    margin-top: 40px;
+  }
+
+  .mbti-test-result-graphs {
+    width: 440px;
+    height: 440px;
+    margin-top: 40px;
+  } 
+
+  .mbti-graph-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+    margin-bottom: 100px;
+  }
+  
+  .mbti-graph-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .mbti-graph-label {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .mbti-graph-bar-container {
+    flex: 6;
+    display: flex;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+  
+  .mbti-graph-bar {
+    height: 20px;
+  }
+  
+  .mbti-graph-bar.extraverted {
+    background-color: #8bc34a; /* 외향형 색상 */
+  }
+  
+  .mbti-graph-bar.introverted {
+    background-color: #cfd8dc; /* 내향형 색상 */
+  }
+  
+  .mbti-graph-bar.intuitive {
+    background-color: #ff9800; /* 직관형 색상 */
+  }
+  
+  .mbti-graph-bar.observant {
+    background-color: #cfd8dc; /* 현실주의형 색상 */
+  }
+  
+  .mbti-graph-bar.thinking {
+    background-color: #62c7f5; /* 이성적사고형 색상 */
+  }
+  
+  .mbti-graph-bar.feeling {
+    background-color: #cfd8dc; /* 원칙주의형 색상 */
+  }
+  
+  .mbti-graph-bar.judging {
+    background-color: #ef83a7; /* 계획형 색상 */
+  }
+  
+  .mbti-graph-bar.prospecting {
+    background-color: #cfd8dc; /* 탐색형 색상 */
+  }
+
+  .graph-label {
+    font-size: 14px;
+  }
+
+  .graph-text {
+    font-size: 14px;
+    margin-top: 5px;
+    /* white-space: nowrap; */
+    text-align: center;
+  } 
+
+  /* 본캐 부캐 섹션 */
+  .second-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8C2BDE;
+    margin-bottom: 20px;
+    margin-left: 10px;
+  }
+
+  .mbti-test-result-second-container {
+    width: 100%;
+    color: #8C2BDE;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .mbti-test-result-second {
+    width: 100%;
+    height: 240px;
+    display: flex; /* Flexbox 사용 */
+    flex-direction: row; /* 가로 정렬 */
+    justify-content: space-between; /* 자식 요소들 사이에 동일한 간격 */
+    color: #747474;
+  }
+
+  .first-mbti, .myMbti, .second-mbti {
+    flex: 1; /* 각 자식 요소가 동일한 너비를 가지도록 설정 */
+    display: flex; /* 자식 요소 내부의 내용도 중앙 정렬 */
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+  }
+
+  .first-mbti-type, .second-mbti-type {
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+    background-color: #ddb7fa;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  .first-mbti-keyword1, .first-mbti-keyword2, .first-mbti-keyword3, .second-mbti-keyword1, .second-mbti-keyword2, .second-mbti-keyword3 {
+    width: 120px;
+    height: 45px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+    margin: 5px 0;
+    border-radius: 8px;
+  }
+
+  .first-mbti {
+  }
+  
+  .second-mbti {
+  }
+
+  .logo-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    width: 80px;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .logo-icon img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* 네비게이션 버튼 섹션 */
+
+  .button-section {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button-box {
+    display: flex;
+    justify-content: space-around;
+    max-width: 440px;
+  }
+
+  .navigate-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+  }
+
+  .navigate-button img {
+    width: 70px;
+    height: auto;
+  }
+  
