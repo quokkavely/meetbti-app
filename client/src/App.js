@@ -12,6 +12,7 @@ import ResultWaiting from './pages/ResultWaiting';
 import MBTIBoard from './pages/MBTIBoard';
 import RegistPostPage from './pages/RegistPostPage';
 import PostPage from './pages/PostPage';
+import ReportPage from './pages/report/ReportPage';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/mbtiboard" element={<MBTIBoard />} />
         <Route path="/registpost" element={<RegistPostPage />} />
         <Route path="/postpage" element={<PostPage />} />
+        <Route path='/report' element={<ReportPage/>}/>
       </Routes>
     </BrowserRouter>  
   );
