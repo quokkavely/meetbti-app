@@ -1,0 +1,37 @@
+.admin-page-text{
+    font-size: 20px;
+}
+.admin-button-container{
+    margin-top: 30px;
+}
+.admin-button{
+    margin-top: 20px;
+    width: 400px;
+    height: 80px;
+    background-color: white;
+    color: rgb(100,100,100);
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.admin-button-contents{
+    display: flex;
+}
+.admin-button-icon{
+    margin-left: 10%;
+    width: 40px;
+}
+.admin-button-text{
+    margin-left: 3%;
+    margin-top: 1%;
+}
+.logo-icon{
+    /* justify-self: center;
+    align-self: center; */
+    margin-left: 35%;
+    margin-top: 100px;
+    width: 100px;
+    opacity: 50%;
+}

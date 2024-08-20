@@ -5,6 +5,7 @@ import TestMain from './pages/TestMain';
 import LoginPage from './pages/loginpage/LoginPage';
 import RegistrationPage from './pages/registration/RegistrationPage';
 import MbtiTestPage from './pages/mbti-test/MbtiTestPage';
+import AdminPage from './pages/admin/AdminPage';
 // import TestResult from './pages/TestResult';
 // import LoginMainPage from './pages/LoginMainPage';
 // import ResultWaiting from './pages/ResultWaiting';
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path='/registration' element={<RegistrationPage/>}/>
         <Route path='/mbti-test' element={<MbtiTestPage/>}/>
+        <Route path='/admin' element={<AdminPage/>}/>
         {/* <Route path="/resultwaiting" element={<ResultWaiting />} />
         <Route path="/testresult" element={<TestResult />} />
         <Route path="/loginmain" element={<LoginMainPage />} />
