@@ -11,6 +11,7 @@ import LoginMainPage from './pages/LoginMainPage';
 import ResultWaiting from './pages/ResultWaiting';
 import MBTIBoard from './pages/MBTIBoard';
 import RegistPostPage from './pages/RegistPostPage';
+import PostPage from './pages/PostPage';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/loginmain" element={<LoginMainPage />} />
         <Route path="/mbtiboard" element={<MBTIBoard />} />
         <Route path="/registpost" element={<RegistPostPage />} />
+        <Route path="/postpage" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );
