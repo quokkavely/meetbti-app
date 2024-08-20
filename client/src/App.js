@@ -15,6 +15,7 @@ import PostPage from './pages/PostPage';
 import ReportPage from './pages/report/ReportPage';
 import ReportDetail from './pages/reportdetail/ReportDetail';
 import ImageGameRegistration from './pages/imagegame_registration/ImageGameRegistration';
+import MbtmiPage from './pages/mbtmi/MbtmiPage';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/report' element={<ReportPage/>}/>
         <Route path='/report-detail' element={<ReportDetail/>}/>
         <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
+        <Route path='/mbtmi' element={<MbtmiPage/>}/>
       </Routes>
     </BrowserRouter>  
   );
