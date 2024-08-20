@@ -2,6 +2,7 @@ package com.springboot.member.entity;
 
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
+import com.springboot.heart.entity.Heart;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.testresult.entity.TestResult;
@@ -44,14 +45,14 @@ public class Member {
     @Column
     private LocalDateTime banExpiration;
 
-//    @OneToMany (mappedBy = "member")
-//    private List<Heart> hearts = new ArrayList<>();
-//    public void setHeart(Heart heart){
-//        hearts.add(heart);
-//        if(heart.getMember()!=this){
-//            heart.setMember(this);
-//        }
-//    }
+    @OneToMany (mappedBy = "member")
+    private List<Heart> hearts = new ArrayList<>();
+    public void setHeart(Heart heart){
+        hearts.add(heart);
+        if(heart.getMember()!=this){
+            heart.setMember(this);
+        }
+    }
 
     //    1) security 적용 후
     @ElementCollection(fetch = FetchType.EAGER)
