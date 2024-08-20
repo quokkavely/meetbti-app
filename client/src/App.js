@@ -48,13 +48,13 @@ const App = () => {
         <Route path='/mbtmi' element={<MbtmiPage/>}/>
         <Route path='/imagegame' element={<ImageGamePage/>}/>
         <Route path='/mypage' element={<MyPage/>}/>
-        <Route path='/mypage-modify' element={<MyPageModify/>}/>
-        <Route path='/mypage-history' element={<MyPageHistory/>}/>
-        <Route path='/mypage-mbti-history' element={<MyMBTIHistory/>}/>
-        <Route path='/mypage-post-history' element={<MyPostHistory/>}/>
-        <Route path='/mypage-comment-history' element={<MyCommentHistory/>}/>
-        <Route path='/mypage-heart-history' element={<MyHeartHistory/>}/>
-        <Route path='/mypage-snack-history' element={<MySnackHistory/>}/> 
+        <Route path='/mypagemodify' element={<MyPageModify/>}/>
+        <Route path='/mypagehistory' element={<MyPageHistory/>}/>
+        <Route path='/mypagembtihistory' element={<MyMBTIHistory/>}/>
+        <Route path='/mypageposthistory' element={<MyPostHistory/>}/>
+        <Route path='/mypagecommenthistory' element={<MyCommentHistory/>}/>
+        <Route path='/mypagehearthistory' element={<MyHeartHistory/>}/>
+        <Route path='/mypagesnackhistory' element={<MySnackHistory/>}/> 
       </Routes>
     </BrowserRouter>  
   );
