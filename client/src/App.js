@@ -50,11 +50,11 @@ const App = () => {
         <Route path='/mypage' element={<MyPage/>}/>
         <Route path='/mypagemodify' element={<MyPageModify/>}/>
         <Route path='/mypagehistory' element={<MyPageHistory/>}/>
-        <Route path='/mypagembtihistory' element={<MyMBTIHistory/>}/>
-        <Route path='/mypageposthistory' element={<MyPostHistory/>}/>
-        <Route path='/mypagecommenthistory' element={<MyCommentHistory/>}/>
-        <Route path='/mypagehearthistory' element={<MyHeartHistory/>}/>
-        <Route path='/mypagesnackhistory' element={<MySnackHistory/>}/> 
+        <Route path='/mymbtihistory' element={<MyMBTIHistory/>}/>
+        <Route path='/myposthistory' element={<MyPostHistory/>}/>
+        <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
+        <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
+        <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
       </Routes>
     </BrowserRouter>  
   );
