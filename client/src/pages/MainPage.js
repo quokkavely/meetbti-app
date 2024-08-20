@@ -15,7 +15,7 @@ const Header = () => {
           <img src="/Main-logo.png" alt='메인로고'/>
         </div>
         <div className="user-icon-container">
-          <img src="profile.png" alt="사용자 아이콘" />
+          <img src="profile.png" alt="사용자 아이콘" onClick={() => navigate('/mypage')}/>
         </div>
       </div>
       <div className="logo-text">
