@@ -1,0 +1,200 @@
+
+/* 게시글 내용 */
+.post-content {
+  display: flex;
+  width: 100%; 
+  height: 100%;
+  flex-direction: column;
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+}
+
+.post-title {
+  font-size: 20px;
+  color: #3C3C3C;
+  text-align: left;
+  margin-top: 14px;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 3px;
+  gap: 10px;
+  font-size: 14px;
+  color: #8c8c8c;
+  text-align: left;
+  margin-left: 6px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 30px;
+}
+
+.post-text {
+  margin-left: 3px;
+  width: 100%;
+  height: fit-content;
+  font-size: 16px;
+  color: #3C3C3C;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+/* 게시글 액션 */
+.post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+}
+
+.like-button {
+  width: 140px;
+  height: 40px;
+  background: #e3ccf6; ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+}
+
+.alert-button-main {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  left: calc(50% + 85px);
+}
+
+.alert-button-main img {
+  width: 30px;
+  height: 30px;
+}
+
+
+/* 댓글 섹션 */
+.comment-count {
+  font-size: 14px;
+  color: #545454;
+  text-align: left;
+  margin-left: 6px;
+  margin-top: 50px;
+}
+
+
+.comment-section {
+  margin-top: 10px;
+}
+
+.comments {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 10px;
+  left: 0;
+}
+
+.comment-text {
+  font-size: 13px;
+  color: #3C3C3C;
+  text-align: left;
+  height: 100%;
+  width: 230px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.comment-time {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #9d9d9d;
+}
+
+.comment-subcontent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+  gap: 10px;
+}
+
+.alert-button {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 14px;
+}
+
+.alert-button img {
+  width: 20px;
+  height: 20px;
+}
+
+
+.comment-input {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  padding-top: 35px;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.comment-input-field {
+  display: flex;
+  width: 370px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.comment-send-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  right: 0;
+  margin-left: 10px;
+}
+
+.comment-send-button img {
+  width: 40px;
+  height: 36px;
+}
