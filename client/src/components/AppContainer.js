@@ -1,22 +1,21 @@
 import React from 'react';
 
-const AppContainer = ({ children }) => {
-  return (
-    <div className="app">
-      {children}
-      <style jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+const styles = {
+    appOrigin: {
+      margin: '0',
+      padding: '0',
+      boxSizing: 'border-box',
+    },
+    app: {
+        maxWidth: '480px',
+        margin: '0 auto',
+        padding: '0 20px 20px 20px',
+    }
+}
 
-        .app {
-          max-width: 480px; /* 모바일 크기 */
-          margin: 0 auto; /* 중앙 정렬 */
-          padding: 20px; /* 패딩 추가 */
-        }
-      `}</style>
+const AppContainer = () => {
+  return (
+    <div style={styles.app}>
     </div>
   );
 };
