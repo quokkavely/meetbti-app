@@ -13,6 +13,7 @@ import MBTIBoard from './pages/MBTIBoard';
 import RegistPostPage from './pages/RegistPostPage';
 import PostPage from './pages/PostPage';
 import ReportPage from './pages/report/ReportPage';
+import ReportDetail from './pages/reportdetail/ReportDetail';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/registpost" element={<RegistPostPage />} />
         <Route path="/postpage" element={<PostPage />} />
         <Route path='/report' element={<ReportPage/>}/>
+        <Route path='/report-detail' element={<ReportDetail/>}/>
       </Routes>
     </BrowserRouter>  
   );

@@ -1,0 +1,69 @@
+.report{
+    margin-top: 50px;
+}
+.report-content{
+    margin-top: 50px;
+    margin-left: 5%;
+    min-height: 300px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.report-arrow{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.5);
+    margin-top: 1%;
+}
+.reporter-target{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.reporter-item{
+    display: flex;
+    background-color: blueviolet;
+    min-width: fit-content;
+    justify-content: space-between;
+    border-radius: 15px;
+    border: 5px solid rgb(157, 98, 212);
+    width: 120px;
+}
+.target-item{
+    display: flex;
+    background-color: rgb(228, 72, 72);
+    justify-content: space-between;
+    border-radius: 15px;
+    border: 5px solid rgb(228, 125, 125);
+    width: 120px;
+}
+.type{
+    margin-left: 3%;
+    /* margin-right: 3%; */
+    color: white;
+    font-weight: bold;
+}
+.name{
+    margin-right: 3%;
+    color: white;
+    /* font-weight: bold; */
+}
+.ban-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.ban-button{
+    width: 100px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-left: 50px;
+}
+.ban-button:hover{
+    background-color: blueviolet;
+    border: 2px solid;
+    border-color: rgb(214, 187, 241);
+}

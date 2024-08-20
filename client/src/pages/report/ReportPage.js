@@ -1,28 +1,17 @@
 import Header from "../../components/Header";
 import './ReportPage.css';
 import PageContainer from '../../components/page_container/PageContainer.js';
-
-function ReportItem(props){
-    return (
-        <div className="report-item">
-            <div className="report-info">
-                <div className="report-title">{props.type}</div>
-                <div className="report-time">{props.time.toLocaleString()}</div>
-            </div>
-            <input type="checkbox" className="report-checkbox"></input>
-        </div>
-    );
-}
+import ReportItem from "../../components/report_item/ReportItem.js";
 
 const ReportPage = ()=> {
-    const currntTime = new Date();
+    const currntTime = new Date().toLocaleString();
     const reports = [
-        {type:'게시글 신고', time:currntTime},
-        {type:'게시글 신고', time:currntTime},
-        {type:'댓글 신고', time:currntTime},
-        {type:'댓글 신고', time:currntTime},
-        {type:'게시글 신고', time:currntTime},
-        {type:'댓글 신고', time:currntTime},
+        {type:'게시글 신고', time:currntTime, checkbox:true},
+        {type:'게시글 신고', time:currntTime, checkbox:true},
+        {type:'댓글 신고', time:currntTime, checkbox:true},
+        {type:'댓글 신고', time:currntTime, checkbox:true},
+        {type:'게시글 신고', time:currntTime, checkbox:true},
+        {type:'댓글 신고', time:currntTime, checkbox:true},
     ]
     return (
         <div className="app">
@@ -32,7 +21,7 @@ const ReportPage = ()=> {
                 <button className='report-handling-button'>신고 처리</button>
             </div>
             <div>
-                {reports.map((value) => <ReportItem type={value.type} time={value.time}></ReportItem>)}
+                {reports.map((value) => <ReportItem type={value.type} time={value.time} checkbox={value.checkbox}></ReportItem>)}
             </div>
             <PageContainer pages={[1,2,3,4,5]}></PageContainer>
         </div>
