@@ -1,0 +1,232 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 앱 컨테이너 */
+  .app {
+    max-width: 480px; /* 모바일 크기 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 패딩 추가 */
+  }
+
+  /* 헤더 */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 130px;
+    padding: 10px;
+    margin-top: 26px;
+  }
+  
+  .logo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo-img {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+  }
+
+  .logo-img img {
+    width: 170px;
+    height: 40px;
+  }
+
+  .user-icon-container {
+    margin-left: auto;
+    width: 30px;
+    height: 36px;
+    cursor: pointer;
+  }
+
+  .user-icon-container img {
+    width: 30px;
+    height: 36px;
+  }
+
+  .logo-text {
+    text-align: center;
+    margin-right: auto;
+    font-size: 10px;
+    color:#3C3C3C
+  }
+  
+  /* 내 MBTI 컴포넌트 */
+  .my-mbti-section {
+    width: 440px;
+    height: 440px;
+    max-width: 440px;
+    margin: 0 auto;
+    border-radius: 10px; /* 모서리를 둥글게 (10px) */
+    border: 10px solid #ffffff;
+    /* 아래는 이미지 삽입으로 인해 추가 */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+  }
+  
+  .my-mbti-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    opacity: 0.7;
+  }
+
+  .my-mbti-info {
+    position: absolute;
+    width: 300px;
+    height: 220px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .my-mbti-title {
+    font-size: 80px;
+    font-weight: bold;
+    color: #000000;
+    z-index: 1;
+    padding-bottom: 5px;
+    position: relative;
+  }
+
+  .my-mbti-title::after {
+    content: '';
+    display: block;
+    width: 55%;
+    border-bottom: 3px solid #000000;
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+  }
+
+  .my-mbti-content {
+    font-size: 28px; 
+    color: #000000;
+    z-index: 1;
+    padding-top: 5px;
+  }
+  
+  .go-myMBTI {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    z-index: 1;
+  }
+
+  .go-myMBTI button {
+    width: 100px;
+    height: 35px;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(94, 94, 94);
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
+    font-weight: bold;
+  }
+  
+
+  /* 다른 MBTI 섹션 */
+  .other-mbti, 
+  .snack {
+    display: flex;
+    height: 75px;
+    gap: 15px;
+    padding-top: 50px;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #3C3C3C;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .other-mbti-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* 스낵 스타일 */
+  .snack-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* 바로가기 */
+  .go-point {
+    display: flex;
+    width: 30px;
+    height: 36px;
+    cursor: pointer;
+  }
+
+   /* 카드 스타일 */
+   .card-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 20px 0;
+  }
+  
+  .card {
+    position: relative; /* 자식 요소의 절대 위치 지정을 위해 relative 설정 */
+    width: 200px; /* 카드의 너비를 설정 */
+    height: 300px; /* 카드의 높이를 설정 */
+    overflow: hidden; /* 카드 내용이 넘치지 않도록 설정 */
+    border: 1px solid #ccc; /* 카드 테두리 */
+    border-radius: 8px; /* 카드 모서리 둥글게 */
+    cursor: pointer;
+  }
+  
+  .card-image {
+    width: 100%; /* 이미지가 카드의 너비에 맞게 조정 */
+    height: auto; /* 이미지 비율 유지 */
+  }
+  
+  .card-content {
+    position: absolute; /* 절대 위치 지정 */
+    bottom: 0; /* 카드의 아래쪽에 위치 */
+    background-color: rgba(255, 255, 255, 0.3); /* 배경색과 투명도 설정 */
+    color: #fff;
+    padding: 10px; /* 패딩 추가 */
+    width: 100%;
+    height: 75px;
+    text-align: right;
+  }
+
+  .card-title {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 24px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  .card-description {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 14px;
+    padding-right: 10px;
+  }
