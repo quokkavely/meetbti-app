@@ -14,6 +14,7 @@ import RegistPostPage from './pages/RegistPostPage';
 import PostPage from './pages/PostPage';
 import ReportPage from './pages/report/ReportPage';
 import ReportDetail from './pages/reportdetail/ReportDetail';
+import ImageGameRegistration from './pages/imagegame_registration/ImageGameRegistration';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/postpage" element={<PostPage />} />
         <Route path='/report' element={<ReportPage/>}/>
         <Route path='/report-detail' element={<ReportDetail/>}/>
+        <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
       </Routes>
     </BrowserRouter>  
   );
