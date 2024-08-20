@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import TestMain from './pages/TestMain';
 import LoginPage from './pages/loginpage/LoginPage';
@@ -15,6 +15,7 @@ import PostPage from './pages/PostPage';
 
 const App = () => {
   return (
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/testmain" element={<TestMain />} />
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/registpost" element={<RegistPostPage />} />
         <Route path="/postpage" element={<PostPage />} />
       </Routes>
+    </BrowserRouter>  
   );
 };
 
