@@ -17,6 +17,14 @@ import ReportDetail from './pages/reportdetail/ReportDetail';
 import ImageGameRegistration from './pages/imagegame_registration/ImageGameRegistration';
 import MbtmiPage from './pages/mbtmi/MbtmiPage';
 import ImageGamePage from './pages/imagegame/ImageGamePage';
+import MyPage from './pages/MyPage';
+import MyPageModify from './pages/MyPageModify';
+import MyPageHistory from './pages/MyPageHistory';
+import MyMBTIHistory from './pages/MyMBTIHistory';
+import MyPostHistory from './pages/MyPostHistory';
+import MyCommentHistory from './pages/MyCommentHistory';
+import MyHeartHistory from './pages/MyHeartHistory';
+import MySnackHistory from './pages/MySnackHistory';
 
 const App = () => {
   return (
@@ -39,6 +47,14 @@ const App = () => {
         <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
         <Route path='/mbtmi' element={<MbtmiPage/>}/>
         <Route path='/imagegame' element={<ImageGamePage/>}/>
+        <Route path='/mypage' element={<MyPage/>}/>
+        <Route path='/mypage-modify' element={<MyPageModify/>}/>
+        <Route path='/mypage-history' element={<MyPageHistory/>}/>
+        <Route path='/mypage-mbti-history' element={<MyMBTIHistory/>}/>
+        <Route path='/mypage-post-history' element={<MyPostHistory/>}/>
+        <Route path='/mypage-comment-history' element={<MyCommentHistory/>}/>
+        <Route path='/mypage-heart-history' element={<MyHeartHistory/>}/>
+        <Route path='/mypage-snack-history' element={<MySnackHistory/>}/> 
       </Routes>
     </BrowserRouter>  
   );
