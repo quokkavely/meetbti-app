@@ -1,7 +1,7 @@
 import ReportItem from "../../components/report_item/ReportItem";
 import Header from "../../components/Header";
 import './ReportDetail.css';
-import Dropdown from "../dropdown/Dropdown";
+import Dropdown from "../../components/dropdown/Dropdown";
 
 function ReporterAndTarget(props){
     return (

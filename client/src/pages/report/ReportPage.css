@@ -16,10 +16,15 @@
     border: none;
     border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+.report-handling-button:hover{
+    background-color: blueviolet;
+    color: white;
+    border: 2px solid white;
 }
 .report-checkbox{
     width: 20px;
-    border: 2px solid blueviolet;
     border-radius: 10px;
-    background-color: white;
+    background-color: blueviolet;
 }
