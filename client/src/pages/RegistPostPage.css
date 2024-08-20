@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+.app {
+    max-width: 480px; /* 모바일 크기 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 패딩 추가 */
+  }
+
+ /* 헤더 */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+.logo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+.logo-img {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+  }
+
+.back-icon {
+    width: 45px;
+    height: 38px;
+    cursor: pointer;
+  }
+  
+.back-icon img {
+    max-width: 100%;
+    height: auto;
+  }
+
+.logo-text {
+    text-align: center;
+    margin-right: auto;
+    font-size: 10px;
+    color:#3C3C3C
+  }
+
+
+/* 제목 입력 영역 */
+.input-post-title {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    border: none;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.title-input {
+    width: 400px;
+    height: 40px;
+    padding: 2px;
+    border: none;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.title-input::placeholder {
+    color: #9f9f9f;
+  }
+
+.title-input:focus {
+    outline: none;
+  }
+
+
+/* 본문 입력 영역 */
+.post-content {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar {
+    order: 1; /* 상단에 위치 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+    height: 35px;
+}
+
+.toolbar button {
+    width: 40px;
+    height: 20px;
+    /* margin: 0 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    gap: 20px;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.align-center, .align-left, .align-right {
+    width: 16px;
+    height: 16px;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-color {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.text-link {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+/* 텍스트 입력 영역 */
+.editor {
+    order: 2; /* 하단에 위치 */
+    flex-grow: 1; /* 남은 공간 채우기 */
+    margin-top: 15px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 480px;
+    min-height: 150px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+ 
+.post-content textarea {
+    width: 400px;
+    height: 380px;
+    border: none;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    max-width: 400px;
+  }
+
+.post-content textarea::placeholder {
+    color: #9f9f9f;
+  }
+
+.post-content textarea:focus {
+    outline: none;
+  }
+
+
+/* 이미지 첨부 영역 */
+.attach-image {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.attach-image-button {
+    width: 90px;
+    height: 25px;
+    border-radius: 10%;
+    padding: 10px 20px;
+    background-color: #e7e7e7;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    color: #5d5d5d;
+    padding-left: 20px;
+    margin-left: 30px;
+}
+
+.image-info {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #888;
+    margin-right: 10px;
+}
+
+
+/* 등록 버튼 */
+.regist-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+.regist-button button {
+    width: 400px;
+    height: 40px;
+    border: none;
+    background-color: #e3ccf6;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
