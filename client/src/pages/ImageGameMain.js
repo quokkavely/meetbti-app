@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './ImageGameMain.css';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import AppContainer from '../components/AppContainer';
 import Header from '../components/Header';
@@ -18,7 +18,7 @@ const HeaderComponent = () => {
 };
 
 const BalanceGameList = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const [games, setGames] = useState([
         // 예시 데이터
@@ -43,7 +43,7 @@ const BalanceGameList = () => {
             </div>
             <div className="image-game-question-container">
                 {currentGames.map(game => (
-                    <div key={game.id} className="image-game-selectbox">
+                    <div key={game.id} className="image-game-selectbox" onClick={() => navigate(`/ImageGameResult/${game.id}`)}>
                         <div className="image-game-title">{game.title}</div>
                         <div className="image-game-selectbox-count">
                             <div className="image-heart-count">❤️ {game.heartCount}</div>
@@ -54,7 +54,7 @@ const BalanceGameList = () => {
                 ))}
             </div>
 
-        <button className="image-suggest-button">주제 제안하기</button>
+        <button className="image-suggest-button" onClick={() => navigate('/')}>주제 제안하기</button>
 
         <div className="pagination">
             <button 

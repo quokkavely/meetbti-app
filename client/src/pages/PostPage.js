@@ -114,7 +114,7 @@ const CommentCount = ({ comments }) => {
 
 
 // CommentItem 컴포넌트 정의
-const CommentItem = ({ text, time, likes }) => {
+const CommentItem = ({ text, time }) => {
   return (
     <div className="comments">
       <div className="comment-section">
@@ -124,9 +124,9 @@ const CommentItem = ({ text, time, likes }) => {
         <div className="comment-text">{text}</div>
         <div className="comment-time">{time}</div>
       </div>
-      <div className="comment-subcontent ">
+      {/* <div className="comment-subcontent ">
         <div>❤️ {likes.toLocaleString()}</div>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -148,7 +148,7 @@ const CommentSection = () => {
           username={comment.username} 
           text={comment.text} 
           time={comment.time} 
-          likes={comment.likes} 
+          // likes={comment.likes} 
         />
       ))}
     </div>
