@@ -1,0 +1,72 @@
+/* 제목 입력 영역 */
+.balance-game-input-post-title {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    border: none;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.notice-section {
+    width: 400px;
+    height: 60px;
+    font-size: 14px;
+    margin-top: 30px;
+    color: #9f9f9f;
+    margin-left: 20px;
+}
+
+/* 본문 입력 영역 */
+.balance-game-input-section {
+    width: 100%;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    color: #9f9f9f;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.first-select-content, .second-select-content {
+    width: 400px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    color: #9f9f9f;
+    padding: 0 16px;
+    border: 1px solid #9f9f9f;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+.first-select-content {
+    margin-top: 10px;
+}
+
+
+/* 등록 버튼 */
+.balance-game-regist-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+.balance-game-regist-button button {
+    width: 400px;
+    height: 50px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: #e3ccf6;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }

@@ -51,9 +51,10 @@ const MyPageUserInfoButton = () => {
 
 // 마이페이지 내 MBTI 버튼 컴포넌트
 const MyPageMyMBTIButton = () => {
+    const navigate = useNavigate();
     return (
         <div className="mypage-my-mbti-button-container">
-            <button className="mypage-my-mbti-button"> My MBTI </button>
+            <button className="mypage-my-mbti-button" onClick={() => navigate('/mbtiboard')}> My MBTI </button>
         </div>
     );
 }

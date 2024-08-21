@@ -25,6 +25,11 @@ import MyPostHistory from './pages/MyPostHistory';
 import MyCommentHistory from './pages/MyCommentHistory';
 import MyHeartHistory from './pages/MyHeartHistory';
 import MySnackHistory from './pages/MySnackHistory';
+import SnackMain from './pages/SnackMain';
+import RegistBalanceGame from './pages/RegistBalanceGame';
+import BalanceGameMain from './pages/BalanceGameMain';
+import BalanceGamePost from './pages/BalanceGamePost';
+import ImageGameMain from './pages/ImageGameMain';
 
 const App = () => {
   return (
@@ -55,6 +60,11 @@ const App = () => {
         <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
         <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
         <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
+        <Route path="/snackmain" element={<SnackMain />} />
+        <Route path="/registbalancegame" element={<RegistBalanceGame />} />
+        <Route path="/balancegame" element={<BalanceGameMain />} />
+        <Route path="/balancegamepost" element={<BalanceGamePost />} />
+        <Route path="/imagegame" element={<ImageGameMain />} />
       </Routes>
     </BrowserRouter>  
   );
