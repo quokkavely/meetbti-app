@@ -17,6 +17,26 @@ const HeaderComponent = () => {
     );
 };
 
+const BalanceGameContainer = (props) => {
+  const navigate = useNavigate();
+  return (
+    <div className='balancegame-component'>
+      <div className="balance-game-question">{props.title}</div>
+        <div className="balance-game-selectbox">
+          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
+            <div className="left-option-title"> {props.leftOption} </div>
+            <div className="vs"> vs </div>
+            <div className="right-option-title"> {props.rightOption} </div>
+          </div>
+         <div className="selectbox-count">
+            <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
+            <div className="balance-comment-count"> 💬 {props.commentCount} </div>
+            <div className="balance-status"> {props.isParticipated ? '미참여' : '참여완료'} </div>
+          </div>
+        </div>
+    </div>
+  );
+}
 
 const BalanceGame = () => {
   const navigate = useNavigate();
@@ -24,13 +44,50 @@ const BalanceGame = () => {
   const [commentCount, setCommentCount] = useState(3254); //더미데이터
   const [isParticipated, setIsParticipated] = useState(true); // 유저 참여 여부
 
+  const dummyGames = [
+    {title:'일 할래, 놀래?', leftOption: '월 500 받고 매일 야근하기', rightOption: '월 100 받고 백수 생활하기', heartCount: 1, commentCount:3, isParticipated: true}
+  ];
+
+  const [dbDummyGames, setDbDummyGames] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/balancegames')
+      .then(response => response.json())
+      .then(data => setDbDummyGames(data))
+      .catch(error => console.error(error))
+  }, []);
+
+  function GameContainer(props){
+    return (
+      <div className="balancegame-component">
+        <div className="balance-game-question">{props.title}</div>
+        <div className="balance-game-selectbox">
+          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
+            <div className="left-option-title"> {props.leftOption} </div>
+            <div className="vs"> vs </div>
+            <div className="right-option-title"> {props.rightOption} </div>
+          </div>
+         <div className="selectbox-count">
+            <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
+            <div className="balance-comment-count"> 💬 {props.commentCount} </div>
+            <div className="balance-status"> {props.isParticipated ? '미참여' : '참여완료'} </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="balance-game-container">
       <div className="balance-game-title">
         황금밸런스! 밸런스 게임
       </div>
       <div className="balance-game-question-container">
-        <div className="balance-game-question"> Q. 일 할래, 놀래? </div>
+        {/* {dummyGames.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
+        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated}/>)} */}
+        {Array.isArray(dbDummyGames) && dbDummyGames.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
+        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated}/>)}
+        {/* <div className="balance-game-question"> Q. 일 할래, 놀래? </div>
         <div className="balance-game-selectbox">
           <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
             <div className="left-option-title"> 월 500 받고 매일 야근하기 </div>
@@ -70,7 +127,7 @@ const BalanceGame = () => {
             <div className="balance-comment-count"> 💬 {commentCount} </div>
             <div className="balance-status"> {isParticipated ? '미참여' : '참여완료'} </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <button className="suggest-button"> 주제 제안하기 </button>
     </div>
