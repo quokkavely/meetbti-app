@@ -36,8 +36,6 @@ public class ImageGameController {
                                    Authentication authentication){
         Principal principal = (Principal) authentication.getPrincipal();
 
-        postDto.setNickName(principal.getNickName());
-
         ImageGame imageGame = imageGameService.createGame(imageGameMapper.imageGamePostDtoToImageGame(postDto));
 
         URI location = UriCreator.createUri(DEFAULT_URL, imageGame.getImageGameId());

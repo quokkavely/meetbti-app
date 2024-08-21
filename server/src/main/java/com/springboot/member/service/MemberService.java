@@ -70,7 +70,7 @@ public class MemberService {
     public void deleteMember(long memberId) {
         Member member = findMember(memberId);
 
-        member.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        member.setMemberStatus(Member.MemberStatus.QUIT);
 
         memberRepository.save(member);
     }

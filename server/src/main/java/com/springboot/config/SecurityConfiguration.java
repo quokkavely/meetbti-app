@@ -46,8 +46,6 @@ public class SecurityConfiguration {
         this.memberService = memberService;
     }
 
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
         http .headers().frameOptions().sameOrigin()
@@ -80,8 +78,6 @@ public class SecurityConfiguration {
                                 new OAuth2MemberSuccessHandler(jwtTokenizer,jwtAuthorityUtils,memberService)) );
         return http.build();
     }
-
-
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
@@ -91,13 +87,12 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**",configuration);
         return source;
     }
-
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer,HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
             JwtVerifiedFilter jwtVerifiedFilter = new JwtVerifiedFilter(jwtTokenizer,jwtAuthorityUtils);

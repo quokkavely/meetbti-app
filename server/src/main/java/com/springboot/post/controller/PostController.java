@@ -2,6 +2,8 @@ package com.springboot.post.controller;
 
 import com.springboot.auth.utils.Principal;
 import com.springboot.comment.mapper.CommentMapper;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import com.springboot.post.dto.PostDto;
 import com.springboot.post.entity.Post;
 import com.springboot.post.mapper.PostMapper;
@@ -27,12 +29,14 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
+    private final MemberService memberService;
     private final CommentMapper commentMapper;
     private final static String POST_DEFAULT_URL = "/posts";
 
-    public PostController(PostService postService, PostMapper postMapper, CommentMapper commentMapper) {
+    public PostController(PostService postService, PostMapper postMapper, MemberService memberService, CommentMapper commentMapper) {
         this.postService = postService;
         this.postMapper = postMapper;
+        this.memberService = memberService;
         this.commentMapper = commentMapper;
     }
     @PostMapping
@@ -40,7 +44,9 @@ public class PostController {
                                       Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
-        createDto.setCategory(principal.getMbti());
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        createDto.setCategory(findMember.getTestResults().get(findMember.getTestResults().size()-1).getMbti());
 
         Post post = postService.createPost(postMapper.postCreateDtoToPost(createDto), authentication);
 
@@ -75,7 +81,9 @@ public class PostController {
                                     Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
-        String selectCategory = category != null ? category : principal.getMbti();
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size()-1).getMbti();
 
         Page<Post> pagePosts = postService.findPosts(page, size, standard, selectCategory);
 

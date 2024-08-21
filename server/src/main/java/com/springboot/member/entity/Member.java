@@ -42,7 +42,7 @@ public class Member {
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 10, nullable = false)
-    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+    private MemberStatus memberStatus = MemberStatus.ACTIVE;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -132,9 +132,9 @@ public class Member {
 //        }
 //    }
     public enum MemberStatus{
-        MEMBER_ACTIVE("활동중"),
-        MEMBER_BAN("활동 정지"),
-        MEMBER_QUIT("탈퇴 상태");
+        ACTIVE("활동중"),
+        BAN("활동 정지"),
+        QUIT("탈퇴 상태");
 
         @Getter
         @Setter

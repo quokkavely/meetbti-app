@@ -36,8 +36,6 @@ public class BalanceGameController {
                                    Authentication authentication){
         Principal principal = (Principal) authentication.getPrincipal();
 
-        postDto.setNickName(principal.getNickName());
-
         BalanceGame balanceGame = balanceGameService.createGame(balanceGameMapper.postDtoToGame(postDto), authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, balanceGame.getBalanceGameId());

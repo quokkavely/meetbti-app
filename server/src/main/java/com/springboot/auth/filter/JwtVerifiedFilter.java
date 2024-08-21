@@ -2,6 +2,7 @@ package com.springboot.auth.filter;
 
 import com.springboot.auth.jwt.JwtTokenizer;
 import com.springboot.auth.utils.JwtAuthorityUtils;
+import com.springboot.auth.utils.Principal;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -61,10 +62,10 @@ public class JwtVerifiedFilter extends OncePerRequestFilter {
         Map<String, Object> claims = jwtTokenizer.getClaims(jws,base64EncodedSecretKey).getBody();
         return claims;
     }
-    private void setAuthenticationToContext(Map<String,Object>claims){
-        String username = (String)claims.get("username");
+    private void setAuthenticationToContext(Map<String,Object> claims){
+        Principal principal = new Principal((Integer) claims.get("memberId"));
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username,null,authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(principal,null,authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
