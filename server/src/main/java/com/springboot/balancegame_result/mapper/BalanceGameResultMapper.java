@@ -11,14 +11,12 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BalanceGameResultMapper {
+    /*BalanceGameResult postDtoToResult(BalanceGameResultDto.Post postDto);*/
     default BalanceGameResult postDtoToResult(BalanceGameResultDto.Post postDto){
-        Member member = new Member();
-        member.setMemberId(postDto.getMemberId());
-
         BalanceGame game = new BalanceGame();
         game.setBalanceGameId(postDto.getGameId());
 
-        return new BalanceGameResult(member, game, postDto.getSelectedOption());
+        return new BalanceGameResult(game, postDto.getSelectedOption());
     }
     default BalanceGameResultDto.Response resultToResponseDto(BalanceGameResult result){
         return new BalanceGameResultDto.Response(

@@ -1,6 +1,7 @@
 package com.springboot.balancegame_comment.controller;
 
 
+import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.balancegame_comment.dto.BalanceGameCommentDto;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_comment.mapper.BalanceGameCommentMapper;
@@ -19,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/balancegame-comments")
 @Validated
 public class BalanceGameCommentController {
     private final BalanceGameCommentService balanceGameCommentService;
@@ -31,19 +32,19 @@ public class BalanceGameCommentController {
         this.balanceGameCommentMapper = mapper;
     }
 
-    @PostMapping("/{balancegame-id}/balancegame-comments")
-    public ResponseEntity postComment (@PathVariable("balancegame-id") @Positive long gameId,
+    @PostMapping
+    public ResponseEntity postComment (/*@PathVariable("balancegame-id") @Positive long gameId,*/
                                        @Valid @RequestBody BalanceGameCommentDto.Post postDto,
                                        Authentication authentication) {
-        postDto.setGameId(gameId);
-
-        BalanceGameComment balanceGameComment = balanceGameCommentService.createComment(balanceGameCommentMapper.postDtoToComment(postDto), authentication);
+        /*postDto.setGameId(gameId);*/
+        BalanceGameComment tempComment = balanceGameCommentMapper.postDtoToComment(postDto);
+        BalanceGameComment balanceGameComment = balanceGameCommentService.createComment(tempComment, authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, balanceGameComment.getCommentId());
 
         return ResponseEntity.created(location).build();
     }
-    @PatchMapping("balancegame-comments/{comment-id}")
+    @PatchMapping("/{comment-id}")
     public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
                                        @Valid @RequestBody BalanceGameCommentDto.Patch patchDto,
                                        Authentication authentication){

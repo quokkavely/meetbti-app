@@ -1,5 +1,6 @@
 package com.springboot.balancegame_result.controller;
 
+import com.springboot.auth.utils.Principal;
 import com.springboot.balancegame_result.dto.BalanceGameResultDto;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.balancegame_result.mapper.BalanceGameResultMapper;
@@ -7,6 +8,7 @@ import com.springboot.balancegame_result.service.BalanceGameResultService;
 import com.springboot.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,9 +29,10 @@ public class BalanceGameResultController {
     }
 
     @PostMapping
-    public ResponseEntity postResult(@Valid @RequestBody BalanceGameResultDto.Post postDto){
+    public ResponseEntity postResult(@Valid @RequestBody BalanceGameResultDto.Post postDto,
+                                     Authentication authentication){
         BalanceGameResult tempResult = mapper.postDtoToResult(postDto);
-        BalanceGameResult result = service.createResult(tempResult);
+        BalanceGameResult result = service.createResult(tempResult, authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
         return ResponseEntity.created(location).build();
