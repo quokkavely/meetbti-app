@@ -1,49 +1,67 @@
 package com.springboot.imagegame_comment.service;
 
+import com.springboot.auth.utils.Principal;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.repository.ImageGameCommentRepository;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
 public class ImageGameCommentService {
-    private final ImageGameCommentRepository repository;
+    private final ImageGameCommentRepository imageGameCommentRepository;
+    private final MemberService memberService;
 
-    public ImageGameCommentService(ImageGameCommentRepository repository) {
-        this.repository = repository;
-    }
-
-    public ImageGameComment createComment(ImageGameComment comment){
-        return repository.save(comment);
+    public ImageGameCommentService (ImageGameCommentRepository repository, MemberService memberService) {
+        this.imageGameCommentRepository = repository;
+        this.memberService = memberService;
     }
 
-    public ImageGameComment findComment(long commentId){
-        return findVerifiedComment(commentId);
+    public ImageGameComment createComment (ImageGameComment comment, Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        comment.setMember(findMember);
+
+        return imageGameCommentRepository.save(comment);
     }
-    public List<ImageGameComment> findComments(){
-        return repository.findAll();
-    }
-    public ImageGameComment updateComment(ImageGameComment comment){
+    public ImageGameComment updateComment(ImageGameComment comment, Authentication authentication){
+        Principal principal = (Principal) authentication.getPrincipal();
+
         ImageGameComment findComment = findVerifiedComment(comment.getCommentId());
 
+        if (principal.getMemberId() != findComment.getMember().getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
+
         Optional.ofNullable(comment.getContent())
-                .ifPresent(content -> findComment.setContent(content));
+                .ifPresent(findComment::setContent);
+
         findComment.setModifiedAt(LocalDateTime.now());
 
-        return repository.save(findComment);
+        return imageGameCommentRepository.save(findComment);
     }
-
-    public void deleteComment(long commentId){
+    public ImageGameComment findComment(long commentId) {
+        return findVerifiedComment(commentId);
+    }
+    public List<ImageGameComment> findComments() {
+        return imageGameCommentRepository.findAll();
+    }
+    public void deleteComment (long commentId) {
         ImageGameComment comment = findVerifiedComment(commentId);
-        repository.delete(comment);
+        imageGameCommentRepository.delete(comment);
     }
-    public ImageGameComment findVerifiedComment(long commentId){
-        Optional<ImageGameComment> optionalComment = repository.findByCommentId(commentId);
-        return optionalComment.orElseThrow(()-> new RuntimeException());
+    public ImageGameComment findVerifiedComment (long commentId) {
+        Optional<ImageGameComment> optionalComment = imageGameCommentRepository.findByCommentId(commentId);
+
+        return optionalComment.orElseThrow(()-> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
     }
 }

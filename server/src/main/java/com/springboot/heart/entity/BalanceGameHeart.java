@@ -1,4 +1,5 @@
 package com.springboot.heart.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.member.entity.Member;
 
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 public class BalanceGameHeart extends Heart {
     @ManyToOne
     @JoinColumn(name = "BALANCEGAME_ID")
+    @JsonManagedReference
     private BalanceGame balanceGame;
 
     public BalanceGameHeart(Member member, BalanceGame balanceGame) {

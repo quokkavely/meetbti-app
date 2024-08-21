@@ -1,5 +1,7 @@
 package com.springboot.heart.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springboot.comment.entity.Comment;
 import com.springboot.member.entity.Member;
 
 import javax.persistence.DiscriminatorValue;
@@ -13,6 +15,7 @@ public class CommentHeart extends Heart {
 
     @ManyToOne
     @JoinColumn(name = "COMMENT_ID")
+    @JsonManagedReference
     private Comment comment;
 
     public CommentHeart(Member member, Comment comment) {

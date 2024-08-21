@@ -1,8 +1,10 @@
 package com.springboot.imagegame_comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,18 +13,21 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class ImageGameComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentId;
 
     @ManyToOne
-    @JoinColumn(name = "gameId")
-    private ImageGame game;
+    @JoinColumn(name = "MEMBER_ID")
+    @JsonManagedReference
+    private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
-    private Member member;
+    @JoinColumn(name = "IMAGEGAME_ID")
+    @JsonManagedReference
+    private ImageGame imageGame;
 
     @Column
     private String content;
@@ -33,8 +38,8 @@ public class ImageGameComment {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public ImageGameComment(ImageGame game, Member member, String content) {
-        this.game = game;
+    public ImageGameComment(ImageGame imageGame, Member member, String content) {
+        this.imageGame = imageGame;
         this.member = member;
         this.content = content;
     }

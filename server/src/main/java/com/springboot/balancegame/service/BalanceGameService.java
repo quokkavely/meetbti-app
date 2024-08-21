@@ -5,36 +5,34 @@ import com.springboot.balancegame.repository.BalanceGameRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Transactional
 @Service
 public class BalanceGameService {
-    private final BalanceGameRepository repository;
+    private final BalanceGameRepository balanceGameRepository;
 
-    public BalanceGameService(BalanceGameRepository repository) {
-        this.repository = repository;
+    public BalanceGameService (BalanceGameRepository repository) {
+        this.balanceGameRepository = repository;
     }
+    public BalanceGame createGame (BalanceGame game, Authentication authentication) {
 
-    public BalanceGame createGame(BalanceGame game){
-        return repository.save(game);
-    };
-
+        return balanceGameRepository.save(game);
+    }
     public BalanceGame findGame(long gameId){
         return findVerifiedGame(gameId);
     }
     public Page<BalanceGame> findGames(int page, int size){
-        return repository.findAll(PageRequest.of(page, size, Sort.by("gameId").descending()));
+        return balanceGameRepository.findAll(PageRequest.of(page, size, Sort.by("gameId").descending()));
     }
     public void deleteGame(long gameId){
         BalanceGame game = findVerifiedGame(gameId);
-        repository.delete(game);
+        balanceGameRepository.delete(game);
     }
     public BalanceGame findVerifiedGame(long gameId){
-        Optional<BalanceGame> optionalGame = repository.findByGameId(gameId);
+        Optional<BalanceGame> optionalGame = balanceGameRepository.findById(gameId);
         return optionalGame.orElseThrow(() -> new RuntimeException());
     }
 }

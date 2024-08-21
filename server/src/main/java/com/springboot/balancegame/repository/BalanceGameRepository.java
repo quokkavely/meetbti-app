@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface BalanceGameRepository extends JpaRepository<BalanceGame, Long> {
-    Optional<BalanceGame> findByGameId(long gameId);
+    Optional<BalanceGame> findById(long gameId);
 }

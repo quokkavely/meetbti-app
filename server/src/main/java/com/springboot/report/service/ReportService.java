@@ -33,7 +33,7 @@ public class ReportService {
 
     private Report findVerifiedReport(Long reportId) {
         Optional<Report> findReport = repository.findById(reportId);
-        return findReport.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REPORT_NOT_FOUND));
+        return findReport.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
 }

@@ -16,19 +16,6 @@ public interface BalanceGameMapper {
                 requestBody.getRightOption(),
                 requestBody.getNickName());
     };
-    default BalanceGameDto.Response gameToGameResponseDto(BalanceGame game){
-        return new BalanceGameDto.Response(
-                game.getGameId(),
-                game.getTitle(),
-                game.getLeftOption(),
-                game.getRightOption(),
-                0,
-                0,
-                game.getComments(),
-                0,
-                game.getNickname(),
-                game.getGameStatus().toString()
-        );
-    }
+    BalanceGameDto.Response gameToGameResponseDto (BalanceGame game);
     List<BalanceGameDto.Response> gamesToResponseDtos(List<BalanceGame> games);
 }

@@ -1,6 +1,8 @@
 package com.springboot.imagegame.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.gamestatus.GameStatus;
+import com.springboot.heart.entity.ImageGameHeart;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import lombok.Getter;
@@ -18,7 +20,7 @@ import java.util.List;
 public class ImageGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long gameId;
+    private long imageGameId;
 
     @Column
     private String topic;
@@ -26,21 +28,23 @@ public class ImageGame {
     @Column
     private String nickName;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "imageGame")
+    @JsonBackReference
     List<ImageGameComment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
-    List<Heart> hearts = new ArrayList<>();
+    @OneToMany(mappedBy = "imageGame")
+    @JsonBackReference
+    List<ImageGameHeart> hearts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "imageGame")
+    @JsonBackReference
     List<ImageGameResult> results = new ArrayList<>();
 
     @Column
-    private GameStatus gameStatus;
+    private GameStatus gameStatus = GameStatus.PENDING;
 
     public ImageGame(String topic, String nickName) {
         this.topic = topic;
         this.nickName = nickName;
-        gameStatus = GameStatus.PENDING;
     }
 }

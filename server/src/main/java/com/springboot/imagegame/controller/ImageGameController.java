@@ -1,5 +1,6 @@
 package com.springboot.imagegame.controller;
 
+import com.springboot.auth.utils.Principal;
 import com.springboot.imagegame.dto.ImageGameDto;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame.mapper.ImageGameMapper;
@@ -8,6 +9,7 @@ import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,45 +19,50 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/imagegames")
+@RequestMapping("/imagegames")
 @Validated
 public class ImageGameController {
-    private final String DEFAULT_URL = "/imagegames";
-    private final ImageGameService service;
-    private final ImageGameMapper mapper;
+    private final ImageGameService imageGameService;
+    private final ImageGameMapper imageGameMapper;
+    private final static String DEFAULT_URL = "/imagegames";
 
-    public ImageGameController(ImageGameService service, ImageGameMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
+    public ImageGameController(ImageGameService imageGameService, ImageGameMapper imageGameMapper) {
+        this.imageGameService = imageGameService;
+        this.imageGameMapper = imageGameMapper;
     }
 
     @PostMapping
-    public ResponseEntity postGame(@Valid @RequestBody ImageGameDto.Post postDto){
-        ImageGame tempGame = mapper.postDtoToGame(postDto);
-        ImageGame game = service.createGame(tempGame);
+    public ResponseEntity postGame(@Valid @RequestBody ImageGameDto.Post postDto,
+                                   Authentication authentication){
+        Principal principal = (Principal) authentication.getPrincipal();
 
-        URI location = UriCreator.createUri(DEFAULT_URL, game.getGameId());
+        postDto.setNickName(principal.getNickName());
+
+        ImageGame imageGame = imageGameService.createGame(imageGameMapper.imageGamePostDtoToImageGame(postDto));
+
+        URI location = UriCreator.createUri(DEFAULT_URL, imageGame.getImageGameId());
+
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{game-id}")
     public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId){
-        ImageGame game = service.findGame(gameId);
-        return new ResponseEntity(mapper.gameToResponseDto(game), HttpStatus.OK);
+        ImageGame game = imageGameService.findGame(gameId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getGames(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size){
-        Page<ImageGame> pageGames = service.findGames(page-1, size);
+        Page<ImageGame> pageGames = imageGameService.findGames(page-1, size);
         List<ImageGame> games = pageGames.getContent();
 
-        return new ResponseEntity(mapper.gamesToResponseDtos(games), HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{game-id}")
     public ResponseEntity deleteGames(@PathVariable("game-id") @Positive long gameId){
-        service.deleteGame(gameId);
+        imageGameService.deleteGame(gameId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

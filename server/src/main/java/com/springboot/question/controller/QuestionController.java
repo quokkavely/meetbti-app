@@ -29,5 +29,4 @@ public class QuestionController {
 
         return new ResponseEntity(questionMapper.questionsToQuestionResponseDtos(questions),HttpStatus.OK);
     }
-
 }

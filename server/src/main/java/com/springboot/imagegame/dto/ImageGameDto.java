@@ -1,23 +1,21 @@
 package com.springboot.imagegame.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 public class ImageGameDto {
+    @Builder
     @Getter
+    @Setter
     public static class Post{
         private String topic;
         private String nickName;
     }
-
-    @AllArgsConstructor
+    @Builder
     @Getter
     public static class Response{
-        private long gameId;
         private String topic;
-        private List<ImageGameComment> comments;
-        private int heartCount;
         private String nickName;
-        private String gameStatus;
     }
 }

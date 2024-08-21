@@ -13,30 +13,31 @@ import java.util.Optional;
 
 @Service
 public class MemberService {
-    private final MemberRepository repository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtAuthorityUtils jwtAuthorityUtils;
 
-    public MemberService(MemberRepository repository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils) {
-        this.repository = repository;
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils) {
+        this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtAuthorityUtils = jwtAuthorityUtils;
     }
-
+    //회원을 생성하는 메서드
     public Member createMember(Member member) {
-        verifiedExistNickname(member.getNickname());
         verifiedExistEmail(member.getEmail());
+        verifiedExistNickname(member.getNickname());
 
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
+
         List<String> roles = jwtAuthorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
-        return repository.save(member);
-    }
 
+        return memberRepository.save(member);
+    }
+    //회원 정보를 수정하는 메서드
     public Member updateMember(Member member) {
 
-        //수정할 수 있는 값. memberStatus. nickname, password, image
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getNickname())
@@ -45,46 +46,59 @@ public class MemberService {
         Optional.ofNullable(member.getImage())
                 .ifPresent(findMember::setImage);
 
-        Optional.ofNullable(member.getMemberStatus())
-                .ifPresent(findMember::setMemberStatus);
-
-        Optional.ofNullable(member.getPassword())
-                .ifPresent(findMember::setPassword);
-
-    return repository.save(findMember);
+    return memberRepository.save(findMember);
     }
+    //회원 비밀번호를 수정하는 메서드
+    public void updatePassword (long memberId,String oldPassword,String newPassword,String confirmPassword) {
+        Member findMember = findMember(memberId);
 
-    public Member findMember(Long memberId) {
+        if (!findMember.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+            throw new BusinessLogicException(ExceptionCode.PASSWORD_MISMATCH);
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            throw new BusinessLogicException(ExceptionCode.CONFIRM_PASSWORD_MISMATCH);
+        }
+        findMember.setPassword(passwordEncoder.encode(newPassword));
+
+        memberRepository.save(findMember);
+    }
+    //회원 정보를 찾는 메서드
+    public Member findMember(long memberId) {
        return findVerifiedMember(memberId);
     }
+    //회원을 삭제하는 메서드
+    public void deleteMember(long memberId) {
+        Member member = findMember(memberId);
 
-    public void deleteMember(Long memberId) {
-        repository.delete(findVerifiedMember(memberId));
-        //회원탈퇴는 상태만 수정할건지? DB에서 삭제할건지?
+        member.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+
+        memberRepository.save(member);
     }
+    //memerId를 통해 회원이 DB에 존재하는지 확인하는 메서드
+    private Member findVerifiedMember(long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
 
-    private Member findVerifiedMember(Long memberId) {
-        Optional<Member> optionalMember = repository.findById(memberId);
         return optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
-    // 이메일 검증
+    //email을 통해 회원이 DB에 존재하는지 확인하는 메서드
     private void verifiedExistEmail(String email) {
-        Optional<Member> optionalMember = repository.findByEmail(email);
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+
         if(optionalMember.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.EMAIL_ALREADY_EXIST);
         }
-
     }
 
-    // 닉네임 검증
-    private void verifiedExistNickname(String nickname) {
-        Optional<Member> optionalMember = repository.findByNickname(nickname);
+    //닉네임이 중복되는지 확인하는 메서드
+    public Boolean verifiedExistNickname(String nickname) {
+        Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
+
         if(optionalMember.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.NICKNAME_ALREADY_EXIST);
         }
 
+        return false;
     }
-
 
 }

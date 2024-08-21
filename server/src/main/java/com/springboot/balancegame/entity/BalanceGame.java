@@ -1,8 +1,10 @@
 package com.springboot.balancegame.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.gamestatus.GameStatus;
+import com.springboot.heart.entity.BalanceGameHeart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +20,7 @@ import java.util.List;
 public class BalanceGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long gameId;
+    private long balanceGameId;
 
     @Column(updatable = false)
     private String title;
@@ -32,23 +34,25 @@ public class BalanceGame {
     @Column(updatable = false)
     private String nickname;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "balanceGame")
+    @JsonBackReference
     List<BalanceGameComment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
-    List<Heart> hearts = new ArrayList<>();
+    @OneToMany(mappedBy = "balanceGame")
+    @JsonBackReference
+    List<BalanceGameHeart> hearts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "balanceGame")
+    @JsonBackReference
     List<BalanceGameResult> results = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
-    private GameStatus gameStatus;
+    private GameStatus gameStatus = GameStatus.PENDING;
 
     public BalanceGame(String title, String leftOption, String rightOption, String nickname) {
         this.title = title;
         this.leftOption = leftOption;
         this.rightOption = rightOption;
         this.nickname = nickname;
-        gameStatus = GameStatus.PENDING;
     }
 }

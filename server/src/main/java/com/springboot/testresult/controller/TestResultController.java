@@ -1,6 +1,6 @@
 package com.springboot.testresult.controller;
 
-import com.springboot.auth.Principal;
+import com.springboot.auth.utils.Principal;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.testresult.dto.TestResultDto;
 import com.springboot.testresult.entity.TestResult;
@@ -10,12 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/mbti-test")
@@ -36,8 +34,14 @@ public class TestResultController {
 
         createDto.setMemberId(principal.getMemberId());
 
-        TestResult testResult = testResultService.createTestResult(createDto);
+        TestResult testResult = testResultService.createTestResult(createDto,authentication);
 
-        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)),HttpStatus.CREATED);
+        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)), HttpStatus.CREATED);
+    }
+    @GetMapping
+    public ResponseEntity getTestResults (Authentication authentication) {
+        List<TestResult> testResults = testResultService.findTestResults(authentication);
+
+        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults)), HttpStatus.OK);
     }
 }

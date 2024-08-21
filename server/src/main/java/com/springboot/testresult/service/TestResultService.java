@@ -1,31 +1,61 @@
 package com.springboot.testresult.service;
 
+import com.springboot.auth.utils.Principal;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import com.springboot.question.entity.Answer;
 import com.springboot.question.repository.AnswerRepository;
 import com.springboot.testresult.dto.TestResultDto;
 import com.springboot.testresult.entity.TestResult;
 import com.springboot.testresult.repository.TestResultRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class TestResultService {
     private final TestResultRepository testResultRepository;
     private final AnswerRepository answerRepository;
+    private final MemberService memberService;
 
-    public TestResultService(TestResultRepository testResultRepository, AnswerRepository answerRepository) {
+    public TestResultService(TestResultRepository testResultRepository, AnswerRepository answerRepository, MemberService memberService) {
         this.testResultRepository = testResultRepository;
         this.answerRepository = answerRepository;
+        this.memberService = memberService;
     }
-    public TestResult createTestResult (TestResultDto.Create createDto) {
+    public TestResult createTestResult (TestResultDto.Create createDto,
+                                        Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
         List<Answer> answers = answerRepository.findAllById(createDto.getAnswerIds());
 
         TestResult testResult = createMbti(answers);
 
+        testResult.setMember(findMember);
+
         return testResultRepository.save(testResult);
+    }
+    public List<TestResult> findTestResults (Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        TestResult testResult = verifiedExistTestResult(findMember.getTestResults().get(findMember.getTestResults().size()-1).getTestResultId());
+
+        if (testResult.getTestResultId() != findMember.getTestResults().get(findMember.getTestResults().size()-1).getTestResultId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
+
+        return testResultRepository.findByMember(findMember);
+
     }
     private TestResult createMbti (List<Answer> answers) {
         TestResult testResult = new TestResult();
@@ -91,5 +121,10 @@ public class TestResultService {
         } else {
             return "J";
         }
+    }
+    private TestResult verifiedExistTestResult (long testResultId) {
+        Optional<TestResult> optionalTestResult = testResultRepository.findById(testResultId);
+
+        return optionalTestResult.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TESTRESULT_NOT_FOUND));
     }
 }

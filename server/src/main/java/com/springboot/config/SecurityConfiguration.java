@@ -1,4 +1,4 @@
-package com.v3.config;
+package com.springboot.config;
 
 import com.springboot.auth.filter.JwtAuthenticationFilter;
 import com.springboot.auth.filter.JwtVerifiedFilter;

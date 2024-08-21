@@ -1,5 +1,6 @@
 package com.springboot.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +25,6 @@ public class Question {
     private String tendency;
 
     @OneToMany(mappedBy = "question")
+    @JsonBackReference
     private List<Answer> answers = new ArrayList<>();
 }

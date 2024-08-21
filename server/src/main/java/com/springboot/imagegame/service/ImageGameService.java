@@ -18,7 +18,6 @@ public class ImageGameService {
     public ImageGameService(ImageGameRepository repository) {
         this.repository = repository;
     }
-
     public ImageGame createGame(ImageGame game){
         return repository.save(game);
     }
@@ -33,7 +32,7 @@ public class ImageGameService {
         repository.delete(game);
     }
     public ImageGame findVerifiedGame(long gameId){
-        Optional<ImageGame> optionalGame = repository.findByGameId(gameId);
+        Optional<ImageGame> optionalGame = repository.findById(gameId);
         return optionalGame.orElseThrow(() -> new RuntimeException());
     }
 }

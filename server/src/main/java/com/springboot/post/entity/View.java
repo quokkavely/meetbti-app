@@ -1,6 +1,7 @@
 package com.springboot.post.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springboot.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,10 +15,15 @@ import javax.persistence.*;
 public class View {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ViewId;
+    private long viewId;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "POST_ID")
     private Post post;
 

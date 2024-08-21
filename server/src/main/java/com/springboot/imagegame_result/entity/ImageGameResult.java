@@ -1,32 +1,39 @@
 package com.springboot.imagegame_result.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor
 public class ImageGameResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long resultId;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
+    @JsonManagedReference
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
-    private ImageGame game;
+    @JoinColumn(name = "IMAGEGAME_ID")
+    @JsonManagedReference
+    private ImageGame imageGame;
 
     @Enumerated(value = EnumType.STRING)
     private SelectedMbti selectedMbti;
 
-    public ImageGameResult(Member member, ImageGame game, SelectedMbti selectedMbti) {
+    public ImageGameResult(Member member, ImageGame imageGame, SelectedMbti selectedMbti) {
         this.member = member;
-        this.game = game;
+        this.imageGame = imageGame;
         this.selectedMbti = selectedMbti;
     }
 

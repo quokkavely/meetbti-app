@@ -1,5 +1,6 @@
 package com.springboot.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,5 +24,6 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
+    @JsonManagedReference
     private Question question;
 }

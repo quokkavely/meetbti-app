@@ -1,10 +1,13 @@
 package com.springboot.testresult.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springboot.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,4 +35,12 @@ public class TestResult {
 
     @Column(nullable = false)
     private int scoreJP;
+
+    @Column
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    @JsonManagedReference
+    private Member member;
 }

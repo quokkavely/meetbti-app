@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping
 @Validated
 public class ReportController {
     private final ReportService service;

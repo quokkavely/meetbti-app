@@ -1,11 +1,11 @@
 package com.springboot.comment.dto;
 
-import com.springboot.post.entity.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class CommentDto {
     @Builder
@@ -20,14 +20,18 @@ public class CommentDto {
     @Getter
     @Setter
     public static class Update {
-        private long postId;
         private long commentId;
         private String content;
-        private Post post;
     }
     @Builder
     @Getter
     public static class Response {
+        private long commentId;
+        private String image;
+        private String nickName;
+        private String mbti;
         private String content;
+        private int heartCount;
+        private LocalDateTime createdAt;
     }
 }

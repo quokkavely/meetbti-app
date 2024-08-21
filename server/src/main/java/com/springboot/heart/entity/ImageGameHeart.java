@@ -1,5 +1,6 @@
 package com.springboot.heart.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
 
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 public class ImageGameHeart extends Heart {
     @ManyToOne
     @JoinColumn(name = "IMAGEGAME_ID")
+    @JsonManagedReference
     private ImageGame imageGame;
 
     public ImageGameHeart(Member member, ImageGame imageGame) {

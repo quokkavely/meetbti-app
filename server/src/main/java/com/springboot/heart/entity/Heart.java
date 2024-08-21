@@ -1,5 +1,6 @@
 package com.springboot.heart.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,19 +15,19 @@ import javax.persistence.*;
 public abstract class Heart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long heartId;
+    private long heartId;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
+    @JsonManagedReference
     private Member member;
 
-    public void addMember(Member member) {
-        this.member = member;
-        if (member != null && !member.getHearts().contains(this)) {
-            member.getHearts().add(this);
-        }
-    }
-
+//    public void addMember(Member member) {
+//        this.member = member;
+//        if (member != null && !member.getHearts().contains(this)) {
+//            member.getHearts().add(this);
+//        }
+//    }
 }
 
 

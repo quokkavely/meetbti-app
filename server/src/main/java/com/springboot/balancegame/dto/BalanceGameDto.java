@@ -1,28 +1,28 @@
 package com.springboot.balancegame.dto;
 
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class BalanceGameDto {
+    @Builder
     @Getter
+    @Setter
     public static class Post{
         @NotBlank
         private String title;
-
         @NotBlank
         private String leftOption;
-
         @NotBlank
         private String rightOption;
-
         @NotBlank
         private String nickName;
     }
-    @AllArgsConstructor
+    @Builder
     @Getter
     public static class Response{
         private long gameId;

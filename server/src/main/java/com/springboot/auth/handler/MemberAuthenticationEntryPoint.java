@@ -1,7 +1,6 @@
 package com.springboot.auth.handler;
 
-
-import com.v2.auth.utils.ErrorResponder;
+import com.springboot.auth.utils.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
