@@ -1,0 +1,134 @@
+.image-game-container {
+    width: 400px;
+    height: 640px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #c8adf4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+.image-game-container-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2D0057;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    padding-top: 4px;
+}
+
+.image-game-question-container{
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 600px;
+}
+ 
+.image-game-selectbox{
+  height: 130px;
+  text-overflow: ellipsis;
+  margin-bottom: 36px;
+  border: 1px solid #c8adf4;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.image-game-title{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2D0057;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding-left: 24px;
+    padding-top: 6px;
+    padding-right: 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+  }
+
+.image-game-selectbox-count{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  height: 20px;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-top: 15px;
+  color: #565656;
+  border-top: 1px solid #c8adf4;
+}
+
+.image-status{
+  margin-left: auto;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+
+.image-suggest-button {
+    background-color: #a674f5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0px auto;
+    width: 150px;
+    display: block;
+  }
+  
+  .image-suggest-button:hover {
+    background-color: #8c5fe3;
+  }
+
+  /* 페이지네이션 컴포넌트 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+    height: 50px;
+  }
+  
+  .previous-page {
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    background: none;
+  }
+  
+  .next-page {
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 30px;
+    font-size: 24px;
+    background: none;
+  }
+  
+  .page-number {
+    border: none;
+    background: none;
+    font-size: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }

@@ -113,6 +113,24 @@ const CommentCount = ({ comments }) => {
 };
 
 
+// CommentItem 컴포넌트 정의
+const CommentItem = ({ text, time, likes }) => {
+  return (
+    <div className="comments">
+      <div className="comment-section">
+        <CommentUserInfoContainer />
+      </div>
+      <div className="comment-content">
+        <div className="comment-text">{text}</div>
+        <div className="comment-time">{time}</div>
+      </div>
+      <div className="comment-subcontent ">
+        <div>❤️ {likes.toLocaleString()}</div>
+      </div>
+    </div>
+  );
+};
+
 // 댓글 섹션 컴포넌트
 const CommentSection = () => {
   const comments = [
@@ -136,8 +154,6 @@ const CommentSection = () => {
     </div>
   );
 };
-
-
 
 // 댓글 입력 컴포넌트
 const CommentInput = () => {
