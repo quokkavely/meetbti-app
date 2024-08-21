@@ -47,4 +47,10 @@ public class ImageGame {
         this.topic = topic;
         this.nickName = nickName;
     }
+    public void addComment(ImageGameComment comment){
+        comments.add(comment);
+        if(comment.getImageGame() == null){
+            comment.setImageGame(this);
+        }
+    }
 }

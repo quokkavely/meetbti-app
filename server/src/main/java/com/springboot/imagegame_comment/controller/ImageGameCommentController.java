@@ -1,5 +1,6 @@
 package com.springboot.imagegame_comment.controller;
 
+import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame_comment.dto.ImageGameCommentDto;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
@@ -36,7 +37,7 @@ public class ImageGameCommentController {
                                       Authentication authentication){
         postDto.setGameId(gameId);
 
-        ImageGameComment imageGameComment = imageGameCommentService.createComment(imageGameCommentMapper.postDtoToComment(postDto), authentication);
+        ImageGameComment imageGameComment = imageGameCommentService.createComment(gameId, imageGameCommentMapper.postDtoToComment(postDto), authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, imageGameComment.getCommentId());
 
@@ -55,11 +56,11 @@ public class ImageGameCommentController {
     @GetMapping("/{comment-id}")
     public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
         ImageGameComment comment = imageGameCommentService.findComment(commentId);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(imageGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
     }
     @GetMapping
     public ResponseEntity getComments(){
         List<ImageGameComment> comments = imageGameCommentService.findComments();
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(imageGameCommentMapper.commentsToResponseDtos(comments), HttpStatus.OK);
     }
 }

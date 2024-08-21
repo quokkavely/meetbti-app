@@ -43,4 +43,11 @@ public class ImageGameComment {
         this.member = member;
         this.content = content;
     }
+
+    public void setImageGame(ImageGame game){
+        imageGame = game;
+        if(!game.getComments().contains(this)){
+            game.addComment(this);
+        }
+    }
 }
