@@ -3,6 +3,8 @@ package com.springboot.imagegame_comment.service;
 import com.springboot.auth.utils.Principal;
 import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
+import com.springboot.imagegame.entity.ImageGame;
+import com.springboot.imagegame.service.ImageGameService;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.repository.ImageGameCommentRepository;
 import com.springboot.member.entity.Member;
@@ -18,18 +20,22 @@ import java.util.Optional;
 public class ImageGameCommentService {
     private final ImageGameCommentRepository imageGameCommentRepository;
     private final MemberService memberService;
+    private final ImageGameService imageGameService;
 
-    public ImageGameCommentService (ImageGameCommentRepository repository, MemberService memberService) {
+    public ImageGameCommentService (ImageGameCommentRepository repository, MemberService memberService, ImageGameService imageGameService) {
         this.imageGameCommentRepository = repository;
         this.memberService = memberService;
+        this.imageGameService = imageGameService;
     }
 
-    public ImageGameComment createComment (ImageGameComment comment, Authentication authentication) {
+    public ImageGameComment createComment (long gameId, ImageGameComment comment, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
-
         comment.setMember(findMember);
+
+        ImageGame imageGame = imageGameService.findGame(gameId);
+        comment.setImageGame(imageGame);
 
         return imageGameCommentRepository.save(comment);
     }

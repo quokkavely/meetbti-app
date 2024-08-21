@@ -5,6 +5,7 @@ import com.springboot.imagegame.dto.ImageGameDto;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame.mapper.ImageGameMapper;
 import com.springboot.imagegame.service.ImageGameService;
+import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,13 @@ import java.util.List;
 public class ImageGameController {
     private final ImageGameService imageGameService;
     private final ImageGameMapper imageGameMapper;
+    private final ImageGameCommentMapper imageGameCommentMapper;
     private final static String DEFAULT_URL = "/imagegames";
 
-    public ImageGameController(ImageGameService imageGameService, ImageGameMapper imageGameMapper) {
+    public ImageGameController(ImageGameService imageGameService, ImageGameMapper imageGameMapper, ImageGameCommentMapper imageGameCommentMapper) {
         this.imageGameService = imageGameService;
         this.imageGameMapper = imageGameMapper;
+        this.imageGameCommentMapper = imageGameCommentMapper;
     }
 
     @PostMapping
@@ -44,9 +47,12 @@ public class ImageGameController {
     }
 
     @GetMapping("/{game-id}")
-    public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId){
+    public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId,
+                                  Authentication authentication){
         ImageGame game = imageGameService.findGame(gameId);
-        return new ResponseEntity(HttpStatus.OK);
+
+        Principal principal = (Principal) authentication.getPrincipal();
+        return new ResponseEntity(imageGameMapper.imageGameToImageGameResponseDto(game, principal, imageGameCommentMapper), HttpStatus.OK);
     }
 
     @GetMapping
