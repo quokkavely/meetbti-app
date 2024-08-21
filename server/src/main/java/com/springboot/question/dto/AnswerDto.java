@@ -7,6 +7,7 @@ public class AnswerDto {
     @Builder
     @Getter
     public static class Response {
+        private String answerId;
         private String content;
         private int score;
     }
