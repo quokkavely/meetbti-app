@@ -2,7 +2,7 @@ package com.springboot.imagegame.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.gamestatus.GameStatus;
-import com.springboot.heart.entity.ImageGameHeart;
+import com.springboot.heart.entity.Heart;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class ImageGame {
 
     @OneToMany(mappedBy = "imageGame")
     @JsonBackReference
-    List<ImageGameHeart> hearts = new ArrayList<>();
+    List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "imageGame")
     @JsonBackReference
