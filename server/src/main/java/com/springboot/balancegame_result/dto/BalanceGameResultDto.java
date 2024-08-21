@@ -7,7 +7,6 @@ import lombok.Getter;
 public class BalanceGameResultDto {
     @Getter
     public static class Post{
-        private long memberId;
         private long gameId;
         private BalanceGameResult.SelectedOption selectedOption;
     }

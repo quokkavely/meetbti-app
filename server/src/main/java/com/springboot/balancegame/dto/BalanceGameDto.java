@@ -1,6 +1,8 @@
 package com.springboot.balancegame.dto;
 
+import com.springboot.balancegame_comment.dto.BalanceGameCommentDto;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class BalanceGameDto {
     }
     @Builder
     @Getter
+    @AllArgsConstructor
     public static class Response{
         private long gameId;
         private String title;
@@ -31,9 +34,12 @@ public class BalanceGameDto {
         private String rightOption;
         private int lCount;
         private int rCount;
-        private List<BalanceGameComment> comments;
+        private String leftMostMbti;
+        private String rightMostMbti;
+        private List<BalanceGameCommentDto.Response> comments;
         private int heartCount;
         private String nickName;
         private String gameStatus;
+        private boolean voted;
     }
 }
