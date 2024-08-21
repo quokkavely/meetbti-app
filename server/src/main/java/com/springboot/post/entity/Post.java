@@ -1,9 +1,9 @@
 package com.springboot.post.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.comment.entity.Comment;
-import com.springboot.heart.entity.PostHeart;
+import com.springboot.heart.entity.Heart;
+
 import com.springboot.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,7 +51,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @JsonBackReference
-    private List<PostHeart> hearts = new ArrayList<>();
+    private List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<View> views = new ArrayList<>();

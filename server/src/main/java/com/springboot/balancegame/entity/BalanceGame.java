@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.gamestatus.GameStatus;
-import com.springboot.heart.entity.BalanceGameHeart;
+import com.springboot.heart.entity.Heart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +40,7 @@ public class BalanceGame {
 
     @OneToMany(mappedBy = "balanceGame")
     @JsonBackReference
-    List<BalanceGameHeart> hearts = new ArrayList<>();
+    List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "balanceGame")
     @JsonBackReference

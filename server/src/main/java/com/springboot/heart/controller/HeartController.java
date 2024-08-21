@@ -1,31 +1,51 @@
-package com.springboot.heart.controller;//package com.springboot.heart.controller;
-//
-//import com.springboot.heart.dto.HeartDto;
-//import com.springboot.heart.service.HeartService;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequestMapping("/hearts")
-//public class HeartController {
-//    private final HeartService service;
-//
-//    public HeartController(HeartService service) {
-//        this.service = service;
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity toggleHeart(Authentication authentication,
-//                                      @RequestBody HeartDto heartDto) {
-//
-//        service.toggleHeart(authentication, heartDto.getType(), heartDto.getTargetId());
-//        return ResponseEntity.ok("Heart toggled");
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity getMyHearts(Authentication authentication) {
-//
-//        return ResponseEntity.ok(service.getHeartsByMember(authentication));
-//    }
-//}
+package com.springboot.heart.controller;
+
+import com.springboot.heart.entity.Heart;
+
+import com.springboot.heart.service.HeartService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping
+public class HeartController {
+    private final HeartService heartService;
+
+    public HeartController(HeartService service) {
+        this.heartService = service;
+    }
+
+    @PostMapping("/posts/{postId}/hearts")
+    public ResponseEntity togglePostLike(@PathVariable Long postId, Authentication authentication) {
+        heartService.toggleHeart(authentication, postId, Heart.ContentType.POST);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/comments/{commentId}/hearts")
+    public ResponseEntity toggleCommentLike(@PathVariable Long commentId, Authentication authentication) {
+        heartService.toggleHeart(authentication, commentId, Heart.ContentType.COMMENT);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/balancegames/{balanceGameId}/hearts")
+    public ResponseEntity toggleBalanceGameLike(@PathVariable Long balanceGameId, Authentication authentication) {
+        heartService.toggleHeart(authentication, balanceGameId, Heart.ContentType.BALANCE_GAME);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/imagegames/{imageGameId}/hearts")
+    public ResponseEntity toggleImageGameLike(@PathVariable Long imageGameId, Authentication authentication) {
+        heartService.toggleHeart(authentication, imageGameId, Heart.ContentType.IMAGE_GAME);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/mypage/hearts")
+    public ResponseEntity getHears(Authentication authentication) {
+        List<Heart> hearts = heartService.getLikesByMember(authentication);
+        return ResponseEntity.ok(hearts);
+    }
+
+}

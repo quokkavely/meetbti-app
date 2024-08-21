@@ -2,7 +2,7 @@ package com.springboot.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.springboot.heart.entity.CommentHeart;
+import com.springboot.heart.entity.Heart;
 import com.springboot.member.entity.Member;
 import com.springboot.post.entity.Post;
 import lombok.Getter;
@@ -44,6 +44,6 @@ public class Comment {
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     @JsonBackReference
-    private List<CommentHeart> hearts = new ArrayList<>();
+    private List<Heart> hearts = new ArrayList<>();
 
 }

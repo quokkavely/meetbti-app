@@ -1,99 +1,123 @@
-package com.springboot.heart.service;//package com.springboot.heart.service;
-//
-//
-//import com.springboot.balancegame.entity.BalanceGame;
-//import com.springboot.balancegame.service.BalanceGameService;
-//import com.springboot.comment.entity.Comment;
-//import com.springboot.comment.service.CommentService;
-//import com.springboot.heart.entity.*;
-//import com.springboot.heart.repository.HeartRepository;
-//import com.springboot.imagegame.entity.ImageGame;
-//import com.springboot.imagegame.service.ImageGameService;
-//import com.springboot.member.entity.Member;
-//import com.springboot.post.entity.Post;
-//import com.springboot.post.service.PostService;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.stereotype.Service;
-//
-//import javax.persistence.EntityNotFoundException;
-//import javax.transaction.Transactional;
-//import java.util.List;
-//import java.util.Optional;
-//
-//
-//@Service
-//public class HeartService {
-//    private final HeartRepository repository;
-//    private final ImageGameService imageGameService;
-//    private final BalanceGameService balanceGameService;
-//    private final PostService postService;
-//    private final CommentService commentService;
-//
-//    public HeartService(HeartRepository repository, ImageGameService imageGameService,
-//                        BalanceGameService balanceGameService, PostService postService, CommentService commentService) {
-//        this.repository = repository;
-//        this.imageGameService = imageGameService;
-//        this.balanceGameService = balanceGameService;
-//        this.postService = postService;
-//        this.commentService = commentService;
-//    }
-//
-//    @Transactional
-//    public void toggleHeart(Authentication authentication, String type, Long targetId) {
-//        Member member = (Member) authentication.getPrincipal();
-//        Optional<Heart> existingHeart = repository
-//                .findByMemberIdAndTypeAndTargetId(member.getMemberId(), type, targetId);
-//
-//        if (existingHeart.isPresent()) {
-//            repository.delete(existingHeart.get());
-//        } else {
-//            Heart heart = createHeart(member, type, targetId);
-//            repository.save(heart);
-//        }
-//    }
-//
-//    private Heart createHeart(Member member, String type, Long targetId) {
-//        switch (type.toUpperCase()) {
-//            case "POST":
-//                Post post = repository.findPostById(targetId);
-//                return new PostHeart(member, post);
-//            case "COMMENT":
-//                Comment comment = findCommentById(targetId);
-//                return new CommentHeart(member, comment);
-//            case "IMAGEGAME":
-//                ImageGame imageGame = findImageGameById(targetId);
-//                return new ImageGameHeart(member, imageGame);
-//            case "BALANCEGAME":
-//                BalanceGame balanceGame = findBalanceGameById(targetId);
-//                return new BalanceGameHeart(member, balanceGame);
-//            default:
-//                throw new EntityNotFoundException("heart type Not Found: " + type);
-//        }
-//    }
-//
-//    public List<Heart> getHeartsByMember(Authentication authentication) {
-//        Member member = (Member) authentication.getPrincipal();
-//        return repository.findByMemberId(member.getMemberId());
-//    }
-//
-//    private Post findPostById(Long postId) {
-//        return postService.findVerifiedPost(postId)
-//                .orElseThrow(() -> new IllegalArgumentException("Post not found with id: " + postId));
-//    }
-//
-//    private Comment findCommentById(Long commentId) {
-//        return commentService.findVerifiedComment(commentId)
-//                .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + commentId));
-//    }
-//
-//    private ImageGame findImageById(Long imageGameId) {
-//        return imageGameService.findVerifiedGame(imageGameId)
-//                .orElseThrow(() -> new IllegalArgumentException("ImageGame not found: " + imageGameId));
-//    }
-//
-//    private BalanceGame findBalanceById(Long balanceGameId) {
-//        return imageGameService.findVerifiedGame(balanceGameId)
-//                .orElseThrow(() -> new IllegalArgumentException("BalanceGame not found: " + balanceGameId));
-//    }
-//
-//}
+package com.springboot.heart.service;
+
+import com.springboot.auth.utils.Principal;
+import com.springboot.balancegame.entity.BalanceGame;
+import com.springboot.balancegame.repository.BalanceGameRepository;
+import com.springboot.comment.entity.Comment;
+import com.springboot.comment.repository.CommentRepository;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
+import com.springboot.heart.entity.Heart;
+import com.springboot.heart.repository.HeartRepository;
+import com.springboot.imagegame.entity.ImageGame;
+import com.springboot.imagegame.repository.ImageGameRepository;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
+import com.springboot.post.entity.Post;
+import com.springboot.post.repository.PostRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class HeartService {
+    private final HeartRepository heartRepository;
+    private final MemberService memberService;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final ImageGameRepository imageGameRepository;
+    private final BalanceGameRepository balanceGameRepository;
+
+    public HeartService(HeartRepository heartRepository, MemberService memberService, PostRepository postRepository, CommentRepository commentRepository, ImageGameRepository imageGameRepository, BalanceGameRepository balanceGameRepository) {
+        this.heartRepository = heartRepository;
+        this.memberService = memberService;
+        this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
+        this.imageGameRepository = imageGameRepository;
+        this.balanceGameRepository = balanceGameRepository;
+    }
+
+    @Transactional
+    public void toggleHeart(Authentication authentication, Long contentId, Heart.ContentType contentType) {
+        Principal principal = (Principal) authentication.getPrincipal();
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        Object content = findContentByIdAndType(contentId, contentType);
+        if (content == null) {
+            throw new IllegalArgumentException("Content not found, ContentType: " + contentType + ", ContentId: " + contentId);
+        }
+
+        Optional<Heart> existingHeart = findExistingHeart(findMember, content, contentType);
+
+        if (existingHeart.isPresent()) {
+            heartRepository.delete(existingHeart.get());
+        } else {
+            Heart heart = new Heart();
+            heart.setMember(findMember);
+            heart.setContentType(contentType);
+            setHeartContent(heart, contentType, content);
+            heartRepository.save(heart);
+        }
+    }
+
+    public List<Heart> getLikesByMember(Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+        return heartRepository.findByMember_MemberId(principal.getMemberId());
+    }
+
+    private Object findContentByIdAndType(Long contentId, Heart.ContentType contentType) {
+        switch (contentType) {
+            case POST:
+                return postRepository.findById(contentId)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
+            case COMMENT:
+                return commentRepository.findById(contentId)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+            case IMAGE_GAME:
+                return imageGameRepository.findById(contentId)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
+            case BALANCE_GAME:
+                return balanceGameRepository.findById(contentId)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
+            default:
+                throw new IllegalArgumentException("Unsupported content type: " + contentType);
+        }
+    }
+
+    private Optional<Heart> findExistingHeart(Member member, Object content, Heart.ContentType contentType) {
+        switch (contentType) {
+            case POST:
+                return heartRepository.findByMemberAndPost(member, (Post) content);
+            case COMMENT:
+                return heartRepository.findByMemberAndComment(member, (Comment) content);
+            case IMAGE_GAME:
+                return heartRepository.findByMemberAndImageGame(member, (ImageGame) content);
+            case BALANCE_GAME:
+                return heartRepository.findByMemberAndBalanceGame(member, (BalanceGame) content);
+            default:
+                throw new IllegalArgumentException("Type Not Found");
+        }
+    }
+
+    private void setHeartContent(Heart heart, Heart.ContentType contentType, Object content) {
+        switch (contentType) {
+            case POST:
+                heart.setPost((Post) content);
+                break;
+            case COMMENT:
+                heart.setComment((Comment) content);
+                break;
+            case IMAGE_GAME:
+                heart.setImageGame((ImageGame) content);
+                break;
+            case BALANCE_GAME:
+                heart.setBalanceGame((BalanceGame) content);
+                break;
+            default:
+                throw new IllegalArgumentException("Type Not Found");
+        }
+    }
+}
