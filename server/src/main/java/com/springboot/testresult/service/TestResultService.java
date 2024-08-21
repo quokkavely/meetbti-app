@@ -125,6 +125,6 @@ public class TestResultService {
     private TestResult verifiedExistTestResult (long testResultId) {
         Optional<TestResult> optionalTestResult = testResultRepository.findById(testResultId);
 
-        return optionalTestResult.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TESTRESULT_NOT_FOUND));
+        return optionalTestResult.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEST_RESULT_NOT_FOUND));
     }
 }

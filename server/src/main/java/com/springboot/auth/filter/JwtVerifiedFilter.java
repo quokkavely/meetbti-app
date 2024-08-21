@@ -23,16 +23,15 @@ public class JwtVerifiedFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final JwtAuthorityUtils authorityUtils;
 
-    public JwtVerifiedFilter(JwtTokenizer jwtTokenizer, JwtAuthorityUtils authorityUtils) {
+    public JwtVerifiedFilter (JwtTokenizer jwtTokenizer, JwtAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
+    protected void doFilterInternal (HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
+                                    FilterChain filterChain) throws ServletException, IOException {
         try {
             Map<String,Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
@@ -50,19 +49,18 @@ public class JwtVerifiedFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter (HttpServletRequest request) throws ServletException {
         String authorization = request.getHeader("Authorization");
         return authorization == null || !authorization.startsWith("Bearer");
-
     }
 
-    private Map<String,Object> verifyJws(HttpServletRequest request){
+    private Map<String,Object> verifyJws (HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ","");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
         Map<String, Object> claims = jwtTokenizer.getClaims(jws,base64EncodedSecretKey).getBody();
         return claims;
     }
-    private void setAuthenticationToContext(Map<String,Object> claims){
+    private void setAuthenticationToContext (Map<String,Object> claims) {
         Principal principal = new Principal((Integer) claims.get("memberId"));
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal,null,authorities);

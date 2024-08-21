@@ -33,7 +33,8 @@ public interface ImageGameMapper {
         }
         // 게임 참여했는지 여부
         boolean voted = false;
-        for(ImageGameResult result : game.getResults()){
+
+        for(ImageGameResult result : game.getResults()) {
             if(principal.getMemberId() == result.getMember().getMemberId()){
                 voted = true;
                 break;

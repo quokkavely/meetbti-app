@@ -18,16 +18,15 @@ import java.io.IOException;
 public class MemberAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request,
+    public void onAuthenticationFailure (HttpServletRequest request,
                                         HttpServletResponse response,
-                                        AuthenticationException exception)
-            throws IOException, ServletException {
-
+                                        AuthenticationException exception) throws IOException, ServletException {
         log.error("Authenticated failed", exception.getMessage());
+
         sendErrorResponse(response);
     }
 
-    private void sendErrorResponse(HttpServletResponse response) throws IOException {
+    private void sendErrorResponse (HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

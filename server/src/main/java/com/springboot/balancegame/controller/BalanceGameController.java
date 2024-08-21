@@ -7,6 +7,8 @@ import com.springboot.balancegame.mapper.BalanceGameMapper;
 import com.springboot.balancegame.service.BalanceGameService;
 import com.springboot.balancegame_comment.mapper.BalanceGameCommentMapper;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import com.springboot.testresult.entity.TestResult;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
@@ -31,18 +33,24 @@ public class BalanceGameController {
     private final BalanceGameService balanceGameService;
     private final BalanceGameMapper balanceGameMapper;
     private final BalanceGameCommentMapper balanceGameCommentMapper;
+    private final MemberService memberService;
     private final String DEFAULT_URL = "/balancegames";
 
-    public BalanceGameController(BalanceGameService balanceGameService, BalanceGameMapper balanceGameMapper, BalanceGameCommentMapper balanceGameCommentMapper) {
+    public BalanceGameController(BalanceGameService balanceGameService, BalanceGameMapper balanceGameMapper, BalanceGameCommentMapper balanceGameCommentMapper, MemberService memberService) {
         this.balanceGameService = balanceGameService;
         this.balanceGameMapper = balanceGameMapper;
         this.balanceGameCommentMapper = balanceGameCommentMapper;
+        this.memberService = memberService;
     }
 
     @PostMapping
     public ResponseEntity postGame(@Valid @RequestBody BalanceGameDto.Post postDto,
                                    Authentication authentication){
         Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        postDto.setNickName(findMember.getNickname());
 
         BalanceGame balanceGame = balanceGameService.createGame(balanceGameMapper.postDtoToGame(postDto), authentication);
 

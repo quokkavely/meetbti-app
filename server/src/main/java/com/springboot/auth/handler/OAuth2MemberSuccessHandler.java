@@ -26,25 +26,25 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final JwtAuthorityUtils jwtAuthorityUtils;
     private final MemberService memberService;
 
-    public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer, JwtAuthorityUtils jwtAuthorityUtils, MemberService memberService) {
+    public OAuth2MemberSuccessHandler (JwtTokenizer jwtTokenizer, JwtAuthorityUtils jwtAuthorityUtils, MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.jwtAuthorityUtils = jwtAuthorityUtils;
         this.memberService = memberService;
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
+    public void onAuthenticationSuccess (HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication authentication)
-            throws IOException, ServletException {
+                                        Authentication authentication) throws IOException, ServletException {
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
+        long memberId = memberService.findMemberIdByOauth2User(oAuth2User);
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
         List<String> authorities = jwtAuthorityUtils.createRoles(email);
         saveMember(email);
-        redirect(request, response, email, authorities);
+        redirect(request, response, email, memberId, authorities);
     }
 
-    private void saveMember(String email) {
+    private void saveMember (String email) {
         Member member = new Member(email);
         memberService.createMember(member);
     }
@@ -52,18 +52,17 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private void redirect(HttpServletRequest request,
                           HttpServletResponse response,
                           String username,
-                          List<String> authorities)
-        throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);
+                          long memberId,
+                          List<String> authorities) throws IOException {
+        String accessToken = delegateAccessToken(username, memberId, authorities);
         String refreshToken = delegateRefreshToken(username);
         String uri = createURI(accessToken,refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
-
     }
 
-    private String delegateAccessToken(String username, List<String> authorities) {
+    private String delegateAccessToken(String username, long memberId, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
+        claims.put("memberId", memberId);
         claims.put("roles", authorities);
 
         String subject = username;
@@ -72,7 +71,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
     }
 
-    private String delegateRefreshToken(String username) {
+    private String delegateRefreshToken (String username) {
         String subject = username;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -80,11 +79,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
 
-
-    private URI createURI(String accessToken, String refreshToken) {
+    private URI createURI (String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("access_token", accessToken);
-        queryParams.add("refresh_token", refreshToken);
+        queryParams.add("accessToken", accessToken);
+        queryParams.add("refreshToken", refreshToken);
 
         return UriComponentsBuilder
                 .newInstance()

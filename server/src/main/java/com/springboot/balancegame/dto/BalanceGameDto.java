@@ -21,7 +21,6 @@ public class BalanceGameDto {
         private String leftOption;
         @NotBlank
         private String rightOption;
-        @NotBlank
         private String nickName;
     }
     @Builder

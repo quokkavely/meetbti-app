@@ -20,7 +20,6 @@ public class Report {
 
     @Enumerated(value = EnumType.STRING)
     private ReportStatus status;
-
     public enum ReportReason {
         SPAMMING("광고성게시글 또는 반복 게시물"),
         MISINFORMATION("허위 정보"),

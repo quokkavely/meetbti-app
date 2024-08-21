@@ -2,6 +2,8 @@ package com.springboot.balancegame.service;
 
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.balancegame.repository.BalanceGameRepository;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -33,6 +35,7 @@ public class BalanceGameService {
     }
     public BalanceGame findVerifiedGame(long gameId){
         Optional<BalanceGame> optionalGame = balanceGameRepository.findById(gameId);
-        return optionalGame.orElseThrow(() -> new RuntimeException());
+
+        return optionalGame.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GAME_NOT_FOUND));
     }
 }

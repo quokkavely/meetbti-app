@@ -22,10 +22,10 @@ public class ImageGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long imageGameId;
 
-    @Column
+    @Column(nullable = false)
     private String topic;
 
-    @Column
+    @Column(nullable = false, length = 10)
     private String nickName;
 
     @OneToMany(mappedBy = "imageGame")

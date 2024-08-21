@@ -23,14 +23,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+    public JwtAuthenticationFilter (AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
     }
 
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
+    public Authentication attemptAuthentication (HttpServletRequest request, HttpServletResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(),LoginDto.class);
         UsernamePasswordAuthenticationToken authenticationToken
@@ -38,12 +38,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return authenticationManager.authenticate(authenticationToken);
     }
 
-    protected void successfulAuthentication(HttpServletRequest request,
+    protected void successfulAuthentication (HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authentication)
-            throws ServletException, IOException {
-
+                                            Authentication authentication) throws ServletException, IOException {
         Member member= (Member) authentication.getPrincipal();
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
@@ -52,7 +50,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authentication);
     }
 
-    protected String delegateAccessToken(Member member){
+    protected String delegateAccessToken (Member member) {
         Map<String , Object> claims = new HashMap<>();
         claims.put("memberId", member.getMemberId());
         claims.put("roles",member.getRoles());
@@ -63,7 +61,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject,expiration,base64EncodedSecretKey);
         return accessToken;
     }
-    protected String delegateRefreshToken(Member member){
+    protected String delegateRefreshToken (Member member) {
         String subject = member.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());

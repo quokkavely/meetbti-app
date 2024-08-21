@@ -15,19 +15,19 @@ import java.util.Optional;
 public class ImageGameService {
     private final ImageGameRepository repository;
 
-    public ImageGameService(ImageGameRepository repository) {
+    public ImageGameService (ImageGameRepository repository) {
         this.repository = repository;
     }
-    public ImageGame createGame(ImageGame game){
+    public ImageGame createGame (ImageGame game) {
         return repository.save(game);
     }
-    public ImageGame findGame(long gameId){
+    public ImageGame findGame (long gameId) {
         return findVerifiedGame(gameId);
     }
-    public Page<ImageGame> findGames(int page, int size){
+    public Page<ImageGame> findGames (int page, int size) {
         return repository.findAll(PageRequest.of(page, size, Sort.by("gameId").descending()));
     }
-    public void deleteGame(long gameId){
+    public void deleteGame (long gameId) {
         ImageGame game = findVerifiedGame(gameId);
         repository.delete(game);
     }

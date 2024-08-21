@@ -1,7 +1,5 @@
 package com.springboot.auth.handler;
 
-
-
 import com.springboot.auth.utils.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,12 +16,11 @@ import java.io.IOException;
 @Component
 public class MemberAccessDeniedHandler implements AccessDeniedHandler {
     @Override
-    public void handle(HttpServletRequest request,
+    public void handle (HttpServletRequest request,
                        HttpServletResponse response,
-                       AccessDeniedException accessDeniedException)
-            throws IOException, ServletException {
-
+                       AccessDeniedException accessDeniedException) throws IOException, ServletException {
         ErrorResponder.sendErrorResponse(response, HttpStatus.FORBIDDEN);
+
         log.warn("Forbidden error happend: {}", accessDeniedException.getMessage());
     }
 }

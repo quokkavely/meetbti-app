@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/imagegame-comments")
+@RequestMapping
 @Validated
 public class ImageGameCommentController {
     private final ImageGameCommentService imageGameCommentService;

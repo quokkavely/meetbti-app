@@ -79,7 +79,7 @@ public class SecurityConfiguration {
         return http.build();
     }
     @Bean
-    CorsConfigurationSource corsConfigurationSource(){
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE"));
@@ -102,7 +102,6 @@ public class SecurityConfiguration {
                     .addFilterAfter(jwtVerifiedFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
-
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         var clientRegistration = clientRegistration();

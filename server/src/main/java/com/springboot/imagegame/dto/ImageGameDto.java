@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class ImageGameDto {
     @Getter
     @Setter
     public static class Post{
+        @NotNull
         private String topic;
         private String nickName;
     }
