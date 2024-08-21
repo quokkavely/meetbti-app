@@ -31,19 +31,19 @@ public class CommentService {
 
         return commentRepository.save(comment);
     }
-    public Comment updateComment (Comment comment, Authentication authentication) {
-        Principal principal = (Principal) authentication.getPrincipal();
-
-        Comment findComment = findVerifiedComment(comment.getCommentId());
-
-        if (principal.getMemberId() != comment.getMember().getMemberId()) {
-            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
-        }
-        Optional.ofNullable(comment.getContent())
-                .ifPresent(findComment::setContent);
-
-        return commentRepository.save(findComment);
-    }
+//    public Comment updateComment (Comment comment, Authentication authentication) {
+//        Principal principal = (Principal) authentication.getPrincipal();
+//
+//        Comment findComment = findVerifiedComment(comment.getCommentId());
+//
+//        if (principal.getMemberId() != comment.getMember().getMemberId()) {
+//            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+//        }
+//        Optional.ofNullable(comment.getContent())
+//                .ifPresent(findComment::setContent);
+//
+//        return commentRepository.save(findComment);
+//    }
     public List<Comment> findComments (Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -51,20 +51,20 @@ public class CommentService {
 
         return commentRepository.findByMember(findMember);
     }
-    public void deleteComment (long commentId, Authentication authentication) {
-        Principal principal = (Principal) authentication.getPrincipal();
-
-        Comment comment = findVerifiedComment(commentId);
-
-        if (principal.getMemberId() != comment.getMember().getMemberId()) {
-            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
-        }
-
-        commentRepository.delete(comment);
-    }
-    private Comment findVerifiedComment (long commentId) {
-        Optional<Comment> comment = commentRepository.findById(commentId);
-
-        return comment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
-    }
+//    public void deleteComment (long commentId, Authentication authentication) {
+//        Principal principal = (Principal) authentication.getPrincipal();
+//
+//        Comment comment = findVerifiedComment(commentId);
+//
+//        if (principal.getMemberId() != comment.getMember().getMemberId()) {
+//            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+//        }
+//
+//        commentRepository.delete(comment);
+//    }
+//    private Comment findVerifiedComment (long commentId) {
+//        Optional<Comment> comment = commentRepository.findById(commentId);
+//
+//        return comment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+//    }
 }

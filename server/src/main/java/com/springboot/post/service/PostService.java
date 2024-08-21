@@ -33,9 +33,13 @@ public class PostService {
     public Post createPost (Post post, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
+        Member findMember = memberService.findMember(principal.getMemberId());
+
         if (principal.getMemberId() == 0) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
+
+        post.setMember(findMember);
 
         return postRepository.save(post);
     }
@@ -43,10 +47,11 @@ public class PostService {
     public Post updatePost (Post post, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
-        if (principal.getMemberId() != post.getMember().getMemberId()) {
+        Post findPost = findVerifiedPost(post.getPostId());
+
+        if (principal.getMemberId() != findPost.getMember().getMemberId()) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
-        Post findPost = findVerifiedPost(post.getPostId());
 
         Optional.ofNullable(post.getTitle())
                 .ifPresent(title -> findPost.setTitle(title));
@@ -66,7 +71,7 @@ public class PostService {
         if (principal.getMemberId() == 0) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
-        if (post.getPostStatus() == Post.PostStatus.POST_DELETED) {
+        if (post.getPostStatus() == Post.PostStatus.DELETED) {
             throw new BusinessLogicException(ExceptionCode.POST_NOT_FOUND);
         }
         createView(postId,authentication);
@@ -89,7 +94,7 @@ public class PostService {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
 
-        post.setPostStatus(Post.PostStatus.POST_DELETED);
+        post.setPostStatus(Post.PostStatus.DELETED);
 
         postRepository.save(post);
     }

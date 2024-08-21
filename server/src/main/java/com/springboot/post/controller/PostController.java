@@ -58,7 +58,10 @@ public class PostController {
     public ResponseEntity updatePost (@PathVariable("post-id") @Positive long postId,
                                       @Valid @RequestBody PostDto.Update updateDto,
                                       Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
         updateDto.setPostId(postId);
+//        updateDto.setMemberId(principal.getMemberId());
 
         Post post = postService.updatePost(postMapper.postUpdateDtoToPost(updateDto), authentication);
 

@@ -25,6 +25,6 @@ public class TestResultDto {
         private int scoreSN;
         private int scoreFT;
         private int scoreJP;
-        private LocalDateTime createAt;
+        private LocalDateTime createdAt;
     }
 }

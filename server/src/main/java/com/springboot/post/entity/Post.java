@@ -43,11 +43,10 @@ public class Post {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private PostStatus postStatus = PostStatus.POST_REGISTERED;
+    private PostStatus postStatus = PostStatus.REGISTERED;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonManagedReference
     private Member member;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
@@ -62,8 +61,8 @@ public class Post {
     private List<Comment> comments = new ArrayList<>();
 
     public enum PostStatus {
-        POST_REGISTERED("등록 상태"),
-        POST_DELETED("삭제 상태");
+        REGISTERED("등록 상태"),
+        DELETED("삭제 상태");
 
         @Getter
         @Setter

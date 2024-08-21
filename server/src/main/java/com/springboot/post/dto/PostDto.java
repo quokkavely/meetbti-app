@@ -25,6 +25,7 @@ public class PostDto {
     @Setter
     public static class Update {
         private long postId;
+        private long memberId;
         private String title;
         private String content;
     }

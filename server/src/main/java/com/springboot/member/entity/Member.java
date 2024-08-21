@@ -73,7 +73,6 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 //    public void setPosts(Post post){
 //        posts.add(post);

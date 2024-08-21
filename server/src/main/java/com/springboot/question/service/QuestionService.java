@@ -9,11 +9,9 @@ import java.util.List;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
-
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
-
     public List<Question> findAllQuestions () {
         return questionRepository.findAll();
     }

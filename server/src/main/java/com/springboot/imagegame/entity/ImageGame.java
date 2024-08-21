@@ -40,7 +40,7 @@ public class ImageGame {
     @JsonBackReference
     List<ImageGameResult> results = new ArrayList<>();
 
-    @Column
+    @Enumerated(value = EnumType.STRING)
     private GameStatus gameStatus = GameStatus.PENDING;
 
     public ImageGame(String topic, String nickName) {

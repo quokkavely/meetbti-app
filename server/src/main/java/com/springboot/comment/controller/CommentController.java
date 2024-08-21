@@ -42,28 +42,28 @@ public class CommentController {
 
         return  ResponseEntity.created(location).build();
     }
-    @PatchMapping("/comments/{comment-id}")
-    public ResponseEntity updateComment (@PathVariable("comment-id") @Positive long commentId,
-                                         @Valid @RequestBody CommentDto.Update updateDto,
-                                         Authentication authentication) {
-        updateDto.setCommentId(commentId);
-
-        Comment comment = commentService.updateComment(commentMapper.commentUpdateDtoToComment(updateDto), authentication);
-
-        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)),HttpStatus.OK);
-    }
+//    @PatchMapping("/comments/{comment-id}")
+//    public ResponseEntity updateComment (@PathVariable("comment-id") @Positive long commentId,
+//                                         @Valid @RequestBody CommentDto.Update updateDto,
+//                                         Authentication authentication) {
+//        updateDto.setCommentId(commentId);
+//
+//        Comment comment = commentService.updateComment(commentMapper.commentUpdateDtoToComment(updateDto), authentication);
+//
+//        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)),HttpStatus.OK);
+//    }
     @GetMapping("/comments")
     public ResponseEntity getComments (Authentication authentication) {
         List<Comment> comments = commentService.findComments(authentication);
 
         return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentsToCommentResponseDtos(comments)),HttpStatus.OK);
     }
-    @DeleteMapping("comments/{comment-id}")
-    public ResponseEntity deleteComment (@PathVariable("comment-id") @Positive long commentId,
-                                         Authentication authentication) {
-        commentService.deleteComment(commentId, authentication);
-
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
+//    @DeleteMapping("comments/{comment-id}")
+//    public ResponseEntity deleteComment (@PathVariable("comment-id") @Positive long commentId,
+//                                         Authentication authentication) {
+//        commentService.deleteComment(commentId, authentication);
+//
+//        return new ResponseEntity(HttpStatus.NO_CONTENT);
+//    }
 
 }

@@ -4,12 +4,14 @@ import com.springboot.comment.mapper.CommentMapper;
 import com.springboot.post.dto.PostDto;
 import com.springboot.post.entity.Post;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = CommentMapper.class)
 public interface PostMapper {
     Post postCreateDtoToPost (PostDto.Create create);
+//    @Mapping(source = "memberId", target = "member.memberId")
     Post postUpdateDtoToPost (PostDto.Update update);
     PostDto.PatchResponse postToPostPatchResponseDto (Post post);
     default PostDto.GetResponse postToPostGetResponseDto (Post post,CommentMapper commentMapper) {
