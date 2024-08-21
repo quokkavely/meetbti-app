@@ -82,6 +82,15 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mypage-user-info-modify-button img {
+    width: 20px;
+    height: 25px;
 }
 
 .mypage-user-info-history-button {
@@ -95,6 +104,15 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mypage-user-info-history-button img {
+    width: 20px;
+    height: 25px;
 }
 
 

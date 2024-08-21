@@ -29,9 +29,9 @@ const UserInfoComponent = () => {
 
 
 // 포스트 컨텐츠 컴포넌트
-const PostContent = ({ post }) => {
+const PostPageContent = ({ post }) => {
   return (
-    <div className="post-content">
+    <div className="post-page-content">
       <div className="post-title">{post.title}</div>
       <div className="post-meta">
         <span>{post.date}</span>
@@ -113,71 +113,6 @@ const CommentCount = ({ comments }) => {
 };
 
 
-
-// 댓글 아이템 컴포넌트
-const CommentItem = ({ username, text, time, likes }) => {
-  const [likeCount, setLikeCount] = useState(likes);
-  const [liked, setLiked] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedReason, setSelectedReason] = useState('');
-
-  const handleLike = () => {
-    if (liked) {
-      setLikeCount(likeCount - 1);
-    } else {
-      setLikeCount(likeCount + 1);
-    }
-    setLiked(!liked);
-  };
-
-  const handleAlert = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const handleRadioChange = (e) => {
-    setSelectedReason(e.target.value);
-  };
-
-  const handleReport = () => {
-    console.log('신고 사유:', selectedReason);
-    closeModal();
-  };
-
-  return (
-    <div className="comments">
-      <CommentUserInfoContainer username={username} />
-      
-      <div className="comment-content">
-        <div className="comment-text">{text}</div>
-        <div className="comment-time">{time}</div>
-      </div>
-      <div className="comment-subcontent">
-        <div 
-          onClick={handleLike} 
-          style={{ color: liked ? 'red' : 'gray', cursor: 'pointer' }}
-        >
-          {liked ? '❤️' : '🤍'} {likeCount}
-        </div>
-        <button className="alert-button" onClick={handleAlert}>
-          <img src="alert-img.png" alt="신고하기" />
-        </button>
-      </div>
-      <AlertModal
-        showModal={showModal}
-        closeModal={closeModal}
-        handleRadioChange={handleRadioChange}
-        handleReport={handleReport}
-        selectedReason={selectedReason}
-      />
-    </div>
-  );
-};
-
-
 // 댓글 섹션 컴포넌트
 const CommentSection = () => {
   const comments = [
@@ -252,7 +187,7 @@ const PostPage = () => {
       <AppContainerComponent />
       <HeaderComponent />
       <UserInfoComponent />
-      <PostContent post={post} />
+      <PostPageContent post={post} />
       <PostActions likes={post.likes} />
       <CommentCount comments={post.comments} />
       <CommentSection />

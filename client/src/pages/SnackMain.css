@@ -1,0 +1,34 @@
+.snackmain-title {
+    text-align: left;
+    width: 420px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+    color: #2D0057;
+}
+
+.snackmain-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 420px;
+    height: 560px; 
+    margin-top: 10px;
+    gap: 24px;
+}
+
+.imagegame, .balancegame, .MBTMI {
+    width: 400px;
+    height: 150px;
+    border-radius: 15px;
+    margin: 0 auto;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.imagegame img, .balancegame img, .MBTMI img {
+    width:  400px;
+    height: 150px;
+    border-radius: 15px;
+}

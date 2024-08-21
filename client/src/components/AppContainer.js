@@ -9,7 +9,7 @@ const styles = {
     app: {
         maxWidth: '480px',
         margin: '0 auto',
-        padding: '0 20px 20px 20px',
+        padding: '0',
     }
 }
 
