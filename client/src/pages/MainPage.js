@@ -117,7 +117,7 @@ const MainContent = () => {
         즐겨보세요, 스낵 컬처!
         </div>
         <div className="go-point">
-           <img src="to.png" alt='가기' onClick={() => navigate('/')}/>
+           <img src="to.png" alt='가기' onClick={() => navigate('/snackmain')}/>
         </div>
       </div>
       <Slider {...settings} className="card-list">
@@ -125,19 +125,19 @@ const MainContent = () => {
           image="snack-img1.jpeg" 
           title="이미지 게임" 
           description="가장 ~~ 할 것 같은 MBTI는?"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/ImageGame')}
         />
         <Card 
           image="snack-img2.jpeg" 
           title="밸런스 게임" 
           description="말해 Yes or No" 
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/BalanceGame')}
         />
         <Card 
           image="snack-img1.jpeg" 
           title="MBTMI" 
           description="MBTI의 TMI 대방출!" 
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/MBTMI')}
         />
       </Slider>
     </main>
