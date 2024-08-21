@@ -51,7 +51,7 @@ const App = () => {
         <Route path='/report-detail' element={<ReportDetail/>}/>
         <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
         <Route path='/mbtmi' element={<MbtmiPage/>}/>
-        <Route path='/imagegame' element={<ImageGamePage/>}/>
+        <Route path='/imagegame-detail' element={<ImageGamePage/>}/>
         <Route path='/mypage' element={<MyPage/>}/>
         <Route path='/mypagemodify' element={<MyPageModify/>}/>
         <Route path='/mypagehistory' element={<MyPageHistory/>}/>
