@@ -1,5 +1,9 @@
 package com.springboot.imagegame_result.controller;
 
+import com.springboot.imagegame.entity.ImageGame;
+import com.springboot.imagegame.mapper.ImageGameMapper;
+import com.springboot.imagegame.service.ImageGameService;
+import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
 import com.springboot.imagegame_result.dto.ImageGameResultDto;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.imagegame_result.mapper.ImageGameResultMapper;
@@ -22,11 +26,17 @@ import java.util.List;
 public class ImageGameResultController {
     private final ImageGameResultService imageGameResultService;
     private final ImageGameResultMapper imageGameResultMapper;
+    private final ImageGameService imageGameService;
+    private final ImageGameMapper imageGameMapper;
+    private final ImageGameCommentMapper imageGameCommentMapper;
     private final String DEFAULT_URL = "/imagegame-results";
 
-    public ImageGameResultController(ImageGameResultMapper mapper, ImageGameResultService service) {
+    public ImageGameResultController(ImageGameResultMapper mapper, ImageGameResultService service, ImageGameService imageGameService, ImageGameMapper imageGameMapper, ImageGameCommentMapper imageGameCommentMapper) {
         this.imageGameResultMapper = mapper;
         this.imageGameResultService = service;
+        this.imageGameService = imageGameService;
+        this.imageGameMapper = imageGameMapper;
+        this.imageGameCommentMapper = imageGameCommentMapper;
     }
 
     @PostMapping("/imagegames/{imagegame-id}/imagegame-results")
@@ -39,7 +49,9 @@ public class ImageGameResultController {
 
         URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        ImageGame game = imageGameService.findGame(gameId);
+        return new ResponseEntity(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper), HttpStatus.CREATED);
+        /*return new ResponseEntity(HttpStatus.CREATED);*/
     }
 //    @GetMapping("/{result-id}")
 //    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){

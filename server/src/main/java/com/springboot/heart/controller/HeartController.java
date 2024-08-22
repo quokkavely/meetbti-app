@@ -49,12 +49,11 @@ public class HeartController {
 //        List<Heart> hearts = heartService.getLikesByMember(authentication);
 //        return ResponseEntity.ok(hearts);
 //    }
-    @GetMapping("/hearts")
+    /*@GetMapping("/hearts")
     public ResponseEntity getHearts(@RequestParam int page,
                                     @RequestParam int size,
                                     @RequestParam long memberId,
                                     @RequestParam String type,
                                     Authentication authentication) {
-
-    }
+    }*/
 }

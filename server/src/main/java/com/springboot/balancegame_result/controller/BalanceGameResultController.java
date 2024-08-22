@@ -1,5 +1,9 @@
 package com.springboot.balancegame_result.controller;
 
+import com.springboot.balancegame.entity.BalanceGame;
+import com.springboot.balancegame.mapper.BalanceGameMapper;
+import com.springboot.balancegame.service.BalanceGameService;
+import com.springboot.balancegame_comment.mapper.BalanceGameCommentMapper;
 import com.springboot.balancegame_result.dto.BalanceGameResultDto;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.balancegame_result.mapper.BalanceGameResultMapper;
@@ -22,12 +26,18 @@ import java.util.List;
 public class BalanceGameResultController {
     private final BalanceGameResultService balanceGameResultService;
     private final BalanceGameResultMapper balanceGameResultMapper;
+    private final BalanceGameService balanceGameService;
+    private final BalanceGameMapper balanceGameMapper;
+    private final BalanceGameCommentMapper balanceGameCommentMapper;
 
     private final String DEFAULT_URL = "/balancegame-results";
 
-    public BalanceGameResultController(BalanceGameResultService balanceGameResultService, BalanceGameResultMapper balanceGameResultMapper) {
+    public BalanceGameResultController(BalanceGameResultService balanceGameResultService, BalanceGameResultMapper balanceGameResultMapper, BalanceGameService balanceGameService, BalanceGameMapper balanceGameMapper, BalanceGameCommentMapper balanceGameCommentMapper) {
         this.balanceGameResultService = balanceGameResultService;
         this.balanceGameResultMapper = balanceGameResultMapper;
+        this.balanceGameService = balanceGameService;
+        this.balanceGameMapper = balanceGameMapper;
+        this.balanceGameCommentMapper = balanceGameCommentMapper;
     }
 
     @PostMapping("/balancegames/{balancegame-id}/balancegame-results")
@@ -40,7 +50,10 @@ public class BalanceGameResultController {
 
         URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
 
-        return ResponseEntity.created(location).build();
+        /*return ResponseEntity.created(location).build();*/
+        BalanceGame game = balanceGameService.findGame(gameid);
+
+        return new ResponseEntity(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper), HttpStatus.CREATED);
     }
 //    @GetMapping
 //    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){
