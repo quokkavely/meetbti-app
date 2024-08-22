@@ -114,7 +114,7 @@ const RegistrationPage = (props) => {
             );
             if(response.ok){
                 console.log('회원가입 성공');
-                props.setLogin(true);
+            
                 navigate('/');
             }else{
                 console.log('회원가입 실패: ', response.status);

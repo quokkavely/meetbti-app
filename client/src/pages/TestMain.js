@@ -53,7 +53,7 @@ const TestMainContent = () => {
           </div>
         </div>
       </div>
-      <button className="mbti-button">MBTI 검사</button>
+      <button className="mbti-button" onClick={() => navigate('/mbti-test')}>MBTI 검사</button>
     </div>
   );
 }
