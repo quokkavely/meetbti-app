@@ -98,17 +98,17 @@ INSERT INTO Answer (answer_id, question_id, content, score) VALUES (62, 16, '대
 INSERT INTO Answer (answer_id, question_id, content, score) VALUES (63, 16, '필요할 때마다 계획을 수정한다.', 58);
 INSERT INTO Answer (answer_id, question_id, content, score) VALUES (64, 16, '즉석에서 결정하는 편이다.', 32);
 
-INSERT INTO balance_game (title, left_option, right_option, nickname, game_status) VALUES
-('평생 날 수 있는 능력을 갖기 vs 투명인간이 되기', '날기', '투명인간', '관리자', 'ACTIVE'),
-('시간을 더 갖기 vs 돈을 더 갖기', '시간 더 갖기', '돈 더 갖기', '관리자', 'ACTIVE'),
-('SNS를 평생 사용하지 않기 vs 영화를 평생 보지 않기', 'SNS 안 하기', '영화 안 보기', '관리자', 'ACTIVE'),
-('너무 더운 상태로 살기 vs 너무 추운 상태로 살기', '너무 더운', '너무 추운', '관리자', 'ACTIVE'),
-('인생에서 되감기 버튼 갖기 vs 일시정지 버튼 갖기', '되감기 버튼', '일시정지 버튼', '관리자', 'ACTIVE');
+INSERT INTO balance_game (title, left_option, right_option, nickname, game_status, created_at) VALUES
+('평생 날 수 있는 능력을 갖기 vs 투명인간이 되기', '날기', '투명인간', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('시간을 더 갖기 vs 돈을 더 갖기', '시간 더 갖기', '돈 더 갖기', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('SNS를 평생 사용하지 않기 vs 영화를 평생 보지 않기', 'SNS 안 하기', '영화 안 보기', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('너무 더운 상태로 살기 vs 너무 추운 상태로 살기', '너무 더운', '너무 추운', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('인생에서 되감기 버튼 갖기 vs 일시정지 버튼 갖기', '되감기 버튼', '일시정지 버튼', '관리자', 'ACTIVE', CURRENT_TIMESTAMP);
 
-INSERT INTO image_game (topic, nick_name, game_status) VALUES
-('가장 리더십이 강할 것 같은 MBTI는?', '관리자', 'ACTIVE'),
-('가장 창의적일 것 같은 MBTI는?', '관리자', 'ACTIVE'),
-('가장 사교적일 것 같은 MBTI는?', '관리자', 'ACTIVE'),
-('가장 분석적일 것 같은 MBTI는?', '관리자', 'ACTIVE'),
-('가장 감정적일 것 같은 MBTI는?', '관리자', 'ACTIVE');
+INSERT INTO image_game (topic, nick_name, game_status, created_at) VALUES
+('가장 리더십이 강할 것 같은 MBTI는?', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('가장 창의적일 것 같은 MBTI는?', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('가장 사교적일 것 같은 MBTI는?', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('가장 분석적일 것 같은 MBTI는?', '관리자', 'ACTIVE', CURRENT_TIMESTAMP),
+('가장 감정적일 것 같은 MBTI는?', '관리자', 'ACTIVE', CURRENT_TIMESTAMP);
 

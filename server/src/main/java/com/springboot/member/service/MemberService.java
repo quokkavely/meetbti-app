@@ -90,7 +90,6 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.EMAIL_ALREADY_EXIST);
         }
     }
-
     //닉네임이 중복되는지 확인하는 메서드
     public Boolean verifiedExistNickname(String nickname) {
         Optional<Member> optionalMember = memberRepository.findByNickname(nickname);

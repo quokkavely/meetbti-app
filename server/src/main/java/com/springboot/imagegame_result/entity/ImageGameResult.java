@@ -1,7 +1,6 @@
 package com.springboot.imagegame_result.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
 import lombok.Getter;

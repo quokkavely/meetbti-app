@@ -1,10 +1,8 @@
 package com.springboot.imagegame.mapper;
 
 import com.springboot.auth.utils.Principal;
-import com.springboot.balancegame.dto.BalanceGameDto;
 import com.springboot.imagegame.dto.ImageGameDto;
 import com.springboot.imagegame.entity.ImageGame;
-import com.springboot.imagegame_comment.dto.ImageGameCommentDto;
 import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.testresult.entity.TestResult;

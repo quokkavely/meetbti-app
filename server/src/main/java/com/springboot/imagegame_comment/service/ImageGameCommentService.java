@@ -3,8 +3,6 @@ package com.springboot.imagegame_comment.service;
 import com.springboot.auth.utils.Principal;
 import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
-import com.springboot.imagegame.entity.ImageGame;
-import com.springboot.imagegame.service.ImageGameService;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.repository.ImageGameCommentRepository;
 import com.springboot.member.entity.Member;
@@ -13,11 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,7 +54,7 @@ public class ImageGameCommentService {
     public ImageGameComment findComment(long commentId) {
         return findVerifiedComment(commentId);
     }
-    public Page<ImageGameComment> findComments(long memberId, int page, int size, Authentication authentication) {
+    public Page<ImageGameComment> findComments(int page, int size, long memberId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());

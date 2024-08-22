@@ -1,11 +1,10 @@
 package com.springboot.imagegame_comment.controller;
 
-import com.springboot.balancegame_comment.entity.BalanceGameComment;
-import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame_comment.dto.ImageGameCommentDto;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
 import com.springboot.imagegame_comment.service.ImageGameCommentService;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
@@ -55,20 +54,17 @@ public class ImageGameCommentController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(imageGameCommentMapper.commentToResponseDto(imageGameComment)), HttpStatus.OK);
     }
-//    @GetMapping
-//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
-//        ImageGameComment comment = imageGameCommentService.findComment(commentId);
-//        return new ResponseEntity(imageGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
-//    }
     @GetMapping("imagegame-comments")
-    public ResponseEntity getComments(@Positive @RequestParam long memberId,
-                                      @Positive @RequestParam int page,
+    public ResponseEntity getComments(@Positive @RequestParam int page,
                                       @Positive @RequestParam int size,
+                                      @Positive @RequestParam(name = "member-id") Long memberId,
                                       Authentication authentication) {
-        Page<ImageGameComment> pageImageGameComment = imageGameCommentService.findComments(memberId, page, size, authentication);
+        if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
+
+        Page<ImageGameComment> pageImageGameComment = imageGameCommentService.findComments(page - 1, size, memberId, authentication);
 
         List<ImageGameComment> imageGameComments = pageImageGameComment.getContent();
 
-        return new ResponseEntity<>(imageGameCommentMapper.commentsToResponseDtos(imageGameComments), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(imageGameCommentMapper.commentsToResponseDtos(imageGameComments), pageImageGameComment), HttpStatus.OK);
     }
 }

@@ -4,7 +4,6 @@ import com.springboot.comment.mapper.CommentMapper;
 import com.springboot.post.dto.PostDto;
 import com.springboot.post.entity.Post;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.stream.Collectors;

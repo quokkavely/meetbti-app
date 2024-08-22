@@ -8,7 +8,8 @@ import com.springboot.imagegame_result.dto.ImageGameResultDto;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.imagegame_result.mapper.ImageGameResultMapper;
 import com.springboot.imagegame_result.service.ImageGameResultService;
-import com.springboot.utils.UriCreator;
+import com.springboot.response.SingleResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -47,21 +47,21 @@ public class ImageGameResultController {
 
         ImageGameResult result = imageGameResultService.createResult(imageGameResultMapper.postDtoToResult(postDto), authentication);
 
-        URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
+        ImageGame game = imageGameService.findGame(result.getImageGame().getImageGameId());
 
-        ImageGame game = imageGameService.findGame(gameId);
-        return new ResponseEntity(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper), HttpStatus.CREATED);
-        /*return new ResponseEntity(HttpStatus.CREATED);*/
+        return new ResponseEntity<>(new SingleResponseDto<>(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper)), HttpStatus.CREATED);
     }
-//    @GetMapping("/{result-id}")
-//    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){
-//        ImageGameResult result = imageGameResultService.findResult(resultId);
-//        return new ResponseEntity(imageGameResultMapper.resultToResponseDto(result), HttpStatus.OK);
-//    }
-
     @GetMapping("/imagegame-results")
-    public ResponseEntity getResults() {
-        List<ImageGameResult> results = imageGameResultService.findResults();
-        return new ResponseEntity(imageGameResultMapper.resultsToResponseDtos(results), HttpStatus.OK);
+    public ResponseEntity getResults(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size,
+                                     @Positive @RequestParam(name = "member-id") Long memberId,
+                                     Authentication authentication) {
+        if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
+
+        Page<ImageGameResult> pageBalanceGameComment = imageGameResultService.findResults(page - 1, size, memberId, authentication);
+
+        List<ImageGameResult> imageGameResults = pageBalanceGameComment.getContent();
+
+        return new ResponseEntity<>(imageGameResultMapper.resultsToResponseDtos(imageGameResults), HttpStatus.OK);
     }
 }

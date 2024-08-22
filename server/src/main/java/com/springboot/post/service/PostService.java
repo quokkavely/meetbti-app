@@ -88,6 +88,13 @@ public class PostService {
             return postRepository.findByCategoryAndPostStatusNot(pageable, category, Post.PostStatus.DELETED);
         }
     }
+    public Page<Post> findPostsByMember(int page, int size, long memberId, String standard, String category) {
+        Pageable pageable = createPageable(page, size, standard);
+
+        Member findMember = memberService.findMember(memberId);
+
+        return postRepository.findByMemberAndPostStatusNot(pageable, findMember, Post.PostStatus.DELETED);
+    }
     //게시글을 삭제하는 메서드
     public void deletePost(long postId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();

@@ -10,6 +10,5 @@ import java.util.Optional;
 
 public interface ImageGameCommentRepository extends JpaRepository<ImageGameComment, Long> {
     Optional<ImageGameComment> findByCommentId(long commentId);
-
     Page<ImageGameComment> findByMember(Pageable pageable, Member member);
 }

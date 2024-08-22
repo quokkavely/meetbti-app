@@ -8,7 +8,8 @@ import com.springboot.balancegame_result.dto.BalanceGameResultDto;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.balancegame_result.mapper.BalanceGameResultMapper;
 import com.springboot.balancegame_result.service.BalanceGameResultService;
-import com.springboot.utils.UriCreator;
+import com.springboot.response.SingleResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -48,21 +48,21 @@ public class BalanceGameResultController {
 
         BalanceGameResult result = balanceGameResultService.createResult(balanceGameResultMapper.postDtoToResult(postDto), authentication);
 
-        URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
+        BalanceGame game = balanceGameService.findGame(result.getBalanceGame().getBalanceGameId());
 
-        /*return ResponseEntity.created(location).build();*/
-        BalanceGame game = balanceGameService.findGame(gameid);
-
-        return new ResponseEntity(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper)), HttpStatus.CREATED);
     }
-//    @GetMapping
-//    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){
-//        BalanceGameResult result = balanceGameResultService.findResult(resultId);
-//        return new ResponseEntity(balanceGameResultMapper.resultToResponseDto(result), HttpStatus.OK);
-//    }
     @GetMapping("/balancegame-results")
-    public ResponseEntity getResults() {
-        List<BalanceGameResult> results = balanceGameResultService.findResults();
-        return new ResponseEntity(balanceGameResultMapper.resultsToResponseDtos(results), HttpStatus.OK);
+    public ResponseEntity getResults(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size,
+                                     @Positive @RequestParam(name = "member-id") Long memberId,
+                                     Authentication authentication) {
+        if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
+
+        Page<BalanceGameResult> pageBalanceGameComment = balanceGameResultService.findResults(page - 1, size, memberId, authentication);
+
+        List<BalanceGameResult> balanceGameResults = pageBalanceGameComment.getContent();
+
+        return new ResponseEntity<>(balanceGameResultMapper.resultsToResponseDtos(balanceGameResults), HttpStatus.OK);
     }
 }

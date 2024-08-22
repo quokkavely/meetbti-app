@@ -3,13 +3,17 @@ package com.springboot.balancegame_result.service;
 import com.springboot.auth.utils.Principal;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.balancegame_result.repository.BalanceGameResultRepository;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -36,8 +40,17 @@ public class BalanceGameResultService {
         Optional<BalanceGameResult> optionalResult = balanceGameResultRepository.findById(resultId);
         return optionalResult.orElseThrow(() -> new RuntimeException());
     }
+    public Page<BalanceGameResult> findResults(int page, int size, long memberId, Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
 
-    public List<BalanceGameResult> findResults(){
-        return balanceGameResultRepository.findAll();
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        if (memberId != findMember.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return balanceGameResultRepository.findByMember(pageable, findMember);
     }
 }

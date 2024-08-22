@@ -3,12 +3,10 @@ package com.springboot.balancegame.mapper;
 import com.springboot.auth.utils.Principal;
 import com.springboot.balancegame.dto.BalanceGameDto;
 import com.springboot.balancegame.entity.BalanceGame;
-import com.springboot.balancegame_comment.dto.BalanceGameCommentDto;
 import com.springboot.balancegame_comment.mapper.BalanceGameCommentMapper;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.testresult.entity.TestResult;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 import org.springframework.security.core.Authentication;
 
 import java.util.HashMap;
@@ -91,8 +89,8 @@ public interface BalanceGameMapper {
                 leftMostMbti,
                 rightMostMbti,
                 commentMapper.commentsToResponseDtos(game.getComments()),
-                game.getHearts().size(),
                 game.getComments().size(),
+                game.getHearts().size(),
                 game.getNickname(),
                 voted
         );

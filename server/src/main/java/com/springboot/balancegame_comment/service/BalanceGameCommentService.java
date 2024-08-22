@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,7 +54,7 @@ public class BalanceGameCommentService {
     public BalanceGameComment findComment(long commentId) {
         return findVerifiedComment(commentId);
     }
-    public Page<BalanceGameComment> findComments(long memberId, int page, int size, Authentication authentication) {
+    public Page<BalanceGameComment> findComments(int page, int size, long memberId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -63,6 +62,7 @@ public class BalanceGameCommentService {
         if (memberId != findMember.getMemberId()) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
+
         Pageable pageable = PageRequest.of(page, size);
 
         return balanceGameCommentRepository.findByMember(pageable, findMember);

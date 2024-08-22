@@ -15,7 +15,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     Optional<Heart> findByMemberAndPost(Member member, Post post);

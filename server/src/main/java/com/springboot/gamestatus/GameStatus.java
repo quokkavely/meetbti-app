@@ -1,7 +1,7 @@
 package com.springboot.gamestatus;
 
 import lombok.Getter;
-
+@Getter
 public enum GameStatus {
     PENDING("승인 대기 중"),
     ACTIVE("활성 상태");

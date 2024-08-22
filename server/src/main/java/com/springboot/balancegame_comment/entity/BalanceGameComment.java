@@ -1,7 +1,6 @@
 package com.springboot.balancegame_comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.member.entity.Member;
 import lombok.Getter;

@@ -9,5 +9,4 @@ import java.util.Optional;
 
 public interface ViewRepository extends JpaRepository<View,Long> {
     Optional<View> findByMemberAndPost(Member member, Post post);
-
 }

@@ -1,7 +1,6 @@
 package com.springboot.heart.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.comment.entity.Comment;
 import com.springboot.imagegame.entity.ImageGame;

@@ -1,6 +1,7 @@
 package com.springboot.testresult.controller;
 
 import com.springboot.auth.utils.Principal;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.testresult.dto.TestResultDto;
 import com.springboot.testresult.entity.TestResult;
@@ -28,7 +29,6 @@ public class TestResultController {
         this.testResultService = testResultService;
         this.testResultMapper = testResultMapper;
     }
-
     @PostMapping
     public ResponseEntity createTestResult(@Valid @RequestBody TestResultDto.Create createDto,
                                            Authentication authentication) {
@@ -38,16 +38,19 @@ public class TestResultController {
 
         TestResult testResult = testResultService.createTestResult(createDto,authentication);
 
-        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)), HttpStatus.CREATED);
     }
     @GetMapping
     public ResponseEntity getTestResults(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size,
+                                         @Positive @RequestParam(name = "member-id") Long memberId,
                                          Authentication authentication) {
-        Page<TestResult> pageTestResult = testResultService.findTestResults(page, size, authentication);
+        if (memberId == null) throw new IllegalArgumentException("Member ID is required");
+
+        Page<TestResult> pageTestResult = testResultService.findTestResults(page - 1, size, authentication);
 
         List<TestResult> testResults = pageTestResult.getContent();
 
-        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults)), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults), pageTestResult), HttpStatus.OK);
     }
 }

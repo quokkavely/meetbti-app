@@ -87,6 +87,6 @@ public class HeartController {
                 })
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(new MultiResponseDto<>(responseDtos, pageContent), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageContent), HttpStatus.OK);
     }
 }

@@ -1,7 +1,6 @@
 package com.springboot.balancegame.dto;
 
 import com.springboot.balancegame_comment.dto.BalanceGameCommentDto;
-import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

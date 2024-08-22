@@ -3,6 +3,7 @@ package com.springboot.question.controller;
 import com.springboot.question.entity.Question;
 import com.springboot.question.mapper.QuestionMapper;
 import com.springboot.question.service.QuestionService;
+import com.springboot.response.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +22,11 @@ public class QuestionController {
         this.questionService = questionService;
         this.questionMapper = questionMapper;
     }
-
     @GetMapping
     public ResponseEntity getQuestions() {
 
         List<Question> questions = questionService.findAllQuestions();
 
-        return new ResponseEntity(questionMapper.questionsToQuestionResponseDtos(questions),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions)), HttpStatus.OK);
     }
 }

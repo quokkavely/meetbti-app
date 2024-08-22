@@ -1,6 +1,5 @@
 package com.springboot.imagegame.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.gamestatus.GameStatus;
 import com.springboot.heart.entity.Heart;

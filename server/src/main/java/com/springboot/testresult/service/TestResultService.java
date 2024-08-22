@@ -54,7 +54,7 @@ public class TestResultService {
 
         TestResult testResult = verifiedExistTestResult(findMember.getTestResults().get(findMember.getTestResults().size()-1).getTestResultId());
 
-        if (testResult.getTestResultId() != findMember.getTestResults().get(findMember.getTestResults().size()-1).getTestResultId()) {
+        if (testResult.getMember().getMemberId() != principal.getMemberId()) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
 

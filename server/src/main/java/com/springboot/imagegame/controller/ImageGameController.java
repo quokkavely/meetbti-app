@@ -8,6 +8,8 @@ import com.springboot.imagegame.service.ImageGameService;
 import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import com.springboot.response.MultiResponseDto;
+import com.springboot.response.SingleResponseDto;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -60,23 +62,17 @@ public class ImageGameController {
 
         ImageGame game = imageGameService.findGame(gameId);
 
-        return new ResponseEntity(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper)), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getGames(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size,
                                    Authentication authentication) {
-        Page<ImageGame> pageImageGames = imageGameService.findGames(page, size);
+        Page<ImageGame> pageImageGames = imageGameService.findGames(page - 1, size);
 
         List<ImageGame> imageGames = pageImageGames.getContent();
 
-        return new ResponseEntity(imageGameMapper.gamesToGameResponseDtos(imageGames, authentication,imageGameCommentMapper), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{game-id}")
-    public ResponseEntity deleteGames(@PathVariable("game-id") @Positive long gameId){
-        imageGameService.deleteGame(gameId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new MultiResponseDto<>(imageGameMapper.gamesToGameResponseDtos(imageGames, authentication,imageGameCommentMapper), pageImageGames), HttpStatus.OK);
     }
 }

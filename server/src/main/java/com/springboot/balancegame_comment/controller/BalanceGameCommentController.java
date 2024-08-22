@@ -1,12 +1,10 @@
 package com.springboot.balancegame_comment.controller;
 
-
-import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.balancegame_comment.dto.BalanceGameCommentDto;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_comment.mapper.BalanceGameCommentMapper;
 import com.springboot.balancegame_comment.service.BalanceGameCommentService;
-import com.springboot.comment.entity.Comment;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
@@ -34,7 +32,7 @@ public class BalanceGameCommentController {
         this.balanceGameCommentMapper = balanceGameCommentMapper;
     }
 
-    @PostMapping("/balancegames/{balancegame-id}/balancegame-comments")
+    @PostMapping("/balancegame/{balancegame-id}/balancegame-comments")
     public ResponseEntity postComment(@PathVariable("balancegame-id") @Positive long gameId,
                                       @Valid @RequestBody BalanceGameCommentDto.Post postDto,
                                       Authentication authentication) {
@@ -56,21 +54,18 @@ public class BalanceGameCommentController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(balanceGameCommentMapper.commentToResponseDto(balanceGameComment)), HttpStatus.OK);
     }
-//    @GetMapping
-//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
-//        BalanceGameComment comment = balanceGameCommentService.findComment(commentId);
-//        return new ResponseEntity(balanceGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
-//    }
     @GetMapping("/balancegame-comments")
-    public ResponseEntity getComments(@Positive @RequestParam long memberId,
-                                      @Positive @RequestParam int page,
+    public ResponseEntity getComments(@Positive @RequestParam int page,
                                       @Positive @RequestParam int size,
+                                      @Positive @RequestParam(name = "member-id") Long memberId,
                                       Authentication authentication) {
-        Page<BalanceGameComment> pageBalanceGameComment = balanceGameCommentService.findComments(memberId, page, size, authentication);
+        if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
+
+        Page<BalanceGameComment> pageBalanceGameComment = balanceGameCommentService.findComments(page - 1, size, memberId, authentication);
 
         List<BalanceGameComment> balanceGameComments = pageBalanceGameComment.getContent();
 
 
-        return new ResponseEntity<>(balanceGameCommentMapper.commentsToResponseDtos(balanceGameComments), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(balanceGameCommentMapper.commentsToResponseDtos(balanceGameComments), pageBalanceGameComment), HttpStatus.OK);
     }
 }

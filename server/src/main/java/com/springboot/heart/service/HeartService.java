@@ -18,7 +18,6 @@ import com.springboot.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -138,24 +137,5 @@ public class HeartService {
             default:
                 throw new BusinessLogicException(ExceptionCode.CONTENT_NOT_FOUND);
         }
-    }
-    public Page<Post> getLikedPostsByMember(Member member, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return heartRepository.findLikedPostsByMember(member, pageRequest);
-    }
-
-    public Page<Comment> getLikedCommentsByMember(Member member, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return heartRepository.findLikedCommentsByMember(member, pageRequest);
-    }
-
-    public Page<ImageGame> getLikedImageGamesByMember(Member member, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return heartRepository.findLikedImageGamesByMember(member, pageRequest);
-    }
-
-    public Page<BalanceGame> getLikedBalanceGamesByMember(Member member, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return heartRepository.findLikedBalanceGamesByMember(member, pageRequest);
     }
 }

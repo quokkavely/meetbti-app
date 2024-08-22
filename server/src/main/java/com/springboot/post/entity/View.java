@@ -1,7 +1,6 @@
 package com.springboot.post.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

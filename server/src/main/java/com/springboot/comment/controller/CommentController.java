@@ -4,6 +4,7 @@ import com.springboot.comment.dto.CommentDto;
 import com.springboot.comment.entity.Comment;
 import com.springboot.comment.mapper.CommentMapper;
 import com.springboot.comment.service.CommentService;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.utils.UriCreator;
 import org.springframework.data.domain.Page;
@@ -43,33 +44,35 @@ public class CommentController {
 
         return  ResponseEntity.created(location).build();
     }
-//    @PatchMapping("/comments/{comment-id}")
-//    public ResponseEntity updateComment (@PathVariable("comment-id") @Positive long commentId,
-//                                         @Valid @RequestBody CommentDto.Update updateDto,
-//                                         Authentication authentication) {
-//        updateDto.setCommentId(commentId);
-//
-//        Comment comment = commentService.updateComment(commentMapper.commentUpdateDtoToComment(updateDto), authentication);
-//
-//        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)),HttpStatus.OK);
-//    }
+    @PatchMapping("/comments/{comment-id}")
+    public ResponseEntity updateComment (@PathVariable("comment-id") @Positive long commentId,
+                                         @Valid @RequestBody CommentDto.Update updateDto,
+                                         Authentication authentication) {
+        updateDto.setCommentId(commentId);
+
+        Comment comment = commentService.updateComment(commentMapper.commentUpdateDtoToComment(updateDto), authentication);
+
+        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentSimpleResponseDto(comment)),HttpStatus.OK);
+    }
     @GetMapping("/comments")
-    public ResponseEntity getComments(@Positive @RequestParam long memberId,
-                                      @Positive @RequestParam int page,
+    public ResponseEntity getComments(@Positive @RequestParam int page,
                                       @Positive @RequestParam int size,
+                                      @Positive @RequestParam(name = "member-id") Long memberId,
                                       Authentication authentication) {
-        Page<Comment> pageComments = commentService.findComments(memberId, page, size, authentication);
+        if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
+
+        Page<Comment> pageComments = commentService.findComments(page - 1, size, memberId, authentication);
 
         List<Comment> comments = pageComments.getContent();
 
-        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentsToCommentSimpleResponseDtos(comments)),HttpStatus.OK);
+        return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentsToCommentSimpleResponseDtos(comments), pageComments),HttpStatus.OK);
     }
-//    @DeleteMapping("comments/{comment-id}")
-//    public ResponseEntity deleteComment (@PathVariable("comment-id") @Positive long commentId,
-//                                         Authentication authentication) {
-//        commentService.deleteComment(commentId, authentication);
-//
-//        return new ResponseEntity(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("comments/{comment-id}")
+    public ResponseEntity deleteComment (@PathVariable("comment-id") @Positive long commentId,
+                                         Authentication authentication) {
+        commentService.deleteComment(commentId, authentication);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
 }

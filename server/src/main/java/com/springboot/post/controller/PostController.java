@@ -61,11 +61,10 @@ public class PostController {
         Principal principal = (Principal) authentication.getPrincipal();
 
         updateDto.setPostId(postId);
-//        updateDto.setMemberId(principal.getMemberId());
 
         Post post = postService.updatePost(postMapper.postUpdateDtoToPost(updateDto), authentication);
 
-        return new ResponseEntity(new SingleResponseDto<>(postMapper.postToPostPatchResponseDto(post)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(postMapper.postToPostPatchResponseDto(post)), HttpStatus.OK);
     }
 
     @GetMapping("{post-id}")
@@ -73,12 +72,13 @@ public class PostController {
                                   Authentication authentication) {
         Post post = postService.findPost(postId,authentication);
 
-        return new ResponseEntity(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper)), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getPosts(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size,
+                                   @Positive @RequestParam(required = false,name = "member-id") Long memberId,
                                    @RequestParam(required = false) String category,
                                    @RequestParam String standard,
                                    Authentication authentication) {
@@ -88,11 +88,17 @@ public class PostController {
 
         String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
 
-        Page<Post> pagePosts = postService.findPosts(page - 1, size, standard, selectCategory);
+        Page<Post> pagePosts;
+
+        if (memberId != null) {
+            pagePosts = postService.findPostsByMember(page - 1, size, memberId, standard, selectCategory);
+        }else {
+            pagePosts = postService.findPosts(page - 1, size, standard, selectCategory);
+        }
 
         List<Post> posts = pagePosts.getContent();
 
-        return new ResponseEntity(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper), pagePosts),HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper), pagePosts),HttpStatus.OK);
     }
 
     @DeleteMapping("{post-id}")
@@ -100,6 +106,6 @@ public class PostController {
                                      Authentication authentication) {
         postService.deletePost(postId,authentication);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

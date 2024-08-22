@@ -19,8 +19,10 @@ public class ImageGameResultDto {
     @Builder
     @Getter
     public static class Response {
-        private long memberId;
         private long gameId;
-        private String selectedMbti;
+        private String topic;
+        private int heartCount;
+        private int commentCount;
+        private boolean voted;
     }
 }

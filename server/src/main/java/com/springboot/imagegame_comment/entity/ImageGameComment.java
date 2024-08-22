@@ -1,7 +1,6 @@
 package com.springboot.imagegame_comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
@@ -43,12 +42,5 @@ public class ImageGameComment {
         this.imageGame = imageGame;
         this.member = member;
         this.content = content;
-    }
-
-    public void setImageGame(ImageGame game) {
-        imageGame = game;
-        if(!game.getComments().contains(this)){
-            game.addComment(this);
-        }
     }
 }
