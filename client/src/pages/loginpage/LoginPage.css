@@ -1,111 +1,171 @@
-.background{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+.app {
+    max-width: 480px; /* 모바일 크기 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 패딩 추가 */
+  }
+
+ /* 헤더 */
+.login-header {
     display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-}
-.register-input-container{
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+.login-logo-box {
     display: flex;
-    flex-direction: column;
-    width: 500px;
-    align-self: center;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+
+.login-logo-box > * {
+    margin-left: auto;
 }
 
+.login-back-icon {
+    width: 45px;
+    height: 38px;
+    cursor: pointer;
+  }
+  
+.login-back-icon img {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+/* 로고 섹션 */
 .logo-section {
     display: flex;
-    width: 480px;
-    max-width: 100%;
+    margin: 0 auto;
+    width: 340px;
+    margin-top: 20px; 
 }
 
 .logo{
     display: flex;
-    width: 350px;
+    width: 100%;
     /* height: 50px; */
     margin: 0 auto;
     justify-self: center;
     align-self: center;
 }
+
+
+/* 로그인 섹션 */
+
 .input-container{
-    padding-top: 100px;
+    padding-top: 40px;
+    width: 380px;
     display: flex;
     flex-direction: column;
+    align-self: center;
+    margin: 0 auto; /* 가운데 정렬 */
 }
-.find-password{
-    display: flex;
-}
-.find-password-button{
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width:190px;
-    height: 50px;
-    margin-top: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 15px;
-    background-color: white;
-    color: blueviolet;
-    font-size: 20px;
-    font-weight: bold;
-}
+
 .login-input{
     border: none;
-    resize: none;
-    outline: none;
     align-self: center;
-    width: 500px;
-    height: 80px;
+    width: 380px;
+    height: 60px;
     border-radius: 20px;
     margin-top: 20px;
     text-align: center;
-    line-height: 80px;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
 }
-.login-input::placeholder{
-    color: rgb(200,200,200);
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }
+
 .login-button{
     border: none;
-    width: 508px;
-    height: 80px;
+    width: 380px;
+    height: 60px;
     align-self: center;
     margin-top: 30px;
-    font-size: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 20px;  
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
     background-color: blueviolet;
     border-radius: 20px;
-    color: white;
+    color: white; 
+    font-size: 20px;
+}
+
+
+.find-password{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* 요소 사이의 간격을 20px로 설정 */
+    width: 380px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.find-password-button{
+    border: none;
+    box-shadow:  3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+    width: 180px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: white;
+    color: #a86bdd;
+    font-size: 20px;
     font-weight: bold;
-    font-size: 30px;
 }
-.input-container{
-    padding-top: 100px;
+
+/* 또는 */
+
+.or {
     display: flex;
-    flex-direction: column;
-}
-.or{
-    display: flex;
+    align-items: center;
     color: rgb(200,200,200);
-    margin-top: 50px;
-    margin-bottom: 40px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     align-self: center;
     justify-content: center;
 }
-.oauth-logo{
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 80px;
-    height: 80px
+
+.or::before,
+.or::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgb(200,200,200);
+    margin: 0 10px; 
 }
-.right{
-    margin-top: 100px;
-    margin-bottom: 80px;
-    color: rgb(200,200,200);
-    font-size: 20px;
-}
+
+
+/* 소셜 로그인 */
+
 .oauth-container{
     display: flex;
     justify-content: center;
 }
 
+.oauth-logo{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 60px;
+    height: 60px
+}
+.right{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: rgb(200,200,200);
+    font-size: 20px;
+    text-align: center;
+}
