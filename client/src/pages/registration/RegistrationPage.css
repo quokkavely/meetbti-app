@@ -67,3 +67,7 @@
     font-size: large;
     font-weight: bold;
 }
+.registration-button:hover{
+    /* border: 4px solid rgb(181, 129, 230); */
+    background-color: rgb(181, 129, 230);
+}
