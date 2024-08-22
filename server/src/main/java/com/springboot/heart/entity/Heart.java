@@ -23,7 +23,7 @@ public class Heart {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
+    @JsonBackReference("member-heart")
     private Member member;
 
     @Enumerated(EnumType.STRING)
@@ -35,22 +35,22 @@ public class Heart {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "POST_ID")
-    @JsonBackReference
+    @JsonBackReference("post-heart")
     private Post post;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "COMMENT_ID")
-    @JsonBackReference
+    @JsonBackReference("comment-heart")
     private Comment comment;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "IMAGEGAME_ID")
-    @JsonBackReference
+    @JsonBackReference("imagegame-heart")
     private ImageGame imageGame;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "BALANCEGAME_ID")
-    @JsonBackReference
+    @JsonBackReference("balancegame-heart")
     private BalanceGame balanceGame;
 
 }

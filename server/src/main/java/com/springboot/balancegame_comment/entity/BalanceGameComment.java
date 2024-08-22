@@ -22,12 +22,12 @@ public class BalanceGameComment {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
+    @JsonBackReference("member-balancegamecomment")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "BALANCEGAME_ID")
-    @JsonBackReference
+    @JsonBackReference("balancegame-comment")
     private BalanceGame balanceGame;
 
     @Column

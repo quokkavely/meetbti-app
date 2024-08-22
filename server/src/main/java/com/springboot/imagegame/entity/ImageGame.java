@@ -30,15 +30,15 @@ public class ImageGame {
     private String nickName;
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonManagedReference
+    @JsonManagedReference("imagegame-comment")
     List<ImageGameComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonManagedReference
+    @JsonManagedReference("imagegame-heart")
     List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonManagedReference
+    @JsonManagedReference("imagegame-result")
     List<ImageGameResult> results = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)

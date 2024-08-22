@@ -48,19 +48,19 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
+    @JsonBackReference("member-post")
     private Member member;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("post-heart")
     private List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("post-view")
     private List<View> views = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("post-comment")
     private List<Comment> comments = new ArrayList<>();
 
     public enum PostStatus {

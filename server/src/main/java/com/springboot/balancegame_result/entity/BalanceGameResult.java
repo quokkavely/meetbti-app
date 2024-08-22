@@ -21,13 +21,14 @@ public class BalanceGameResult {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    @JsonBackReference
+    @JsonBackReference("member-balanceresult")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "balanceGameId")
-    @JsonBackReference
+    @JsonBackReference("balancegame-result")
     private BalanceGame balanceGame;
+
 
     @Enumerated(value = EnumType.STRING)
     private SelectedOption selectedOption;

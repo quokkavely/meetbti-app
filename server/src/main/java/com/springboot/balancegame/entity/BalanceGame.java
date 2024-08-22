@@ -36,15 +36,15 @@ public class BalanceGame {
     private String nickname;
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonManagedReference
+    @JsonManagedReference("balancegame-comment")
     List<BalanceGameComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonManagedReference
+    @JsonManagedReference("balancegame-heart")
     List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonManagedReference
+    @JsonManagedReference("balancegame-result")
     List<BalanceGameResult> results = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)

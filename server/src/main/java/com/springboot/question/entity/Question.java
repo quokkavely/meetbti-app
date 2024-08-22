@@ -26,6 +26,6 @@ public class Question {
     private String tendency;
 
     @OneToMany(mappedBy = "question")
-    @JsonManagedReference
+    @JsonManagedReference("question-answer")
     private List<Answer> answers = new ArrayList<>();
 }

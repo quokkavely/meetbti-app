@@ -42,6 +42,6 @@ public class TestResult {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
+    @JsonBackReference("member-testresult")
     private Member member;
 }

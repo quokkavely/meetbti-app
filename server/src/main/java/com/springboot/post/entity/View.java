@@ -18,14 +18,14 @@ public class View {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long viewId;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")
+    @JsonBackReference
     private Member member;
 
-    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "POST_ID")
+    @JsonBackReference("post-view")
     private Post post;
 
 }

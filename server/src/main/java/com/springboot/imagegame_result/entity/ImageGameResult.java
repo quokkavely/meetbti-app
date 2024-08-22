@@ -21,12 +21,12 @@ public class ImageGameResult {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference
+    @JsonBackReference("member-imageresult")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "IMAGEGAME_ID")
-    @JsonBackReference
+    @JsonBackReference("imagegame-result")
     private ImageGame imageGame;
 
     @Enumerated(value = EnumType.STRING)

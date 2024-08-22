@@ -44,10 +44,17 @@ public class HeartController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("members/me/hearts")
-    public ResponseEntity getHears(Authentication authentication) {
-        List<Heart> hearts = heartService.getLikesByMember(authentication);
-        return ResponseEntity.ok(hearts);
-    }
+//    @GetMapping("members/me/hearts")
+//    public ResponseEntity getHears(Authentication authentication) {
+//        List<Heart> hearts = heartService.getLikesByMember(authentication);
+//        return ResponseEntity.ok(hearts);
+//    }
+    @GetMapping("/hearts")
+    public ResponseEntity getHearts(@RequestParam int page,
+                                    @RequestParam int size,
+                                    @RequestParam long memberId,
+                                    @RequestParam String type,
+                                    Authentication authentication) {
 
+    }
 }
