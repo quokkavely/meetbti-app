@@ -1,5 +1,6 @@
 package com.springboot.balancegame_result.dto;
 
+import com.springboot.balancegame.dto.BalanceGameDto;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,9 @@ public class BalanceGameResultDto {
         private long gameId;
         @NotNull
         private BalanceGameResult.SelectedOption selectedOption;
+    }
+    public static class PostResponse{
+        private BalanceGameDto.Response gameinfo;
     }
     @Builder
     @Getter

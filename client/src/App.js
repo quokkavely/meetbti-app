@@ -32,12 +32,12 @@ import BalanceGamePost from './pages/BalanceGamePost';
 import ImageGameMain from './pages/ImageGameMain';
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [login, setLogin] = useState(false);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage loggedIn = {loggedIn}/>} />
+        <Route path="/" element={<MainPage/>} />
         <Route path="/testmain" element={<TestMain />} />
         <Route path="/login" element={<LoginPage/>}/>
         <Route path='/registration' element={<RegistrationPage/>}/>

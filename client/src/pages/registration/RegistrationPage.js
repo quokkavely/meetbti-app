@@ -1,6 +1,8 @@
 import './RegistrationPage.css';
 import Header from '../../components/Header.js';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function WelcomeText(){
     return (
@@ -52,7 +54,8 @@ function onChangeInput(e, setState, regex, setError, setDuplChecked){
     }
 }
 
-const RegistrationPage = () => {
+const RegistrationPage = (props) => {
+    const navigate = useNavigate();
     const [emailInput, setEmailInput] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [nicknameInput, setNicknameInput] = useState('');
@@ -73,6 +76,8 @@ const RegistrationPage = () => {
     }
 
     const registration = async () => {
+        
+
         if(!emailDuplChecked){
             alert('이메일 중복 확인 해주세요')
             return;
@@ -109,6 +114,8 @@ const RegistrationPage = () => {
             );
             if(response.ok){
                 console.log('회원가입 성공');
+                props.setLogin(true);
+                navigate('/');
             }else{
                 console.log('회원가입 실패: ', response.status);
             }
