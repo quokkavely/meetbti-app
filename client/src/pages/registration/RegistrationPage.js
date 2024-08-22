@@ -11,14 +11,17 @@ function WelcomeText(){
     );
 }
 function RegisterInput(props){
+    const buttomContent = '중복 확인' + (props.duplChecked ? ' ✔' : '');
+
     return (
+        
         <div className="register-input-container">
             <h2 className="register-input-title">{props.title}</h2>
             <input type='text' className='register-input' placeholder={props.placeholder}
-             onChange={(e) => onChangeInput(e,props.setState, props.regex, props.setError)}></input>
+             onChange={(e) => onChangeInput(e,props.setState, props.regex, props.setError, props.duplCheck)}></input>
              <div className='register-input-footer'>
                 <div className='input-error-message'>{props.error && props.errorMessage}</div>
-                <button className="register-dupl-button">중복 확인</button>
+                <button className="register-dupl-button" onClick={props.duplCheck}>{buttomContent}</button>
              </div>
         </div>
     );
@@ -40,17 +43,14 @@ const validateInput = (input, regexStr) => {
     const regex = new RegExp(regexStr);
     return regex.test(input);
 }
-function onChangeInput(e, setState, regex, setError){
+function onChangeInput(e, setState, regex, setError, setDuplChecked){
     setState(e.target.value);
     const passed = validateInput(e.target.value, regex)
     setError(!passed);
+    if(setDuplChecked !== undefined){
+        setDuplChecked(false);
+    }
 }
-
-/* function onChangePassword(e,props){
-    props.setState(e.target.value)
-    const passed = validateInput
-} */
-
 
 const RegistrationPage = () => {
     const [emailInput, setEmailInput] = useState('');
@@ -62,7 +62,35 @@ const RegistrationPage = () => {
     const [passwordCheckInput, setPasswordCheckInput] = useState('');
     const [passwordCheckError, setPasswordCheckError] = useState(false);
 
+    const [emailDuplChecked, setEmailDuplChecked] = useState(false);
+    const [nicknameDuplChecked, setNicknameDuplChecked] = useState(false);
+
+    const duplCheckEmail = () => {
+        setEmailDuplChecked(true);
+    }
+    const duplCheckNickname = () => {
+        setNicknameDuplChecked(true);
+    }
+
     const registration = async () => {
+        if(!emailDuplChecked){
+            alert('이메일 중복 확인 해주세요')
+            return;
+        }
+        if(!nicknameDuplChecked){
+            alert('닉네임 중복 확인 해주세요')
+            return;
+        }
+        if(passwordInput === '' || passwordError){
+            alert('비밀번호를 확인해주세요')
+            setPasswordError(true);
+            return;
+        }
+        if(passwordCheckInput === '' || passwordCheckError){
+            alert('비밀번호를 한번 더 확인해주세요')
+            setPasswordCheckError(true);
+            return;
+        }
 
         try{
             const response = await fetch('http://localhost:8080/members',
@@ -98,13 +126,15 @@ const RegistrationPage = () => {
 
             <RegisterInput title='이메일' placeholder='이메일을 입력해주세요'
              error = {emailError} errorMessage='이메일은 공백이 아니어야 해요'
-              setState={setEmailInput} regex = '^.+$' setError={setEmailError}>
+              setState={setEmailInput} regex = '^.+$' setError={setEmailError}
+              duplChecked = {emailDuplChecked} duplCheck={setEmailDuplChecked}>
             </RegisterInput>
 
             <RegisterInput title='닉네임' placeholder='닉네임을 입력해주세요' 
             error = {nicknameError} errorMessage='2-10글자 이내로 유효하게 입력해주세요' 
             setState={setNicknameInput} regex = "^[a-zA-Z0-9가-힣]{2,10}$" 
-            setError={setNicknameError}>
+            setError={setNicknameError}
+            duplChecked = {nicknameDuplChecked} duplCheck={setNicknameDuplChecked}>
             </RegisterInput>
 
             <PasswordInput setState = {setPasswordInput} setState2 = {setPasswordCheckInput}
