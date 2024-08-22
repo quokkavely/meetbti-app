@@ -103,6 +103,9 @@
     color: white; 
     font-size: 20px;
 }
+.login-button:hover{
+    background-color: rgb(162, 94, 226);
+}
 
 
 .find-password{
@@ -123,9 +126,13 @@
     height: 50px;
     border-radius: 20px;
     background-color: white;
-    color: #a86bdd;
+    color: #b386db;
     font-size: 20px;
     font-weight: bold;
+}
+.find-password-button:hover{
+    color: white;
+    background-color: #dbc8fd;
 }
 
 /* 또는 */

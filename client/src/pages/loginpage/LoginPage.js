@@ -48,8 +48,38 @@ function InputContainer(){
         } else {
             setPasswordError('');
             // 로그인 로직 추가
+            requestLogin(email, password);
         }
     };
+
+    const requestLogin = async() => {
+        try{
+            const response = await fetch('http://localhost:8080/login',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: email,
+                        password: password
+                    }),
+                }
+                
+            );
+            if(response.ok){
+                console.log('로그인 성공');
+                const token = response.headers.get('Authorization');
+                console.log('token: ' + token);
+                /* props.setLogin(true);
+                navigate('/'); */
+            }else{
+                console.log('로그인 실패: ', response.status);
+            }
+        } catch (error){
+            console.error('로그인 실패', error);
+        }
+    }
 
     return (
         <div className="input-container">
@@ -103,7 +133,7 @@ const LoginPage = () => {
         <FindPasswordContainer></FindPasswordContainer>
         <h2 className="or"> 또는 </h2>
         <OAuthContainer></OAuthContainer>
-        <h2 className="right">MeetBTI all rights eserved</h2>
+        <h2 className="right">MeetBTI all rights reserved</h2>
       </div>
     );
   };
