@@ -36,6 +36,9 @@
     border: none;
     color:white;
 }
+.register-dupl-button:hover{
+    background-color: rgb(150, 124, 175);
+}
 .password-input{
     width: 100%;
     text-align: center;
@@ -70,4 +73,16 @@
 .registration-button:hover{
     /* border: 4px solid rgb(181, 129, 230); */
     background-color: rgb(181, 129, 230);
+}
+.register-input-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.input-error-message{
+    color: red;
+    font-size: 12px;
+}
+.password-error-message{
+    color: red;
+    font-size: 12px;
 }
