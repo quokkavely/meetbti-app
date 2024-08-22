@@ -1,6 +1,7 @@
 package com.springboot.imagegame.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.gamestatus.GameStatus;
 import com.springboot.heart.entity.Heart;
 import com.springboot.imagegame_comment.entity.ImageGameComment;
@@ -29,15 +30,15 @@ public class ImageGame {
     private String nickName;
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<ImageGameComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "imageGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<ImageGameResult> results = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)

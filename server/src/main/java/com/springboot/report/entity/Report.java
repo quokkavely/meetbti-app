@@ -21,7 +21,7 @@ public class Report {
     @Enumerated(value = EnumType.STRING)
     private ReportStatus status;
     public enum ReportReason {
-        SPAMMING("광고성게시글 또는 반복 게시물"),
+        SPAM("광고성게시글 또는 반복 게시물"),
         MISINFORMATION("허위 정보"),
         INAPPROPRIATE("부적절한 컨텐츠"),
         PROFANITY("욕설 또는 저속한언어");
@@ -33,7 +33,6 @@ public class Report {
             this.reason = reason;
         }
     }
-
     public enum ReportStatus {
         PENDING("대기중"),
         REVIEW("검토중"),

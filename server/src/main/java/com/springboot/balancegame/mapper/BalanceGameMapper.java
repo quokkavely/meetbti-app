@@ -92,6 +92,7 @@ public interface BalanceGameMapper {
                 rightMostMbti,
                 commentMapper.commentsToResponseDtos(game.getComments()),
                 game.getHearts().size(),
+                game.getComments().size(),
                 game.getNickname(),
                 voted
         );

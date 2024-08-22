@@ -1,5 +1,6 @@
 package com.springboot.balancegame_result.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.member.entity.Member;
@@ -20,12 +21,12 @@ public class BalanceGameResult {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "balanceGameId")
-    @JsonManagedReference
+    @JsonBackReference
     private BalanceGame balanceGame;
 
     @Enumerated(value = EnumType.STRING)

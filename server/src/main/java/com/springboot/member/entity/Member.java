@@ -1,6 +1,7 @@
 package com.springboot.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.comment.entity.Comment;
@@ -55,7 +56,7 @@ public class Member {
     private List<String> roles = new ArrayList<>();
 
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Heart> hearts = new ArrayList<>();
 //    public void setHeart(Heart heart){
 //        hearts.add(heart);
@@ -64,7 +65,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<TestResult> testResults = new ArrayList<>();
 //    public void setTestResult(TestResult testResult){
 //        testResults.add(testResult);
@@ -73,6 +74,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
+    @JsonManagedReference
     private List<Post> posts = new ArrayList<>();
 //    public void setPosts(Post post){
 //        posts.add(post);
@@ -81,7 +83,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 
 //    public void setComment(Comment comment){
@@ -91,7 +93,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<ImageGameComment> imageComments = new ArrayList<>();
 
 //    public void setImageComment(ImageGameComment imageComment){
@@ -101,7 +103,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<BalanceGameComment> balanceComments = new ArrayList<>();
 
 //    public void setBalanceComment(BalanceGameComment balanceComment){
@@ -111,7 +113,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<BalanceGameResult> balanceGameResults = new ArrayList<>();
 
 //    public void setBalanceResult(BalanceGameResult balanceResult){
@@ -121,7 +123,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonBackReference
+    @JsonManagedReference
     private List<ImageGameResult> imageResults = new ArrayList<>();
 
 //    public void setImageResult(ImageGameResult imageGameResult){

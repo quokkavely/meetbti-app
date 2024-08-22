@@ -1,5 +1,6 @@
 package com.springboot.testresult.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.member.entity.Member;
 import lombok.Getter;
@@ -41,6 +42,6 @@ public class TestResult {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private Member member;
 }

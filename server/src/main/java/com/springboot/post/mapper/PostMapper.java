@@ -28,7 +28,7 @@ public interface PostMapper {
             response.heartCount(post.getHearts().size());
             response.viewCount(post.getViews().size());
             response.commentCount(post.getComments().size());
-            response.comments(commentMapper.commentsToCommentResponseDtos(post.getComments()));
+            response.comments(commentMapper.commentsToCommentDetailedResponseDtos(post.getComments()));
 
             return response.build();
     }

@@ -44,10 +44,14 @@ public class CommentService {
 //
 //        return commentRepository.save(findComment);
 //    }
-    public List<Comment> findComments (Authentication authentication) {
+    public List<Comment> findComments (long memberId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
+
+        if (memberId != findMember.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
 
         return commentRepository.findByMember(findMember);
     }

@@ -1,5 +1,6 @@
 package com.springboot.balancegame_comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.member.entity.Member;
@@ -21,12 +22,12 @@ public class BalanceGameComment {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "BALANCEGAME_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private BalanceGame balanceGame;
 
     @Column

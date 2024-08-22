@@ -1,5 +1,6 @@
 package com.springboot.imagegame_result.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.member.entity.Member;
@@ -20,12 +21,12 @@ public class ImageGameResult {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "IMAGEGAME_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private ImageGame imageGame;
 
     @Enumerated(value = EnumType.STRING)

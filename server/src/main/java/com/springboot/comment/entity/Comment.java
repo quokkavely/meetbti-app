@@ -34,16 +34,16 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private Post post;
 
     @OneToMany(mappedBy = "comment")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Heart> hearts = new ArrayList<>();
 
 }

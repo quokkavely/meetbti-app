@@ -36,6 +36,7 @@ public class BalanceGameDto {
         private String leftMostMbti;
         private String rightMostMbti;
         private List<BalanceGameCommentDto.Response> comments;
+        private int commentCount;
         private int heartCount;
         private String nickName;
         private boolean voted;

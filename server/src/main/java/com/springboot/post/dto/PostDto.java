@@ -49,6 +49,6 @@ public class PostDto {
         private int heartCount;
         private int viewCount;
         private int commentCount;
-        private List<CommentDto.Response> comments;
+        private List<CommentDto.DetailedResponse> comments;
     }
 }

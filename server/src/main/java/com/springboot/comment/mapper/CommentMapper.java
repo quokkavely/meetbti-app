@@ -12,8 +12,12 @@ public interface CommentMapper {
     @Mapping(source = "postId", target = "post.postId")
     Comment commentCreateDtoToComment (CommentDto.Create create);
     Comment commentUpdateDtoToComment (CommentDto.Update update);
-    default CommentDto.Response commentToCommentResponseDto (Comment comment) {
-        CommentDto.Response.ResponseBuilder response = CommentDto.Response.builder();
+    @Mapping(source = "post.title", target = "title")
+    @Mapping(source = "post.postId", target = "postId")
+    CommentDto.SimpleResponse commentToCommentSimpleResponseDto (Comment comment);
+    List<CommentDto.SimpleResponse> commentsToCommentSimpleResponseDtos (List<Comment> comment);
+    default CommentDto.DetailedResponse commentToCommentDetailedResponseDto (Comment comment) {
+        CommentDto.DetailedResponse.DetailedResponseBuilder response = CommentDto.DetailedResponse.builder();
             response.commentId(comment.getCommentId());
             response.image(comment.getMember().getImage());
             response.nickName(comment.getMember().getNickname());
@@ -23,5 +27,5 @@ public interface CommentMapper {
             response.createdAt(comment.getCreatedAt());
             return response.build();
     }
-    List<CommentDto.Response> commentsToCommentResponseDtos (List<Comment> comments);
+    List<CommentDto.DetailedResponse> commentsToCommentDetailedResponseDtos (List<Comment> comments);
 }

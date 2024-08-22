@@ -25,7 +25,15 @@ public class CommentDto {
     }
     @Builder
     @Getter
-    public static class Response {
+    public  static class SimpleResponse {
+        private String content;
+        private long postId;
+        private String title;
+        private LocalDateTime createdAt;
+    }
+    @Builder
+    @Getter
+    public static class DetailedResponse {
         private long commentId;
         private String image;
         private String nickName;

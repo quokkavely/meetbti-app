@@ -53,10 +53,12 @@ public class CommentController {
 //        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)),HttpStatus.OK);
 //    }
     @GetMapping("/comments")
-    public ResponseEntity getComments (Authentication authentication) {
-        List<Comment> comments = commentService.findComments(authentication);
+    public ResponseEntity getComments (@Positive @RequestParam long memberId,
+                                       Authentication authentication) {
 
-        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentsToCommentResponseDtos(comments)),HttpStatus.OK);
+        List<Comment> comments = commentService.findComments(memberId, authentication);
+
+        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentsToCommentSimpleResponseDtos(comments)),HttpStatus.OK);
     }
 //    @DeleteMapping("comments/{comment-id}")
 //    public ResponseEntity deleteComment (@PathVariable("comment-id") @Positive long commentId,

@@ -1,6 +1,7 @@
 package com.springboot.balancegame.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame_comment.entity.BalanceGameComment;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.gamestatus.GameStatus;
@@ -35,15 +36,15 @@ public class BalanceGame {
     private String nickname;
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<BalanceGameComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "balanceGame")
-    @JsonBackReference
+    @JsonManagedReference
     List<BalanceGameResult> results = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)

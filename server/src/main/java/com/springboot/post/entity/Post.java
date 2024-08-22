@@ -1,6 +1,7 @@
 package com.springboot.post.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.comment.entity.Comment;
 import com.springboot.heart.entity.Heart;
 
@@ -47,17 +48,19 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
+    @JsonBackReference
     private Member member;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Heart> hearts = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<View> views = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 
     public enum PostStatus {

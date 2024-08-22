@@ -1,5 +1,6 @@
 package com.springboot.heart.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.comment.entity.Comment;
@@ -20,9 +21,9 @@ public class Heart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long heartId;
 
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "MEMBER_ID")
+    @JsonBackReference
     private Member member;
 
     @Enumerated(EnumType.STRING)
@@ -34,18 +35,22 @@ public class Heart {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "POST_ID")
+    @JsonBackReference
     private Post post;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "COMMENT_ID")
+    @JsonBackReference
     private Comment comment;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "IMAGEGAME_ID")
+    @JsonBackReference
     private ImageGame imageGame;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "BALANCEGAME_ID")
+    @JsonBackReference
     private BalanceGame balanceGame;
 
 }
