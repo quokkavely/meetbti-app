@@ -16,7 +16,7 @@ const Header = (props) => {
           <img src="/Main-logo.png" alt='메인로고'/>
         </div>
         <div className="user-icon-container">
-          <img src="profile.png" alt="사용자 아이콘" onClick={() => navigate(props.isAuthenticated ? '/mypage' : '/registration')}/>
+          <img src="profile.png" alt="사용자 아이콘" onClick={() => navigate(props.isAuthenticated ? '/mypage' : '/login')}/>
         </div>
       </div>
       <div className="logo-text">
@@ -35,7 +35,7 @@ const MBTITest = (props) => {
       <div className="mbti-test">
         <h2>MBTI TEST</h2>
         <button onClick={() => {
-          navigate(props.isAuthenticated ? '/TestMain' : '/registration');
+          navigate(props.isAuthenticated ? '/TestMain' : '/login');
          console.log(props.isAuthenticated);
          }}>START</button>
       </div>
@@ -75,7 +75,7 @@ const MainContent = (props) => {
           다른 MBTI들의 생각은?!
         </div>
         <div className="go-point">
-          <img src="to.png" alt='가기' onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}/>
+          <img src="to.png" alt='가기' onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}/>
         </div>
       </div>
       <Slider {...settings} className="card-list">
@@ -83,37 +83,37 @@ const MainContent = (props) => {
           image="redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}
         />
         <Card
           image="whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}
         />
         <Card 
           image="redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')} 
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')} 
         />
         <Card
           image="whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}
         />
         <Card 
           image="redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}
         />
         <Card
           image="whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTIBoard' : '/login')}
         />
       </Slider>
       <div className="snack">
@@ -121,7 +121,7 @@ const MainContent = (props) => {
         즐겨보세요, 스낵 컬처!
         </div>
         <div className="go-point">
-           <img src="to.png" alt='가기' onClick={() => navigate(props.isAuthenticated ? '/snackmain' : '/registration')}/>
+           <img src="to.png" alt='가기' onClick={() => navigate(props.isAuthenticated ? '/snackmain' : '/login')}/>
         </div>
       </div>
       <Slider {...settings} className="card-list">
@@ -129,19 +129,19 @@ const MainContent = (props) => {
           image="snack-img1.jpeg" 
           title="이미지 게임" 
           description="가장 ~~ 할 것 같은 MBTI는?"
-          onClick={() => navigate(props.isAuthenticated ? '/ImageGame' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/ImageGame' : '/login')}
         />
         <Card 
           image="snack-img2.jpeg" 
           title="밸런스 게임" 
           description="말해 Yes or No" 
-          onClick={() => navigate(props.isAuthenticated ? '/BalanceGame' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/BalanceGame' : '/login')}
         />
         <Card 
           image="snack-img1.jpeg" 
           title="MBTMI" 
           description="MBTI의 TMI 대방출!" 
-          onClick={() => navigate(props.isAuthenticated ? '/MBTMI' : '/registration')}
+          onClick={() => navigate(props.isAuthenticated ? '/MBTMI' : '/login')}
         />
       </Slider>
     </main>
