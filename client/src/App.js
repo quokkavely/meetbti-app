@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import TestMain from './pages/TestMain';
@@ -32,10 +32,12 @@ import BalanceGamePost from './pages/BalanceGamePost';
 import ImageGameMain from './pages/ImageGameMain';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage loggedIn = {loggedIn}/>} />
         <Route path="/testmain" element={<TestMain />} />
         <Route path="/login" element={<LoginPage/>}/>
         <Route path='/registration' element={<RegistrationPage/>}/>

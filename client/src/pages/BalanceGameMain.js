@@ -31,7 +31,7 @@ const BalanceGameContainer = (props) => {
          <div className="selectbox-count">
             <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
             <div className="balance-comment-count"> 💬 {props.commentCount} </div>
-            <div className="balance-status"> {props.isParticipated ? '미참여' : '참여완료'} </div>
+            <div className="balance-status"> {props.isParticipated ? '참여완료' : '미참여'} </div>
           </div>
         </div>
     </div>
@@ -45,7 +45,7 @@ const BalanceGame = () => {
   const [isParticipated, setIsParticipated] = useState(true); // 유저 참여 여부
 
   const dummyGames = [
-    {title:'일 할래, 놀래?', leftOption: '월 500 받고 매일 야근하기', rightOption: '월 100 받고 백수 생활하기', heartCount: 1, commentCount:3, isParticipated: true}
+    {title:'일 할래, 놀래?', leftOption: '월 500 받고 매일 야근하기', rightOption: '월 100 받고 백수 생활하기', heartCount: 1, commentCount:3, isParticipated: false}
   ];
 
   const [dbDummyGames, setDbDummyGames] = useState([]);
@@ -70,7 +70,7 @@ const BalanceGame = () => {
          <div className="selectbox-count">
             <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
             <div className="balance-comment-count"> 💬 {props.commentCount} </div>
-            <div className="balance-status"> {props.isParticipated ? '미참여' : '참여완료'} </div>
+            <div className="balance-status"> {props.isParticipated ? '참여완료' : '미참여'} </div>
           </div>
         </div>
       </div>
