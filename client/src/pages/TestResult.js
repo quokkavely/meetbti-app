@@ -1,38 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TestResult.css';
+import AppContainer from '../components/AppContainer';
+import Header from '../components/Header';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
-const Header = () => {
-  const navigate = useNavigate();
+const AppContainerComponent = () => {
   return (
-    <header className="header">
-      <div className="logo-box">
-        <div className='logo-img' onClick={() => navigate('/')}>
-          <img src="/Main-logo.png" alt='메인로고'/>
-        </div>
-        <div className="back-icon" onClick={() => navigate('/TestMain')}>
-          <img src="back(grey).png" alt='뒤로 가기' />
-        </div>
-      </div>
-      <div className="logo-text">
-        <h1>본격 MBTI 커뮤니티!</h1>
-      </div>
-    </header>
+      <AppContainer />
+  );
+};
+
+const HeaderComponent = () => {
+  return (
+      <Header />
   );
 };
 
 
-
 // MBTI 테스트 컴포넌트
 const MBTITestResult = () => {
+  const imageRef = useRef(null);
+  const overlayRef = useRef(null);
+
+  useEffect(() => {
+    const imageElement = imageRef.current;
+    const overlayElement = overlayRef.current;
+
+    const handleMouseMove = (e) => {
+      const rect = imageElement.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
+      const x = e.clientX - rect.left; // 마우스의 x 좌표를 이미지의 왼쪽 위 모서리를 기준으로 계산
+      const y = e.clientY - rect.top; // 마우스의 y 좌표를 이미지의 왼쪽 위 모서리를 기준으로 계산
+      // 이미지 회전 계산
+      const rotateY = (-1 / 30) * x + 5; // Y축 회전 계산
+      const rotateX = (1 / 45) * y - 5; // X축 회전 계산
+      imageElement.style.transform = `perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    // 이미지에 회전 적용
+
+    //   const backgroundPositionX = 20 + x / rect.width * 20; // x 위치에 따라 배경 위치를 조정
+    //   overlayElement.style.backgroundPosition = `${backgroundPositionX}% 50%`; // 배경 위치를 50%로 고정하여 y축에서 변화 없도록
+    // };
+
+      const backgroundPositionX = 50 + (x / rect.width - 0.5) * 160;  // x 위치에 따라 배경 위치를 조정
+      const backgroundPositionY = 50 + (y / rect.height - 0.5) * 40; // 배경 위치를 50%로 고정하여 y축에서 변화 없도록
+      overlayElement.style.backgroundPosition = `${backgroundPositionX}% ${backgroundPositionY}%`;
+    };
+
+    // 마우스 이벤트 리스너 추가
+    if(imageElement) {
+      imageElement.addEventListener('mousemove', handleMouseMove);
+    }
+
+    // 마우스 이벤트 리스너 제거
+    return () => {
+      if(imageElement) {
+        imageElement.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
+  }, []);
+
   return (
     <div className="ResultImg">
-      <img src="result.png" alt="Test Result" className="mbti-test-result-image"/>
+      <img 
+        ref={imageRef} 
+        src="result.png" 
+        alt="Test Result" 
+        className="mbti-test-result-image"/>
+      <div 
+        ref={overlayRef} 
+        className="overlay"></div>
     </div>
   )
 };
+
+
+
+
 
 const MBTIFeature = () => {
   return (
@@ -339,7 +383,8 @@ const TestResult = () => {
   console.log('TestResult 렌더링');
   return (
     <div className="app">
-      <Header />
+      <AppContainerComponent />
+      <HeaderComponent />
       <MBTITestResult />
       <MBTIFeature />
       <Line />
