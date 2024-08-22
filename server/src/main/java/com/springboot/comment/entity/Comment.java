@@ -32,17 +32,17 @@ public class Comment {
     @Column
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     @JsonManagedReference
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "POST_ID")
     @JsonManagedReference
     private Post post;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "comment")
     @JsonBackReference
     private List<Heart> hearts = new ArrayList<>();
 

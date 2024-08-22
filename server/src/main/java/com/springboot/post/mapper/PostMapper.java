@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = CommentMapper.class)
 public interface PostMapper {
@@ -14,7 +15,7 @@ public interface PostMapper {
 //    @Mapping(source = "memberId", target = "member.memberId")
     Post postUpdateDtoToPost (PostDto.Update update);
     PostDto.PatchResponse postToPostPatchResponseDto (Post post);
-    default PostDto.GetResponse postToPostGetResponseDto (Post post,CommentMapper commentMapper) {
+    default PostDto.GetResponse postToPostGetResponseDto (Post post, CommentMapper commentMapper) {
         PostDto.GetResponse.GetResponseBuilder response = PostDto.GetResponse.builder();
             response.postId(post.getPostId());
             response.title(post.getTitle());
@@ -31,5 +32,9 @@ public interface PostMapper {
 
             return response.build();
     }
-    List<PostDto.GetResponse> postsToPostResponseDtos (List<Post> posts);
+   default List<PostDto.GetResponse> postsToPostResponseDtos (List<Post> posts, CommentMapper commentMapper) {
+       return posts.stream()
+               .map(post -> postToPostGetResponseDto(post,commentMapper))
+               .collect(Collectors.toList());
+   }
 }

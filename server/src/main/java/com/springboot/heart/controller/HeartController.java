@@ -5,12 +5,14 @@ import com.springboot.heart.entity.Heart;
 import com.springboot.heart.service.HeartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping
+@Validated
 public class HeartController {
     private final HeartService heartService;
 
@@ -42,7 +44,7 @@ public class HeartController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/mypage/hearts")
+    @GetMapping("members/me/hearts")
     public ResponseEntity getHears(Authentication authentication) {
         List<Heart> hearts = heartService.getLikesByMember(authentication);
         return ResponseEntity.ok(hearts);

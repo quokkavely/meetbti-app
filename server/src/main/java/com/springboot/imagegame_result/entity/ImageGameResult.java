@@ -36,7 +36,6 @@ public class ImageGameResult {
         this.imageGame = imageGame;
         this.selectedMbti = selectedMbti;
     }
-
     public enum SelectedMbti {
         ISTJ,
         ISFJ,

@@ -73,7 +73,7 @@ public class PostController {
                                    Authentication authentication) {
         Post post = postService.findPost(postId,authentication);
 
-        return new ResponseEntity(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post,commentMapper)), HttpStatus.OK);
+        return new ResponseEntity(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper)), HttpStatus.OK);
     }
 
     @GetMapping
@@ -86,13 +86,13 @@ public class PostController {
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
-        String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size()-1).getMbti();
+        String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
 
-        Page<Post> pagePosts = postService.findPosts(page, size, standard, selectCategory);
+        Page<Post> pagePosts = postService.findPosts(page - 1, size, standard, selectCategory);
 
         List<Post> posts = pagePosts.getContent();
 
-        return new ResponseEntity(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts),pagePosts),HttpStatus.OK);
+        return new ResponseEntity(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper), pagePosts),HttpStatus.OK);
     }
 
     @DeleteMapping("{post-id}")

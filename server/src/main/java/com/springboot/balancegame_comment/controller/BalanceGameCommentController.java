@@ -20,48 +20,50 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/balancegame-comments")
+@RequestMapping
 @Validated
 public class BalanceGameCommentController {
     private final BalanceGameCommentService balanceGameCommentService;
     private final BalanceGameCommentMapper balanceGameCommentMapper;
     private final String DEFAULT_URL = "/balancegame-comments";
 
-    public BalanceGameCommentController(BalanceGameCommentService service, BalanceGameCommentMapper mapper) {
-        this.balanceGameCommentService = service;
-        this.balanceGameCommentMapper = mapper;
+    public BalanceGameCommentController (BalanceGameCommentService balanceGameCommentService, BalanceGameCommentMapper balanceGameCommentMapper) {
+        this.balanceGameCommentService = balanceGameCommentService;
+        this.balanceGameCommentMapper = balanceGameCommentMapper;
     }
 
-    @PostMapping
-    public ResponseEntity postComment (/*@PathVariable("balancegame-id") @Positive long gameId,*/
+    @PostMapping("/balancegames/{balancegame-id}/balancegame-comments")
+    public ResponseEntity postComment (@PathVariable("balancegame-id") @Positive long gameId,
                                        @Valid @RequestBody BalanceGameCommentDto.Post postDto,
                                        Authentication authentication) {
-        /*postDto.setGameId(gameId);*/
-        BalanceGameComment tempComment = balanceGameCommentMapper.postDtoToComment(postDto);
-        BalanceGameComment balanceGameComment = balanceGameCommentService.createComment(tempComment, authentication);
+        postDto.setGameId(gameId);
+
+        BalanceGameComment balanceGameComment = balanceGameCommentService.createComment(balanceGameCommentMapper.postDtoToComment(postDto), authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, balanceGameComment.getCommentId());
 
         return ResponseEntity.created(location).build();
     }
-    @PatchMapping("/{comment-id}")
-    public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
-                                       @Valid @RequestBody BalanceGameCommentDto.Patch patchDto,
-                                       Authentication authentication){
+    @PatchMapping("/balancegame-comments/{comment-id}")
+    public ResponseEntity patchComment (@PathVariable("comment-id") @Positive long commentId,
+                                        @Valid @RequestBody BalanceGameCommentDto.Patch patchDto,
+                                        Authentication authentication) {
         patchDto.setCommentId(commentId);
 
         BalanceGameComment balanceGameComment = balanceGameCommentService.updateComment(balanceGameCommentMapper.patchDtoToComment(patchDto), authentication);
 
         return new ResponseEntity(new SingleResponseDto<>(balanceGameCommentMapper.commentToResponseDto(balanceGameComment)), HttpStatus.OK);
     }
-    @GetMapping("/{comment-id}")
-    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
-        BalanceGameComment comment = balanceGameCommentService.findComment(commentId);
-        return new ResponseEntity(balanceGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
-    }
-    @GetMapping
-    public ResponseEntity getComments(){
+//    @GetMapping
+//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
+//        BalanceGameComment comment = balanceGameCommentService.findComment(commentId);
+//        return new ResponseEntity(balanceGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
+//    }
+    @GetMapping("/balancegame-comments")
+    public ResponseEntity getComments() {
+
         List<BalanceGameComment> comments = balanceGameCommentService.findComments();
+
         return new ResponseEntity(balanceGameCommentMapper.commentsToResponseDtos(comments), HttpStatus.OK);
     }
 }

@@ -10,20 +10,20 @@ public class BalanceGameCommentDto {
     @Builder
     @Getter
     @Setter
-    public static class Post{
+    public static class Post {
         private long gameId;
         private String content;
     }
     @Builder
     @Getter
     @Setter
-    public static class Patch{
+    public static class Patch {
         private long commentId;
         private String content;
     }
     @Builder
     @Getter
-    public static class Response{
+    public static class Response {
         private String image;
         private String nickName;
         private String mbti;

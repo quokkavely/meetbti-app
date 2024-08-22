@@ -6,5 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
-    Page<Post> findByCategory (Pageable pageable, String category);
+
+    Page<Post> findByPostStatusNot(Pageable pageable, Post.PostStatus postStatus);
+    Page<Post> findByCategoryAndPostStatusNot(Pageable pageable, String category, Post.PostStatus postStatus);
 }

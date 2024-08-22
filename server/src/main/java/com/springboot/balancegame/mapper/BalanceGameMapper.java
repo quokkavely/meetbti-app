@@ -93,9 +93,12 @@ public interface BalanceGameMapper {
                 commentMapper.commentsToResponseDtos(game.getComments()),
                 game.getHearts().size(),
                 game.getNickname(),
-                game.getGameStatus().toString(),
                 voted
         );
     };
-    List<BalanceGameDto.Response> gamesToResponseDtos(List<BalanceGame> games);
+    default List<BalanceGameDto.Response> gamesToResponseDtos(List<BalanceGame> games, Authentication authentication, BalanceGameCommentMapper commentMapper) {
+        return games.stream()
+                .map(post -> gameToGameResponseDto(post, authentication, commentMapper))
+                .collect(Collectors.toList());
+    }
 }

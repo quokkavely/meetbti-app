@@ -44,7 +44,6 @@ public class Heart {
     @JoinColumn(name = "IMAGEGAME_ID")
     private ImageGame imageGame;
 
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "BALANCEGAME_ID")
     private BalanceGame balanceGame;

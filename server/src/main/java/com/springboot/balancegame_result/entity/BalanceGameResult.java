@@ -36,7 +36,6 @@ public class BalanceGameResult {
         this.balanceGame = balanceGame;
         this.selectedOption = selectedOption;
     }
-
     public enum SelectedOption{
         L,
         R

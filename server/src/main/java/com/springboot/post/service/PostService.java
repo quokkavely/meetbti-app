@@ -82,7 +82,11 @@ public class PostService {
     public Page<Post> findPosts (int page, int size, String standard, String category) {
         Pageable pageable = createPageable(page, size, standard);
 
-        return postRepository.findByCategory(pageable,category);
+        if (category.equals("all")) {
+            return postRepository.findByPostStatusNot(pageable, Post.PostStatus.DELETED);
+        } else {
+            return postRepository.findByCategoryAndPostStatusNot(pageable, category, Post.PostStatus.DELETED);
+        }
     }
     //게시글을 삭제하는 메서드
     public void deletePost (long postId, Authentication authentication) {

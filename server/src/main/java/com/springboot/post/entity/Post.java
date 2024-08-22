@@ -45,18 +45,18 @@ public class Post {
     @Column(nullable = false, length = 10)
     private PostStatus postStatus = PostStatus.REGISTERED;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Heart> hearts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<View> views = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Comment> comments = new ArrayList<>();
 

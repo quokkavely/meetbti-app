@@ -38,7 +38,6 @@ public class BalanceGameDto {
         private List<BalanceGameCommentDto.Response> comments;
         private int heartCount;
         private String nickName;
-        private String gameStatus;
         private boolean voted;
     }
 }

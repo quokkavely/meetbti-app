@@ -4,6 +4,7 @@ import com.springboot.imagegame_result.dto.ImageGameResultDto;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.imagegame_result.mapper.ImageGameResultMapper;
 import com.springboot.imagegame_result.service.ImageGameResultService;
+import com.springboot.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,25 +29,25 @@ public class ImageGameResultController {
         this.imageGameResultService = service;
     }
 
-    @PostMapping("/{game-id}/imagegame-results")
-    public ResponseEntity postResult (@PathVariable("game-id") @Positive long gameId,
+    @PostMapping("/imagegames/{imagegame-id}/imagegame-results")
+    public ResponseEntity postResult (@PathVariable("imagegame-id") @Positive long gameId,
                                       @Valid @RequestBody ImageGameResultDto.Post postDto,
                                       Authentication authentication){
         postDto.setGameId(gameId);
 
-        ImageGameResult imageGameResult = imageGameResultService.createResult(imageGameResultMapper.postDtoToResult(postDto), authentication);
+        ImageGameResult result = imageGameResultService.createResult(imageGameResultMapper.postDtoToResult(postDto), authentication);
 
+        URI location = UriCreator.createUri(DEFAULT_URL, result.getResultId());
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
+//    @GetMapping("/{result-id}")
+//    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){
+//        ImageGameResult result = imageGameResultService.findResult(resultId);
+//        return new ResponseEntity(imageGameResultMapper.resultToResponseDto(result), HttpStatus.OK);
+//    }
 
-    @GetMapping("/{result-id}")
-    public ResponseEntity getResult(@PathVariable("result-id") @Positive long resultId){
-        ImageGameResult result = imageGameResultService.findResult(resultId);
-        return new ResponseEntity(imageGameResultMapper.resultToResponseDto(result), HttpStatus.OK);
-    }
-
-    @GetMapping
+    @GetMapping("/imagegame-results")
     public ResponseEntity getResults(){
         List<ImageGameResult> results = imageGameResultService.findResults();
         return new ResponseEntity(imageGameResultMapper.resultsToResponseDtos(results), HttpStatus.OK);

@@ -40,14 +40,14 @@ public class ImageGameController {
 
     @PostMapping
     public ResponseEntity postGame (@Valid @RequestBody ImageGameDto.Post postDto,
-                                   Authentication authentication) {
+                                    Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
         postDto.setNickName(findMember.getNickname());
 
-        ImageGame imageGame = imageGameService.createGame(imageGameMapper.imageGamePostDtoToImageGame(postDto));
+        ImageGame imageGame = imageGameService.createGame(imageGameMapper.imageGamePostDtoToImageGame(postDto), authentication);
 
         URI location = UriCreator.createUri(DEFAULT_URL, imageGame.getImageGameId());
 
@@ -57,19 +57,17 @@ public class ImageGameController {
     @GetMapping("/{game-id}")
     public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId,
                                   Authentication authentication){
+
         ImageGame game = imageGameService.findGame(gameId);
 
-        Principal principal = (Principal) authentication.getPrincipal();
-        return new ResponseEntity(imageGameMapper.imageGameToImageGameResponseDto(game, principal, imageGameCommentMapper), HttpStatus.OK);
+        return new ResponseEntity(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getGames(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size){
-        Page<ImageGame> pageGames = imageGameService.findGames(page-1, size);
-        List<ImageGame> games = pageGames.getContent();
+    public ResponseEntity getGames (Authentication authentication) {
+        List<ImageGame> games = imageGameService.findGames();
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(imageGameMapper.gamesToGameResponseDtos(games, authentication,imageGameCommentMapper), HttpStatus.OK);
     }
 
     @DeleteMapping("/{game-id}")

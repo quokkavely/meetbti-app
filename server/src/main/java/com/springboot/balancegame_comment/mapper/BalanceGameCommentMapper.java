@@ -17,8 +17,7 @@ public interface BalanceGameCommentMapper {
         BalanceGameCommentDto.Response.ResponseBuilder response = BalanceGameCommentDto.Response.builder();
         response.image(balanceGameComment.getMember().getImage());
         response.nickName(balanceGameComment.getMember().getNickname());
-        /*response.mbti(balanceGameComment.getMember().getTestResults().get(balanceGameComment.getMember().getTestResults().size()-1).getMbti());*/
-        response.mbti("ISTP");
+        response.mbti(balanceGameComment.getMember().getTestResults().get(balanceGameComment.getMember().getTestResults().size()-1).getMbti());
         response.content(balanceGameComment.getContent());
         response.createdAt(balanceGameComment.getCreatedAt());
         response.modifiedAt(balanceGameComment.getModifiedAt());

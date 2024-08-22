@@ -44,8 +44,8 @@ public class BalanceGameController {
     }
 
     @PostMapping
-    public ResponseEntity postGame(@Valid @RequestBody BalanceGameDto.Post postDto,
-                                   Authentication authentication){
+    public ResponseEntity postGame (@Valid @RequestBody BalanceGameDto.Post postDto,
+                                    Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -68,17 +68,16 @@ public class BalanceGameController {
     }
 
     @GetMapping
-    public ResponseEntity getGames(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size){
-        Page<BalanceGame> pageGames = balanceGameService.findGames(page-1, size);
-        List<BalanceGame> games = pageGames.getContent();
+    public ResponseEntity getGames(Authentication authentication) {
+        List<BalanceGame> games = balanceGameService.findGames();
 
-        return new ResponseEntity(balanceGameMapper.gamesToResponseDtos(games), HttpStatus.OK);
+        return new ResponseEntity(balanceGameMapper.gamesToResponseDtos(games, authentication, balanceGameCommentMapper), HttpStatus.OK);
     }
 
     @DeleteMapping("/{game-id}")
     public ResponseEntity deleteGame(@PathVariable("game-id") @Positive long gameId){
         balanceGameService.deleteGame(gameId);
+
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

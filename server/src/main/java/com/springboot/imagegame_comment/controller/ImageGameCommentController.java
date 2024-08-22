@@ -26,15 +26,15 @@ public class ImageGameCommentController {
     private final ImageGameCommentMapper imageGameCommentMapper;
     private final static String DEFAULT_URL = "/imagegame-comments";
 
-    public ImageGameCommentController(ImageGameCommentService service, ImageGameCommentMapper mapper) {
+    public ImageGameCommentController (ImageGameCommentService service, ImageGameCommentMapper mapper) {
         this.imageGameCommentService = service;
         this.imageGameCommentMapper = mapper;
     }
 
-    @PostMapping("/{imagegame-id}/imagegame-comments")
-    public ResponseEntity postComment(@PathVariable("imagegame-id") @Positive long gameId,
-                                      @Valid @RequestBody ImageGameCommentDto.Post postDto,
-                                      Authentication authentication){
+    @PostMapping("/imagegames/{imagegame-id}/imagegame-comments")
+    public ResponseEntity postComment (@PathVariable("imagegame-id") @Positive long gameId,
+                                       @Valid @RequestBody ImageGameCommentDto.Post postDto,
+                                       Authentication authentication) {
         postDto.setGameId(gameId);
 
         ImageGameComment imageGameComment = imageGameCommentService.createComment(gameId, imageGameCommentMapper.postDtoToComment(postDto), authentication);
@@ -43,24 +43,26 @@ public class ImageGameCommentController {
 
         return ResponseEntity.created(location).build();
     }
-    @PatchMapping("imagegame-comments/{comment-id}")
-    public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
-                                       @Valid @RequestBody ImageGameCommentDto.Patch patchDto,
-                                       Authentication authentication){
+    @PatchMapping("/imagegame-comments/{comment-id}")
+    public ResponseEntity patchComment (@PathVariable("comment-id") @Positive long commentId,
+                                        @Valid @RequestBody ImageGameCommentDto.Patch patchDto,
+                                        Authentication authentication) {
         patchDto.setCommentId(commentId);
 
         ImageGameComment imageGameComment = imageGameCommentService.updateComment(imageGameCommentMapper.patchDtoToComment(patchDto), authentication);
 
         return new ResponseEntity(new SingleResponseDto<>(imageGameCommentMapper.commentToResponseDto(imageGameComment)), HttpStatus.OK);
     }
-    @GetMapping("/{comment-id}")
-    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
-        ImageGameComment comment = imageGameCommentService.findComment(commentId);
-        return new ResponseEntity(imageGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
-    }
-    @GetMapping
-    public ResponseEntity getComments(){
+//    @GetMapping
+//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
+//        ImageGameComment comment = imageGameCommentService.findComment(commentId);
+//        return new ResponseEntity(imageGameCommentMapper.commentToResponseDto(comment), HttpStatus.OK);
+//    }
+    @GetMapping("/members/me/imagegame-comments")
+    public ResponseEntity getComments() {
+
         List<ImageGameComment> comments = imageGameCommentService.findComments();
+
         return new ResponseEntity(imageGameCommentMapper.commentsToResponseDtos(comments), HttpStatus.OK);
     }
 }
