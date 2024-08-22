@@ -22,7 +22,7 @@ public class ImageGameComment {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference("member-imagegamecomment")
+    @JsonBackReference("member-imagecomment")
     private Member member;
 
     @ManyToOne
@@ -45,7 +45,7 @@ public class ImageGameComment {
         this.content = content;
     }
 
-    public void setImageGame(ImageGame game){
+    public void setImageGame(ImageGame game) {
         imageGame = game;
         if(!game.getComments().contains(this)){
             game.addComment(this);

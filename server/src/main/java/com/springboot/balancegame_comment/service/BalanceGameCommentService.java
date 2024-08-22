@@ -7,6 +7,9 @@ import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +27,7 @@ public class BalanceGameCommentService {
         this.memberService = memberService;
     }
 
-    public BalanceGameComment createComment (BalanceGameComment comment, Authentication authentication) {
+    public BalanceGameComment createComment(BalanceGameComment comment, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -49,17 +52,26 @@ public class BalanceGameCommentService {
 
         return balanceGameCommentRepository.save(findComment);
     }
-    public BalanceGameComment findComment (long commentId) {
+    public BalanceGameComment findComment(long commentId) {
         return findVerifiedComment(commentId);
     }
-    public List<BalanceGameComment> findComments() {
-        return balanceGameCommentRepository.findAll();
+    public Page<BalanceGameComment> findComments(long memberId, int page, int size, Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        if (memberId != findMember.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
+        Pageable pageable = PageRequest.of(page, size);
+
+        return balanceGameCommentRepository.findByMember(pageable, findMember);
     }
     public void deleteComment(long commentId){
         BalanceGameComment comment = findVerifiedComment(commentId);
         balanceGameCommentRepository.delete(comment);
     }
-    public BalanceGameComment findVerifiedComment (long commentId) {
+    public BalanceGameComment findVerifiedComment(long commentId) {
         Optional<BalanceGameComment> optionalComment = balanceGameCommentRepository.findByCommentId(commentId);
 
         return optionalComment.orElseThrow(()-> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));

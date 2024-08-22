@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = ImageGameCommentMapper.class)
 public interface ImageGameMapper {
-    ImageGame imageGamePostDtoToImageGame (ImageGameDto.Post postDto);
-    default ImageGameDto.Response gameToGameResponseDto (ImageGame game, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {
+    ImageGame imageGamePostDtoToImageGame(ImageGameDto.Post postDto);
+    default ImageGameDto.Response gameToGameResponseDto(ImageGame game, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {
         Principal principal = (Principal) authentication.getPrincipal();
         // mbti별 득표수를 저장하는 맵
         Map<String, Integer> mbtis = new HashMap<>();
@@ -53,7 +53,7 @@ public interface ImageGameMapper {
                 voted
         );
     };
-    default List<ImageGameDto.Response> gamesToGameResponseDtos (List<ImageGame> games, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {
+    default List<ImageGameDto.Response> gamesToGameResponseDtos(List<ImageGame> games, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {
         return games.stream()
                 .map(post -> gameToGameResponseDto(post, authentication, imageGameCommentMapper))
                 .collect(Collectors.toList());

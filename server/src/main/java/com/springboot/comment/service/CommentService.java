@@ -7,6 +7,9 @@ import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +25,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
         this.memberService = memberService;
     }
-    public Comment createComment (Comment comment, Authentication authentication) {
+    public Comment createComment(Comment comment, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -44,7 +47,7 @@ public class CommentService {
 //
 //        return commentRepository.save(findComment);
 //    }
-    public List<Comment> findComments (long memberId, Authentication authentication) {
+    public Page<Comment> findComments(long memberId, int page, int size, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -53,7 +56,9 @@ public class CommentService {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
 
-        return commentRepository.findByMember(findMember);
+        Pageable pageable = PageRequest.of(page, size);
+
+        return commentRepository.findByMember(pageable, findMember);
     }
 //    public void deleteComment (long commentId, Authentication authentication) {
 //        Principal principal = (Principal) authentication.getPrincipal();

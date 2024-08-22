@@ -10,13 +10,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     @Mapping(source = "postId", target = "post.postId")
-    Comment commentCreateDtoToComment (CommentDto.Create create);
-    Comment commentUpdateDtoToComment (CommentDto.Update update);
+    Comment commentCreateDtoToComment(CommentDto.Create create);
+    Comment commentUpdateDtoToComment(CommentDto.Update update);
     @Mapping(source = "post.title", target = "title")
     @Mapping(source = "post.postId", target = "postId")
-    CommentDto.SimpleResponse commentToCommentSimpleResponseDto (Comment comment);
-    List<CommentDto.SimpleResponse> commentsToCommentSimpleResponseDtos (List<Comment> comment);
-    default CommentDto.DetailedResponse commentToCommentDetailedResponseDto (Comment comment) {
+    CommentDto.SimpleResponse commentToCommentSimpleResponseDto(Comment comment);
+    List<CommentDto.SimpleResponse> commentsToCommentSimpleResponseDtos(List<Comment> comment);
+    default CommentDto.DetailedResponse commentToCommentDetailedResponseDto(Comment comment) {
         CommentDto.DetailedResponse.DetailedResponseBuilder response = CommentDto.DetailedResponse.builder();
             response.commentId(comment.getCommentId());
             response.image(comment.getMember().getImage());

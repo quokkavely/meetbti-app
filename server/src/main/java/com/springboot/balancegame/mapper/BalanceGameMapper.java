@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = BalanceGameCommentMapper.class)
 public interface BalanceGameMapper {
-    default BalanceGame postDtoToGame(BalanceGameDto.Post postDto){
+    default BalanceGame postDtoToGame(BalanceGameDto.Post postDto) {
         return new BalanceGame(
                 postDto.getTitle(),
                 postDto.getLeftOption(),
                 postDto.getRightOption(),
                 postDto.getNickName());
     };
-    default BalanceGameDto.Response gameToGameResponseDto (BalanceGame game, Authentication authentication, BalanceGameCommentMapper commentMapper){
+    default BalanceGameDto.Response gameToGameResponseDto(BalanceGame game, Authentication authentication, BalanceGameCommentMapper commentMapper) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         // 투표 목록을 좌우로 분리

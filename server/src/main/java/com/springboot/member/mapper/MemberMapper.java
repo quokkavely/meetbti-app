@@ -10,7 +10,7 @@ import java.util.List;
 public interface MemberMapper {
     Member memberPostDtoToMember(MemberDto.Post postDto);
     Member memberPatchDtoToMember(MemberDto.Patch patchDto);
-    default MemberDto.Response memberToResponseDto (Member member) {
+    default MemberDto.Response memberToResponseDto(Member member) {
         MemberDto.Response.ResponseBuilder response = MemberDto.Response.builder();
             response.nickname(member.getNickname());
             response.image(member.getImage());

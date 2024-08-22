@@ -12,9 +12,9 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ImageGameCommentMapper {
     @Mapping(source = "gameId", target = "imageGame.imageGameId")
-    ImageGameComment postDtoToComment (ImageGameCommentDto.Post postDto);
-    ImageGameComment patchDtoToComment (ImageGameCommentDto.Patch patchDto);
-    default ImageGameCommentDto.Response commentToResponseDto (ImageGameComment imageGameComment) {
+    ImageGameComment postDtoToComment(ImageGameCommentDto.Post postDto);
+    ImageGameComment patchDtoToComment(ImageGameCommentDto.Patch patchDto);
+    default ImageGameCommentDto.Response commentToResponseDto(ImageGameComment imageGameComment) {
         ImageGameCommentDto.Response.ResponseBuilder response = ImageGameCommentDto.Response.builder();
         response.image(imageGameComment.getMember().getImage());
         response.nickName(imageGameComment.getMember().getNickname());

@@ -31,9 +31,9 @@ public class BalanceGameResultController {
     }
 
     @PostMapping("/balancegames/{balancegame-id}/balancegame-results")
-    public ResponseEntity postResult (@PathVariable("balancegame-id") @Positive long gameid,
-                                      @Valid @RequestBody BalanceGameResultDto.Post postDto,
-                                      Authentication authentication) {
+    public ResponseEntity postResult(@PathVariable("balancegame-id") @Positive long gameid,
+                                     @Valid @RequestBody BalanceGameResultDto.Post postDto,
+                                     Authentication authentication) {
         postDto.setGameId(gameid);
 
         BalanceGameResult result = balanceGameResultService.createResult(balanceGameResultMapper.postDtoToResult(postDto), authentication);
@@ -48,7 +48,7 @@ public class BalanceGameResultController {
 //        return new ResponseEntity(balanceGameResultMapper.resultToResponseDto(result), HttpStatus.OK);
 //    }
     @GetMapping("/balancegame-results")
-    public ResponseEntity getResults(){
+    public ResponseEntity getResults() {
         List<BalanceGameResult> results = balanceGameResultService.findResults();
         return new ResponseEntity(balanceGameResultMapper.resultsToResponseDtos(results), HttpStatus.OK);
     }

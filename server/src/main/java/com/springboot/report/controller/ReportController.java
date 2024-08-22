@@ -31,7 +31,7 @@ public class ReportController {
 
     @PostMapping("/posts/{postId}/report")
     public ResponseEntity postPostReport(@PathVariable("postId") @Positive Long postId,
-                                     @RequestBody @Valid ReportPostDto postDto) {
+                                         @RequestBody @Valid ReportPostDto postDto) {
         Report report = service.createReport(mapper.reportPostDtoToReport(postDto));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
@@ -44,7 +44,7 @@ public class ReportController {
 
     @PostMapping("/comments/{commentId}/report")
     public ResponseEntity postCommentReport(@PathVariable("commentId") @Positive Long commentId,
-                                     @RequestBody @Valid ReportPostDto postDto) {
+                                            @RequestBody @Valid ReportPostDto postDto) {
         Report report = service.createReport(mapper.reportPostDtoToReport(postDto));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
@@ -63,7 +63,7 @@ public class ReportController {
 
     @GetMapping("/reports")
     public ResponseEntity<List<Report>> getReports(@Positive @RequestParam int page,
-                                     @Positive@RequestParam int size) {
+                                                   @Positive@RequestParam int size) {
         Page<Report> pageReports = service.findReports(page, size);
         List<Report> reports = pageReports.getContent();
 

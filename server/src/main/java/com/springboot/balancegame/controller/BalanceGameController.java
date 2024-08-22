@@ -44,7 +44,7 @@ public class BalanceGameController {
     }
 
     @PostMapping
-    public ResponseEntity postGame (@Valid @RequestBody BalanceGameDto.Post postDto,
+    public ResponseEntity postGame(@Valid @RequestBody BalanceGameDto.Post postDto,
                                     Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -61,21 +61,25 @@ public class BalanceGameController {
 
     @GetMapping("/{game-id}")
     public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId,
-                                  Authentication authentication){
+                                  Authentication authentication) {
         BalanceGame game = balanceGameService.findGame(gameId);
 
-        return new ResponseEntity(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper), HttpStatus.OK);
+        return new ResponseEntity<>(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getGames(Authentication authentication) {
-        List<BalanceGame> games = balanceGameService.findGames();
+    public ResponseEntity getGames(@Positive @RequestParam int page,
+                                   @Positive @RequestParam int size,
+                                   Authentication authentication) {
+        Page<BalanceGame> pageBalanceGames = balanceGameService.findGames(page - 1, size);
 
-        return new ResponseEntity(balanceGameMapper.gamesToResponseDtos(games, authentication, balanceGameCommentMapper), HttpStatus.OK);
+        List<BalanceGame> balanceGames = pageBalanceGames.getContent();
+
+        return new ResponseEntity<>(balanceGameMapper.gamesToResponseDtos(balanceGames, authentication, balanceGameCommentMapper), HttpStatus.OK);
     }
 
     @DeleteMapping("/{game-id}")
-    public ResponseEntity deleteGame(@PathVariable("game-id") @Positive long gameId){
+    public ResponseEntity deleteGame(@PathVariable("game-id") @Positive long gameId) {
         balanceGameService.deleteGame(gameId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);

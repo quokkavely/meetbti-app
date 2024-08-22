@@ -30,7 +30,7 @@ public class PostService {
         this.viewRepository = viewRepository;
     }
     //게시글을 생성하는 메서드
-    public Post createPost (Post post, Authentication authentication) {
+    public Post createPost(Post post, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -44,7 +44,7 @@ public class PostService {
         return postRepository.save(post);
     }
     //게시글을 수정하는 메서드
-    public Post updatePost (Post post, Authentication authentication) {
+    public Post updatePost(Post post, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Post findPost = findVerifiedPost(post.getPostId());
@@ -63,7 +63,7 @@ public class PostService {
         return postRepository.save(findPost);
     }
     //게시글을 조회하는 메서드
-    public Post findPost (long postId, Authentication authentication) {
+    public Post findPost(long postId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Post post = findVerifiedPost(postId);
@@ -79,7 +79,7 @@ public class PostService {
         return findVerifiedPost(postId);
     }
     //게시글 전부를 조회하는 메서드
-    public Page<Post> findPosts (int page, int size, String standard, String category) {
+    public Page<Post> findPosts(int page, int size, String standard, String category) {
         Pageable pageable = createPageable(page, size, standard);
 
         if (category.equals("all")) {
@@ -89,7 +89,7 @@ public class PostService {
         }
     }
     //게시글을 삭제하는 메서드
-    public void deletePost (long postId, Authentication authentication) {
+    public void deletePost(long postId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Post post = findVerifiedPost(postId);
@@ -103,19 +103,19 @@ public class PostService {
         postRepository.save(post);
     }
     //게시글이 DB에 존재하는지 확인하는 메서드
-    private Post findVerifiedPost (long postId) {
+    private Post findVerifiedPost(long postId) {
         Optional<Post> post = postRepository.findById(postId);
 
         return post.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
     }
     //정렬기준으로 페이지를 만드는 메서드
-    private Pageable createPageable (int page, int size, String standard) {
+    private Pageable createPageable(int page, int size, String standard) {
         Sort sort = Sort.by(standard).descending();
 
         return PageRequest.of(page, size, sort);
     }
     //조회를 생성하는 메서드
-    private void createView (long postId, Authentication authentication) {
+    private void createView(long postId, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Post findPost = findVerifiedPost(postId);

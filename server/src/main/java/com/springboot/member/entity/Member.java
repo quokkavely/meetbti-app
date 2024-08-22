@@ -93,7 +93,7 @@ public class Member {
 //        }
 //    }
     @OneToMany (mappedBy = "member")
-    @JsonManagedReference("member-imagegamecomment")
+    @JsonManagedReference("member-imagecomment")
     private List<ImageGameComment> imageComments = new ArrayList<>();
 
 //    public void setImageComment(ImageGameComment imageComment){
@@ -132,7 +132,7 @@ public class Member {
 //            imageGameResult.setMember(this);
 //        }
 //    }
-    public enum MemberStatus{
+    public enum MemberStatus {
         ACTIVE("활동중"),
         BAN("활동 정지"),
         QUIT("탈퇴 상태");

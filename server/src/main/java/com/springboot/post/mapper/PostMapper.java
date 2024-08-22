@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = CommentMapper.class)
 public interface PostMapper {
-    Post postCreateDtoToPost (PostDto.Create create);
+    Post postCreateDtoToPost(PostDto.Create create);
 //    @Mapping(source = "memberId", target = "member.memberId")
-    Post postUpdateDtoToPost (PostDto.Update update);
-    PostDto.PatchResponse postToPostPatchResponseDto (Post post);
-    default PostDto.GetResponse postToPostGetResponseDto (Post post, CommentMapper commentMapper) {
+    Post postUpdateDtoToPost(PostDto.Update update);
+    PostDto.PatchResponse postToPostPatchResponseDto(Post post);
+    default PostDto.GetResponse postToPostGetResponseDto(Post post, CommentMapper commentMapper) {
         PostDto.GetResponse.GetResponseBuilder response = PostDto.GetResponse.builder();
             response.postId(post.getPostId());
             response.title(post.getTitle());
@@ -32,7 +32,7 @@ public interface PostMapper {
 
             return response.build();
     }
-   default List<PostDto.GetResponse> postsToPostResponseDtos (List<Post> posts, CommentMapper commentMapper) {
+   default List<PostDto.GetResponse> postsToPostResponseDtos(List<Post> posts, CommentMapper commentMapper) {
        return posts.stream()
                .map(post -> postToPostGetResponseDto(post,commentMapper))
                .collect(Collectors.toList());

@@ -19,20 +19,20 @@ public class JwtAuthorityUtils {
     private final List<String>ADMIN_ROLES_STRING = List.of("ADMIN","USER");
     private final List<String>USER_ROLES_STRING = List.of("USER");
 
-    public List<GrantedAuthority>createAuthority(String email){
+    public List<GrantedAuthority>createAuthority(String email) {
         if(email.equals(adminMailAddress)){
             return ADMIN_ROLES;
         }
         return USER_ROLES;
     }
 
-    public List<GrantedAuthority>createAuthorities(List<String>roles){
+    public List<GrantedAuthority>createAuthorities(List<String>roles) {
         return roles.stream()
                 .map(role-> new SimpleGrantedAuthority("ROLE_"+role))
                 .collect(Collectors.toList());
     }
 
-    public List<String>createRoles(String email){
+    public List<String>createRoles(String email) {
         if(email.equals(adminMailAddress)){
             return ADMIN_ROLES_STRING;
         }

@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TestResultMapper {
-    TestResultDto.Response testResultToTestResultResponseDto (TestResult testResult);
-    List<TestResultDto.Response> testResultsToTestResultResponseDtos (List<TestResult> testResults);
+    TestResultDto.Response testResultToTestResultResponseDto(TestResult testResult);
+    List<TestResultDto.Response> testResultsToTestResultResponseDtos(List<TestResult> testResults);
 }

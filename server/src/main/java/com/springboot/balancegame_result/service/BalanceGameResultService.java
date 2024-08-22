@@ -23,7 +23,7 @@ public class BalanceGameResultService {
         this.memberService = memberService;
     }
 
-    public BalanceGameResult createResult(BalanceGameResult result, Authentication authentication){
+    public BalanceGameResult createResult(BalanceGameResult result, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member member = memberService.findMember(principal.getMemberId());
@@ -32,7 +32,7 @@ public class BalanceGameResultService {
 
         return balanceGameResultRepository.save(result);
     }
-    public BalanceGameResult findResult(long resultId){
+    public BalanceGameResult findResult(long resultId) {
         Optional<BalanceGameResult> optionalResult = balanceGameResultRepository.findById(resultId);
         return optionalResult.orElseThrow(() -> new RuntimeException());
     }

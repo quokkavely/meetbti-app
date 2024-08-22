@@ -22,7 +22,7 @@ public class BalanceGameComment {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    @JsonBackReference("member-balancegamecomment")
+    @JsonBackReference("member-balancecomment")
     private Member member;
 
     @ManyToOne

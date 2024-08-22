@@ -39,8 +39,8 @@ public class ImageGameController {
     }
 
     @PostMapping
-    public ResponseEntity postGame (@Valid @RequestBody ImageGameDto.Post postDto,
-                                    Authentication authentication) {
+    public ResponseEntity postGame(@Valid @RequestBody ImageGameDto.Post postDto,
+                                   Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -64,10 +64,14 @@ public class ImageGameController {
     }
 
     @GetMapping
-    public ResponseEntity getGames (Authentication authentication) {
-        List<ImageGame> games = imageGameService.findGames();
+    public ResponseEntity getGames(@Positive @RequestParam int page,
+                                   @Positive @RequestParam int size,
+                                   Authentication authentication) {
+        Page<ImageGame> pageImageGames = imageGameService.findGames(page, size);
 
-        return new ResponseEntity(imageGameMapper.gamesToGameResponseDtos(games, authentication,imageGameCommentMapper), HttpStatus.OK);
+        List<ImageGame> imageGames = pageImageGames.getContent();
+
+        return new ResponseEntity(imageGameMapper.gamesToGameResponseDtos(imageGames, authentication,imageGameCommentMapper), HttpStatus.OK);
     }
 
     @DeleteMapping("/{game-id}")

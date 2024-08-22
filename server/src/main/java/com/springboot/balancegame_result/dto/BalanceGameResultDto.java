@@ -12,14 +12,14 @@ public class BalanceGameResultDto {
     @Builder
     @Getter
     @Setter
-    public static class Post{
+    public static class Post {
         private long gameId;
         @NotNull
         private BalanceGameResult.SelectedOption selectedOption;
     }
     @Builder
     @Getter
-    public static class Response{
+    public static class Response {
         private long memberId;
         private long gameId;
         private String selectedOption;

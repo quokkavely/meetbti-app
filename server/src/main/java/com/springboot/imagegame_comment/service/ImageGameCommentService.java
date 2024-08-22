@@ -9,7 +9,11 @@ import com.springboot.imagegame_comment.entity.ImageGameComment;
 import com.springboot.imagegame_comment.repository.ImageGameCommentRepository;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,22 +24,18 @@ import java.util.Optional;
 public class ImageGameCommentService {
     private final ImageGameCommentRepository imageGameCommentRepository;
     private final MemberService memberService;
-    private final ImageGameService imageGameService;
 
-    public ImageGameCommentService (ImageGameCommentRepository repository, MemberService memberService, ImageGameService imageGameService) {
+    public ImageGameCommentService (ImageGameCommentRepository repository, MemberService memberService) {
         this.imageGameCommentRepository = repository;
         this.memberService = memberService;
-        this.imageGameService = imageGameService;
     }
 
-    public ImageGameComment createComment (long gameId, ImageGameComment comment, Authentication authentication) {
+    public ImageGameComment createComment(ImageGameComment comment, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
-        comment.setMember(findMember);
 
-        ImageGame imageGame = imageGameService.findGame(gameId);
-        comment.setImageGame(imageGame);
+        comment.setMember(findMember);
 
         return imageGameCommentRepository.save(comment);
     }
@@ -58,14 +58,24 @@ public class ImageGameCommentService {
     public ImageGameComment findComment(long commentId) {
         return findVerifiedComment(commentId);
     }
-    public List<ImageGameComment> findComments() {
-        return imageGameCommentRepository.findAll();
+    public Page<ImageGameComment> findComments(long memberId, int page, int size, Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
+        Member findMember = memberService.findMember(principal.getMemberId());
+
+        if (memberId != findMember.getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return imageGameCommentRepository.findByMember(pageable, findMember);
     }
-    public void deleteComment (long commentId) {
+    public void deleteComment(long commentId) {
         ImageGameComment comment = findVerifiedComment(commentId);
         imageGameCommentRepository.delete(comment);
     }
-    public ImageGameComment findVerifiedComment (long commentId) {
+    public ImageGameComment findVerifiedComment(long commentId) {
         Optional<ImageGameComment> optionalComment = imageGameCommentRepository.findByCommentId(commentId);
 
         return optionalComment.orElseThrow(()-> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));

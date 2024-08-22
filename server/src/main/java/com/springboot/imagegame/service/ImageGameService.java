@@ -5,7 +5,9 @@ import com.springboot.exception.ExceptionCode;
 import com.springboot.gamestatus.GameStatus;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame.repository.ImageGameRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,16 +24,18 @@ public class ImageGameService {
     public ImageGameService (ImageGameRepository repository) {
         this.imageGameRepository = repository;
     }
-    public ImageGame createGame (ImageGame game, Authentication authentication) {
+    public ImageGame createGame(ImageGame game, Authentication authentication) {
         return imageGameRepository.save(game);
     }
-    public ImageGame findGame (long gameId) {
+    public ImageGame findGame(long gameId) {
         return findVerifiedGame(gameId);
     }
-    public List<ImageGame> findGames () {
-        return imageGameRepository.findByGameStatusNot(GameStatus.PENDING);
+    public Page<ImageGame> findGames(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return imageGameRepository.findByGameStatusNot(pageable, GameStatus.PENDING);
     }
-    public void deleteGame (long gameId) {
+    public void deleteGame(long gameId) {
         ImageGame game = findVerifiedGame(gameId);
         imageGameRepository.delete(game);
     }

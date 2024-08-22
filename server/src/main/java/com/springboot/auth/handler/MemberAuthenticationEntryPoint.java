@@ -16,7 +16,7 @@ import java.io.IOException;
 @Component
 public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void commence (HttpServletRequest request,
+    public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
         Exception exception =(Exception) request.getAttribute("exception");
@@ -25,7 +25,7 @@ public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint 
         logExceptionMessage(authException,exception);
     }
 
-    private void logExceptionMessage (AuthenticationException authException,
+    private void logExceptionMessage(AuthenticationException authException,
                                      Exception exception) {
         String message = exception != null ? exception.getMessage() : authException.getMessage();
         log.warn("Unauthorized error happened :{}", message);

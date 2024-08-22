@@ -14,7 +14,7 @@ public class BalanceGameDto {
     @Builder
     @Getter
     @Setter
-    public static class Post{
+    public static class Post {
         @NotBlank
         private String title;
         @NotBlank
@@ -26,7 +26,7 @@ public class BalanceGameDto {
     @Builder
     @Getter
     @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         private long gameId;
         private String title;
         private String leftOption;

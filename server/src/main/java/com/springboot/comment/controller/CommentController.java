@@ -6,6 +6,7 @@ import com.springboot.comment.mapper.CommentMapper;
 import com.springboot.comment.service.CommentService;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.utils.UriCreator;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -31,9 +32,9 @@ public class CommentController {
     }
 
     @PostMapping("/posts/{post-id}/comments")
-    public ResponseEntity createComment (@PathVariable("post-id") @Positive long postId,
-                                         @Valid @RequestBody CommentDto.Create createDto,
-                                         Authentication authentication) {
+    public ResponseEntity createComment(@PathVariable("post-id") @Positive long postId,
+                                        @Valid @RequestBody CommentDto.Create createDto,
+                                        Authentication authentication) {
         createDto.setPostId(postId);
 
         Comment comment = commentService.createComment(commentMapper.commentCreateDtoToComment(createDto), authentication);
@@ -53,10 +54,13 @@ public class CommentController {
 //        return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)),HttpStatus.OK);
 //    }
     @GetMapping("/comments")
-    public ResponseEntity getComments (@Positive @RequestParam long memberId,
-                                       Authentication authentication) {
+    public ResponseEntity getComments(@Positive @RequestParam long memberId,
+                                      @Positive @RequestParam int page,
+                                      @Positive @RequestParam int size,
+                                      Authentication authentication) {
+        Page<Comment> pageComments = commentService.findComments(memberId, page, size, authentication);
 
-        List<Comment> comments = commentService.findComments(memberId, authentication);
+        List<Comment> comments = pageComments.getContent();
 
         return new ResponseEntity(new SingleResponseDto<>(commentMapper.commentsToCommentSimpleResponseDtos(comments)),HttpStatus.OK);
     }

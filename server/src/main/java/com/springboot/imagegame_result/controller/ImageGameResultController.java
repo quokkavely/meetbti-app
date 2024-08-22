@@ -32,7 +32,7 @@ public class ImageGameResultController {
     @PostMapping("/imagegames/{imagegame-id}/imagegame-results")
     public ResponseEntity postResult (@PathVariable("imagegame-id") @Positive long gameId,
                                       @Valid @RequestBody ImageGameResultDto.Post postDto,
-                                      Authentication authentication){
+                                      Authentication authentication) {
         postDto.setGameId(gameId);
 
         ImageGameResult result = imageGameResultService.createResult(imageGameResultMapper.postDtoToResult(postDto), authentication);
@@ -48,7 +48,7 @@ public class ImageGameResultController {
 //    }
 
     @GetMapping("/imagegame-results")
-    public ResponseEntity getResults(){
+    public ResponseEntity getResults() {
         List<ImageGameResult> results = imageGameResultService.findResults();
         return new ResponseEntity(imageGameResultMapper.resultsToResponseDtos(results), HttpStatus.OK);
     }

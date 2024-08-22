@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class ImageGame {
 
     @Column(nullable = false, length = 10)
     private String nickName;
+
+    @Column
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "imageGame")
     @JsonManagedReference("imagegame-comment")
@@ -48,7 +52,7 @@ public class ImageGame {
         this.topic = topic;
         this.nickName = nickName;
     }
-    public void addComment(ImageGameComment comment){
+    public void addComment(ImageGameComment comment) {
         comments.add(comment);
         if(comment.getImageGame() == null){
             comment.setImageGame(this);

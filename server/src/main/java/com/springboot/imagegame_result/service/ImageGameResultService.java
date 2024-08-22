@@ -23,7 +23,7 @@ public class ImageGameResultService {
         this.memberService = memberService;
     }
 
-    public ImageGameResult createResult (ImageGameResult imageGameResult, Authentication authentication) {
+    public ImageGameResult createResult(ImageGameResult imageGameResult, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -32,7 +32,7 @@ public class ImageGameResultService {
 
         return imageGameResultRepository.save(imageGameResult);
     }
-    public ImageGameResult findResult(long resultId){
+    public ImageGameResult findResult(long resultId) {
         Optional<ImageGameResult> optionalResult = imageGameResultRepository.findById(resultId);
         return optionalResult.orElseThrow(()-> new RuntimeException());
     }

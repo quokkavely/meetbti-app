@@ -10,8 +10,12 @@ import com.springboot.question.repository.AnswerRepository;
 import com.springboot.testresult.dto.TestResultDto;
 import com.springboot.testresult.entity.TestResult;
 import com.springboot.testresult.repository.TestResultRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +33,8 @@ public class TestResultService {
         this.answerRepository = answerRepository;
         this.memberService = memberService;
     }
-    public TestResult createTestResult (TestResultDto.Create createDto,
-                                        Authentication authentication) {
+    public TestResult createTestResult(@RequestBody TestResultDto.Create createDto,
+                                       Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -43,7 +47,7 @@ public class TestResultService {
 
         return testResultRepository.save(testResult);
     }
-    public List<TestResult> findTestResults (Authentication authentication) {
+    public Page<TestResult> findTestResults(int page, int size, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -54,10 +58,12 @@ public class TestResultService {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
 
-        return testResultRepository.findByMember(findMember);
+        Pageable pageable = PageRequest.of(page, size);
+
+        return testResultRepository.findByMember(pageable, findMember);
 
     }
-    private TestResult createMbti (List<Answer> answers) {
+    private TestResult createMbti(List<Answer> answers) {
         TestResult testResult = new TestResult();
 
         Map<String, Integer> scores = new HashMap<>();
@@ -122,7 +128,7 @@ public class TestResultService {
             return "J";
         }
     }
-    private TestResult verifiedExistTestResult (long testResultId) {
+    private TestResult verifiedExistTestResult(long testResultId) {
         Optional<TestResult> optionalTestResult = testResultRepository.findById(testResultId);
 
         return optionalTestResult.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEST_RESULT_NOT_FOUND));

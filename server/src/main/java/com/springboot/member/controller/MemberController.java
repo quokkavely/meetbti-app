@@ -28,7 +28,6 @@ public class MemberController {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
     }
-
     @PostMapping
     public ResponseEntity postMember(@RequestBody @Valid MemberDto.Post postDto) {
         Member member = memberService.createMember(memberMapper.memberPostDtoToMember(postDto));
@@ -38,8 +37,8 @@ public class MemberController {
         return ResponseEntity.created(location).build();
     }
     @PostMapping("/me/change-password")
-    public ResponseEntity changePassword (@RequestBody @Valid MemberDto.ChangePw changePwDto,
-                                          Authentication authentication) {
+    public ResponseEntity changePassword(@RequestBody @Valid MemberDto.ChangePw changePwDto,
+                                         Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         memberService.updatePassword(
@@ -64,7 +63,7 @@ public class MemberController {
 
     }
     @GetMapping("/check-nickname")
-    public ResponseEntity<Boolean> checkNickNameDuplicate (@RequestParam String nickName) {
+    public ResponseEntity<Boolean> checkNickNameDuplicate(@RequestParam String nickName) {
         boolean isDuplicate = memberService.verifiedExistNickname(nickName);
         return ResponseEntity.ok(isDuplicate);
     }
@@ -77,7 +76,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToResponseDto(member)), HttpStatus.OK);
     }
     @DeleteMapping("/me")
-    public ResponseEntity deleteMember (Authentication authentication) {
+    public ResponseEntity deleteMember(Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         memberService.deleteMember(principal.getMemberId());

@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ImageGameResultMapper {
     @Mapping(source = "gameId", target = "imageGame.imageGameId")
-    ImageGameResult postDtoToResult (ImageGameResultDto.Post postDto);
+    ImageGameResult postDtoToResult(ImageGameResultDto.Post postDto);
     ImageGameResultDto.Response resultToResponseDto(ImageGameResult result);
     List<ImageGameResultDto.Response> resultsToResponseDtos(List<ImageGameResult> results);
 }

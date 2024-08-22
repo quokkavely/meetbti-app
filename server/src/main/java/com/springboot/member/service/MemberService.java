@@ -50,7 +50,7 @@ public class MemberService {
     return memberRepository.save(findMember);
     }
     //회원 비밀번호를 수정하는 메서드
-    public void updatePassword (long memberId,String oldPassword,String newPassword,String confirmPassword) {
+    public void updatePassword(long memberId,String oldPassword,String newPassword,String confirmPassword) {
         Member findMember = findMember(memberId);
 
         if (!findMember.getPassword().equals(passwordEncoder.encode(oldPassword))) {
@@ -64,11 +64,11 @@ public class MemberService {
         memberRepository.save(findMember);
     }
     //회원 정보를 찾는 메서드
-    public Member findMember (long memberId) {
+    public Member findMember(long memberId) {
        return findVerifiedMember(memberId);
     }
     //회원을 삭제하는 메서드
-    public void deleteMember (long memberId) {
+    public void deleteMember(long memberId) {
         Member member = findMember(memberId);
 
         member.setMemberStatus(Member.MemberStatus.QUIT);
@@ -76,14 +76,14 @@ public class MemberService {
         memberRepository.save(member);
     }
     //memerId를 통해 회원이 DB에 존재하는지 확인하는 메서드
-    private Member findVerifiedMember (long memberId) {
+    private Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         return optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     //email을 통해 회원이 DB에 존재하는지 확인하는 메서드
-    private void verifiedExistEmail (String email) {
+    private void verifiedExistEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
 
         if(optionalMember.isPresent()) {
@@ -92,7 +92,7 @@ public class MemberService {
     }
 
     //닉네임이 중복되는지 확인하는 메서드
-    public Boolean verifiedExistNickname (String nickname) {
+    public Boolean verifiedExistNickname(String nickname) {
         Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
 
         if(optionalMember.isPresent()) {
@@ -102,7 +102,7 @@ public class MemberService {
         return false;
     }
     //OAuth2에서 memberId를 반환하는 메서드
-    public long findMemberIdByOauth2User (OAuth2User oAuth2User) {
+    public long findMemberIdByOauth2User(OAuth2User oAuth2User) {
         String email = (String) oAuth2User.getAttributes().get("email");
 
         Optional<Member> member = memberRepository.findByEmail(email);

@@ -40,8 +40,8 @@ public class PostController {
         this.commentMapper = commentMapper;
     }
     @PostMapping
-    public ResponseEntity createPost (@Valid @RequestBody PostDto.Create createDto,
-                                      Authentication authentication) {
+    public ResponseEntity createPost(@Valid @RequestBody PostDto.Create createDto,
+                                     Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -55,9 +55,9 @@ public class PostController {
         return ResponseEntity.created(location).build();
     }
     @PatchMapping("{post-id}")
-    public ResponseEntity updatePost (@PathVariable("post-id") @Positive long postId,
-                                      @Valid @RequestBody PostDto.Update updateDto,
-                                      Authentication authentication) {
+    public ResponseEntity updatePost(@PathVariable("post-id") @Positive long postId,
+                                     @Valid @RequestBody PostDto.Update updateDto,
+                                     Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         updateDto.setPostId(postId);
@@ -69,19 +69,19 @@ public class PostController {
     }
 
     @GetMapping("{post-id}")
-    public ResponseEntity getPost (@PathVariable("post-id") @Positive long postId,
-                                   Authentication authentication) {
+    public ResponseEntity getPost(@PathVariable("post-id") @Positive long postId,
+                                  Authentication authentication) {
         Post post = postService.findPost(postId,authentication);
 
         return new ResponseEntity(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper)), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getPosts (@Positive @RequestParam int page,
-                                    @Positive @RequestParam int size,
-                                    @RequestParam(required = false) String category,
-                                    @RequestParam String standard,
-                                    Authentication authentication) {
+    public ResponseEntity getPosts(@Positive @RequestParam int page,
+                                   @Positive @RequestParam int size,
+                                   @RequestParam(required = false) String category,
+                                   @RequestParam String standard,
+                                   Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
@@ -96,8 +96,8 @@ public class PostController {
     }
 
     @DeleteMapping("{post-id}")
-    public ResponseEntity deletePost (@PathVariable("post-id") @Positive long postId,
-                                      Authentication authentication) {
+    public ResponseEntity deletePost(@PathVariable("post-id") @Positive long postId,
+                                     Authentication authentication) {
         postService.deletePost(postId,authentication);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);

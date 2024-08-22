@@ -12,7 +12,7 @@ public class QuestionService {
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
-    public List<Question> findAllQuestions () {
+    public List<Question> findAllQuestions() {
         return questionRepository.findAll();
     }
 }

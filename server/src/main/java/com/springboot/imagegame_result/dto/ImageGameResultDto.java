@@ -11,14 +11,14 @@ public class ImageGameResultDto {
     @Builder
     @Getter
     @Setter
-    public static class Post{
+    public static class Post {
         private long gameId;
         @NotNull
         private ImageGameResult.SelectedMbti selectedMbti;
     }
     @Builder
     @Getter
-    public static class Response{
+    public static class Response {
         private long memberId;
         private long gameId;
         private String selectedMbti;

@@ -15,7 +15,10 @@ import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
 import com.springboot.post.entity.Post;
 import com.springboot.post.repository.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -119,5 +122,40 @@ public class HeartService {
             default:
                 throw new IllegalArgumentException("Type Not Found");
         }
+    }
+    public <T> Page<T> getLikedContentByMember(Member member, int page, int size, String type) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        switch (type.toLowerCase()) {
+            case "post":
+                return (Page<T>) heartRepository.findLikedPostsByMember(member, pageRequest);
+            case "comment":
+                return (Page<T>) heartRepository.findLikedCommentsByMember(member, pageRequest);
+            case "imagegame":
+                return (Page<T>) heartRepository.findLikedImageGamesByMember(member, pageRequest);
+            case "balancegame":
+                return (Page<T>) heartRepository.findLikedBalanceGamesByMember(member, pageRequest);
+            default:
+                throw new BusinessLogicException(ExceptionCode.CONTENT_NOT_FOUND);
+        }
+    }
+    public Page<Post> getLikedPostsByMember(Member member, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return heartRepository.findLikedPostsByMember(member, pageRequest);
+    }
+
+    public Page<Comment> getLikedCommentsByMember(Member member, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return heartRepository.findLikedCommentsByMember(member, pageRequest);
+    }
+
+    public Page<ImageGame> getLikedImageGamesByMember(Member member, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return heartRepository.findLikedImageGamesByMember(member, pageRequest);
+    }
+
+    public Page<BalanceGame> getLikedBalanceGamesByMember(Member member, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return heartRepository.findLikedBalanceGamesByMember(member, pageRequest);
     }
 }
