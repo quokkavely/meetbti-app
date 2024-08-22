@@ -37,10 +37,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage login = {login}/>} />
+        <Route path="/" element={<MainPage/>} />
         <Route path="/testmain" element={<TestMain />} />
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path='/registration' element={<RegistrationPage setLogin = {setLogin}/>}/>
+        <Route path='/registration' element={<RegistrationPage/>}/>
         <Route path='/mbti-test' element={<MbtiTestPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path="/resultwaiting" element={<ResultWaiting />} />

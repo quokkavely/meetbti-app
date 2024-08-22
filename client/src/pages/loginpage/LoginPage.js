@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import './LoginPage.css';
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
+import { useAuth } from "../../auth/AuthContext";
 
 // 헤더(로고, 뒤로가기) 컴포넌트
 const Header = () => {
@@ -23,6 +24,9 @@ function InputContainer(){
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleBlur = () => {
         if (!email) {
@@ -71,8 +75,9 @@ function InputContainer(){
                 console.log('로그인 성공');
                 const token = response.headers.get('Authorization');
                 console.log('token: ' + token);
-                /* props.setLogin(true);
-                navigate('/'); */
+
+                login(token, {email});
+                navigate('/');
             }else{
                 console.log('로그인 실패: ', response.status);
             }
