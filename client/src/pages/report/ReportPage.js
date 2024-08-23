@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/basic_css/Header.js";
 import './ReportPage.css';
 import PageContainer from '../../components/page_container/PageContainer.js';
 import ReportItem from "../../components/report_item/ReportItem.js";

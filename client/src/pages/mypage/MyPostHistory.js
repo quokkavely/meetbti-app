@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import './MyMBTIHistory.css';
+import './MyPostHistory.css';
 
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 
 const AppContainerComponent = () => {
@@ -19,8 +19,8 @@ const HeaderComponent = () => {
 
 const MBTIHistoryTitle = () => {
     return (
-        <div className="mbti-history-title" >
-            <img src="history-img.png" alt="history-item"/>
+        <div className="post-history-title" >
+            <img src="post-img.png" alt="history-item"/>
             내 MBTI 기록
         </div>
     );
@@ -29,7 +29,7 @@ const MBTIHistoryTitle = () => {
 const Historyrecenttext = () => {
     return (
         <div className="history-recenttext">
-            최신 변경 순
+            최신 작성 순
         </div>
     );
 };
@@ -41,7 +41,7 @@ const HistorySection = () => {
 
     const fetchHistoryData = useCallback(async () => {
         // 데이터를 가져오는 API 호출
-        const response = await fetch(`/api/history?page=${page}`);
+        const response = await fetch(`/api/my-posts?page=${page}`);
         const data = await response.json();
         setHistoryData(prevData => [...prevData, ...data]);
     }, [page]);
@@ -61,14 +61,14 @@ const HistorySection = () => {
     }, []);
 
     const dummyData = [
-        { mbti: 'INTJ', date: '2023-01-01 12:00' },
-        { mbti: 'ENTP', date: '2023-01-02 13:00' },
-        { mbti: 'INFJ', date: '2023-01-03 14:00' },
-        { mbti: 'ENFP', date: '2023-01-04 15:00' },
-        { mbti: 'ISTJ', date: '2023-01-05 16:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
+        { title: '첫 번째 게시글', date: '2023-01-01 12:00' },
+        { title: '두 번째 게시글', date: '2023-01-02 13:00' },
+        { title: '세 번째 게시글', date: '2023-01-03 14:00' },
+        { title: '네 번째 게시글', date: '2023-01-04 15:00' },
+        { title: '다섯 번째 게시글', date: '2023-01-05 16:00' },
+        { title: '여섯 번째 게시글', date: '2023-01-06 17:00' },
+        { title: '일곱 번째 게시글', date: '2023-01-06 17:00' },
+        { title: '여덟 번째 게시글', date: '2023-01-06 17:00' },
     ];
 
     const displayData = historyData.length > 0 ? historyData : dummyData;
@@ -81,7 +81,7 @@ const HistorySection = () => {
                     key={index}
                     ref={index === displayData.length - 1 ? lastHistoryElementRef : null}
                 >
-                    <div className="history-content-text">{item.mbti}</div>
+                    <div className="history-content-text">{item.title}</div>
                     <div className="history-content-date">{item.date}</div>
                 </div>
             ))}
@@ -90,7 +90,7 @@ const HistorySection = () => {
 };
 
 
-const MyMBTIHistory = () => {
+const MyPostHistory = () => {
     return (
       <div className="app">
         <AppContainerComponent />
@@ -102,4 +102,4 @@ const MyMBTIHistory = () => {
     );
   };
 
-export default MyMBTIHistory;
+export default MyPostHistory;

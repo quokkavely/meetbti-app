@@ -1,36 +1,51 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './auth/AuthContext';
+
+/* 메인페이지 */
 import MainPage from './pages/MainPage';
-import TestMain from './pages/TestMain';
-import LoginPage from './pages/loginpage/LoginPage';
+import LoginMainPage from './pages/MainPage_Login';
+
+/* 로그인 관련 */
+import LoginPage from './pages/mbti-test/login/LoginPage';
 import RegistrationPage from './pages/registration/RegistrationPage';
+
+/* MBTI 테스트 */
+import TestMain from './pages/mbti-test/TestMain';
+import ResultWaiting from './pages/mbti-test/ResultWaiting';
+import TestResult from './pages/mbti-test/TestResult';
 import MbtiTestPage from './pages/mbti-test/MbtiTestPage';
+
+/* MBTI 게시판 */
+import MBTIBoard from './pages/mbti-board/MBTIBoard';
+import RegistPost from './pages/mbti-board/RegistPost';
+import PostPage from './pages/mbti-board/PostPage';
+
+/* 스낵게임 */
+import SnackMain from './pages/snack/SnackMain';
+import ImageGamePage from './pages/snack/ImageGamePage';
+import ImageGameRegistration from './pages/snack/ImageGameRegistration';
+import ImageGameMain from './pages/snack/ImageGameMain';
+import BalanceGameRegist from './pages/snack/BalanceGameRegist';
+import BalanceGameMain from './pages/snack/BalanceGameMain';
+import BalanceGamePost from './pages/snack/BalanceGamePost';
+import MbtmiPage from './pages/snack/MbtmiPage';
+
+/* 마이페이지 */
+import MyPage from './pages/mypage/MyPage';
+import MyPageModify from './pages/mypage/MyPageModify';
+import MyPageHistory from './pages/mypage/MyPageHistory';
+import MyMBTIHistory from './pages/mypage/MyMBTIHistory';
+import MyPostHistory from './pages/mypage/MyPostHistory';
+import MyCommentHistory from './pages/mypage/MyCommentHistory';
+import MyHeartHistory from './pages/mypage/MyHeartHistory';
+import MySnackHistory from './pages/mypage/MySnackHistory';
+
+/* 관리자 */
 import AdminPage from './pages/admin/AdminPage';
-import TestResult from './pages/TestResult';
-import LoginMainPage from './pages/LoginMainPage';
-import ResultWaiting from './pages/ResultWaiting';
-import MBTIBoard from './pages/MBTIBoard';
-import RegistPostPage from './pages/RegistPostPage';
-import PostPage from './pages/PostPage';
 import ReportPage from './pages/report/ReportPage';
 import ReportDetail from './pages/reportdetail/ReportDetail';
-import ImageGameRegistration from './pages/imagegame_registration/ImageGameRegistration';
-import MbtmiPage from './pages/mbtmi/MbtmiPage';
-import ImageGamePage from './pages/imagegame/ImageGamePage';
-import MyPage from './pages/MyPage';
-import MyPageModify from './pages/MyPageModify';
-import MyPageHistory from './pages/MyPageHistory';
-import MyMBTIHistory from './pages/MyMBTIHistory';
-import MyPostHistory from './pages/MyPostHistory';
-import MyCommentHistory from './pages/MyCommentHistory';
-import MyHeartHistory from './pages/MyHeartHistory';
-import MySnackHistory from './pages/MySnackHistory';
-import SnackMain from './pages/SnackMain';
-import RegistBalanceGame from './pages/RegistBalanceGame';
-import BalanceGameMain from './pages/BalanceGameMain';
-import BalanceGamePost from './pages/BalanceGamePost';
-import ImageGameMain from './pages/ImageGameMain';
-import { AuthProvider } from './auth/AuthContext';
+
 
 
 const App = () => {
@@ -48,7 +63,7 @@ const App = () => {
           <Route path="/testresult" element={<TestResult />} />
           <Route path="/loginmain" element={<LoginMainPage />} />
           <Route path="/mbtiboard" element={<MBTIBoard />} />
-          <Route path="/registpost" element={<RegistPostPage />} />
+          <Route path="/registpost" element={<RegistPost />} />
           <Route path="/postpage" element={<PostPage />} />
           <Route path='/report' element={<ReportPage/>}/>
           <Route path='/report-detail' element={<ReportDetail/>}/>
@@ -64,7 +79,7 @@ const App = () => {
           <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
           <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
           <Route path="/snackmain" element={<SnackMain />} />
-          <Route path="/registbalancegame" element={<RegistBalanceGame />} />
+          <Route path="/balancegameregist" element={<BalanceGameRegist />} />
           <Route path="/balancegame" element={<BalanceGameMain />} />
           <Route path="/balancegamepost" element={<BalanceGamePost />} />
           <Route path="/imagegame" element={<ImageGameMain />} />

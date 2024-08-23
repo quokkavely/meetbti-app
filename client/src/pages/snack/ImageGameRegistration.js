@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/basic_css/Header";
 import './ImageGameRegistration.css';
 
 const ImageGameRegistration = () => {

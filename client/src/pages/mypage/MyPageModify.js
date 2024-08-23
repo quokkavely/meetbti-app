@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './MyPageModify.css';
 
 // 컴포넌트 임포트
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 const AppContainerComponent = () => {
     return (
