@@ -161,9 +161,10 @@ const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [nickname, setNickname] = useState('Unknown');
 
-  console.log('state: ', state);
+  /* console.log('state: ', state); */
 
   useEffect(() => {
+    console.log('메인 페이지 로드!')
     const fetchData = async () => {
       try{
         await getMyInfo(state, setMyData, setLoading);
@@ -177,7 +178,7 @@ const MainPage = () => {
       fetchData();
     }
     
-  }, []);
+  }, [state]);
 
   useEffect(() =>{
     if(myData && myData.data && myData.data.nickname){
