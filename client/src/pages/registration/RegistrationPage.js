@@ -1,247 +1,173 @@
 import './RegistrationPage.css';
 import Header from '../../components/Header.js';
-import AppContainer from '../../components/AppContainer.js';
-import './RegistrationPage.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../components/Modal(Check).js';
 import EmailAuthModal from '../../components/Modal(EmailAuth).js';
-
-const AppContainerComponent = () => {
-    return (
-        <AppContainer />
-    );
-};
-
-const HeaderComponent = () => {
-    return (
-        <Header />
-    );
-};
-
+import { useAuth } from '../../auth/AuthContext.js';
 
 function WelcomeText(){
     return (
         <div className="welcome-text">
-            <h2>만나서 반가워요 😄 </h2>
-            <h2>회원가입을 진행할게요!</h2>
+            <h2>만나서 반가워요😄</h2>
+            <h2>회원가입을 진행할게요</h2>
         </div>
     );
 }
+function RegisterInput(props){
+    const buttomContent = '중복 확인' + (props.duplChecked ? ' ✔' : '');
 
-function RegisterInput({ title, placeholder, value, setValue, error, setError, onBlur, onCheck }) {
     return (
         <div className="register-input-container">
-            <div className="register-input-wrapper">
-            <h2 className="register-input-title">{title}</h2>
-            </div>
-            <input
-                type={title === '비밀번호' || title === '비밀번호 확인' ? 'password' : 'text'}
-                placeholder={placeholder}
-                className={`register-input ${title === '비밀번호' || title === '비밀번호 확인' ? 'password-input' : ''}`}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onBlur={onBlur}
-            />
-            <div className="error-and-button">
-                {error && <div className="error-message">{error}</div>}
-                {(title === '이메일' || title === '닉네임') && (
-                    <button className="regist-check-button" onClick={onCheck}>중복 확인</button>
-                )}
-            </div>
+            <h2 className="register-input-title">{props.title}</h2>
+            <input type='text' className='register-input' placeholder={props.placeholder}
+             onChange={(e) => onChangeInput(e,props.setState, props.regex, props.setError, props.duplCheck)}></input>
+             <div className='register-input-footer'>
+                <div className='input-error-message'>{props.error && props.errorMessage}</div>
+                <button className="register-dupl-button" onClick={props.duplCheck}>{buttomContent}</button>
+             </div>
         </div>
     );
 }
-
-// 가짜 API 호출 함수 예시
-const fakeApiCheck = async (type, email, nickname) => {
-    // 실제 API 호출 로직을 여기에 작성
-    if (type === '이메일') {
-        return email === 'test@example.com'; // 예시 중복 체크
-    } else if (type === '닉네임') {
-        return nickname === 'testuser'; // 예시 중복 체크
-    }
-    return false;
-};
-
-function RegisterButton({ email, nickname, password, confirmPassword, emailError, nicknameError, passwordError, confirmPasswordError }) {
-    const navigate = useNavigate();
-    const [isEmailAuthModalOpen, setIsEmailAuthModalOpen] = useState(false);
-    const [isCheckModalOpen, setIsCheckModalOpen] = useState(false);
-    const [checkMessage, setCheckMessage] = useState('');
-
-    const handleRegisterClick = async () => {
-        if (!emailError && !nicknameError && !passwordError && !confirmPasswordError && email && nickname && password && confirmPassword) {
-            if (password !== confirmPassword) {
-                alert('비밀번호가 일치하지 않습니다.');
-            } else {
-                const isEmailDuplicate = await fakeApiCheck('이메일', email);
-                const isNicknameDuplicate = await fakeApiCheck('닉네임', nickname);
-                if (isEmailDuplicate) {
-                    setCheckMessage('이메일이 중복되었습니다.');
-                    setIsCheckModalOpen(true);
-                } else if (isNicknameDuplicate) {
-                    setCheckMessage('닉네임이 중복되었습니다.');
-                    setIsCheckModalOpen(true);
-                } else {
-                    setIsEmailAuthModalOpen(true);
-                }
-            }
-        } else {
-            alert('모든 필드를 올바르게 입력해주세요.');
-        }
-    };
-
-    const handleCheckClick = async (type) => {
-        if (type === '이메일' && email) {
-            const isEmailDuplicate = await fakeApiCheck('이메일', email);
-            if (isEmailDuplicate) {
-                setCheckMessage('이메일이 중복되었습니다.');
-                setIsCheckModalOpen(true);
-            } else {
-                alert('사용 가능한 이메일입니다.');
-            }
-        } else if (type === '닉네임' && nickname) {
-            const isNicknameDuplicate = await fakeApiCheck('닉네임', nickname);
-            if (isNicknameDuplicate) {
-                setCheckMessage('닉네임이 중복되었습니다.');
-                setIsCheckModalOpen(true);
-            } else {
-                alert('사용 가능한 닉네임입니다.');
-            }
-        } else {
-            alert('이메일 또는 닉네임을 입력해주세요.');
-        }
-    };
-
+function PasswordInput(props){
     return (
-        <>
-            <button className="registration-button" onClick={handleRegisterClick}>회원 가입</button>
-            {isEmailAuthModalOpen && <EmailAuthModal onClose={() => setIsEmailAuthModalOpen(false)} />}
-            {isCheckModalOpen && <Modal message={checkMessage} onClose={() => setIsCheckModalOpen(false)} />}
-        </>
+        <div className="register-input-container">
+            <h2 className="register-input-title">비밀번호</h2>
+            <input className='register-input' placeholder='비밀번호를 입력해주세요'
+             onChange={(e) => onChangeInput(e, props.setState, props.regex, props.setError)}></input>
+            <div className='password-error-message'>{props.error && props.errorMessage}</div>
+            <input className='password-input' placeholder='비밀번호를 입력해주세요'
+             onChange={(e) => onChangeInput(e, props.setState2, props.regex2, props.setError2)}></input>
+            <div className='password-error-message'>{props.error2 && props.errorMessage2}</div>
+        </div>
     );
 }
+const validateInput = (input, regexStr) => {
+    const regex = new RegExp(regexStr);
+    return regex.test(input);
+}
+function onChangeInput(e, setState, regex, setError, setDuplChecked){
+    setState(e.target.value);
+    const passed = validateInput(e.target.value, regex)
+    setError(!passed);
+    if(setDuplChecked !== undefined){
+        setDuplChecked(false);
+    }
+}
 
-const RegistrationPage = () => {
-    const [email, setEmail] = useState('');
-    const [nickname, setNickname] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [nicknameError, setNicknameError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+
+const RegistrationPage = (props) => {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    const [emailInput, setEmailInput] = useState('');
+    const [emailError, setEmailError] = useState(false);
+    const [nicknameInput, setNicknameInput] = useState('');
+    const [nicknameError, setNicknameError] = useState(false);
+    const [passwordInput, setPasswordInput] = useState('');
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordCheckInput, setPasswordCheckInput] = useState('');
+    const [passwordCheckError, setPasswordCheckError] = useState(false);
+
+    const [emailDuplCheckModalOn, setEmailDuplCheckModalOn] = useState(false);
+    const [nicknameDuplCheckModalOn, setNicknameDuplCheckModalOn] = useState(false);
     const [isEmailAuthModalOpen, setIsEmailAuthModalOpen] = useState(false);
-    const [isCheckModalOpen, setIsCheckModalOpen] = useState(false);
-    const [checkMessage, setCheckMessage] = useState('');
 
-    const handleBlur = (field) => {
-        if (field === 'email') {
-            if (!email) {
-                setEmailError('빈칸은 허용되지 않습니다');
-            } else {
-                setEmailError('');
-            }
-        }
-        if (field === 'nickname') {
-            if (!nickname) {
-                setNicknameError('빈칸은 허용되지 않습니다');
-            } else {
-                setNicknameError('');
-            }
-        }
-        if (field === 'password') {
-            if (!password) {
-                setPasswordError('빈칸은 허용되지 않습니다');
-            } else {
-                setPasswordError('');
-            }
-        }
-        if (field === 'confirmPassword') {
-            if (!confirmPassword) {
-                setConfirmPasswordError('빈칸은 허용되지 않습니다');
-            } else if (password !== confirmPassword) {
-                setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
-            } else {
-                setConfirmPasswordError('');
-            }
-        }
-    };
+    const [emailDuplChecked, setEmailDuplChecked] = useState(false);
+    const [nicknameDuplChecked, setNicknameDuplChecked] = useState(false);
 
-    const handleChange = (field, value) => {
-        if (field === 'email') {
-            setEmail(value);
-            if (!value) {
-                setEmailError('빈칸은 허용되지 않습니다');
-            } else {
-                setEmailError('');
-            }
-        }
-        if (field === 'nickname') {
-            setNickname(value);
-            if (!value) {
-                setNicknameError('빈칸은 허용되지 않습니다');
-            } else {
-                setNicknameError('');
-            }
-        }
-        if (field === 'password') {
-            setPassword(value);
-            if (!value) {
-                setPasswordError('빈칸은 허용되지 않습니다');
-            } else {
-                setPasswordError('');
-            }
-        }
-        if (field === 'confirmPassword') {
-            setConfirmPassword(value);
-            if (!value) {
-                setConfirmPasswordError('빈칸은 허용되지 않습니다');
-            } else if (password !== value) {
-                setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
-            } else {
-                setConfirmPasswordError('');
-            }
-        }
-    };
+    const duplCheckEmail = () => {
+        setEmailDuplChecked(true);
+    }
+    const duplCheckNickname = () => {
+        setNicknameDuplChecked(true);
+    }
 
-    const handleCheckClick = async (type) => {
-        if (type === '이메일' && email) {
-            const isEmailDuplicate = await fakeApiCheck('이메일', email);
-            if (isEmailDuplicate) {
-                setCheckMessage('이메일이 중복되었습니다.');
-                setIsCheckModalOpen(true);
-            } else {
-                alert('사용 가능한 이메일입니다.');
-            }
-        } else if (type === '닉네임' && nickname) {
-            const isNicknameDuplicate = await fakeApiCheck('닉네임', nickname);
-            if (isNicknameDuplicate) {
-                setCheckMessage('닉네임이 중복되었습니다.');
-                setIsCheckModalOpen(true);
-            } else {
-                alert('사용 가능한 닉네임입니다.');
-            }
-        } else {
-            alert('이메일 또는 닉네임을 입력해주세요.');
+    const registration = async (openEmailAuthModal) => {
+        
+
+        if(!emailDuplChecked){
+            alert('이메일 중복 확인을 진행해주세요')
+            return;
         }
+        if(!nicknameDuplChecked){
+            alert('닉네임 중복 확인을 진행해주세요')
+            return;
+        }
+        if(passwordInput === '' || passwordError){
+            alert('비밀번호를 확인해주세요')
+            setPasswordError(true);
+            return;
+        }
+        if(passwordCheckInput === '' || passwordCheckError){
+            alert('비밀번호를 한번 더 확인해주세요')
+            setPasswordCheckError(true);
+            return;
+        }
+
+        openEmailAuthModal();
     };
+    const sendRegistrationRequest = async() => {
+        try{
+            const response = await fetch('http://localhost:8080/members',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailInput,
+                        nickname: nicknameInput,
+                        password: passwordInput
+                    }),
+                }
+                
+            );
+            if(response.ok){
+                const token = response.headers.get('Authorization');
+                console.log('회원가입 성공');
+                login(token, emailInput);
+                navigate('/');
+            }else{
+                console.log('회원가입 실패: ', response.status);
+            }
+        } catch (error){
+            console.error('회원가입 실패', error);
+        }
+    }
+
 
     return (
         <div className="app">
-            <AppContainerComponent />
-            <HeaderComponent />
-            <WelcomeText />
-            <RegisterInput title='이메일' placeholder='이메일을 입력해주세요' value={email} setValue={(value) => handleChange('email', value)} error={emailError} setError={setEmailError} onBlur={() => handleBlur('email')} onCheck={() => handleCheckClick('이메일')} checkButtonClass="check-button" />
-            <RegisterInput title='닉네임' placeholder='닉네임을 입력해주세요' value={nickname} setValue={(value) => handleChange('nickname', value)} error={nicknameError} setError={setNicknameError} onBlur={() => handleBlur('nickname')} onCheck={() => handleCheckClick('닉네임')} checkButtonClass="check-button" />
-            <RegisterInput title='비밀번호' placeholder='비밀번호를 입력해주세요' value={password} setValue={(value) => handleChange('password', value)} error={passwordError} setError={setPasswordError} onBlur={() => handleBlur('password')} />
-            <RegisterInput title='비밀번호 확인' placeholder='비밀번호를 다시 입력해주세요' value={confirmPassword} setValue={(value) => handleChange('confirmPassword', value)} error={confirmPasswordError} setError={setConfirmPasswordError} onBlur={() => handleBlur('confirmPassword')} />
-            <RegisterButton email={email} nickname={nickname} password={password} confirmPassword={confirmPassword} emailError={emailError} nicknameError={nicknameError} passwordError={passwordError} confirmPasswordError={confirmPasswordError} />
-            {isEmailAuthModalOpen && <EmailAuthModal onClose={() => setIsEmailAuthModalOpen(false)} />}
-            {isCheckModalOpen && <Modal message={checkMessage} onClose={() => setIsCheckModalOpen(false)} />}
+            {/* <MobileHeader></MobileHeader> */}
+            <Header></Header>
+            <WelcomeText></WelcomeText>
+
+            <RegisterInput title='이메일' placeholder='이메일을 입력해주세요'
+             error = {emailError} errorMessage='이메일은 공백이 아니어야 해요'
+              setState={setEmailInput} regex = '^.+$' setError={setEmailError}
+              duplChecked = {emailDuplChecked} duplCheck={setEmailDuplChecked}>
+            </RegisterInput>
+
+            <RegisterInput title='닉네임' placeholder='닉네임을 입력해주세요' 
+            error = {nicknameError} errorMessage='2-10글자 이내로 유효하게 입력해주세요' 
+            setState={setNicknameInput} regex = "^[a-zA-Z0-9가-힣]{2,10}$" 
+            setError={setNicknameError}
+            duplChecked = {nicknameDuplChecked} duplCheck={setNicknameDuplChecked}>
+            </RegisterInput>
+
+            <PasswordInput setState = {setPasswordInput} setState2 = {setPasswordCheckInput}
+            error={passwordError} regex = '(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{10,20}'
+            errorMessage='영문 대/소문자,숫자,특수문자 포함 총 10자 이상 입력해주세요' setError={setPasswordError}
+            error2={passwordCheckError} regex2 = {passwordInput} 
+            errorMessage2='비밀번호가 일치하지 않아요' setError2={setPasswordCheckError}
+            ></PasswordInput>
+
+            <button className="registration-button" onClick={() => registration(()=>{setIsEmailAuthModalOpen(true)})}>회원 가입</button>
+            {isEmailAuthModalOpen && <EmailAuthModal 
+            onClose={() => setIsEmailAuthModalOpen(false)}
+             onRegister={sendRegistrationRequest} 
+             correctAuthCode={"test"} />}
         </div>
     );
-}
-
+} 
 export default RegistrationPage;

@@ -1,35 +1,17 @@
 .welcome-text{
     color: rgb(100, 100, 100);
     font-size: 13px;
-    margin-top: 26px;
+    margin-top: 50px;
     margin-bottom: 50px;
     text-align: center;
 }
-
-/* 회원가입 입력컨테이너 */
 .register-input-container{
     display: flex;
     flex-direction: column;
-    width: 380px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
+    width: 100%;
 }
-
-.register-input-title{
-    text-align: left;
-    font-size: 18px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-}
-
-.register-input-wrapper{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-
 .register-input{
+    width: 100%;
     text-align: center;
     border-radius: 10px;
     height: 40px;
@@ -38,82 +20,69 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     outline: none;
 }
-
-/* .register-input-container-password{
-    display: flex;
-    flex-direction: column;
-    width: 380px;
-    margin-left: auto;
-    margin-right: auto;
-} */
-
+.register-input-title{
+    text-align: left;
+    font-size: 18px;
+}
 .register-input::placeholder{
     line-height: 40px;
 }
-
-.regist-check-button{
-    width: 74px;
-    height: 24px;
+.register-dupl-button{
+    width: 80px;
     align-self: end;
-    margin-top: 7px;
-    margin-right: 10px;
+    margin-top: 10px;
     border-radius: 10px;
-    background-color: rgb(209, 209, 209);
+    background-color: rgb(200, 200, 200);
     border: none;
     color:white;
-    font-size: 13px;
-    cursor: pointer;
+}
+.register-dupl-button:hover{
+    background-color: rgb(150, 124, 175);
+}
+.password-input{
+    width: 100%;
     text-align: center;
+    border-radius: 10px;
+    height: 40px;
+    resize: none;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
     margin-left: auto;
+    margin-right: auto;
+    outline: none;
 }
-
-/* .register-input-container-password{
-    text-align: left;
-    font-size: 18px;
-    font-weight: bold;
-} */
-
-.password-input.password-input{
-    margin-bottom: 10px;
-}
-
-
 .password-input::placeholder{
     line-height: 40px;
 }
-
-.error-and-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.error-message{
-    color: red;
-    font-size: 12px;
-    margin-top: 10px;
-    padding-left: 10px;
-    margin-right: 10px;
-}
-
-
 .registration-button{
     display: block;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 80px;
+    margin-bottom: 80px;
     margin-left: auto;
     margin-right: auto;
-    width: 240px;
+    width: 300px;
     height: 50px;
     border-radius: 15px;
     border: none;
-    background-color: rgb(154, 81, 223);
+    background-color: blueviolet;
     color: white;
     font-size: large;
     font-weight: bold;
-    cursor: pointer; 
 }
-
-.password-input {
-    margin-bottom: 20px; /* 비밀번호 칸들 사이에 거리 추가 */
+.registration-button:hover{
+    /* border: 4px solid rgb(181, 129, 230); */
+    background-color: rgb(181, 129, 230);
+}
+.register-input-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.input-error-message{
+    color: red;
+    font-size: 12px;
+}
+.password-error-message{
+    color: red;
+    font-size: 12px;
 }

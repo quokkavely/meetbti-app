@@ -32,8 +32,6 @@ import BalanceGamePost from './pages/BalanceGamePost';
 import ImageGameMain from './pages/ImageGameMain';
 
 const App = () => {
-  const [login, setLogin] = useState(false);
-
   return (
     <BrowserRouter>
       <Routes>
