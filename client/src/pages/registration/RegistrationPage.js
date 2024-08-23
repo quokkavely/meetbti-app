@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import EmailAuthModal from '../../components/modal/Modal_EmailAuth.js';
 import { useAuth } from '../../auth/AuthContext.js';
 import ModalCheck from '../../components/modal/ModalCheck.js';
+import sendLoginRequest from '../login/SendLoginRequest.js';
 
 function WelcomeText(){
     return (
@@ -158,10 +159,10 @@ const RegistrationPage = (props) => {
                 
             );
             if(response.ok){
-                const token = response.headers.get('Authorization');
-                const memberId = response.headers.get('MemberId');
                 console.log('회원가입 성공');
-                login(token, emailInput, memberId);
+
+                // login(token, emailInput, memberId);
+                sendLoginRequest(emailInput, passwordInput, login, navigate);
                 navigate('/');
             }else{
                 console.log('회원가입 실패: ', response.status);
