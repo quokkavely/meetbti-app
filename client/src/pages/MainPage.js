@@ -155,11 +155,7 @@ const MainContent = (props) => {
 // 앱 컴포넌트
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
-  const { user } = useAuth().state;
-
-  console.log('user: ');
-  console.log(user);
-  console.log(state);
+  const { state } = useAuth();
   
   return (
     
