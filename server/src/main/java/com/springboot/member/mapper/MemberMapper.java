@@ -11,10 +11,12 @@ public interface MemberMapper {
     Member memberPostDtoToMember(MemberDto.Post postDto);
     Member memberPatchDtoToMember(MemberDto.Patch patchDto);
     default MemberDto.Response memberToResponseDto(Member member) {
+        String mbti = member.getTestResults().isEmpty() ? "NONE" : member.getTestResults().get(member.getTestResults().size() - 1).getMbti();
+
         MemberDto.Response.ResponseBuilder response = MemberDto.Response.builder();
             response.nickname(member.getNickname());
             response.image(member.getImage());
-            response.mbti(member.getTestResults().get(member.getTestResults().size() - 1).getMbti());
+            response.mbti(mbti);
             return response.build();
     }
     List<MemberDto.Response> membersToResponseDto(List<Member> members);

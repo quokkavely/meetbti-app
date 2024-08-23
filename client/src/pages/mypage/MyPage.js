@@ -76,7 +76,6 @@ const NewNotice = () => {
 
 
 const MyPage = () => {
-    
     const { state } = useAuth();
     const [myData, setMyData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -86,15 +85,15 @@ const MyPage = () => {
     }, [])
 
     return (
-      <div className="app">
+    <div className="app">
         <AppContainerComponent />
         <HeaderComponent />
         {!loading && <MyPageUserInfoContainer profileImg={myData.data.image} mbti={myData.data.mbti} nickname={myData.data.nickname}/>}
         <MyPageUserInfoButton />
         <MyPageMyMBTIButton />
         <NewNotice />
-      </div>
+    </div>
     );
-  };
+};
   
   export default MyPage;
