@@ -73,18 +73,21 @@ function onChangeInput(e, setState, regex, setError, setDuplChecked){
 
 const onChangePassword = (e, setState, regex, setError, opponentContent, opponentSetError) => {
     onChangeInput(e, setState, regex, setError);
-
     // 비밀번호 수정될 때 비밀번호 확인의 에러 상태도 수정
-    if(opponentContent !== ''){
-        opponentSetError(true);
+    const opponentValue = opponentContent.target.value;
+    if(opponentValue !== ''){
+        const opponentPassed = (e.target.value === opponentValue);
+        console.log("this: " + e.target.value);
+        console.log("opponent: " + opponentValue);
+        opponentSetError(!opponentPassed);
     }
 }
 const onChangePasswordCheck = (content, setContent, opponentInput, setError) => {
     setContent(content);
-    console.log("opponent: " + opponentInput);
+    /* console.log("opponent: " + opponentInput);
     console.log("content: " + content.target.value);
+    console.log(passed); */
     const passed = (opponentInput === content.target.value);
-    console.log(passed);
     setError(!passed);
 }
 
