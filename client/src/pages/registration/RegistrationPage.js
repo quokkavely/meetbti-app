@@ -25,9 +25,15 @@ function RegisterInput(props){
              <div className='register-input-footer'>
                 <div className='input-error-message'>{props.error && props.errorMessage}</div>
                 <button className="register-dupl-button" onClick={() => {
-                    props.duplCheck(true);
-                    props.getModalMessage();
-                    props.openModal(props.modalMessage);
+                    console.log(props.content);
+                    if(props.content === '' || props.error){
+                        props.getModalMessage('올바른 형식으로 입력해주세요😢');
+                        props.openModal();
+                    }else{
+                        props.duplCheck(true);
+                        props.getModalMessage(`사용 가능한 ${props.title}이에요`);
+                        props.openModal(props.modalMessage);
+                    }
                  }}
                  style={{ '--dupl-button-color': `${props.duplChecked ? '#b972fc' : '#d1d1d1'}` }}
                  >{buttomContent}</button>
@@ -74,7 +80,7 @@ function onChangeInput(e, setState, regex, setError, setDuplChecked){
 const onChangePassword = (e, setState, regex, setError, opponentContent, opponentSetError) => {
     onChangeInput(e, setState, regex, setError);
     // 비밀번호 수정될 때 비밀번호 확인의 에러 상태도 수정
-    const opponentValue = opponentContent.target.value;
+    const opponentValue = opponentContent.target?.value || '';
     if(opponentValue !== ''){
         const opponentPassed = (e.target.value === opponentValue);
         console.log("this: " + e.target.value);
@@ -167,7 +173,6 @@ const RegistrationPage = (props) => {
 
     return (
         <div className="app">
-            {/* <MobileHeader></MobileHeader> */}
             <Header></Header>
             <WelcomeText></WelcomeText>
 
@@ -175,7 +180,8 @@ const RegistrationPage = (props) => {
              error = {emailError} errorMessage='이메일은 공백이 아니어야 해요'
               setState={setEmailInput} regex = '^.+$' setError={setEmailError}
               duplChecked = {emailDuplChecked} duplCheck={(dupl) => setEmailDuplChecked(dupl)}
-              openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {() => setModalMessage('사용 가능한 이메일이에요')}
+              openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {(message) => setModalMessage(message)}
+              content = {emailInput}
               >
             </RegisterInput>
 
@@ -184,7 +190,8 @@ const RegistrationPage = (props) => {
             setState={setNicknameInput} regex = "^[a-zA-Z0-9가-힣]{2,10}$" 
             setError={setNicknameError}
             duplChecked = {nicknameDuplChecked} duplCheck={(dupl) => setNicknameDuplChecked(dupl)}
-            openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {() => setModalMessage('사용 가능한 닉네임이에요')}
+            openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {(message) => setModalMessage(message)}
+            content = {nicknameInput}
             >
             </RegisterInput>
 
