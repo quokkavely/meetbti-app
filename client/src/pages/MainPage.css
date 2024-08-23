@@ -103,6 +103,12 @@
   color:#3C3C3C
 }
 
+
+.main-content {
+  margin-top: 30px;
+  margin-bottom: 100px;
+}   /* footer가 생기면 삭제 요망 */
+
 /* MBTI 테스트 섹션 */
 .mbti-test-card {
   width: 440px;
@@ -116,6 +122,7 @@
   /* 아래는 이미지 삽입으로 인해 추가 */
   position: relative;
   overflow: hidden;
+  border: 6px solid #e3ccf6;
 }
 
 .mbti-image {
@@ -132,11 +139,12 @@
   align-items: center; /* 자식 요소들을 세로 방향으로 중앙에 배치 */
   align-self: center; /* 현재 요소를 부모 컨테이너 내에서 가로 방향으로 중앙에 배치 */
   text-align: center; /* 텍스트 중앙 배치 */
-  background-color: #fff;
+  background-color: #ffffff7e;
   gap: 10px; /* 자식 요소들 사이에 20px의 간격을 추가 */
   white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
   opacity: 0.9;
   border-radius: 5px;
+  margin-bottom: 40px;
 }
 
 .mbti-test h2 {
@@ -196,6 +204,11 @@
 }
 
  /* 카드 스타일 */
+.slider-container2 {
+  width: 100%;
+  margin: 0 auto;
+}
+
  .card-list {
   display: flex;
   flex-direction: row;
@@ -203,40 +216,101 @@
   margin: 20px 0;
 }
 
+.card-list2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+
 .card {
   position: relative; /* 자식 요소의 절대 위치 지정을 위해 relative 설정 */
-  width: 200px; /* 카드의 너비를 설정 */
-  height: 300px; /* 카드의 높이를 설정 */
+  width: 300px; /* 카드의 너비를 300px로 설정 */
+  height: 400px; /* 카드의 높이를 400px로 설정 */
   overflow: hidden; /* 카드 내용이 넘치지 않도록 설정 */
   border: 1px solid #ccc; /* 카드 테두리 */
   border-radius: 8px; /* 카드 모서리 둥글게 */
 }
 
+.card.large-card {
+  width: 100%;
+  max-width: 420px;
+  border: 8px solid #e3ccf6;
+}
+
+.card.undefined {
+  border: none;
+}
+
+.large-card .card-image {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  object-fit: cover; /* 이미지가 부모 요소의 크기에 맞게 조정 */
+}
+
 .card-image {
   width: 100%; /* 이미지가 카드의 너비에 맞게 조정 */
   height: auto; /* 이미지 비율 유지 */
+  margin: 0 auto;
+  padding-top: 10px;
 }
 
 .card-content {
-  position: absolute; /* 절대 위치 지정 */
-  bottom: 0; /* 카드의 아래쪽에 위치 */
-  background-color: rgba(255, 255, 255, 0.3); /* 배경색과 투명도 설정 */
-  color: #fff;
-  padding: 10px; /* 패딩 추가 */
-  width: 100%;
-  height: 75px;
-  text-align: right;
+  position: absolute !important;
+  bottom: 0 !important;
+  background-color: rgba(235, 235, 235, 0.368) !important;
+  color: #ffffff !important;
+  width: 100% !important;
+  height: 90px !important;
+  text-align: right !important;
 }
 
 .card-title {
-  margin: 0; /* 기본 마진 제거 */
-  font-size: 24px;
-  font-weight: bold;
-  padding-right: 10px;
+  margin: 0 !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
+  padding-right: 10px !important;
+  color: #6009a7 !important;
 }
 
 .card-description {
-  margin: 0; /* 기본 마진 제거 */
-  font-size: 14px;
-  padding-right: 10px;
+  margin: 0 !important;
+  font-size: 18px !important;
+  padding-right: 10px !important;
+  color: #747474 !important;
 }
+
+.snack-title-in {
+  margin: 0 !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
+  padding-right: 10px !important;
+  color: #6009a7 !important;
+}
+
+.snack-description-in {
+  margin: 0;
+  font-size: 18px;
+  padding-left: 2px;
+}
+
+.card-content2 {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.446); /* 다른 배경색 */
+  color: #000000; /* 다른 텍스트 색상 */
+  padding: 10px;
+  width: 100%;
+  height: 75px;
+  text-align: left;
+}
+
+
+/* 슬릭 화살표 스타일 */
+/* button.slick-arrow.slick-next, button.slick-arrow.slick-prev {
+  color: black;
+  z-index: 1;
+} */

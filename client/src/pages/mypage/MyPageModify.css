@@ -57,14 +57,14 @@
 }
 
 .nickname-check-button {
-    width: 44px;
-    height: 18px;
+    width: 50px;
+    height: 20px;
     border-radius: 5px;
     border: none;
     font-size: 10px;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
-    color: rgb(0, 0, 0); 
-    background-color: none;
+    color: rgb(64, 64, 64);
+    background-color: #e3ccf6;
     cursor: pointer;
     text-align: center;
     margin-top: 5px;
@@ -99,8 +99,8 @@
     border: none;
     font-size: 14px;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
-    color: rgb(0, 0, 0); 
-    background-color: none;
+    color: rgb(63, 63, 63); 
+    background-color: #e3ccf6;
     cursor: pointer;
 }
 
