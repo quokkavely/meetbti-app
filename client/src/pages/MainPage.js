@@ -155,10 +155,10 @@ const MainContent = (props) => {
 // 앱 컴포넌트
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
-  const { user } = useAuth().state;
+  const { state } = useAuth();
 
-  console.log('user: ');
-  console.log(user);
+  console.log(state);
+  
   return (
     
     <div className="app">
