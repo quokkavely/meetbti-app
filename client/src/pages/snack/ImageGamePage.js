@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/basic_css/Header";
 import './ImageGamePage.css';
 
 const mbtiButtonsA = [{id:'ENFP'}, {id:'ESFJ'}, {id:'ISFP'}, {id:'ESFP'}, {id:'ESTP'}, {id:'ISTJ'}, {id:'INTJ'}, {id:'ENTP'}];

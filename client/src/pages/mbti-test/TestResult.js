@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TestResult.css';
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트

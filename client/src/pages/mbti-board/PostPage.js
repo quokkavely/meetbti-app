@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import './PostPage.css';
 
 // 컴포넌트 임포트
-import UserInfoContainer from '../components/UserInfoContainer';
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
-import CommentUserInfoContainer from '../components/CommentUserInfoContainer';
-import AlertModal from '../components/AlertModal';
+import UserInfoContainer from '../../components/user_info_container/UserInfoContainer';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
+import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
+import AlertModal from '../../components/modal/AlertModal';
 
 const AppContainerComponent = () => {
     return (

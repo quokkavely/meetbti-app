@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './ImageGameResult.css';
 
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
-import CommentUserInfoContainer from '../components/CommentUserInfoContainer';
+import AppContainer from '../../components/AppContainer';
+import Header from '../../components/Header';
+import CommentUserInfoContainer from '../../components/CommentUserInfoContainer';
 
 const AppContainerComponent = () => {
     return (

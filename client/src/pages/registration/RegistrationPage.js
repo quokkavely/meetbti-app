@@ -1,8 +1,8 @@
 import './RegistrationPage.css';
-import Header from '../../components/Header.js';
+import Header from '../../components/basic_css/Header.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EmailAuthModal from '../../components/Modal(EmailAuth).js';
+import EmailAuthModal from '../../components/modal/Modal_EmailAuth.js';
 import { useAuth } from '../../auth/AuthContext.js';
 import ModalCheck from '../../components/ModalCheck.js';
 

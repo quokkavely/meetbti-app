@@ -1,5 +1,5 @@
 import ReportItem from "../../components/report_item/ReportItem";
-import Header from "../../components/Header";
+import Header from "../../components/basic_css/Header";
 import './ReportDetail.css';
 import Dropdown from "../../components/dropdown/Dropdown";
 

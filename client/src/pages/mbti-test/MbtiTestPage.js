@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import Header from "../../components/basic_css/Header";
 import './MbtiTestPage.css';
 import { useAuth } from "../../auth/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
