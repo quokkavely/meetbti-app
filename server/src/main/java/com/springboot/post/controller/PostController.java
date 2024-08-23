@@ -2,6 +2,7 @@ package com.springboot.post.controller;
 
 import com.springboot.auth.utils.Principal;
 import com.springboot.comment.mapper.CommentMapper;
+import com.springboot.helper.S3Service;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
 import com.springboot.post.dto.PostDto;
@@ -17,9 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -31,26 +35,36 @@ public class PostController {
     private final PostMapper postMapper;
     private final MemberService memberService;
     private final CommentMapper commentMapper;
+    private final S3Service s3Service;
     private final static String POST_DEFAULT_URL = "/posts";
 
-    public PostController(PostService postService, PostMapper postMapper, MemberService memberService, CommentMapper commentMapper) {
+    public PostController(PostService postService, PostMapper postMapper, MemberService memberService, CommentMapper commentMapper, S3Service s3Service) {
         this.postService = postService;
         this.postMapper = postMapper;
         this.memberService = memberService;
         this.commentMapper = commentMapper;
+        this.s3Service = s3Service;
     }
     @PostMapping
-    public ResponseEntity createPost(@Valid @RequestBody PostDto.Create createDto,
+    public ResponseEntity createPost(@ModelAttribute PostDto.Create createDto,
+                                     @RequestParam(value = "file", required = false) MultipartFile file,
                                      Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
-        createDto.setCategory(findMember.getTestResults().get(findMember.getTestResults().size()-1).getMbti());
+        createDto.setCategory(findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti());
 
-        Post post = postService.createPost(postMapper.postCreateDtoToPost(createDto), authentication);
+        Post post = postMapper.postCreateDtoToPost(createDto);
 
-        URI location = UriCreator.createUri(POST_DEFAULT_URL, post.getPostId());
+        if (file != null && !file.isEmpty()) {
+            String imageUrl = s3Service.uploadFile(file);
+            post.setImage(imageUrl);
+        }
+
+        Post createdPost = postService.createPost(post, authentication);
+
+        URI location = UriCreator.createUri(POST_DEFAULT_URL, createdPost.getPostId());
 
         return ResponseEntity.created(location).build();
     }

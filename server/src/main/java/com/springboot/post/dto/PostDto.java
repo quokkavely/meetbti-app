@@ -19,6 +19,7 @@ public class PostDto {
         @NotNull
         private String content;
         private String category;
+        private String image;
     }
     @Builder
     @Getter

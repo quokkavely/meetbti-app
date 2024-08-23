@@ -77,9 +77,9 @@ public class HeartController {
                             return heartMapper.postToPostHeartResponseDto((Post) content);
                         case "comment":
                             return heartMapper.commentToCommentHeartResponseDto((Comment) content);
-                        case "imagegame":
+                        case "image_game":
                             return heartMapper.imageGameToImageGameHeartResponseDto((ImageGame) content);
-                        case "balancegame":
+                        case "balance_game":
                             return heartMapper.BalanceGameToBalanceGameHeartResponseDto((BalanceGame) content);
                         default:
                             throw new IllegalArgumentException("Invalid type");

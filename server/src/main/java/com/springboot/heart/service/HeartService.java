@@ -130,9 +130,9 @@ public class HeartService {
                 return (Page<T>) heartRepository.findLikedPostsByMember(member, pageRequest);
             case "comment":
                 return (Page<T>) heartRepository.findLikedCommentsByMember(member, pageRequest);
-            case "imagegame":
+            case "image_game":
                 return (Page<T>) heartRepository.findLikedImageGamesByMember(member, pageRequest);
-            case "balancegame":
+            case "balance_game":
                 return (Page<T>) heartRepository.findLikedBalanceGamesByMember(member, pageRequest);
             default:
                 throw new BusinessLogicException(ExceptionCode.CONTENT_NOT_FOUND);
