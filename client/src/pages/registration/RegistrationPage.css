@@ -7,8 +7,10 @@
 }
 .register-input-container{
     display: flex;
+    margin: 0 auto;
+    margin-top: 6px;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
 }
 .register-input{
     width: 100%;
@@ -22,22 +24,29 @@
 }
 .register-input-title{
     text-align: left;
+    margin-bottom: 7px;
     font-size: 18px;
 }
 .register-input::placeholder{
     line-height: 40px;
 }
 .register-dupl-button{
-    width: 80px;
+    width: 85px;
+    height: 22px;
     align-self: end;
-    margin-top: 10px;
+    margin-top: 7px;
+    margin-right: 10px;
     border-radius: 10px;
-    background-color: rgb(200, 200, 200);
+    background-color: var(--dupl-button-color);
     border: none;
     color:white;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: auto;
 }
 .register-dupl-button:hover{
-    background-color: rgb(150, 124, 175);
+    background-color: rgb(195, 176, 212);
 }
 .password-input{
     width: 100%;
@@ -47,7 +56,7 @@
     resize: none;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
     outline: none;
@@ -57,11 +66,11 @@
 }
 .registration-button{
     display: block;
-    margin-top: 80px;
+    margin-top: 70px;
     margin-bottom: 80px;
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
+    width: 220px;
     height: 50px;
     border-radius: 15px;
     border: none;
