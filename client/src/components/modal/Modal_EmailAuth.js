@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Modal(EmailAuth).css';
+import './Modal_EmailAuth.css';
 
 const EmailAuthModal = ({ onClose, onRegister, correctAuthCode }) => {
     const [authCode, setAuthCode] = useState('');
