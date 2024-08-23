@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyPage.css';
+import getMyInfo from '../requests/GetMyInfo';
 
 // 컴포넌트 임포트
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import { useAuth } from '../../auth/AuthContext';
 
 const AppContainerComponent = () => {
     return (
@@ -19,15 +21,15 @@ const HeaderComponent = () => {
 };
 
 // 마이페이지 유저 정보 컴포넌트
-const MyPageUserInfoContainer = () => {
+const MyPageUserInfoContainer = (props) => {
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
                 <img src="catprofile.png" alt="mypage-user-info-img" />
             </div>
             <div className="mypage-user-info-section">
-                <div className="mypage-user-info-section-badge"> MBTI </div>
-                <div className="mypage-user-info-section-name"> 닉네임이요 </div>
+                <div className="mypage-user-info-section-badge"> {props.mbti} </div>
+                <div className="mypage-user-info-section-name"> {props.nickname} </div>
             </div>
         </div>
     );
@@ -74,11 +76,20 @@ const NewNotice = () => {
 
 
 const MyPage = () => {
+    
+    const { state } = useAuth();
+    const [myData, setMyData] = useState({});
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getMyInfo(state, setMyData, setLoading);
+    }, [])
+
     return (
       <div className="app">
         <AppContainerComponent />
         <HeaderComponent />
-        <MyPageUserInfoContainer />
+        {!loading && <MyPageUserInfoContainer profileImg={myData.data.image} mbti={myData.data.mbti} nickname={myData.data.nickname}/>}
         <MyPageUserInfoButton />
         <MyPageMyMBTIButton />
         <NewNotice />
