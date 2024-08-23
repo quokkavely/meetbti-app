@@ -125,7 +125,7 @@ const RegistrationPage = (props) => {
             if(response.ok){
                 const token = response.headers.get('Authorization');
                 console.log('회원가입 성공');
-                login(token, emailInput);
+                login(token, emailInput, nicknameInput);
                 navigate('/');
             }else{
                 console.log('회원가입 실패: ', response.status);

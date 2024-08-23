@@ -43,7 +43,7 @@ const getQuestions = async(setLoading, setQuestion) => {
         if(response.ok){
             data = await response.json();
             console.log(data);
-            setQuestion(data);
+            setQuestion(data.data);
             setLoading(false);
             console.log('질문 로딩 완료')
         }else{

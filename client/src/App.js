@@ -30,43 +30,47 @@ import RegistBalanceGame from './pages/RegistBalanceGame';
 import BalanceGameMain from './pages/BalanceGameMain';
 import BalanceGamePost from './pages/BalanceGamePost';
 import ImageGameMain from './pages/ImageGameMain';
+import { AuthProvider } from './auth/AuthContext';
+
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage/>} />
-        <Route path="/testmain" element={<TestMain />} />
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path='/registration' element={<RegistrationPage/>}/>
-        <Route path='/mbti-test' element={<MbtiTestPage/>}/>
-        <Route path='/admin' element={<AdminPage/>}/>
-        <Route path="/resultwaiting" element={<ResultWaiting />} />
-        <Route path="/testresult" element={<TestResult />} />
-        <Route path="/loginmain" element={<LoginMainPage />} />
-        <Route path="/mbtiboard" element={<MBTIBoard />} />
-        <Route path="/registpost" element={<RegistPostPage />} />
-        <Route path="/postpage" element={<PostPage />} />
-        <Route path='/report' element={<ReportPage/>}/>
-        <Route path='/report-detail' element={<ReportDetail/>}/>
-        <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
-        <Route path='/mbtmi' element={<MbtmiPage/>}/>
-        <Route path='/imagegame-detail' element={<ImageGamePage/>}/>
-        <Route path='/mypage' element={<MyPage/>}/>
-        <Route path='/mypagemodify' element={<MyPageModify/>}/>
-        <Route path='/mypagehistory' element={<MyPageHistory/>}/>
-        <Route path='/mymbtihistory' element={<MyMBTIHistory/>}/>
-        <Route path='/myposthistory' element={<MyPostHistory/>}/>
-        <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
-        <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
-        <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
-        <Route path="/snackmain" element={<SnackMain />} />
-        <Route path="/registbalancegame" element={<RegistBalanceGame />} />
-        <Route path="/balancegame" element={<BalanceGameMain />} />
-        <Route path="/balancegamepost" element={<BalanceGamePost />} />
-        <Route path="/imagegame" element={<ImageGameMain />} />
-      </Routes>
-    </BrowserRouter>  
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage/>} />
+          <Route path="/testmain" element={<TestMain />} />
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path='/registration' element={<RegistrationPage/>}/>
+          <Route path='/mbti-test' element={<MbtiTestPage/>}/>
+          <Route path='/admin' element={<AdminPage/>}/>
+          <Route path="/resultwaiting" element={<ResultWaiting />} />
+          <Route path="/testresult" element={<TestResult />} />
+          <Route path="/loginmain" element={<LoginMainPage />} />
+          <Route path="/mbtiboard" element={<MBTIBoard />} />
+          <Route path="/registpost" element={<RegistPostPage />} />
+          <Route path="/postpage" element={<PostPage />} />
+          <Route path='/report' element={<ReportPage/>}/>
+          <Route path='/report-detail' element={<ReportDetail/>}/>
+          <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
+          <Route path='/mbtmi' element={<MbtmiPage/>}/>
+          <Route path='/imagegame-detail' element={<ImageGamePage/>}/>
+          <Route path='/mypage' element={<MyPage/>}/>
+          <Route path='/mypagemodify' element={<MyPageModify/>}/>
+          <Route path='/mypagehistory' element={<MyPageHistory/>}/>
+          <Route path='/mymbtihistory' element={<MyMBTIHistory/>}/>
+          <Route path='/myposthistory' element={<MyPostHistory/>}/>
+          <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
+          <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
+          <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
+          <Route path="/snackmain" element={<SnackMain />} />
+          <Route path="/registbalancegame" element={<RegistBalanceGame />} />
+          <Route path="/balancegame" element={<BalanceGameMain />} />
+          <Route path="/balancegamepost" element={<BalanceGamePost />} />
+          <Route path="/imagegame" element={<ImageGameMain />} />
+        </Routes>
+      </BrowserRouter>  
+    </AuthProvider>
   );
 };
 
