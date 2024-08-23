@@ -3,6 +3,7 @@ import './LoginPage.css';
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAuth } from "../../auth/AuthContext";
+import sendLoginRequest from "./SendLoginRequest";
 
 // 헤더(로고, 뒤로가기) 컴포넌트
 const Header = () => {
@@ -52,11 +53,13 @@ function InputContainer(){
         } else {
             setPasswordError('');
             // 로그인 로직 추가
-            requestLogin(email, password);
+            /* requestLogin(email, password); */
+            sendLoginRequest(email, password, login, navigate);
         }
     };
+    
 
-    const requestLogin = async() => {
+    /* const requestLogin = async() => {
         try{
             const response = await fetch('http://localhost:8080/login',
                 {
@@ -86,7 +89,7 @@ function InputContainer(){
         } catch (error){
             console.error('로그인 실패', error);
         }
-    }
+    } */
 
     return (
         <div className="input-container">
