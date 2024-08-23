@@ -28,8 +28,10 @@ function TestBox(props){
     );
 }
 
-const getQuestions = async(setLoading, setQuestion) => {
+const getQuestions = async(setLoading, setQuestion, state) => {
     console.log('질문 가져오는 중...')
+    console.log(state);
+
     let data = [];
     try{
         const response = await fetch('http://localhost:8080/questions',
@@ -37,6 +39,7 @@ const getQuestions = async(setLoading, setQuestion) => {
                 method: 'GET',
                 headers: {
                     'content-Type': 'application/json',
+                    'Authorization': `${state.token}`,
                 },
             }        
         );
@@ -120,7 +123,7 @@ const MbtiTestPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getQuestions(setLoading, setQuestion);
+        getQuestions(setLoading, setQuestion, state);
     }, []);
 
     const questionReady = ()=> {

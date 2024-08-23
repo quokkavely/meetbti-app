@@ -7,24 +7,27 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [state, setState] = useState({
         isAuthenticated: false,
-        user: null,
+        email: null,
         token: null,
+        memberId: null
     });
 
-    const login = (token, user) => {
+    const login = (token, email, memberId) => {
         console.log('login 함수 호출')
         setState({
             isAuthenticated: true,
-            user,
+            email,
             token,
+            memberId,
         });
     };
 
     const logout = () => {
         setState({
             isAuthenticated: false,
-            user: null,
+            email: null,
             token: null,
+            memberId: null,
         });
     };
 
