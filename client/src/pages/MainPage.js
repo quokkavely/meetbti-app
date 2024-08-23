@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { state, useAuth } from '../auth/AuthContext';
+import getMyInfo from './requests/GetMyInfo';
 
 // 헤더 컴포넌트
 const Header = (props) => {
@@ -156,11 +157,40 @@ const MainContent = (props) => {
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
   const { state } = useAuth();
-  
-  return (
+  const [myData, setMyData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [nickname, setNickname] = useState('Unknown');
+
+  console.log('state: ', state);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        await getMyInfo(state, setMyData, setLoading);
+      }catch(error){
+        console.error('회원 정보 요청 실패', error);
+      }finally{
+        setLoading(false);
+      }
+    }
+    if(state.isAuthenticated){
+      fetchData();
+    }
     
+  }, []);
+
+  useEffect(() =>{
+    if(myData && myData.data && myData.data.nickname){
+      setNickname(myData.data.nickname);
+    }
+  }, [myData]);
+  
+  return ( 
     <div className="app">
-      <Header login = {isAuthenticated} /* userNickname = {user} *//>
+      <Header 
+        login = {isAuthenticated}
+        userNickname={state.isAuthenticated ? nickname : 'Unknown'}
+      />
       <MainContent login = {isAuthenticated}/>
     </div>
   );
