@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmailAuthModal from '../../components/modal/Modal_EmailAuth.js';
 import { useAuth } from '../../auth/AuthContext.js';
-import ModalCheck from '../../components/ModalCheck.js';
+import ModalCheck from '../../components/modal/ModalCheck.js';
 
 function WelcomeText(){
     return (
