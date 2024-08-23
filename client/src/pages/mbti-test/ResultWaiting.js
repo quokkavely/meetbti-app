@@ -18,11 +18,11 @@ const ResultWaiting = () => {
         <div className="app result-waiting-page">
             <div className="waiting-container">
                 <div className="waiting-logo">
-                    <img src="Main-logo.png" alt="logo" />
+                    <img src="/public-img/Main-logo.png" alt="logo" />
                 </div>
                 <div className="waiting-text">결과 출력 중</div>
                 <div className="waiting-img">
-                    <img src="Loading.gif" alt="waiting" />
+                    <img src="/public-img/Loading.gif" alt="waiting" />
                 </div>
             </div>
         </div>

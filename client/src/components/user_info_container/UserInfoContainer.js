@@ -47,7 +47,7 @@ const styles = {
 const UserInfoContainer = () => {
     return (
         <div style={styles.container}>
-            <img src="catprofile.png" alt="프로필 이미지" style={styles.profile} />
+            <img src="/public-img/catprofile.png" alt="프로필 이미지" style={styles.profile} />
             <div style={styles.info}>
                 <div style={styles.badge}>MBTI</div>
                 <div style={styles.name}>닉네임</div>

@@ -54,7 +54,7 @@ const CommentUserInfoContain = ({ username = 'username' }) => {
   return (
     <div style={styles.container}>
       <div style={styles.imgContainer}>
-        <img src="catprofile.png" alt="catprofile" style={styles.img} />
+        <img src="/public-img/catprofile.png" alt="catprofile" style={styles.img} />
       </div>
       <div style={styles.mbtiContainer}>
         <div style={styles.mbti}>MBTI</div>
