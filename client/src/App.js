@@ -7,7 +7,7 @@ import MainPage from './pages/MainPage';
 import LoginMainPage from './pages/MainPage_Login';
 
 /* 로그인 관련 */
-import LoginPage from './pages/mbti-test/login/LoginPage';
+import LoginPage from './pages/login/LoginPage';
 import RegistrationPage from './pages/registration/RegistrationPage';
 
 /* MBTI 테스트 */
