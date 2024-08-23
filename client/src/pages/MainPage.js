@@ -13,14 +13,14 @@ const Header = (props) => {
     <header className="header">
       <div className="logo-box">
         <div className='logo-img' onClick={() => navigate('/')}>
-          <img src="/Main-logo.png" alt='메인로고'/>
+          <img src="/public-img/Main-logo.png" alt='메인로고'/>
         </div>
         <div className="user-icon-container">
           <div className='user-nickname'>
               <div className='user-name-box'>{props.userNickname} 님</div>
               <div className='user-welcome'>반갑습니다!</div>
           </div>
-          <img src="profile.png" alt="사용자 아이콘" onClick={() => navigate(props.login ? '/mypage' : '/login')}/>
+          <img src="/public-img/profile.png" alt="사용자 아이콘" onClick={() => navigate(props.login ? '/mypage' : '/login')}/>
         </div>
       </div>
       <div className="logo-text">
@@ -79,42 +79,42 @@ const MainContent = (props) => {
           다른 MBTI들의 생각은?!
         </div>
         <div className="go-point">
-          <img src="to.png" alt='가기' onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}/>
+          <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}/>
         </div>
       </div>
       <Slider {...settings} className="card-list">
         <Card 
-          image="redgirl.jpeg" 
+          image="/public-img/redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
         />
         <Card
-          image="whitegirl.jpeg" 
+          image="/public-img/whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
         />
         <Card 
-          image="redgirl.jpeg" 
+          image="/public-img/redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')} 
         />
         <Card
-          image="whitegirl.jpeg" 
+          image="/public-img/whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
         />
         <Card 
-          image="redgirl.jpeg" 
+          image="/public-img/redgirl.jpeg" 
           title="INFJ" 
           description="선의의 옹호자" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
         />
         <Card
-          image="whitegirl.jpeg" 
+          image="/public-img/whitegirl.jpeg" 
           title="INTP" 
           description="개발자의 MBTI" 
           onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
@@ -125,24 +125,24 @@ const MainContent = (props) => {
         즐겨보세요, 스낵 컬처!
         </div>
         <div className="go-point">
-           <img src="to.png" alt='가기' onClick={() => navigate(props.login ? '/snackmain' : '/login')}/>
+           <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? '/snackmain' : '/login')}/>
         </div>
       </div>
       <Slider {...settings} className="card-list">
         <Card 
-          image="snack-img1.jpeg" 
+          image="/public-img/snack-img1.jpeg" 
           title="이미지 게임" 
           description="가장 ~~ 할 것 같은 MBTI는?"
           onClick={() => navigate(props.login ? '/ImageGame' : '/login')}
         />
         <Card 
-          image="snack-img2.jpeg" 
+          image="/public-img/snack-img2.jpeg" 
           title="밸런스 게임" 
           description="말해 Yes or No" 
           onClick={() => navigate(props.login ? '/BalanceGame' : '/login')}
         />
         <Card 
-          image="snack-img1.jpeg" 
+          image="/public-img/snack-img1.jpeg" 
           title="MBTMI" 
           description="MBTI의 TMI 대방출!" 
           onClick={() => navigate(props.login ? '/MBTMI' : '/login')}
@@ -155,8 +155,10 @@ const MainContent = (props) => {
 // 앱 컴포넌트
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
-  const { state } = useAuth();
+  const { user } = useAuth().state;
 
+  console.log('user: ');
+  console.log(user);
   console.log(state);
   
   return (

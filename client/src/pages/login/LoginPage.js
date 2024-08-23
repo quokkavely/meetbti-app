@@ -12,7 +12,7 @@ const Header = () => {
       <header className="login-header">
         <div className="login-logo-box">
           <div className="login-back-icon" onClick={() => navigate(-1)}>
-            <img src="back(grey).png" alt='뒤로 가기' />
+            <img src="/public-img/back(grey).png" alt='뒤로 가기' />
           </div>
         </div>
       </header>
@@ -127,9 +127,9 @@ function FindPasswordContainer(){
 function OAuthContainer(){
     return (
         <div className="oauth-container">
-            <img src="google.png" className="oauth-logo"></img>
-            <img src="kakao.png" className="oauth-logo"></img>
-            <img src="naver.png" className="oauth-logo"></img>
+            <img src="/public-img/google.png" className="oauth-logo"></img>
+            <img src="/public-img/kakao.png" className="oauth-logo"></img>
+            <img src="/public-img/naver.png" className="oauth-logo"></img>
         </div>
     );
 }
@@ -138,7 +138,7 @@ const LoginPage = () => {
       <div className="app">
         <Header></Header>
         <div className="logo-section">
-        <img src="Main-logo.png" className="logo"></img></div>
+        <img src="/public-img/Main-logo.png" className="logo"></img></div>
         <InputContainer></InputContainer>
         <FindPasswordContainer></FindPasswordContainer>
         <h2 className="or"> 또는 </h2>
