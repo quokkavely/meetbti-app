@@ -13,7 +13,8 @@ public enum ExceptionCode {
     GAME_NOT_FOUND(404,"Game Not Found"),
     CONTENT_NOT_FOUND(404,"Content Not Found"),
     EMAIL_ALREADY_EXIST(409, "Email Already Exist"),
-    NICKNAME_ALREADY_EXIST(409, "Nickname Already Exist");
+    NICKNAME_ALREADY_EXIST(409, "Nickname Already Exist"),
+    INVALID_AUTHENTICATION_CODE(400, "Invalid Authentication Code");
 
     @Getter
     private int status;

@@ -3,8 +3,11 @@ package com.springboot.member.service;
 import com.springboot.auth.utils.JwtAuthorityUtils;
 import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
+import com.springboot.helper.email.VerificationDto;
 import com.springboot.member.entity.Member;
 import com.springboot.member.repository.MemberRepository;
+import com.springboot.redis.RedisUtil;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -17,23 +20,37 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtAuthorityUtils jwtAuthorityUtils;
+    private final RedisUtil redisUtil;
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils, RedisUtil redisUtil, RedisTemplate<String, Object> redisTemplate) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtAuthorityUtils = jwtAuthorityUtils;
+        this.redisUtil = redisUtil;
+        this.redisTemplate = redisTemplate;
     }
     //회원을 생성하는 메서드
-    public Member createMember(Member member) {
-        verifiedExistEmail(member.getEmail());
+    public void createMember(Member member) {
         verifiedExistNickname(member.getNickname());
+        verifiedExistEmail(member.getEmail());
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
+        String key = member.getEmail()+":email";
+        redisUtil.setHashValueWithExpire(key, "memberInfo", member,600);
+    }
 
+    //  인증코드 확인 후 회원 등록 여부 결정
+    public Member registerMember(VerificationDto verificationDto) {
+        String key = verificationDto.getEmail()+":email";
+        Member member = redisUtil.getHashValue(key, "memberInfo", Member.class);
+        if (member == null) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        }
+        //redis에서 member삭제
+        redisTemplate.delete(key);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         List<String> roles = jwtAuthorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
-
         return memberRepository.save(member);
     }
     //회원 정보를 수정하는 메서드
@@ -108,4 +125,5 @@ public class MemberService {
 
         return member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)).getMemberId();
     }
+
 }

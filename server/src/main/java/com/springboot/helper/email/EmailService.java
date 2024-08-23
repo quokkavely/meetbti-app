@@ -1,7 +1,11 @@
 package com.springboot.helper.email;
 
 
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
+import com.springboot.redis.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,22 +22,32 @@ import java.util.Random;
 public class EmailService {
     private final JavaMailSender javaMailSender;
     private final SpringTemplateEngine templateEngine;
+    private final RedisUtil redisUtil;
 
-    public EmailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine) {
+    @Value("${AUTH_CODE_EXPIRATION}")
+    private long authCodeExpiration;
+
+    public EmailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine, RedisUtil redisUtil) {
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
+        this.redisUtil = redisUtil;
     }
 
     public String sendMail(EmailMessage emailMessage, String type) {
         String authNumber = createCode();
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        //if(type.equals("password")) memberService.setTempPassword(emailMessage.getTo(),authNumber);
-        // - type이 비밀먼호와 일치하는 경우 authNumber = 임시비밀번호로 사용된다.
+
         try {
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,false,"UTF-8");
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(emailMessage.getTo());
             mimeMessageHelper.setSubject(emailMessage.getSubject());
-            mimeMessageHelper.setText(setContext(authNumber,type), true);
+            mimeMessageHelper.setText(setContext(authNumber, type), true);
+
+            // 인증 코드 Redis에 저장
+            String hashedEmail = emailMessage.getTo() +":auth";
+            redisUtil.setDataWithExpire(hashedEmail, authNumber, authCodeExpiration);
+
+
             javaMailSender.send(mimeMessage);
             log.info("Success");
             return authNumber;
@@ -70,5 +84,13 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("code", code);
         return templateEngine.process(type, context);
+    }
+    public boolean verifyEmailCode(VerificationDto verificationDto) {
+        String email = verificationDto.getEmail()+":auth";
+        String codeFoundByEmail = redisUtil.getData(email);
+        if (codeFoundByEmail == null || !codeFoundByEmail.equals(verificationDto.getAuthCode())) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_AUTHENTICATION_CODE);
+        }
+        return true;
     }
 }
