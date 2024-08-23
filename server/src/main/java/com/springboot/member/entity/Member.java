@@ -31,7 +31,7 @@ public class Member {
     @Column(length = 30, nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String password;
 
     @Column(length = 10, nullable = false)

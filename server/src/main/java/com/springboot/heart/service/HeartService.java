@@ -122,10 +122,10 @@ public class HeartService {
                 throw new IllegalArgumentException("Type Not Found");
         }
     }
-    public <T> Page<T> getLikedContentByMember(Member member, int page, int size, String type) {
+    public <T> Page<T> getLikedContentByMember(Member member, int page, int size, Heart.ContentType type) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        switch (type.toLowerCase()) {
+        switch (type.toString().toLowerCase()) {
             case "post":
                 return (Page<T>) heartRepository.findLikedPostsByMember(member, pageRequest);
             case "comment":

@@ -62,7 +62,7 @@ public class HeartController {
     @GetMapping("/hearts")
     public ResponseEntity getHearts (@RequestParam int page,
                                      @RequestParam int size,
-                                     @RequestParam String type,
+                                     @RequestParam Heart.ContentType type,
                                      Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -72,7 +72,7 @@ public class HeartController {
 
         List<?> responseDtos = pageContent.getContent().stream()
                 .map(content -> {
-                    switch (type.toLowerCase()) {
+                    switch (type.toString().toLowerCase()) {
                         case "post":
                             return heartMapper.postToPostHeartResponseDto((Post) content);
                         case "comment":

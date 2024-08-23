@@ -21,7 +21,7 @@ public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException authException) throws IOException, ServletException {
         Exception exception =(Exception) request.getAttribute("exception");
 
-        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED,"Please login first");
         logExceptionMessage(authException,exception);
     }
 

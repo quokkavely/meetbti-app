@@ -10,11 +10,10 @@ import java.io.IOException;
 
 public class ErrorResponder {
     public static void sendErrorResponse(HttpServletResponse response,
-                                         HttpStatus httpStatus)
-            throws IOException {
-
+                                         HttpStatus httpStatus,
+                                         String message) throws IOException {
         Gson gson = new Gson();
-        ErrorResponse errorResponse = ErrorResponse.of(httpStatus);
+        ErrorResponse errorResponse = ErrorResponse.of(httpStatus, message);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(httpStatus.value());
         response.getWriter().write(gson.toJson(errorResponse,ErrorResponse.class));

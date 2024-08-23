@@ -31,10 +31,8 @@ public class MemberDto {
     @Setter
     public static class Patch {
         private long memberId;
-
         private String image;
 
-        @NotBlank(message = "닉네임은 공백이 아니어야 합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9가-힣]{2,12}$",
                 message = "닉네임은 2~10글자 이내만 가능합니다.")
         private String nickname;

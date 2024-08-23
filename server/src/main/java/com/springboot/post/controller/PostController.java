@@ -80,20 +80,22 @@ public class PostController {
                                    @Positive @RequestParam int size,
                                    @Positive @RequestParam(required = false,name = "member-id") Long memberId,
                                    @RequestParam(required = false) String category,
-                                   @RequestParam String standard,
+                                   @RequestParam(required = false) String standard,
                                    Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
         Member findMember = memberService.findMember(principal.getMemberId());
+
+        String selectStandard = standard != null ? standard : "createdAt";
 
         String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
 
         Page<Post> pagePosts;
 
         if (memberId != null) {
-            pagePosts = postService.findPostsByMember(page - 1, size, memberId, standard, selectCategory);
+            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard, selectCategory);
         }else {
-            pagePosts = postService.findPosts(page - 1, size, standard, selectCategory);
+            pagePosts = postService.findPosts(page - 1, size, selectStandard, selectCategory);
         }
 
         List<Post> posts = pagePosts.getContent();

@@ -19,7 +19,7 @@ public class MemberAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ErrorResponder.sendErrorResponse(response, HttpStatus.FORBIDDEN);
+        ErrorResponder.sendErrorResponse(response, HttpStatus.FORBIDDEN,"You do not have permission");
 
         log.warn("Forbidden error happend: {}", accessDeniedException.getMessage());
     }
