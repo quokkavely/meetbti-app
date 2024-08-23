@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './BalanceGamePost.css';
 
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
-import CommentUserInfoContainer from '../components/CommentUserInfoContainer';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
+import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
 
 
 const AppContainerComponent = () => {

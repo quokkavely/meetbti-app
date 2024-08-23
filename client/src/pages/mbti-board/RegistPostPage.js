@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './RegistPostPage.css';
+import './RegistPost.css';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트

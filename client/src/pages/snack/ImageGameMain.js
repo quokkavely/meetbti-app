@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './ImageGameMain.css';
 import { useNavigate } from 'react-router-dom';
 
-import AppContainer from '../components/AppContainer';
-import Header from '../components/Header';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 const AppContainerComponent = () => {
     return (
