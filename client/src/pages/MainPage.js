@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { state, useAuth } from '../auth/AuthContext';
-import getMyInfo from './requests/GetMyInfo';
+import getMyInfo from '../requests/GetMyInfo';
 
 // 헤더 컴포넌트
 const Header = (props) => {

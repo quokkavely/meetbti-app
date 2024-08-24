@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyPage.css';
-import getMyInfo from '../requests/GetMyInfo';
+import getMyInfo from '../../requests/GetMyInfo';
 
 // 컴포넌트 임포트
 import AppContainer from '../../components/basic_css/AppContainer';
@@ -25,7 +25,7 @@ const MyPageUserInfoContainer = (props) => {
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
-                <img src="catprofile.png" alt="mypage-user-info-img" />
+                <img src="/public-img/catprofile.png" alt="mypage-user-info-img" />
             </div>
             <div className="mypage-user-info-section">
                 <div className="mypage-user-info-section-badge"> {props.mbti} </div>
@@ -42,10 +42,10 @@ const MyPageUserInfoButton = () => {
     return (
         <div className="mypage-user-info-button-container">
             <button className="mypage-user-info-modify-button" onClick={() => navigate('/mypagemodify')}>
-                <img src="profile.png" alt="mypage-user-info-modify-button"/> 내 정보 수정
+                <img src="/public-img/profile.png" alt="mypage-user-info-modify-button"/> 내 정보 수정
             </button>
             <button className="mypage-user-info-history-button" onClick={() => navigate('/mypagehistory')}>
-                <img src="profile.png" alt="mypage-user-info-history-button"/> 내 활동 내역
+                <img src="/public-img/profile.png" alt="mypage-user-info-history-button"/> 내 활동 내역
             </button>
         </div>
     );
@@ -68,7 +68,7 @@ const NewNotice = () => {
         <div className="mypage-new-notice-container">
             <div className="mypage-new-notice-container-title"> 새로운 소식 </div>
             <div className="mypage-new-notice-container-banner">
-                <img src="banner-img.png" alt="notice-banner"/>
+                <img src="/public-img/banner-img.png" alt="notice-banner"/>
             </div>
         </div>
     );
