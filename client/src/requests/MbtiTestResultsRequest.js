@@ -1,9 +1,9 @@
 const sendMbtiTestResultsRequest = async(state, page, size, setLoading, setHistoryData) => {
     try{
         console.log('MBTI 테스트 이력 GET요청 전송');
-        console.log('page: ', page);
-        console.log('size: ', size);
-        const response = await fetch(`http://localhost:8080/mbti-test?page=${page}&size=${size}&member-id=1`,
+        /* console.log('page: ', page);
+        console.log('size: ', size); */
+        const response = await fetch(`http://localhost:8080/mbti-test?page=${page}&size=${size}`,
             {
                 method: 'GET',
                 headers: {
