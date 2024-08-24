@@ -1,4 +1,4 @@
-import sendAuthcodeRequest from "./SendAuthcodeRequest";
+import sendAuthcodeRequest from "./AuthcodeRequest";
 
 const sendRegistrationRequest = async(emailInput, nicknameInput, passwordInput) => {
     try{

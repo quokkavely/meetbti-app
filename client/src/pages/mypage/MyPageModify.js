@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyPageModify.css';
+import sendMemberPatchRequest from '../../requests/MemberPatchRequest';
+import { useAuth } from '../../auth/AuthContext';
 
 // 컴포넌트 임포트
 import AppContainer from '../../components/basic_css/AppContainer';
@@ -20,6 +22,7 @@ const HeaderComponent = () => {
 
 
 const ModifySection = () => {
+    const { state } = useAuth(); 
     const [showModal, setShowModal] = useState(false);
     const [nickname, setNickname] = useState('');
     const [nicknameNotice, setNicknameNotice] = useState('');
@@ -63,6 +66,10 @@ const ModifySection = () => {
         setShowConfirmPasswordNotice(e.target.value !== password);
     };
 
+    const nicknamePatch = () => {
+        sendMemberPatchRequest(state, {nickname: nickname});
+    }
+
     return (
         <div className="modify-section">
             <div className="modify-section-title"> 내 정보 수정 </div>
@@ -81,6 +88,9 @@ const ModifySection = () => {
                     )}
                     <button className='nickname-check-button' onClick={checkNicknameDuplicate}>중복확인</button>
                 </div>
+                <button
+                 className='modify-button'
+                 onClick={() => nicknamePatch()}>닉네임 변경</button>
                 <div className="password-section">
                     <div className="modify-section-password">비밀번호</div>
                     <input 
@@ -105,7 +115,7 @@ const ModifySection = () => {
                     )}
                 </div>
             </div>
-            <button className="modify-button">확인</button>
+            <button className="modify-button">비밀번호 변경</button>
             <div className="withdrawal-container">
                 <button className="withdrawal-button" onClick={openModal}>회원탈퇴</button>
             </div>
@@ -121,8 +131,8 @@ const WithdrawalModal = ({ showModal, closeModal }) => {
         <div className="withdrawal-modal">
                 <div className="withdrawal-modal-title">회원탈퇴</div>
                 <div className="withdrawal-modal-box">
-                    <div className="withdrawal-modal-text-title">정말 탈퇴하시겠습니까?</div>
-                    <div className="withdrawal-modal-text-content">탈퇴 버튼 선택 시, 저장되어있던 모든 정보와 데이터가 삭제되며, 복구 되지 않습니다.</div>
+                    <div className="withdrawal-modal-text-title">정말 탈퇴하시겠어요?</div>
+                    <div className="withdrawal-modal-text-content">탈퇴 버튼 선택 시 저장되어있던 모든 정보와 데이터가 삭제되며, 복구할 수 없어요.</div>
                 </div>
                 <div className="withdrawal-modal-buttons">
                     <button className="withdrawal-modal-button1" onClick={closeModal}>탈퇴</button>
