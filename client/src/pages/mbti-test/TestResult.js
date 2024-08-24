@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './TestResult.css';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import { useAuth } from '../../auth/AuthContext';
+import mbtiData from '../../mbtiData/mbtiData';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -21,6 +23,64 @@ const HeaderComponent = () => {
 
 // MBTI 테스트 컴포넌트
 const MBTITestResult = () => {
+  // MBTI 결과를 서버에서 가져오는 비동기 함수
+  const getResult = async (setLoading, setResult, state) => {
+    console.log('결과 가져오는 중...');
+    try {
+      // API 호출을 통해 MBTI 결과를 가져옴
+        const response = await fetch('http://localhost:8080/mbti-result', {
+            method: 'GET', // HTTP GET 메서드를 사용하여 요청
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${state.token}`,
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setResult(data.data);
+            setLoading(false);
+            console.log('결과 로딩 완료');
+        } else {
+            console.log('GET 요청 실패: ', response.status);
+        }
+    } catch (error) {
+        console.error('GET 요청 실패', error);
+    }
+  };
+
+  const TestResult = () => {
+    const [loading, setLoading] = useState(true);
+    const [result, setResult] = useState(null);
+    const { state } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        getResult(setLoading, setResult, state);
+    }, [state]);
+
+    if (loading) {
+        return <div>결과를 불러오는 중...</div>;
+    }
+
+    const mbtiInfo = mbtiData[result.type];
+
+    return (
+        <div className="result-page">
+            <h1>MBTI 테스트 결과</h1>
+            {result ? (
+                <div className="result-content">
+                    <h2>{mbtiInfo.type}</h2>
+                    <p>{mbtiInfo.description}</p>
+                </div>
+            ) : (
+                <div>결과를 불러오지 못했습니다.</div>
+            )}
+        </div>
+    );
+  };
+
+  
   const imageRef = useRef(null);
   const overlayRef = useRef(null);
 
@@ -64,7 +124,7 @@ const MBTITestResult = () => {
     <div className="ResultImg">
       <img 
         ref={imageRef} 
-        src="result.png" 
+        src="/public-img/result.png" 
         alt="Test Result" 
         className="mbti-test-result-image"/>
       <div 
@@ -78,14 +138,14 @@ const MBTITestResult = () => {
 
 
 
-const MBTIFeature = () => {
+const MBTIFeature = ({ type, description}) => {
   return (
     <div className="mbti-feature">
         <div className="mbti-feature-title-box">
-          <div className="mbti-type">INFJ</div>
+          <div className="mbti-type">{type}</div>
           <div className="mbti-feature-title"> 성격 특징 </div>
         </div>
-        <div className="mbti-feature-content">특징 설명 솰라솰라. 어떻게 하면 이 데이터를 가져올 수 있을까요? 그림으로 가져올까요, 텍스트로 가져올까요? </div>
+        <div className="mbti-feature-content">{description}</div>
     </div>
   )
 };
@@ -314,7 +374,7 @@ const MBTITestResultSecond = ({ firstMbtiResult, secondMbtiResult }) => {
           <div className="first-mbti-keyword3">{firstKeywords.keyword3}</div>
         </div>
         <div className="logo-icon">
-          <img src="logo-icon.png" alt="myMbti"/>
+          <img src="/public-img/logo-icon.png" alt="myMbti"/>
         </div>
         <div className="second-mbti">
           <div className="second-mbti-type">{secondMbtiResult}</div> {/* 2순위 결과값 */}
@@ -353,13 +413,13 @@ const NavigateSection = () => {
         <div className="button-box">
             <button className="navigate-button" 
             onClick={() => navigate('/TestMain')}>
-              <img src="logo-retry.png" alt="retry"/></button>
+              <img src="/public-img/logo-retry.png" alt="retry"/></button>
             <button className="navigate-button" 
             onClick={() => navigate('/')}>
-              <img src="logo-home.png" alt="home"/></button>
+              <img src="/public-img/logo-home.png" alt="home"/></button>
             <button className="navigate-button" 
             onClick={handleShare}>
-          <img src="logo-share.png" alt="share"/></button>
+          <img src="/public-img/logo-share.png" alt="share"/></button>
         </div>
     </div>
   );

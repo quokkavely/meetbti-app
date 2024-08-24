@@ -90,7 +90,7 @@ const sendResponses = async(responses, state, navigate) =>{
         );
         if(response.ok){            
             console.log('MBTI 테스트 완료');
-            navigate('/testresult');
+            navigate('/resultwaiting');
         }else{
             console.log(responses);
             console.log('MBTI 테스트 실패: ', response.status);
