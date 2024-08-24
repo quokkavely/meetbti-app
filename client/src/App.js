@@ -46,7 +46,8 @@ import AdminPage from './pages/admin/AdminPage';
 import ReportPage from './pages/report/ReportPage';
 import ReportDetail from './pages/reportdetail/ReportDetail';
 
-
+/* MBTI 데이터 */
+import mbtiData from './mbtiData/mbtiData';
 
 const App = () => {
   return (
