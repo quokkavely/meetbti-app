@@ -39,14 +39,14 @@ const Historyrecenttext = () => {
 
 const HistorySection = () => {
     const { state } = useAuth();
-    const [historyData, setHistoryData] = useState([]);
+    const [historyData, setHistoryData] = useState({data:[]});
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const observer = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
-        sendMbtiTestResultsRequest(state, 1, 7, setLoading, setHistoryData);
+        sendMbtiTestResultsRequest(state, 1, 8, setLoading, setHistoryData);
     }, []);
 
     const dummyData = [
@@ -70,21 +70,18 @@ const HistorySection = () => {
         );
     }
 
-    const displayData = historyData.length > 0 ? historyData : dummyData;
-
     return (
         <div className="history-section">
-            {/* {displayData.map((item, index) => (
+            {historyData.data.map((item, index) => (
                 <div
                     className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                     key={index}
-                    ref={index === displayData.length - 1 ? lastHistoryElementRef : null}
                 >
                     <div className="history-content-text">{item.mbti}</div>
-                    <div className="history-content-date">{item.date}</div>
+                    <div className="history-content-date">{item.createdAt}</div>
                 </div>
-            ))} */}
-            {(historyData.length === 0) && <NoContentContainer></NoContentContainer>}
+            ))}
+            {(historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}
         </div>
     );
 };
