@@ -3,7 +3,7 @@ package com.springboot.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
-    PASSWORD_MISMATCH(400,"Invalid Password"),
+    PASSWORD_MISMATCH(409,"Password Not Changed"),
     CONFIRM_PASSWORD_MISMATCH(400,"Passwords Do Not Match"),
     ACCESS_DENIED(403,"Access Denied"),
     MEMBER_NOT_FOUND(404,"Member Not Found"),

@@ -1,4 +1,4 @@
-const sendChangePasswordRequest = async(state, passwordInput) => {
+const sendChangePasswordRequest = async(state, passwordInput, passwordComfirmInput) => {
     try{
         const response = await fetch('http://localhost:8080/members/me/change-password',
             {
@@ -9,7 +9,8 @@ const sendChangePasswordRequest = async(state, passwordInput) => {
                 },
                 body: JSON.stringify(
                     {
-                        password: passwordInput
+                        newPassword: passwordInput,
+                        confirmPassword: passwordComfirmInput
                     }
                 ),
             }

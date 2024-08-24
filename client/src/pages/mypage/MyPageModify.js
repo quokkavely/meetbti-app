@@ -84,7 +84,7 @@ const ModifySection = () => {
             alert('비밀번호 확인을 진행해주세요');
             return;
         }
-        sendChangePasswordRequest(state, password);
+        sendChangePasswordRequest(state, password, confirmPassword);
     }
 
     return (
@@ -115,7 +115,7 @@ const ModifySection = () => {
                     <div className="modify-section-password">비밀번호</div>
                     <input 
                         className="modify-section-content" 
-                        type="text" 
+                        type="password" 
                         placeholder='변경할 비밀번호를 입력해주세요'
                         value={password}
                         onChange={(e) => handlePasswordChange(e,'(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,20}')}
@@ -125,8 +125,8 @@ const ModifySection = () => {
                     )}
                     <input 
                         className="modify-section-content" 
-                        type="text" 
-                        placeholder='변경할 비밀번호를 입력해주세요'
+                        type="password" 
+                        placeholder='변경할 비밀번호를 확인해주세요'
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                     />

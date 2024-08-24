@@ -64,7 +64,7 @@ public class MemberController {
 
         memberService.updatePassword(
                 principal.getMemberId(),
-                changePwDto.getOldPassword(),
+                /*changePwDto.getOldPassword(),*/
                 changePwDto.getNewPassword(),
                 changePwDto.getConfirmPassword()
         );
