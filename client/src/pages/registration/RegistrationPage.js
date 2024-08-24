@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import EmailAuthModal from '../../components/modal/Modal_EmailAuth.js';
 import { useAuth } from '../../auth/AuthContext.js';
 import ModalCheck from '../../components/modal/ModalCheck.js';
-import sendLoginRequest from '../login/SendLoginRequest.js';
+import sendVerifyRequest from '../../requests/SendVerifyRequest.js';
+import sendRegistrationRequest from '../../requests/SendRegistrationRequest.js';
 
 function WelcomeText(){
     return (
@@ -142,80 +143,6 @@ const RegistrationPage = (props) => {
 
         openEmailAuthModal();
     };
-    
-    const sendRegistrationRequest = async() => {
-        try{
-            const response = await fetch('http://localhost:8080/members',
-                {
-                    method: 'POST',
-                    headers: {
-                        'content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: emailInput,
-                        nickname: nicknameInput,
-                        password: passwordInput
-                    }),
-                }
-                
-            );
-            if(response.ok){
-                console.log('Member POST요청 성공');
-                // 이메일 인증 코드 전송 요청 보내기
-                sendAuthcodeRequest(emailInput);
-            }else{
-                console.log('Member POST요청 실패: ', response.status);
-            }
-        } catch (error){
-            console.error('Member POST요청 실패', error);
-        }
-    }
-    const sendAuthcodeRequest = async (emailInput)=> {
-        try{
-            const response = await fetch('http://localhost:8080/send-mail/email',
-                {
-                    method: 'POST',
-                    headers: {
-                        'content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: emailInput
-                    })
-                }
-            );
-            if(response.ok){
-                console.log(`인증 코드가 ${emailInput}으로 전송됨`);
-            }else{
-                console.log('인증 코드 전송 요청 실패', response.status);
-            }
-        }catch(error){
-            console.error('인증 코드 전송 요청 실패', error);
-        }
-    }
-    const sendVerifyRequest = async(emailInput, authCodeInput) => {
-        try{
-            const response = await fetch('http://localhost:8080/members/verify',
-                {
-                    method: 'POST',
-                    headers: {
-                        'content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: emailInput,
-                        authCode: authCodeInput
-                    })
-                }
-            );
-            if(response.ok){
-                console.log('인증 코드 확인됨');
-                sendLoginRequest(emailInput, passwordInput, login, navigate)
-            }else{
-                console.log('인증 코드 확인 요청 실패', response.status);
-            }
-        }catch(error){
-            console.log('인증 코드 확인 요청 실패', error);
-        }
-    }
 
 
     return (
@@ -256,13 +183,13 @@ const RegistrationPage = (props) => {
 
             <button className="registration-button" onClick={() => registration(()=>{{
                     // 회원 등록 및 인증 코드 전송 요청 보내기
-                    sendRegistrationRequest();
+                    sendRegistrationRequest(emailInput, nicknameInput, passwordInput);
                     setIsEmailAuthModalOpen(true);
                 }})}>회원 가입</button>
             {isEmailAuthModalOpen && <EmailAuthModal 
             onClose={() => setIsEmailAuthModalOpen(false)}
             onRegister={(authCodeInput) => 
-                sendVerifyRequest(emailInput, authCodeInput)
+                sendVerifyRequest(emailInput, authCodeInput, passwordInput, login, navigate)
             }/>}
             {duplCheckModalOn && <ModalCheck message={modalMessage} onClose={() => setDuplCheckModalOn(false)}></ModalCheck>}
         </div>

@@ -3,7 +3,7 @@ import './LoginPage.css';
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAuth } from "../../auth/AuthContext";
-import sendLoginRequest from "./SendLoginRequest";
+import sendLoginRequest from "../../requests/SendLoginRequest";
 
 // 헤더(로고, 뒤로가기) 컴포넌트
 const Header = () => {
