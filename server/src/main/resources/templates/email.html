@@ -3,67 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Email Verification</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #333333;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #555555;
-            line-height: 1.6;
-        }
-        .code-box {
-            background-color: #f9f9f9;
-            border: 2px dashed #b000ff;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .code {
-            font-size: 24px;
-            color: #007BFF;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        .footer {
-            font-size: 14px;
-            color: #888888;
-            margin-top: 30px;
-        }
-    </style>
 </head>
-<body>
-<div class="container">
+<body style="font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+<div style="max-width: 600px; margin: 50px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 20px; text-align: center;">
     <img src="https://github.com/user-attachments/assets/3dbbe980-657a-4df5-982f-070182386ec9" width="300"/>
-    <h1 style ="color:#882ddc">Welcome To MeetBTI</h1>
+    <h1 style="color:#882ddc; margin-bottom: 20px;">Welcome To MeetBTI</h1>
     <h2>이메일 인증을 진행하겠습니다.</h2>
-    <p>아래 인증코드를 회원가입 창으로 돌아가서 입력해주세요</p>
-    <h4>이메일 인증코드 만료시간은 10분입니다</h4>
+    <p style="color: #555555; line-height: 1.6;">아래 인증코드를 회원가입 창으로 돌아가서 입력해주세요</p>
+    <h4 style="color: #555555;">이메일 인증코드 만료시간은 10분입니다</h4>
 
-    <div class="code-box">
-        <h3 style="color:#48055b">회원가입 인증코드입니다</h3>
-        <div class="code" th:text="${code}">123456</div>
+    <div style="background-color: #f9f9f9; border: 2px dashed #b000ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h3 style="color:#48055b;">회원가입 인증코드입니다</h3>
+        <div style="font-size: 24px; color: #007BFF; font-weight: bold; letter-spacing: 2px;" th:text="${code}">123456</div>
         <br/>
     </div>
-
-    <div class="footer">
-        <p>이 코드를 요청하지 않았다면 이 메일을 무시해주세요.</p>
-        <p>누군가 귀하의 전자메일 주소를 잘못 입력한 것일 수 있습니다.</p>
+    <div style="font-size: 14px; color: #888888; margin-top: 30px;">
+        <div>이 코드를 요청하지 않았다면 이 메일을 무시해주세요.</div>
+        <div>누군가 귀하의 전자메일 주소를 잘못 입력한 것일 수 있습니다.</div>
     </div>
 </div>
 </body>
