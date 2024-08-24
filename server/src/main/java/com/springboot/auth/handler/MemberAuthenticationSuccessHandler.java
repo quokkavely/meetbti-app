@@ -41,6 +41,7 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         // 헤더에 Authorization 추가
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+        response.setHeader("MemberId", String.valueOf(memberId));
 
         // 토큰을 클라이언트로 반환
         Map<String, String> tokens = new HashMap<>();
