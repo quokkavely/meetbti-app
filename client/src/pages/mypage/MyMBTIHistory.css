@@ -69,3 +69,37 @@
     color: #808080;
     margin-left: 20px;
 }
+.no-content{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+}
+.no-content-img{
+    width: 300px;
+    border: 10px solid rgb(253, 224, 187);
+    border-radius: 20px;
+}
+.no-content-text{
+    font-weight: bold;
+    margin-top: 20px;
+    color: rgb(255, 127, 206);
+}
+.goto-test{
+    width: 50%;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: none;
+    color: rgb(235, 118, 182);
+    background-color: bisque;
+    font-size: 15px;
+    font-weight: bold;
+}
+.goto-test:hover{
+    background-color: rgb(223, 193, 156);
+    color: #a0a378;
+    cursor: pointer;
+}

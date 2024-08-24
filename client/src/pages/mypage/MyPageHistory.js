@@ -25,33 +25,33 @@ const HistorySection = () => {
     return (
         <div className="history-section">
             <div className="history-title">
-                <img src="heart-purple-img.png" alt="history-title" />
+                <img src="public-img/heart-purple-img.png" alt="history-title" />
                 내 활동 내역
             </div>
             <div className="history-list">
                 <div className="history-MBTI" onClick={() => navigate('/mymbtihistory')}>
-                    <img src="history-img.png" alt="history-item"/>
+                    <img src="public-img/history-img.png" alt="history-item"/>
                     내 MBTI 기록
                 </div>
                 <div className="history-post" onClick={() => navigate('/myposthistory')}>
-                    <img src="post-img.png" alt="history-item" />
+                    <img src="public-img/post-img.png" alt="history-item" />
                     내가 쓴 게시글
                 </div>
                 <div className="history-comment" onClick={() => navigate('/mycommenthistory')}>
-                    <img src="comment-img.png" alt="history-item" />
+                    <img src="public-img/comment-img.png" alt="history-item" />
                     내가 쓴 댓글
                 </div>
                 <div className="history-like" onClick={() => navigate('/myhearthistory')}>
-                    <img src="heart-red-img.png" alt="history-item" />
+                    <img src="public-img/heart-red-img.png" alt="history-item" />
                     내 좋아요 목록
                 </div>
                 <div className="history-snack" onClick={() => navigate('/mysnackhistory')}>
-                    <img src="smile-img.png" alt="history-item" />
+                    <img src="public-img/smile-img.png" alt="history-item" />
                     참여한 스낵
                 </div>
             </div>
             <div className="bottom-logo-box">
-                <img src="logo-icon.png" alt="logo-box" />
+                <img src="public-img/logo-icon.png" alt="logo-box" />
             </div>
         </div>
     );
