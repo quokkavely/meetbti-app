@@ -3,6 +3,11 @@ package com.springboot.auth.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.auth.jwt.JwtTokenizer;
 import com.springboot.auth.utils.JwtAuthorityUtils;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
+import com.springboot.exception.SuspendedAccountException;
+import com.springboot.exception.WithdrawnAccountException;
+import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -32,8 +37,14 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         String email = authentication.getName();
-        long memberId = memberService.findMemberIdByEmail(email);
+        Member member = memberService.findMemberIdByEmail(email);
+        long memberId = member.getMemberId();
         List<String> authorities = jwtAuthorityUtils.createRoles(email);
+
+        //탈퇴 회원 login 차단
+        if(member.getMemberStatus().equals(Member.MemberStatus.QUIT)) throw new WithdrawnAccountException("Account has been withdrawn");
+        if(member.getMemberStatus().equals(Member.MemberStatus.BAN)) throw new SuspendedAccountException("Account has been suspended");
+
 
         String accessToken = jwtTokenizer.delegateAccessToken(email, memberId, authorities);
         String refreshToken = jwtTokenizer.delegateRefreshToken(email, accessToken);

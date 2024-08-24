@@ -49,7 +49,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
             // 자체 로그인
             var userDetails = (UserDetails) authentication.getPrincipal();
             email = userDetails.getUsername(); // UserDetails에서 username(email)을 가져옴
-            memberId = memberService.findMemberIdByEmail(email);
+            memberId = memberService.findMemberIdByEmail(email).getMemberId();
         }
 
         List<String> authorities = jwtAuthorityUtils.createRoles(email);

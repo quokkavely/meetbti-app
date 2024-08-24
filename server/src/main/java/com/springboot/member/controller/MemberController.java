@@ -44,7 +44,7 @@ public class MemberController {
 
     // 이메일 인증 창으로 넘어가서 인증코드 입력칸에 인증코드를 입력 후 확인 버튼을 누를때
     @PostMapping("/verify")
-    public ResponseEntity registerMember(@RequestBody VerificationDto verificationDto) {
+    public ResponseEntity registerMember(@Valid @RequestBody VerificationDto verificationDto) {
         URI location = URI.create("");
         if (emailService.verifyEmailCode(verificationDto)) {
             redisTemplate.delete(verificationDto.getEmail()+":auth"); //인증 후 레디스에서 삭제
