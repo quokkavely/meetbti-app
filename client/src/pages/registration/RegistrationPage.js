@@ -7,6 +7,7 @@ import { useAuth } from '../../auth/AuthContext.js';
 import ModalCheck from '../../components/modal/ModalCheck.js';
 import sendVerifyRequest from '../../requests/VerifyRequest.js';
 import sendRegistrationRequest from '../../requests/RegistrationRequest.js';
+import validateInput from '../../validation/ValidateInput.js';
 
 function WelcomeText(){
     return (
@@ -66,10 +67,7 @@ const PasswordCheckInput = (props) => {
         </div>
     );
 }
-const validateInput = (input, regexStr) => {
-    const regex = new RegExp(regexStr);
-    return regex.test(input);
-}
+
 function onChangeInput(e, setState, regex, setError, setDuplChecked){
     setState(e.target.value);
     const passed = validateInput(e.target.value, regex)

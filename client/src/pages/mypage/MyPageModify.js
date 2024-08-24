@@ -7,6 +7,8 @@ import { useAuth } from '../../auth/AuthContext';
 // 컴포넌트 임포트
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import validateInput from '../../validation/ValidateInput';
+import sendChangePasswordRequest from '../../requests/ChangePasswordRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -56,9 +58,12 @@ const ModifySection = () => {
         }
     };
 
-    const handlePasswordChange = (e) => {
+    const handlePasswordChange = (e, regex) => {
         setPassword(e.target.value);
-        setShowPasswordNotice(e.target.value === '');
+        const passed = validateInput(e.target.value, regex);
+        console.log(passed);
+
+        setShowPasswordNotice(!passed);
     };
 
     const handleConfirmPasswordChange = (e) => {
@@ -68,6 +73,18 @@ const ModifySection = () => {
 
     const nicknamePatch = () => {
         sendMemberPatchRequest(state, {nickname: nickname});
+    }
+
+    const passwordPatch = () => {
+        if(showPasswordNotice){
+            alert('비밀번호를 올바른 형식으로 입력해주세요');
+            return;
+        }
+        if(showConfirmPasswordNotice){
+            alert('비밀번호 확인을 진행해주세요');
+            return;
+        }
+        sendChangePasswordRequest(state, password);
     }
 
     return (
@@ -90,7 +107,10 @@ const ModifySection = () => {
                 </div>
                 <button
                  className='modify-button'
-                 onClick={() => nicknamePatch()}>닉네임 변경</button>
+                 onClick={() => {
+                    nicknamePatch();
+                    setNickname('');
+                    }}>닉네임 변경</button>
                 <div className="password-section">
                     <div className="modify-section-password">비밀번호</div>
                     <input 
@@ -98,10 +118,10 @@ const ModifySection = () => {
                         type="text" 
                         placeholder='변경할 비밀번호를 입력해주세요'
                         value={password}
-                        onChange={handlePasswordChange}
+                        onChange={(e) => handlePasswordChange(e,'(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,20}')}
                     />
                     {showPasswordNotice && (
-                        <div className='notice'> 비밀번호는 10자 이상 입력해주세요.</div>
+                        <div className='notice'> 영문 대/소문자,숫자,특수문자 포함 총 10자 이상 입력해주세요</div>
                     )}
                     <input 
                         className="modify-section-content" 
@@ -115,7 +135,7 @@ const ModifySection = () => {
                     )}
                 </div>
             </div>
-            <button className="modify-button">비밀번호 변경</button>
+            <button className="modify-button" onClick={passwordPatch}>비밀번호 변경</button>
             <div className="withdrawal-container">
                 <button className="withdrawal-button" onClick={openModal}>회원탈퇴</button>
             </div>
@@ -129,15 +149,15 @@ const WithdrawalModal = ({ showModal, closeModal }) => {
 
     return (
         <div className="withdrawal-modal">
-                <div className="withdrawal-modal-title">회원탈퇴</div>
-                <div className="withdrawal-modal-box">
-                    <div className="withdrawal-modal-text-title">정말 탈퇴하시겠어요?</div>
-                    <div className="withdrawal-modal-text-content">탈퇴 버튼 선택 시 저장되어있던 모든 정보와 데이터가 삭제되며, 복구할 수 없어요.</div>
-                </div>
-                <div className="withdrawal-modal-buttons">
-                    <button className="withdrawal-modal-button1" onClick={closeModal}>탈퇴</button>
-                    <button className="withdrawal-modal-button2" onClick={closeModal}>회원유지</button>
-                </div>
+            <div className="withdrawal-modal-title">회원탈퇴</div>
+            <div className="withdrawal-modal-box">
+                <div className="withdrawal-modal-text-title">정말 탈퇴하시겠어요?</div>
+                <div className="withdrawal-modal-text-content">탈퇴 버튼 선택 시 저장되어있던 모든 정보와 데이터가 삭제되며, 복구할 수 없어요.</div>
+            </div>
+            <div className="withdrawal-modal-buttons">
+                <button className="withdrawal-modal-button1" onClick={closeModal}>탈퇴</button>
+                <button className="withdrawal-modal-button2" onClick={closeModal}>회원유지</button>
+            </div>
         </div>
     );
 };
