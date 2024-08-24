@@ -38,7 +38,7 @@
 
 .history-section-content {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
     justify-content: center;
     border-bottom: 1px solid #cbcbcb;
@@ -53,6 +53,24 @@
 
 .history-section-content.gray-background {
     background-color: rgb(238, 238, 238);
+}
+.history-content-container-container{
+    display: flex;
+    /* justify-items: space-between;
+    justify-content: space-between; */
+    align-items: center;
+}
+.latest-mark{
+    margin-left: 130px;
+    background-color: #b368fa;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+    border-radius: 8px;
+    /* justify-self: end; */
 }
 
 .history-content-text {

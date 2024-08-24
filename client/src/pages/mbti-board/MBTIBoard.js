@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MBTIBoard.css';
+import sendGetPostsRequest from '../../requests/GetPostsRequest';
+import { useAuth } from '../../auth/AuthContext';
+import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -10,10 +13,10 @@ const Header = () => {
     <header className="header">
       <div className="logo-box">
         <div className='logo-img' onClick={() => navigate('/')}>
-          <img src="/Main-logo.png" alt='메인로고'/>
+          <img src="public-img/Main-logo.png" alt='메인로고'/>
         </div>
         <div className="back-icon" onClick={() => navigate(-1)}>
-          <img src="back(grey).png" alt='뒤로 가기' />
+          <img src="public-img/back(grey).png" alt='뒤로 가기' />
         </div>
       </div>
       <div className="logo-text">
@@ -78,7 +81,7 @@ const Filter = () => {
 };
 
 // 포스트 컴포넌트
-const posts = [
+const dummyData = [
     { title: "경범이는 치와와", views: 24200, likes: 2234, comments: 3254 },
     { title: "원일이의 은밀한 사생활 썰 푼다.", views: 97245, likes: 9999, comments: 9999 },
     { title: "광희랑 민준이랑 구글 갔냐?", views: 92, likes: 1, comments: 23 },
@@ -89,11 +92,20 @@ const posts = [
 
 // 게시판 컴포넌트
 const Board = () => {
+    const { state } = useAuth();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [posts, setPosts] = useState({data:[]});
+    const [myData, setMyData] = useState({data:{mbti:'ALL'}});
+
+    useEffect(() => {
+        sendGetMyinfoRequest(state, setMyData);
+        sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
+    }, []);
     return (
         <div className="board">
             <div className="posts">
-                {posts.map((post, index) => (
+                {dummyData.map((post, index) => (
                     <div key={index} className="post-item">
                         <div className="post-title" onClick={() => navigate(`/postpage`)}>{post.title}</div>
                         <div className="post-info">
