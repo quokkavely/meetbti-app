@@ -9,6 +9,7 @@ import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import validateInput from '../../validation/ValidateInput';
 import sendChangePasswordRequest from '../../requests/ChangePasswordRequest';
+import sendMemberDeleteRequest from '../../requests/MemberDeleteRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -25,6 +26,8 @@ const HeaderComponent = () => {
 
 const ModifySection = () => {
     const { state } = useAuth(); 
+    const { logout } = useAuth();
+    const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [nickname, setNickname] = useState('');
     const [nicknameNotice, setNicknameNotice] = useState('');
@@ -58,12 +61,17 @@ const ModifySection = () => {
         }
     };
 
-    const handlePasswordChange = (e, regex) => {
+    const handlePasswordChange = (e, regex, oppoentContent, setOpponentError) => {
         setPassword(e.target.value);
         const passed = validateInput(e.target.value, regex);
-        console.log(passed);
+        console.log('passed: ', passed);
 
         setShowPasswordNotice(!passed);
+
+        // 비밀번호란 수정될 때 비밀번호 확인란 에러 상태도 변경
+        const opponentPassed = e.target.value !== oppoentContent;
+        console.log('opponentPassed: ', opponentPassed);
+        setOpponentError(opponentPassed);
     };
 
     const handleConfirmPasswordChange = (e) => {
@@ -118,7 +126,7 @@ const ModifySection = () => {
                         type="password" 
                         placeholder='변경할 비밀번호를 입력해주세요'
                         value={password}
-                        onChange={(e) => handlePasswordChange(e,'(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,20}')}
+                        onChange={(e) => handlePasswordChange(e,'(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,20}', confirmPassword, setShowConfirmPasswordNotice)}
                     />
                     {showPasswordNotice && (
                         <div className='notice'> 영문 대/소문자,숫자,특수문자 포함 총 10자 이상 입력해주세요</div>
@@ -139,12 +147,22 @@ const ModifySection = () => {
             <div className="withdrawal-container">
                 <button className="withdrawal-button" onClick={openModal}>회원탈퇴</button>
             </div>
-            <WithdrawalModal showModal={showModal} closeModal={closeModal} />
+            <WithdrawalModal
+                showModal={showModal}
+                closeModal={closeModal}
+                state={state}
+                logout={logout}
+                navigate={navigate}
+                />
         </div>
     );
 };
 
-const WithdrawalModal = ({ showModal, closeModal }) => {
+const handleWithdrawal = (state, logout, navigate) => {
+    sendMemberDeleteRequest(state, logout, navigate);
+}
+
+const WithdrawalModal = ({ showModal, closeModal ,state, logout, navigate} ) => {
     if (!showModal) return null;
 
     return (
@@ -155,7 +173,10 @@ const WithdrawalModal = ({ showModal, closeModal }) => {
                 <div className="withdrawal-modal-text-content">탈퇴 버튼 선택 시 저장되어있던 모든 정보와 데이터가 삭제되며, 복구할 수 없어요.</div>
             </div>
             <div className="withdrawal-modal-buttons">
-                <button className="withdrawal-modal-button1" onClick={closeModal}>탈퇴</button>
+                <button className="withdrawal-modal-button1" onClick={() => {
+                    closeModal();
+                    handleWithdrawal(state, logout, navigate);
+                    }}>탈퇴</button>
                 <button className="withdrawal-modal-button2" onClick={closeModal}>회원유지</button>
             </div>
         </div>
