@@ -2,9 +2,9 @@ package com.springboot.auth.filter;
 
 import com.springboot.auth.jwt.JwtTokenizer;
 import com.springboot.auth.utils.JwtAuthorityUtils;
-import com.springboot.auth.utils.Principal;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,22 +18,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class JwtVerifiedFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final JwtAuthorityUtils authorityUtils;
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    public JwtVerifiedFilter(JwtTokenizer jwtTokenizer, JwtAuthorityUtils authorityUtils) {
+    public JwtVerifiedFilter (JwtTokenizer jwtTokenizer, JwtAuthorityUtils authorityUtils, RedisTemplate<String, Object> redisTemplate) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal (HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     FilterChain filterChain) throws ServletException, IOException {
+
         try {
             Map<String,Object> claims = verifyJws(request);
+            isTokenValidInRedis(claims);
             setAuthenticationToContext(claims);
 
         } catch (SignatureException se) {
@@ -47,23 +52,26 @@ public class JwtVerifiedFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String authorization = request.getHeader("Authorization");
-        return authorization == null || !authorization.startsWith("Bearer");
-    }
-
-    private Map<String,Object> verifyJws(HttpServletRequest request) {
+    private Map<String,Object> verifyJws (HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ","");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
         Map<String, Object> claims = jwtTokenizer.getClaims(jws,base64EncodedSecretKey).getBody();
         return claims;
     }
-    private void setAuthenticationToContext(Map<String,Object> claims) {
-        Principal principal = new Principal((Integer) claims.get("memberId"));
+    private void setAuthenticationToContext (Map<String,Object> claims) {
+
+        String username = (String) claims.get("username");
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(principal,null,authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username,null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("Authentication set: " + authentication);
+    }
+    private void isTokenValidInRedis(Map<String, Object> claims) throws IllegalAccessException {
+        String username = Optional.ofNullable ((String) claims.get("username")).orElseThrow(()->new NullPointerException("userName is null"));
+        Boolean hasKey = redisTemplate.hasKey(username);
+
+        if (Boolean.FALSE.equals(hasKey)) {
+            throw new IllegalAccessException("redis key does not exist" + username);
+        }
     }
 }
