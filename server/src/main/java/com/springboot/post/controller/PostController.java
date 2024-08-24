@@ -46,7 +46,7 @@ public class PostController {
         this.s3Service = s3Service;
     }
     @PostMapping
-    public ResponseEntity createPost(@ModelAttribute PostDto.Create createDto,
+    public ResponseEntity createPost(@Valid @ModelAttribute PostDto.Create createDto,
                                      @RequestParam(value = "file", required = false) MultipartFile file,
                                      Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
