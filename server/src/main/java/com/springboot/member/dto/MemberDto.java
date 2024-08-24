@@ -47,10 +47,10 @@ public class MemberDto {
     @Builder
     @Getter
     public static class ChangePw {
-        @NotBlank
+        /*@NotBlank
         @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,}",
                 message = "비밀번호는 대소문자/숫자와 특수기호가 적어도 1개 이상씩 포함된 10자 이상의 비밀번호여야 합니다.")
-        private String oldPassword;
+        private String oldPassword;*/
 
         @NotBlank
         @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{10,}",

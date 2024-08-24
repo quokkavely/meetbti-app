@@ -71,10 +71,10 @@ public class MemberService {
     }
 
     //회원 비밀번호를 수정하는 메서드
-    public void updatePassword(long memberId, String oldPassword, String newPassword, String confirmPassword) {
+    public void updatePassword(long memberId, /*String oldPassword,*/ String newPassword, String confirmPassword) {
         Member findMember = findMember(memberId);
 
-        if (!findMember.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+        if (findMember.getPassword().equals(passwordEncoder.encode(newPassword))) {
             throw new BusinessLogicException(ExceptionCode.PASSWORD_MISMATCH);
         }
         if (!newPassword.equals(confirmPassword)) {
