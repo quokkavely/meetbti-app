@@ -1,4 +1,4 @@
-import sendLoginRequest from "./SendLoginRequest";
+import sendLoginRequest from "./LoginRequest";
 
 const sendVerifyRequest = async(emailInput, authCodeInput, passwordInput, login, navigate) => {
     try{

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import EmailAuthModal from '../../components/modal/Modal_EmailAuth.js';
 import { useAuth } from '../../auth/AuthContext.js';
 import ModalCheck from '../../components/modal/ModalCheck.js';
-import sendVerifyRequest from '../../requests/SendVerifyRequest.js';
-import sendRegistrationRequest from '../../requests/SendRegistrationRequest.js';
+import sendVerifyRequest from '../../requests/VerifyRequest.js';
+import sendRegistrationRequest from '../../requests/RegistrationRequest.js';
 
 function WelcomeText(){
     return (
