@@ -52,6 +52,10 @@ public class TestResultService {
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
+        if(findMember.getTestResults().isEmpty()){
+            return Page.empty();
+        }
+
         TestResult testResult = verifiedExistTestResult(findMember.getTestResults().get(findMember.getTestResults().size()-1).getTestResultId());
 
         if (testResult.getMember().getMemberId() != principal.getMemberId()) {
@@ -61,7 +65,6 @@ public class TestResultService {
         Pageable pageable = PageRequest.of(page, size);
 
         return testResultRepository.findByMember(pageable, findMember);
-
     }
     private TestResult createMbti(List<Answer> answers) {
         TestResult testResult = new TestResult();

@@ -1,6 +1,8 @@
 package com.springboot.testresult.controller;
 
 import com.springboot.auth.utils.Principal;
+import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import com.springboot.testresult.dto.TestResultDto;
@@ -24,10 +26,12 @@ import java.util.List;
 public class TestResultController {
     private final TestResultService testResultService;
     private final TestResultMapper testResultMapper;
+    private final MemberService memberService;
 
-    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper) {
+    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper, MemberService memberService) {
         this.testResultService = testResultService;
         this.testResultMapper = testResultMapper;
+        this.memberService = memberService;
     }
     @PostMapping
     public ResponseEntity createTestResult(@Valid @RequestBody TestResultDto.Create createDto,
@@ -43,9 +47,9 @@ public class TestResultController {
     @GetMapping
     public ResponseEntity getTestResults(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size,
-                                         @Positive @RequestParam(name = "member-id") Long memberId,
+                                         /*@Positive @RequestParam(name = "member-id") Long memberId,*/
                                          Authentication authentication) {
-        if (memberId == null) throw new IllegalArgumentException("Member ID is required");
+        /*if (memberId == null) throw new IllegalArgumentException("Member ID is required");*/
 
         Page<TestResult> pageTestResult = testResultService.findTestResults(page - 1, size, authentication);
 
