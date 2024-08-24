@@ -5,6 +5,7 @@ import com.springboot.auth.utils.JwtAuthorityUtils;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.util.LinkedMultiValueMap;
@@ -36,47 +37,33 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        var oAuth2User = (OAuth2User) authentication.getPrincipal();
-        long memberId = memberService.findMemberIdByOauth2User(oAuth2User);
-        String email = String.valueOf(oAuth2User.getAttributes().get("email"));
+        String email;
+        long memberId = 0;
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            // OAuth2 로그인
+            var oAuth2User = (OAuth2User) authentication.getPrincipal();
+            email = String.valueOf(((OAuth2User) authentication.getPrincipal()).getAttributes().get("email"));
+            memberId = memberService.findMemberIdByOauth2User(oAuth2User);
+            memberService.registerOAuthMember(email);
+        } else {
+            // 자체 로그인
+            var userDetails = (UserDetails) authentication.getPrincipal();
+            email = userDetails.getUsername(); // UserDetails에서 username(email)을 가져옴
+            memberId = memberService.findMemberIdByEmail(email);
+        }
+
         List<String> authorities = jwtAuthorityUtils.createRoles(email);
-        saveMember(email);
-        redirect(request, response, email, memberId, authorities);
-    }
 
-    private void saveMember(String email) {
-        Member member = new Member(email);
-        memberService.createMember(member);
-    }
+        String accessToken = jwtTokenizer.delegateAccessToken(email, memberId, authorities);
+        String refreshToken = jwtTokenizer.delegateRefreshToken(email, accessToken);
 
-    private void redirect(HttpServletRequest request,
-                          HttpServletResponse response,
-                          String username,
-                          long memberId,
-                          List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, memberId, authorities);
-        String refreshToken = delegateRefreshToken(username);
-        String uri = createURI(accessToken,refreshToken).toString();
+        // Debugging logs
+        System.out.println("Access Token: " + accessToken);
+        System.out.println("Refresh Token: " + refreshToken);
+
+        // 클라이언트로 토큰을 보내기 위해 리다이렉트
+        String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
-    }
-
-    private String delegateAccessToken(String username, long memberId, List<String> authorities) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("memberId", memberId);
-        claims.put("roles", authorities);
-
-        String subject = username;
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-        return jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
-    }
-
-    private String delegateRefreshToken(String username) {
-        String subject = username;
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-
-        return jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
 
     private URI createURI(String accessToken, String refreshToken) {
@@ -88,12 +75,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-//                .port(80)
                 .path("/receive-token.html")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
     }
-
-
 }

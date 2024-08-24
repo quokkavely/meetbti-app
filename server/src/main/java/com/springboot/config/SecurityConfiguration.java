@@ -9,6 +9,7 @@ import com.springboot.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final JwtAuthorityUtils jwtAuthorityUtils;
     private final MemberService memberService;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Value("${spring.security.oauth2.client.registration.google.clientId}")
     private String clientId;
@@ -40,14 +42,15 @@ public class SecurityConfiguration {
     @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
     private String clientSecret;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, JwtAuthorityUtils jwtAuthorityUtils, MemberService memberService) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, JwtAuthorityUtils jwtAuthorityUtils, MemberService memberService, RedisTemplate<String, Object> redisTemplate) {
         this.jwtTokenizer = jwtTokenizer;
         this.jwtAuthorityUtils = jwtAuthorityUtils;
         this.memberService = memberService;
+        this.redisTemplate = redisTemplate;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
@@ -60,9 +63,13 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer())
-                .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.GET,"/h2").permitAll()
+                        .antMatchers(HttpMethod.POST,"/h2/**").permitAll()
+                        .antMatchers(HttpMethod.GET,"/h2/**").permitAll()
+                        .antMatchers(HttpMethod.POST,"/*/signup").permitAll()
+                        .antMatchers(HttpMethod.POST,"/*/verify").permitAll()
+                        .antMatchers(HttpMethod.POST, "/login").permitAll()
                         .antMatchers(HttpMethod.GET,"/questions").hasAnyRole("USER","ADMIN")
                         .antMatchers(HttpMethod.POST,"/*/members").permitAll()
                         .antMatchers(HttpMethod.PATCH,"/*/members/**").hasRole("USER")
@@ -74,9 +81,9 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET,"/*/reports/**").hasRole("ADMIN")
                         // - 관리자가 회원의 부적절한 게시글을 삭제할 수 있다.
                         .anyRequest().permitAll()
-                ).oauth2Login(oauth2 ->
-                        oauth2.successHandler(
-                                new OAuth2MemberSuccessHandler(jwtTokenizer,jwtAuthorityUtils,memberService)) );
+                ).oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,jwtAuthorityUtils,memberService)))
+                .apply(new CustomFilterConfigurer());
         return http.build();
     }
     @Bean
@@ -95,30 +102,17 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,jwtTokenizer);
+
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(jwtTokenizer, jwtAuthorityUtils, memberService));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            JwtVerifiedFilter jwtVerifiedFilter = new JwtVerifiedFilter(jwtTokenizer,jwtAuthorityUtils);
+
+            JwtVerifiedFilter jwtVerifiedFilter = new JwtVerifiedFilter(jwtTokenizer, jwtAuthorityUtils, redisTemplate);
+
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerifiedFilter,JwtAuthenticationFilter.class)
                     .addFilterAfter(jwtVerifiedFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() {
-        var clientRegistration = clientRegistration();
-
-        return new InMemoryClientRegistrationRepository(clientRegistration);
-    }
-
-    private ClientRegistration clientRegistration() {
-        return CommonOAuth2Provider
-                .GOOGLE
-                .getBuilder("google")
-                .clientId(clientId)
-                .clientSecret(clientSecret)
-                .build();
-    }
-
 }
