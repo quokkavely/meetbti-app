@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Modal_EmailAuth.css';
 
-const EmailAuthModal = ({ onClose, onRegister, correctAuthCode }) => {
+const EmailAuthModal = ({ onClose, onRegister}) => {
     const [authCode, setAuthCode] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isExpired, setIsExpired] = useState(false);
@@ -21,13 +21,12 @@ const EmailAuthModal = ({ onClose, onRegister, correctAuthCode }) => {
     }, [timeLeft]);
 
     const handleRegister = () => {
+        console.log('authcode Input: ', authCode);
         if (isExpired) {
-            setErrorMessage('인증코드 입력 시간이 만료되었습니다.');
-        } else if (authCode === correctAuthCode) {
+            setErrorMessage('인증코드 입력 시간이 만료되었습니다.');  
+        } else {
             onRegister(authCode);
             onClose();
-        } else {
-            setErrorMessage('인증코드가 일치하지 않습니다.');
         }
     };
 
