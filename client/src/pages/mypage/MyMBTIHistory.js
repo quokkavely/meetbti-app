@@ -77,8 +77,13 @@ const HistorySection = () => {
                     className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                     key={index}
                 >
-                    <div className="history-content-text">{item.mbti}</div>
-                    <div className="history-content-date">{item.createdAt}</div>
+                    <div className='history-content-container-container'>
+                        <div className='history-content-container'>
+                            <div className="history-content-text">{item.mbti}</div>
+                            <div className="history-content-date">{item.createdAt}</div>
+                        </div>
+                        {index === historyData.data.length - 1 && <div className='latest-mark'>LATEST</div>}
+                    </div>
                 </div>
             ))}
             {(historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}

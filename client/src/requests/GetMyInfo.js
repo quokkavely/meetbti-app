@@ -1,4 +1,4 @@
-const getMyInfo = async (state, setMyData, setLoading) => {
+const sendGetMyinfoRequest = async (state, setMyData, setLoading) => {
     try{
         console.log('회원 정보 GET요청 전송');
         const response = await fetch('http://localhost:8080/members/me',
@@ -16,7 +16,9 @@ const getMyInfo = async (state, setMyData, setLoading) => {
             setMyData(data);
 
             console.log('회원 로딩 완료')
-            setLoading(false);
+            if(setLoading !==undefined){
+                setLoading(false);
+            }
             return data;
         }else{
             console.log('회원 정보 GET요청 실패: ', response.status);
@@ -25,4 +27,4 @@ const getMyInfo = async (state, setMyData, setLoading) => {
         console.error('회원 정보 GET요청 실패', error);
     }
 }
-export default getMyInfo;
+export default sendGetMyinfoRequest;
