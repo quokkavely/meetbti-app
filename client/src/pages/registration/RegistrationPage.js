@@ -142,6 +142,7 @@ const RegistrationPage = (props) => {
 
         openEmailAuthModal();
     };
+    
     const sendRegistrationRequest = async() => {
         try{
             const response = await fetch('http://localhost:8080/members',
@@ -159,16 +160,60 @@ const RegistrationPage = (props) => {
                 
             );
             if(response.ok){
-                console.log('회원가입 성공');
-
-                // login(token, emailInput, memberId);
-                sendLoginRequest(emailInput, passwordInput, login, navigate);
-                navigate('/');
+                console.log('Member POST요청 성공');
+                // 이메일 인증 코드 전송 요청 보내기
+                sendAuthcodeRequest(emailInput);
             }else{
-                console.log('회원가입 실패: ', response.status);
+                console.log('Member POST요청 실패: ', response.status);
             }
         } catch (error){
-            console.error('회원가입 실패', error);
+            console.error('Member POST요청 실패', error);
+        }
+    }
+    const sendAuthcodeRequest = async (emailInput)=> {
+        try{
+            const response = await fetch('http://localhost:8080/send-mail/email',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailInput
+                    })
+                }
+            );
+            if(response.ok){
+                console.log(`인증 코드가 ${emailInput}으로 전송됨`);
+            }else{
+                console.log('인증 코드 전송 요청 실패', response.status);
+            }
+        }catch(error){
+            console.error('인증 코드 전송 요청 실패', error);
+        }
+    }
+    const sendVerifyRequest = async(emailInput, authCodeInput) => {
+        try{
+            const response = await fetch('http://localhost:8080/members/verify',
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailInput,
+                        authCode: authCodeInput
+                    })
+                }
+            );
+            if(response.ok){
+                console.log('인증 코드 확인됨');
+                sendLoginRequest(emailInput, passwordInput, login, navigate)
+            }else{
+                console.log('인증 코드 확인 요청 실패', response.status);
+            }
+        }catch(error){
+            console.log('인증 코드 확인 요청 실패', error);
         }
     }
 
@@ -209,11 +254,16 @@ const RegistrationPage = (props) => {
             errorMessage = '비밀번호가 일치하지 않아요'>
             </PasswordCheckInput>
 
-            <button className="registration-button" onClick={() => registration(()=>{setIsEmailAuthModalOpen(true)})}>회원 가입</button>
+            <button className="registration-button" onClick={() => registration(()=>{{
+                    // 회원 등록 및 인증 코드 전송 요청 보내기
+                    sendRegistrationRequest();
+                    setIsEmailAuthModalOpen(true);
+                }})}>회원 가입</button>
             {isEmailAuthModalOpen && <EmailAuthModal 
             onClose={() => setIsEmailAuthModalOpen(false)}
-             onRegister={sendRegistrationRequest} 
-             correctAuthCode={"test"} />}
+            onRegister={(authCodeInput) => 
+                sendVerifyRequest(emailInput, authCodeInput)
+            }/>}
             {duplCheckModalOn && <ModalCheck message={modalMessage} onClose={() => setDuplCheckModalOn(false)}></ModalCheck>}
         </div>
     );
