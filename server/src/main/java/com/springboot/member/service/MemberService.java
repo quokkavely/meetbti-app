@@ -149,11 +149,11 @@ public class MemberService {
         return nickname;
     }
 
-    public Long findMemberIdByEmail(String email) {
+    public Member findMemberIdByEmail(String email) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        return member.getMemberId();
+        return member;
     }
 
     public Member registerOAuthMember(String email) {
