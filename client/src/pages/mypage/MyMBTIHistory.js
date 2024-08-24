@@ -4,6 +4,8 @@ import './MyMBTIHistory.css';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import { useNavigate } from 'react-router-dom';
+import sendMbtiTestResultsRequest from '../../requests/MbtiTestResultsRequest';
+import { useAuth } from '../../auth/AuthContext';
 
 
 const AppContainerComponent = () => {
@@ -36,30 +38,15 @@ const Historyrecenttext = () => {
 };
 
 const HistorySection = () => {
+    const { state } = useAuth();
     const [historyData, setHistoryData] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const observer = useRef();
     const navigate = useNavigate();
 
-    const fetchHistoryData = useCallback(async () => {
-        // 데이터를 가져오는 API 호출
-        const response = await fetch(`/api/history?page=${page}`);
-        const data = await response.json();
-        setHistoryData(prevData => [...prevData, ...data]);
-    }, [page]);
-
     useEffect(() => {
-        fetchHistoryData();
-    }, [fetchHistoryData]);
-
-    const lastHistoryElementRef = useCallback(node => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                setPage(prevPage => prevPage + 1);
-            }
-        });
-        if (node) observer.current.observe(node);
+        sendMbtiTestResultsRequest(state, 1, 7, setLoading, setHistoryData);
     }, []);
 
     const dummyData = [
