@@ -1,9 +1,10 @@
 package com.springboot.report.service;
 
+import com.springboot.auth.utils.Principal;
 import com.springboot.comment.service.CommentService;
 import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
-import com.springboot.member.entity.Member;
+import com.springboot.member.service.MemberService;
 import com.springboot.post.entity.Post;
 import com.springboot.comment.entity.Comment;
 import com.springboot.post.service.PostService;
@@ -23,11 +24,13 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final PostService postService;
     private final CommentService commentService;
+    private final MemberService memberService;
 
-    public ReportService(ReportRepository reportRepository, PostService postService, CommentService commentService) {
+    public ReportService(ReportRepository reportRepository, PostService postService, CommentService commentService, MemberService memberService) {
         this.reportRepository = reportRepository;
         this.postService = postService;
         this.commentService = commentService;
+        this.memberService = memberService;
     }
 
 
@@ -35,11 +38,19 @@ public class ReportService {
     public Report createReport(Report report, Authentication authentication, Long postId, Long commentId) {
         Post post = null;
         Comment comment = null;
+        Principal principal = (Principal) authentication.getPrincipal();
 
         if (postId != null) {
             post = postService.findPost(postId, authentication);
+            if (post.getMember().getMemberId() == principal.getMemberId()) {
+                throw new BusinessLogicException(ExceptionCode.CANNOT_REPORT_YOURSELF);
+            }
         } else if (commentId != null) {
             comment = commentService.findComment(commentId);
+            if (comment.getMember().getMemberId() == principal.getMemberId()) {
+                throw new BusinessLogicException(ExceptionCode.CANNOT_REPORT_YOURSELF);
+            }
+
         } else {
             throw new BusinessLogicException(ExceptionCode.INVALID_REPORT_TARGET);
         }
@@ -63,11 +74,11 @@ public class ReportService {
         Report report = findVerifiedReport(reportId);
         //게시글 신고처리
         if (report.getPost() != null) {
-            report.getPost().getMember().setMemberStatus(Member.MemberStatus.BAN);
+            memberService.setBanMember(report.getPost().getMember());
             report.getPost().setPostStatus(Post.PostStatus.DELETED);
         // 댓글 신고처리
         } else if (report.getComment() != null) {
-            report.getComment().getMember().setMemberStatus(Member.MemberStatus.BAN);
+            memberService.setBanMember(report.getComment().getMember());
             commentService.deleteComment(report.getComment().getCommentId(), authentication);
             report.setComment(null);
         }

@@ -17,7 +17,8 @@ public enum ExceptionCode {
     INVALID_AUTHENTICATION_CODE(400, "Invalid Authentication Code"),
     REPORT_NOT_FOUND(404,"Report Not Found"),
     REPORT_ALREADY_EXISTS(409, "It's already reported"),
-    INVALID_REPORT_TARGET(400, "Report target is invalid");
+    INVALID_REPORT_TARGET(400, "Report target is invalid"),
+    CANNOT_REPORT_YOURSELF(400,"You cannot report yourself." );
 
     @Getter
     private int status;

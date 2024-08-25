@@ -48,7 +48,7 @@ public class Member {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
-    private Date banExpiration;
+    private LocalDateTime banExpiration;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
