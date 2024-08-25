@@ -4,6 +4,8 @@ import './MBTIBoard.css';
 import sendGetPostsRequest from '../../requests/GetPostsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import AppContainer from '../MainPage';
+import Header from '../MainPage';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -139,9 +141,9 @@ const Board = ({ props, sortOption, mbtiType, setTotalPages }) => {
                     <div key={index} className="post-item">
                         <div className="post-title" onClick={() => navigate(`/postpage`)}>{post.title}</div>
                         <div className="post-info">
-                            <span>조회 {post.views.toLocaleString()}</span>
-                            <span>❤️ {post.likes.toLocaleString()}</span>
-                            <span>💬 {post.comments.toLocaleString()}</span>
+                            <span>조회 {post.viewscount()}</span>
+                            <span>❤️ {post.heartcount()}</span>
+                            <span>💬 {post.comments.length}</span>
                         </div>
                     </div>
                 ))}
