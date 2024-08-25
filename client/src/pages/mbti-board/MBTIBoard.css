@@ -90,6 +90,9 @@
     /* background-color: #e3ccf6; */
     background-color: #d3e9f8;
 }
+.filter-btn:hover{
+  background-color: #b6ddf7;
+}
 
 .dropdown {
     position: relative;
@@ -114,6 +117,9 @@
     border: none;
     color: #ffffff;
     border-bottom: 1px solid #efefef;
+}
+.dropdown-item:hover{
+  background-color: #d0acee;
 }
 
 

@@ -4,6 +4,7 @@ import './MBTIBoard.css';
 import sendGetPostsRequest from '../../requests/GetPostsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import { useRef } from 'react';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -27,9 +28,11 @@ const Header = () => {
 };
 
 // 필터 컴포넌트
-const Filter = () => {
+const Filter = (props) => {
     const [isMBTIDropdownOpen, setMBTIDropdownOpen] = useState(false);
     const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
+    const mbtiDropdownRef = useRef(null);
+    const sortDropdownRef = useRef(null);
 
     const toggleMBTIDropdown = () => {
         setMBTIDropdownOpen(!isMBTIDropdownOpen);
@@ -39,33 +42,54 @@ const Filter = () => {
         setSortDropdownOpen(!isSortDropdownOpen);
     };
 
+    const handleClickOutside = (event) => {
+        if(mbtiDropdownRef.current && !mbtiDropdownRef.current.contains(event.target)){
+            setMBTIDropdownOpen(false);
+        }
+        if(sortDropdownRef.current && !sortDropdownRef.current.contains(event.target)){
+            setSortDropdownOpen(false);
+        }
+    }
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [])
+
+    const selectOption = (option) => {
+        props.navigate(`/MBTIBoard?category=${option}`);
+        setMBTIDropdownOpen(false);
+        props.setFilterBy(option);
+    }
+
     return (
         <div className="filter">
-            <div className="dropdown">
-                <button className="filter-btn" onClick={toggleMBTIDropdown}>▼ INFJ</button>
+            <div className="dropdown" ref={mbtiDropdownRef}>
+                <button className="filter-btn" onClick={toggleMBTIDropdown}>{`▼ ${props.filterBy}`}</button>
                 {isMBTIDropdownOpen && (
                     <div className="dropdown-menu">
-                        <button className="dropdown-item">ALL</button>
-                        <button className="dropdown-item">ENTJ</button>
-                        <button className="dropdown-item">ENTP</button>
-                        <button className="dropdown-item">ENFJ</button>
-                        <button className="dropdown-item">ENFP</button>
-                        <button className="dropdown-item">ESTJ</button>
-                        <button className="dropdown-item">ESTP</button>
-                        <button className="dropdown-item">ESFJ</button>
-                        <button className="dropdown-item">ESFP</button>
-                        <button className="dropdown-item">INTJ</button>
-                        <button className="dropdown-item">INTP</button>
-                        <button className="dropdown-item">INFJ</button>
-                        <button className="dropdown-item">INFP</button>
-                        <button className="dropdown-item">ISTJ</button>
-                        <button className="dropdown-item">ISTP</button>
-                        <button className="dropdown-item">ISFJ</button>
-                        <button className="dropdown-item">ISFP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ALL')}>ALL</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ENTJ')}>ENTJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ENTP')}>ENTP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ENFJ')}>ENFJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ENFP')}>ENFP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ESTJ')}>ESTJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ESTP')}>ESTP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ESFJ')}>ESFJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ESFP')}>ESFP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('INTJ')}>INTJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('INTP')}>INTP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('INFJ')}>INFJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('INFP')}>INFP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ISTJ')}>ISTJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ISTP')}>ISTP</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ISFJ')}>ISFJ</button>
+                        <button className="dropdown-item" onClick={() => selectOption('ISFP')}>ISFP</button>
                     </div>
                 )}
             </div>
-            <div className="dropdown">
+            <div className="dropdown" ref={sortDropdownRef}>
                 <button className="filter-btn" onClick={toggleSortDropdown}>▼ 최신순</button>
                 {isSortDropdownOpen && (
                     <div className="dropdown-menu">
@@ -118,13 +142,13 @@ const WriteButton = (props) => {
     const navigate = useNavigate();
     return (
         <div className="write-section">
-            <button className="write-btn" onClick={() => {
-                if(props.category === 'NONE' || props.category === 'ALL'){
+            {props.category !== 'ALL' && <button className="write-btn" onClick={() => {
+                if(props.category === 'NONE'){
                     alert('글쓰기 권한이 없어요');
                     return;
                 }
                 navigate(`/registPost?category=${props.category}`);
-                }}>글쓰기</button>
+                }}>글쓰기</button>}
         </div>
     );
 };
@@ -152,29 +176,19 @@ const MBTIBoard = () => {
     const [category, setCategory] = useState('ALL');
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState({data:[]});
+    const [filterBy, setFilterBy] = useState('');
     const location = useLocation();
     const params = new URLSearchParams(location.search);
 
     useEffect(() => {
         sendGetMyinfoRequest(state, setMyData);
         sendGetPostsRequest(state, 1, 6, params.get('category'), 'createdAt', setLoading, setPosts);
-    }, []);
-    /* useEffect(() => {
-        const fetchData = async() => {
-            try{
-                await sendGetMyinfoRequest(state, setMyData);
-                await sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
-            }catch(error){
-                console.error('데이터 요청 실패', error);
-            }
-        }
-        fetchData();
-    }, [state]); */
+    }, [filterBy]);
     
     return (
       <div className="app">
         <Header />
-        <Filter />
+        <Filter navigate = {navigate} filterBy = {filterBy} setFilterBy = {setFilterBy}/>
         <Board loading = {loading} posts = {posts.data}/>
         <WriteButton category={myData.data.mbti}/>
         <PageNation />
