@@ -104,7 +104,7 @@ const MainContent = (props) => {
   const cards2 = [
     { image: "/public-img/Image-img.jpeg", title: "이미지 게임", description: "가장 ~~ 할 것 같은 MBTI는?" },
     { image: "/public-img/balance-img.jpeg", title: "밸런스 게임", description: "말해 Yes or No" },
-    { image: "/public-img/snack-img1.jpeg", title: "MBTMI", description: "MBTI의 TMI 대방출!" }
+    { image: "/public-img/MBTMI-img.png", title: "MBTMI", description: "MBTI의 TMI 대방출!" }
   ];
 
   // 배열을 랜덤으로 섞는 함수
