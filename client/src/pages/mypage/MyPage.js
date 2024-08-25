@@ -52,11 +52,20 @@ const MyPageUserInfoButton = () => {
 }
 
 // 마이페이지 내 MBTI 버튼 컴포넌트
-const MyPageMyMBTIButton = () => {
+const MyPageMyMBTIButton = (props) => {
     const navigate = useNavigate();
     return (
         <div className="mypage-my-mbti-button-container">
-            <button className="mypage-my-mbti-button" onClick={() => navigate('/mbtiboard')}> My MBTI </button>
+            <button className="mypage-my-mbti-button" onClick={() => {
+                console.log('myMbti: ', props.myMbti);
+                if(props.myMbti === 'NONE'){
+                    if(window.confirm('MBTI가 없어요. 테스트 화면으로 이동하시겠어요?')){
+                        navigate('/TestMain');
+                    }                   
+                    return;
+                }
+                navigate(`/mbtiboard?category=${props.myMbti}`);
+            }}> My MBTI </button>
         </div>
     );
 }
@@ -82,7 +91,7 @@ const MyPage = () => {
 
     useEffect(() => {
         getMyInfo(state, setMyData, setLoading);
-    }, [])
+    }, [state])
 
     return (
     <div className="app">
@@ -90,7 +99,7 @@ const MyPage = () => {
         <HeaderComponent />
         {!loading && <MyPageUserInfoContainer profileImg={myData.data.image} mbti={myData.data.mbti} nickname={myData.data.nickname}/>}
         <MyPageUserInfoButton />
-        <MyPageMyMBTIButton />
+        {!loading && <MyPageMyMBTIButton myMbti = {myData.data.mbti}/>}
         <NewNotice />
     </div>
     );

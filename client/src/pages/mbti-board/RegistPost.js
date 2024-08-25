@@ -114,8 +114,10 @@ const submitPost = (state, navigate, title, content, category, image) => {
     if(content === ''){
         alert('본문을 입력해주세요');
     }
-    const contentObject = {title: title, content: content, category: category, image: 'image'};
-    sendPostPostRequest(state, contentObject, navigate);
+    if(window.confirm('게시글을 등록하시겠어요?')){
+        const contentObject = {title: title, content: content, category: category, image: 'image'};
+        sendPostPostRequest(state, contentObject, navigate);
+    } 
 }
 
 const RegistButton = (props) => {

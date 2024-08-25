@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './MBTIBoard.css';
 import sendGetPostsRequest from '../../requests/GetPostsRequest';
 import { useAuth } from '../../auth/AuthContext';
@@ -91,23 +91,22 @@ const dummyData = [
 ];
 
 // 게시판 컴포넌트
-const Board = () => {
+const Board = (props) => {
     const navigate = useNavigate();
-    
-
     return (
         <div className="board">
             <div className="posts">
-                {dummyData.map((post, index) => (
+                {!props.loading && props.posts.map((post, index) => (
                     <div key={index} className="post-item">
                         <div className="post-title" onClick={() => navigate(`/postpage`)}>{post.title}</div>
                         <div className="post-info">
-                            <span>조회 {post.views.toLocaleString()}</span>
-                            <span>❤️ {post.likes.toLocaleString()}</span>
-                            <span>💬 {post.comments.toLocaleString()}</span>
+                            <span>조회 {post.viewCount}</span>
+                            <span>❤️ {post.heartCount}</span>
+                            <span>💬 {post.comments.length}</span>
                         </div>
                     </div>
                 ))}
+                {props.posts.length === 0 && <div>작성된 게시글이 없어요.</div>}
             </div>
         </div>
     );
@@ -153,17 +152,30 @@ const MBTIBoard = () => {
     const [category, setCategory] = useState('ALL');
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState({data:[]});
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
 
     useEffect(() => {
         sendGetMyinfoRequest(state, setMyData);
-        sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
+        sendGetPostsRequest(state, 1, 6, params.get('category'), 'createdAt', setLoading, setPosts);
     }, []);
+    /* useEffect(() => {
+        const fetchData = async() => {
+            try{
+                await sendGetMyinfoRequest(state, setMyData);
+                await sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
+            }catch(error){
+                console.error('데이터 요청 실패', error);
+            }
+        }
+        fetchData();
+    }, [state]); */
     
     return (
       <div className="app">
         <Header />
         <Filter />
-        <Board />
+        <Board loading = {loading} posts = {posts.data}/>
         <WriteButton category={myData.data.mbti}/>
         <PageNation />
       </div>
