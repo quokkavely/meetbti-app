@@ -1,4 +1,4 @@
-const sendPostCommentRequest = async(state, postId, content) => {
+const sendPostCommentRequest = async(state, postId, content, setInputValue, resetPostData) => {
     try{
         console.log('state: ', state);
         console.log('postId: ', postId);
@@ -18,6 +18,8 @@ const sendPostCommentRequest = async(state, postId, content) => {
         );
         if(response.ok){
             console.log('댓글 등록 성공');
+            setInputValue('');
+            resetPostData();
         }else{
             console.log('댓글 등록 실패: ', response.status);
         }

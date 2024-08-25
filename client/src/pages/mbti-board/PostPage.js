@@ -99,15 +99,15 @@ const CommentCount = ({ comments }) => {
 
 
 // CommentItem 컴포넌트 정의
-const CommentItem = ({ text, time }) => {
+const CommentItem = ({ username, mbti, content, createdAt }) => {
   return (
     <div className="comments">
       <div className="comment-section">
-        <CommentUserInfoContainer />
+        <CommentUserInfoContainer username={username} mbti={mbti}/>
       </div>
       <div className="comment-content">
-        <div className="comment-text">{text}</div>
-        <div className="comment-time">{time}</div>
+        <div className="comment-text">{content}</div>
+        <div className="comment-time">{createdAt}</div>
       </div>
       {/* <div className="comment-subcontent ">
         <div>❤️ {likes.toLocaleString()}</div>
@@ -124,15 +124,16 @@ const CommentSection = ({ comments }) => {
     { id: 3, username: '리사수', text: '야 이재용은 열심히 살아야지', time: '2024.08.12. 22:25', likes: 171 },
     { id: 4, username: '젠손황', text: '삼성오너면 나도 열심히 산다. 나한테 500억만 줘봐라. 누구보다 열심히 살지.', time: '2024.08.12. 22:25', likes: 53 },
   ]; */
+  console.log(comments);
 
   return (
     <div className="comment-section">
       {comments.map(comment => (
         <CommentItem 
-          key={comment.id} 
-          username={comment.username} 
-          text={comment.text} 
-          time={comment.time} 
+          username={comment.nickName} 
+          mbti={comment.mbti} 
+          content={comment.content} 
+          createdAt={comment.createdAt} 
           // likes={comment.likes} 
         />
       ))}
@@ -141,7 +142,7 @@ const CommentSection = ({ comments }) => {
 };
 
 // 댓글 입력 컴포넌트
-const CommentInput = ({ state, postId }) => {
+const CommentInput = ({ state, postId, params, setLoading, setPostData}) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
@@ -155,7 +156,7 @@ const CommentInput = ({ state, postId }) => {
       alert('댓글 내용을 입력해주세요');
       return;
     }
-    sendPostCommentRequest(state, postId, inputValue);
+    sendPostCommentRequest(state, postId, inputValue, setInputValue, ()=> sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData));
   };
 
   return (
@@ -196,7 +197,7 @@ const PostPage = () => {
       {!loading && <PostActions likes={postData.data.heartCount} />}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments}/>}
-      {!loading && <CommentInput state = {state} postId = {postData.data.postId}/>}
+      {!loading && <CommentInput state = {state} postId = {postData.data.postId} params={params} setLoading={setLoading} setPostData={setPostData}/>}
     </div>
   );
 };
