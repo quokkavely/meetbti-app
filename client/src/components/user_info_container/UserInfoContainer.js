@@ -44,13 +44,13 @@ const styles = {
     }
 };
 
-const UserInfoContainer = () => {
+const UserInfoContainer = ({ author, mbti }) => {
     return (
         <div style={styles.container}>
             <img src="/public-img/catprofile.png" alt="프로필 이미지" style={styles.profile} />
             <div style={styles.info}>
-                <div style={styles.badge}>MBTI</div>
-                <div style={styles.name}>닉네임</div>
+                <div style={styles.badge}>{mbti}</div>
+                <div style={styles.name}>{author}</div>
             </div>
         </div>
     );

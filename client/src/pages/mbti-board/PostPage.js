@@ -11,38 +11,19 @@ import AlertModal from '../../components/modal/AlertModal';
 import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import { useAuth } from '../../auth/AuthContext';
 
-const AppContainerComponent = () => {
-    return (
-        <AppContainer />
-    );
-};
-
-const HeaderComponent = () => {
-    return (
-        <Header />
-    );
-};
-
-const UserInfoComponent = () => {
-    return (
-        <UserInfoContainer />
-    );
-};
-
-
 // 포스트 컨텐츠 컴포넌트
 const PostPageContent = ({ post }) => {
   return (
     <div className="post-page-content">
       <div className="post-title">{post.title}</div>
       <div className="post-meta">
-        <span>{post.date}</span>
-        <span>조회 {post.views.toLocaleString()}</span>
-        <span>❤️ {post.likes.toLocaleString()}</span> 
-        <span>💬 {post.comments.toLocaleString()}</span> 
+        <span>{post.createdAt}</span>
+        <span>조회 {post.viewCount}</span>
+        <span>❤️ {post.heartCount}</span> 
+        <span>💬 {post.comments.length}</span> 
       </div>
-      <img src={post.image} alt="post" className="post-image" />
-      <div className="post-text">{post.text}</div>
+      {post.image !== null && <img src={post.image} alt="post" className="post-image" />}
+      <div className="post-text">{post.content}</div>
     </div>
   );
 };
@@ -88,7 +69,7 @@ const PostActions = ({ likes }) => {
         onClick={handleLike}
         style={{ backgroundColor: liked ? '#e3ccf6' : '#ccc' }}
       >
-        ❤️ 좋아요 {likeCount.toLocaleString()}
+        ❤️ 좋아요 {likeCount}
       </button>
       <button className="alert-button-main" onClick={handleAlert}>
         <img src="public-img/alert-img.png" alt="신고하기" />
@@ -208,16 +189,16 @@ const PostPage = () => {
 
   useEffect(() => {
     sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData);
-  }, []);
+  }, [state]);
 
   return (
     <div className="app">
-      <AppContainerComponent />
-      <HeaderComponent />
-      <UserInfoComponent />
-      <PostPageContent post={post} />
-      <PostActions likes={post.likes} />
-      <CommentCount comments={post.comments} />
+      <AppContainer />
+      <Header />
+      <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>
+      {!loading && <PostPageContent post={postData.data} />}
+      {!loading && <PostActions likes={postData.data.heartCount} />}
+      {!loading && <CommentCount comments={postData.data.comments.length} />}
       <CommentSection />
       <CommentInput />
     </div>
