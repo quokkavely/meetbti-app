@@ -24,7 +24,7 @@ const sendPostPostRequest = async(state, contentObject, navigate) => {
         );
         if(response.ok){
             console.log('게시글 등록 성공');
-            navigate('/MBTIBoard');
+            navigate(`/MBTIBoard?category=${contentObject.category}`);
         }else{
             console.log('게시글 등록 실패: ', response.status);
         }
