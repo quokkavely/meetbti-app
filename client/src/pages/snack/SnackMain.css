@@ -16,12 +16,13 @@
     width: 420px;
     height: 560px; 
     margin-top: 10px;
-    gap: 24px;
+    gap: 22px;
 }
 
 .imagegame, .balancegame, .MBTMI {
+    position: relative;
     width: 400px;
-    height: 150px;
+    height: 228px;
     border-radius: 15px;
     margin: 0 auto;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
@@ -29,6 +30,17 @@
 
 .imagegame img, .balancegame img, .MBTMI img {
     width:  400px;
-    height: 150px;
+    height: auto;
     border-radius: 15px;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 255, 255);
+    font-size: 1.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
 }
