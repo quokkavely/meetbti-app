@@ -5,7 +5,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const initialState = JSON.parse(localStorage.getItem('authState')) || {
+    const initialState = JSON.parse(sessionStorage.getItem('authState')) || {
         isAuthenticated: false,
         email: null,
         token: null,
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
             memberId,
         }
         setState(newState);
-        localStorage.setItem('authState', JSON.stringify(newState));
+        sessionStorage.setItem('authState', JSON.stringify(newState));
     };
 
     const logout = () => {
@@ -33,11 +33,11 @@ export const AuthProvider = ({ children }) => {
             memberId: null,
         }
         setState(newState);
-        localStorage.removeItem('authState');
+        sessionStorage.removeItem('authState');
     };
 
     useEffect(() => {
-        const savedState = JSON.parse(localStorage.getItem('authState'));
+        const savedState = JSON.parse(sessionStorage.getItem('authState'));
         if(savedState){
             setState(savedState);
         }
