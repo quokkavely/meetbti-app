@@ -98,7 +98,7 @@ const Board = (props) => {
             <div className="posts">
                 {!props.loading && props.posts.map((post, index) => (
                     <div key={index} className="post-item">
-                        <div className="post-title" onClick={() => navigate(`/postpage`)}>{post.title}</div>
+                        <div className="post-title" onClick={() => navigate(`/postpage?postId=${post.postId}`)}>{post.title}</div>
                         <div className="post-info">
                             <span>조회 {post.viewCount}</span>
                             <span>❤️ {post.heartCount}</span>
@@ -159,17 +159,6 @@ const MBTIBoard = () => {
         sendGetMyinfoRequest(state, setMyData);
         sendGetPostsRequest(state, 1, 6, params.get('category'), 'createdAt', setLoading, setPosts);
     }, []);
-    /* useEffect(() => {
-        const fetchData = async() => {
-            try{
-                await sendGetMyinfoRequest(state, setMyData);
-                await sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
-            }catch(error){
-                console.error('데이터 요청 실패', error);
-            }
-        }
-        fetchData();
-    }, [state]); */
     
     return (
       <div className="app">

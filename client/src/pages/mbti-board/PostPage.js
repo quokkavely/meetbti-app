@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './PostPage.css';
 
 // 컴포넌트 임포트
@@ -8,6 +8,8 @@ import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
 import AlertModal from '../../components/modal/AlertModal';
+import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
+import { useAuth } from '../../auth/AuthContext';
 
 const AppContainerComponent = () => {
     return (
@@ -89,7 +91,7 @@ const PostActions = ({ likes }) => {
         ❤️ 좋아요 {likeCount.toLocaleString()}
       </button>
       <button className="alert-button-main" onClick={handleAlert}>
-        <img src="alert-img.png" alt="신고하기" />
+        <img src="public-img/alert-img.png" alt="신고하기" />
       </button>
       <AlertModal
         showModal={showModal}
@@ -179,7 +181,7 @@ const CommentInput = () => {
         className="comment-input-field"
       />
       <div className="comment-send-button" onClick={handleSend}>
-        <img src="send-img.png" alt="댓글 보내기" />
+        <img src="public-img/send-img.png" alt="댓글 보내기" />
       </div>
     </div>
   );
@@ -188,15 +190,25 @@ const CommentInput = () => {
 
 
 const PostPage = () => {
+  const { state } = useAuth();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const [loading, setLoading] = useState(true);
+  const [postData, setPostData] = useState({});
+
   const post = {
     title: "이재용도 이렇게 열심히 사는데...",
     date: "2024.08.20. 23:20",
     views: 242,
     likes: 0,
     comments: 5,
-    image: "Mrsamsung.jpg",
+    image: "public-img/Mrsamsung.jpg",
     text: "너네가 뭐라고 그렇게 대충 사냐? 반성해라"
   };
+
+  useEffect(() => {
+    sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData);
+  }, []);
 
   return (
     <div className="app">
