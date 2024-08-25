@@ -70,6 +70,11 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
+
+    public Comment findComment (Long commentId) {
+        return findVerifiedComment(commentId);
+    }
+
     private Comment findVerifiedComment (long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
 

@@ -1,14 +1,19 @@
 package com.springboot.report.entity;
 
+import com.springboot.comment.entity.Comment;
+import com.springboot.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Report {
     @Id
@@ -19,7 +24,22 @@ public class Report {
     private ReportReason reason;
 
     @Enumerated(value = EnumType.STRING)
-    private ReportStatus status;
+    private ReportStatus status = ReportStatus.PENDING;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "COMMENT_ID")
+    private Comment comment;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "POST_ID")
+    private Post post;
+
     public enum ReportReason {
         SPAM("광고성게시글 또는 반복 게시물"),
         MISINFORMATION("허위 정보"),

@@ -25,7 +25,7 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
     private final CommentMapper commentMapper;
-    private final static String COMMENT_DEFAULT_URL = "/imagegames";
+    private final static String COMMENT_DEFAULT_URL = "/comments";
 
     public CommentController(CommentService commentService, CommentMapper commentMapper) {
         this.commentService = commentService;

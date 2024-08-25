@@ -14,7 +14,10 @@ public enum ExceptionCode {
     CONTENT_NOT_FOUND(404,"Content Not Found"),
     EMAIL_ALREADY_EXIST(409, "Email Already Exist"),
     NICKNAME_ALREADY_EXIST(409, "Nickname Already Exist"),
-    INVALID_AUTHENTICATION_CODE(400, "Invalid Authentication Code");
+    INVALID_AUTHENTICATION_CODE(400, "Invalid Authentication Code"),
+    REPORT_NOT_FOUND(404,"Report Not Found"),
+    REPORT_ALREADY_EXISTS(409, "It's already reported"),
+    INVALID_REPORT_TARGET(400, "Report target is invalid");
 
     @Getter
     private int status;
