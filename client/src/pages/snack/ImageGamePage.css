@@ -1,7 +1,7 @@
 .imagegame-title{
     font-size: 20px;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 .imagegame-author{
     text-align: end;
@@ -13,7 +13,8 @@
     display: flex;
     /* justify-content: center; */
     width: 100%;
-    height: 500px;
+    height: 100%;
+    margin-bottom: 50px;
 }
 .imagegame-button-container{
     display: flex;
@@ -38,50 +39,50 @@
     border: 4px solid white;
 }
 #ENFP{
-    background-color: #FFB20088;
+    background-color: #fdc4f9;
 }
 #ENFJ{
-    background-color: #FFD86288;
+    background-color: #6f8ca7;
 }
 #ESTP{
-    background-color: #FF7E7388;
+    background-color: #454b86;
 }
 #ESTJ{
-    background-color: #FF575788;
+    background-color: #787cff;
 }
 #ESFJ{
-    background-color: #7DFF9588;
+    background-color: #3b3b3b;
 }
 #INFP{
-    background-color: #FF926388;
+    background-color: #56d36b;
 }
 #ISTJ{
-    background-color: #91EB3C88;
+    background-color: #c484f8;
 }
 #ENTJ{
-    background-color: #4DB28588;
+    background-color: #f8e534;
 }
 #ISFP{
-    background-color: #B2EAFF88;
+    background-color: #FFADAD;
 }
 #INFJ{
-    background-color: #77C1DC88;
+    background-color: #A2D0E0;
 }
 #INTJ{
-    background-color: #798BFF88;
+    background-color: #AEA9A9;
 }
 #ISTP{
-    background-color: #19B6FF88;
+    background-color: #986b5e;
 }
 #ESFP{
-    background-color: #FFBBFB88;
+    background-color: #fa6060;
 }
 #ISFJ{
-    background-color: #FF75DC;
+    background-color: #78d4ff;
 }
 #ENTP{
-    background-color: #E377FF;
+    background-color: #cf8053;
 }
 #INTP{
-    background-color: #A62AFF;
+    background-color: #ffc53f;
 }

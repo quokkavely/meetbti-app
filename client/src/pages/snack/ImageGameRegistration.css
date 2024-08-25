@@ -1,38 +1,62 @@
-.title-input{
-    margin-top: 50px;
+.content-input{
+    margin-top: 20px;
     width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
 }
+
+.content-input-textarea{
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 400px;
+    min-height: 80px;
+    border: none;
+    resize: none;
+    outline: none;
+    color: #959595;
+}
+
+.title-input{
+    width: 100%;
+    height: 200px;
+    max-height: 200px;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    
+}
+
 .title-input-textarea{
     width: 100%; 
     font-size: 18px;
     border: none;
     resize: none;
     outline:none;
+    height: 200px;
     border-bottom: 1px solid rgba(0,0,0,0.25);
 }
+
 .title-input-textarea::placeholder{
-    /* padding-left: 3%; */
-    /* text-align: center; */
+    width: 100%;
+    height: 190px;
+    color: #959595;
 }
-.content-input-textarea{
-    margin-top: 20px;
-    width: 400px;
-    min-height: 400px;
-    border: none;
-    resize: none;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
-    outline: none;
-}
-.game-registration-button{
+
+.game-registration-button-container {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
     margin-top: 50px;
-    margin-left: 34%;
-    width: 100px;
+}
+
+.game-registration-button{
+    width: 140px;
     height: 40px;
     border-radius: 15px;
-    /* border: 1px solid black; */
     border: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.25);
-    background-color: white;
+    background-color: #EDD9FF;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
 }
 .game-registration-button:hover{
     background-color: blueviolet;
