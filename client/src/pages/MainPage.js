@@ -155,7 +155,15 @@ const MainContent = (props) => {
               image={card.image}
               title={card.title}
               description={card.description}
-              onClick={() => navigate(props.login ? '/ImageGame' : '/login')}
+              onClick={() => {
+                if (card.title === "이미지 게임") {
+                  navigate(props.login ? '/ImageGame' : '/login');
+                } else if (card.title === "밸런스 게임") {
+                  navigate(props.login ? '/BalanceGame' : '/login');
+                } else if (card.title === "MBTMI") {
+                  navigate(props.login ? '/MBTMI' : '/login');
+                }
+              }}
               className="large-card"
               contentClassName="card-content2"
               titleClassName="snack-title-in"
