@@ -123,7 +123,7 @@ const MainContent = (props) => {
           다른 MBTI들의 생각은?!
         </div>
         <div className="go-point">
-          <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')} />
+          <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? `/MBTIBoard?category=${props.myMbti}` : '/login')} />
         </div>
       </div>
       <div className="slider-container">
@@ -134,7 +134,7 @@ const MainContent = (props) => {
               image={card.image}
               title={card.title}
               description={card.description}
-              onClick={() => navigate(props.login ? '/MBTIBoard' : '/login')}
+              onClick={() => navigate(props.login ? `/MBTIBoard?category=${props.myMbti}` : '/login')}
             />
           ))}
         </Slider>
@@ -172,7 +172,7 @@ const MainContent = (props) => {
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
   const { state } = useAuth();
-  const [myData, setMyData] = useState({});
+  const [myData, setMyData] = useState({data:{mbti:'NONE'}});
   const [loading, setLoading] = useState(true);
   const [nickname, setNickname] = useState('Unknown');
 
@@ -207,7 +207,7 @@ const MainPage = () => {
         login = {isAuthenticated}
         userNickname={state.isAuthenticated ? nickname : 'Unknown'}
       />
-      <MainContent login = {isAuthenticated}/>
+      <MainContent login = {isAuthenticated} myMbti = {myData.data.mbti}/>
     </div>
   );
 };

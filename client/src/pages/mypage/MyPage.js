@@ -65,7 +65,7 @@ const MyPageMyMBTIButton = (props) => {
                     return;
                 }
                 navigate(`/mbtiboard?category=${props.myMbti}`);
-            }}> My MBTI </button>
+            }}> My MBTI 게시판 </button>
         </div>
     );
 }

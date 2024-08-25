@@ -16,14 +16,14 @@ const sendGetPostsRequest = async(state, page, size, category, sortBy, setLoadin
             console.log('data: ', data);
             setPosts(data);
 
-            console.log('게시글 정보 로딩 완료')
+            console.log('게시글 페이지 로딩 완료')
             setLoading(false);
             return data;
         }else{
-            console.log('게시글 정보 GET요청 실패: ', response.status);
+            console.log('게시글 페이지 GET요청 실패: ', response.status);
         }
     } catch (error){
-        console.error('게시글 정보 GET요청 실패', error);
+        console.error('게시글 페이지 GET요청 실패', error);
     }
 }
 export default sendGetPostsRequest;
