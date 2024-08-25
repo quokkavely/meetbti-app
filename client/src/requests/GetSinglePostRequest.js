@@ -1,7 +1,7 @@
 const sendGetSinglePostsRequest = async(state, postId, setLoading, setPost) => {
     try{
         console.log('단일 게시글 정보 GET요청 전송');
-        /* console.log('postId: ', postId); */
+        console.log('postId: ', postId);
         const response = await fetch(`http://localhost:8080/posts/${postId}`,
             {
                 method: 'GET',
