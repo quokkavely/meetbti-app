@@ -57,4 +57,15 @@ public class TestResultController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults), pageTestResult), HttpStatus.OK);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity getLatestTestResult(Authentication authentication) {
+
+        Principal principal = (Principal) authentication.getPrincipal();
+        Member member = memberService.findMember(principal.getMemberId());
+
+
+        return new ResponseEntity<>(new SingleResponseDto<>(member.getTestResults().get(member.getTestResults().size() -1)), HttpStatus.OK);
+    }
+
 }
