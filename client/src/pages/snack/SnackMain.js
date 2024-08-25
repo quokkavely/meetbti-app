@@ -29,13 +29,15 @@ const SnackMainContent = () => {
     return (
         <div className="snackmain-content">
             <div className="imagegame" onClick={() => navigate('/imagegame')}>
-                <img src="imagegame.jpeg" alt='imagegame' />
+                <img src="/public-img/Image-img.jpeg" alt='imagegame' />
+                <div className="overlay-text">Image Game</div>
             </div>
             <div className="balancegame" onClick={() => navigate('/balancegame')}>
-                <img src="balancegame.jpg" alt='balancegame' />
+                <img src="/public-img/balance-img.jpeg" alt='balancegame' />
+                <div className="overlay-text">Balance Game</div>
             </div>
-            <div className="MBTMI">
-                <img src="MBTMI.png" alt='MBTMI' />
+            <div className="MBTMI" onClick={() => navigate('/MBTMI')}>
+                <img src="/public-img/MBTMI-img.png" alt='MBTMI' />
             </div>
         </div>
     );

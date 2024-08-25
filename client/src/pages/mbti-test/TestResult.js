@@ -23,12 +23,13 @@ const HeaderComponent = () => {
 
 // MBTI 테스트 컴포넌트
 const MBTITestResult = () => {
+  const [resultImage, setResultImage] = useState(null);
   // MBTI 결과를 서버에서 가져오는 비동기 함수
   const getResult = async (setLoading, setResult, state) => {
     console.log('결과 가져오는 중...');
     try {
       // API 호출을 통해 MBTI 결과를 가져옴
-        const response = await fetch('http://localhost:8080/mbti-result', {
+        const response = await fetch('http://localhost:8080/mbti-result/me', {
             method: 'GET', // HTTP GET 메서드를 사용하여 요청
             headers: {
                 'Content-Type': 'application/json',
@@ -39,6 +40,7 @@ const MBTITestResult = () => {
             const data = await response.json();
             console.log(data);
             setResult(data.data);
+            setResultImage(data.data.imageUrl);
             setLoading(false);
             console.log('결과 로딩 완료');
         } else {
@@ -48,94 +50,22 @@ const MBTITestResult = () => {
         console.error('GET 요청 실패', error);
     }
   };
-
-  const TestResult = () => {
-    const [loading, setLoading] = useState(true);
-    const [result, setResult] = useState(null);
-    const { state } = useAuth();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        getResult(setLoading, setResult, state);
-    }, [state]);
-
-    if (loading) {
-        return <div>결과를 불러오는 중...</div>;
-    }
-
-    const mbtiInfo = mbtiData[result.type];
-
-    return (
-        <div className="result-page">
-            <h1>MBTI 테스트 결과</h1>
-            {result ? (
-                <div className="result-content">
-                    <h2>{mbtiInfo.type}</h2>
-                    <p>{mbtiInfo.description}</p>
-                </div>
-            ) : (
-                <div>결과를 불러오지 못했습니다.</div>
-            )}
-        </div>
-    );
-  };
-
   
   const imageRef = useRef(null);
-  const overlayRef = useRef(null);
-
-  useEffect(() => {
-    const imageElement = imageRef.current;
-    const overlayElement = overlayRef.current;
-
-    const handleMouseMove = (e) => {
-      const rect = imageElement.getBoundingClientRect(); // 이미지의 위치와 크기를 가져옴
-      const x = e.clientX - rect.left; // 마우스의 x 좌표를 이미지의 왼쪽 위 모서리를 기준으로 계산
-      const y = e.clientY - rect.top; // 마우스의 y 좌표를 이미지의 왼쪽 위 모서리를 기준으로 계산
-      // 이미지 회전 계산
-      const rotateY = (-1 / 30) * x + 5; // Y축 회전 계산
-      const rotateX = (1 / 45) * y - 5; // X축 회전 계산
-      imageElement.style.transform = `perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    // 이미지에 회전 적용
-
-    //   const backgroundPositionX = 20 + x / rect.width * 20; // x 위치에 따라 배경 위치를 조정
-    //   overlayElement.style.backgroundPosition = `${backgroundPositionX}% 50%`; // 배경 위치를 50%로 고정하여 y축에서 변화 없도록
-    // };
-
-      const backgroundPositionX = 50 + (x / rect.width - 0.5) * 160;  // x 위치에 따라 배경 위치를 조정
-      const backgroundPositionY = 50 + (y / rect.height - 0.5) * 40; // 배경 위치를 50%로 고정하여 y축에서 변화 없도록
-      overlayElement.style.backgroundPosition = `${backgroundPositionX}% ${backgroundPositionY}%`;
-    };
-
-    // 마우스 이벤트 리스너 추가
-    if(imageElement) {
-      imageElement.addEventListener('mousemove', handleMouseMove);
-    }
-
-    // 마우스 이벤트 리스너 제거
-    return () => {
-      if(imageElement) {
-        imageElement.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, []);
 
   return (
     <div className="ResultImg">
       <img 
         ref={imageRef} 
-        src="/public-img/result.png" 
+        src={resultImage} 
         alt="Test Result" 
         className="mbti-test-result-image"/>
-      <div 
+      {/* <div 
         ref={overlayRef} 
-        className="overlay"></div>
+        className="overlay"></div> */}
     </div>
   )
 };
-
-
-
 
 
 const MBTIFeature = ({ type, description}) => {
@@ -176,7 +106,7 @@ const MBTITestResultPercent = () => {
       try {
         /* const response = await fetch('/mbti-test'); /* 백엔드에서 데이터를 받아오는 API 엔드포인트 */
          // 여기에 실제 API 엔드포인트를 사용하세요.
-        const response = await fetch('https://your-api-endpoint.com/mbti-data');
+        const response = await fetch('https://your-api-endpoint.com/mbti-test/');
         const data = await response.json();
         setGraphData(data);
       } catch (error) {
@@ -321,54 +251,30 @@ const MBTITestResultPercent = () => {
 
 
 // 본캐부캐 컴포넌트
-const MBTITestResultSecond = ({ firstMbtiResult, secondMbtiResult }) => {
+const MBTITestResultSecond = ({ mbti, secondMbti }) => {
   const [firstKeywords, setFirstKeywords] = useState({ keyword1: '', keyword2: '', keyword3: '' });
   const [secondKeywords, setSecondKeywords] = useState({ keyword1: '', keyword2: '', keyword3: '' });
 
-  // MBTI 타입에 따른 키워드를 설정하는 함수
-  const fetchKeywords = (type) => {
-    const keywordData = {
-      ENFJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ENFP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ENTP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ENTJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ESTP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ESTJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ESFJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ESFP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      INFJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      INFP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      INTJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      INTP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ISTJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ISTP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ISFJ: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      ISFP: {keyword1: "외향형", keyword2: "내향형", keyword3: "직관형"},
-      // 다른 MBTI 타입에 대한 키워드 추가
-    };
-    return keywordData[type] || { keyword1: '키워드1', keyword2: '키워드2', keyword3: '키워드3' };
-  };
-
   useEffect(() => {
     // firstMbtiResult가 변경될 때마다 키워드를 업데이트
-    if (firstMbtiResult) {
-      setFirstKeywords(fetchKeywords(firstMbtiResult));
+    if (mbti) {
+      setFirstKeywords(mbtiData[mbti].keywords);
     }
-  }, [firstMbtiResult]);
+  }, [mbti]);
 
   useEffect(() => {
     // secondMbtiResult가 변경될 때마다 키워드를 업데이트
-    if (secondMbtiResult) {
-      setSecondKeywords(fetchKeywords(secondMbtiResult));
+    if (secondMbti) {
+      setSecondKeywords(mbtiData[secondMbti].keywords);
     }
-  }, [secondMbtiResult]);
+  }, [secondMbti]);
 
   return (
     <div className="mbti-test-result-second-container">
       <h2>나의 본캐, 부캐 MBTI</h2>
       <div className="mbti-test-result-second">
         <div className="first-mbti">
-          <div className="first-mbti-type">{firstMbtiResult}</div> {/* 1순위 결과값 */}
+          <div className="first-mbti-type">{mbti}</div> {/* 1순위 결과값 */}
           <div className="first-mbti-keyword1">{firstKeywords.keyword1}</div>
           <div className="first-mbti-keyword2">{firstKeywords.keyword2}</div>
           <div className="first-mbti-keyword3">{firstKeywords.keyword3}</div>
@@ -377,7 +283,7 @@ const MBTITestResultSecond = ({ firstMbtiResult, secondMbtiResult }) => {
           <img src="/public-img/logo-icon.png" alt="myMbti"/>
         </div>
         <div className="second-mbti">
-          <div className="second-mbti-type">{secondMbtiResult}</div> {/* 2순위 결과값 */}
+          <div className="second-mbti-type">{secondMbti}</div> {/* 2순위 결과값 */}
           <div className="second-mbti-keyword1">{secondKeywords.keyword1}</div>
           <div className="second-mbti-keyword2">{secondKeywords.keyword2}</div>
           <div className="second-mbti-keyword3">{secondKeywords.keyword3}</div>
