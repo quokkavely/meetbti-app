@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
+import { VoteProvider } from './context/VoteContext';
 
 /* 메인페이지 */
 import MainPage from './pages/MainPage';
@@ -26,6 +27,7 @@ import SnackMain from './pages/snack/SnackMain';
 import ImageGamePage from './pages/snack/ImageGamePage';
 import ImageGameRegistration from './pages/snack/ImageGameRegistration';
 import ImageGameMain from './pages/snack/ImageGameMain';
+import ImageGameResult from './pages/snack/ImageGameResult';
 import BalanceGameRegist from './pages/snack/BalanceGameRegist';
 import BalanceGameMain from './pages/snack/BalanceGameMain';
 import BalanceGamePost from './pages/snack/BalanceGamePost';
@@ -52,40 +54,43 @@ import mbtiData from './mbtiData/mbtiData';
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage/>} />
-          <Route path="/testmain" element={<TestMain />} />
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path='/registration' element={<RegistrationPage/>}/>
-          <Route path='/mbti-test' element={<MbtiTestPage/>}/>
-          <Route path='/admin' element={<AdminPage/>}/>
-          <Route path="/resultwaiting" element={<ResultWaiting />} />
-          <Route path="/testresult" element={<TestResult />} />
-          <Route path="/loginmain" element={<LoginMainPage />} />
-          <Route path="/mbtiboard" element={<MBTIBoard />} />
-          <Route path="/registpost" element={<RegistPost />} />
-          <Route path="/postpage" element={<PostPage />} />
-          <Route path='/report' element={<ReportPage/>}/>
-          <Route path='/report-detail' element={<ReportDetail/>}/>
-          <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
-          <Route path='/mbtmi' element={<MbtmiPage/>}/>
-          <Route path='/imagegame-detail' element={<ImageGamePage/>}/>
-          <Route path='/mypage' element={<MyPage/>}/>
-          <Route path='/mypagemodify' element={<MyPageModify/>}/>
-          <Route path='/mypagehistory' element={<MyPageHistory/>}/>
-          <Route path='/mymbtihistory' element={<MyMBTIHistory/>}/>
-          <Route path='/myposthistory' element={<MyPostHistory/>}/>
-          <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
-          <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
-          <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
-          <Route path="/snackmain" element={<SnackMain />} />
-          <Route path="/balancegameregist" element={<BalanceGameRegist />} />
-          <Route path="/balancegame" element={<BalanceGameMain />} />
-          <Route path="/balancegamepost" element={<BalanceGamePost />} />
-          <Route path="/imagegame" element={<ImageGameMain />} />
-        </Routes>
-      </BrowserRouter>  
+      <VoteProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage/>} />
+            <Route path="/testmain" element={<TestMain />} />
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path='/registration' element={<RegistrationPage/>}/>
+            <Route path='/mbti-test' element={<MbtiTestPage/>}/>
+            <Route path='/admin' element={<AdminPage/>}/>
+            <Route path="/resultwaiting" element={<ResultWaiting />} />
+            <Route path="/testresult" element={<TestResult />} />
+            <Route path="/loginmain" element={<LoginMainPage />} />
+            <Route path="/mbtiboard" element={<MBTIBoard />} />
+            <Route path="/registpost" element={<RegistPost />} />
+            <Route path="/postpage" element={<PostPage />} />
+            <Route path='/report' element={<ReportPage/>}/>
+            <Route path='/report-detail' element={<ReportDetail/>}/>
+            <Route path='/imagegame-registration' element={<ImageGameRegistration/>}/>
+            <Route path='/mbtmi' element={<MbtmiPage/>}/>
+            <Route path='/imagegame-page' element={<ImageGamePage/>}/>
+            <Route path='/mypage' element={<MyPage/>}/>
+            <Route path='/mypagemodify' element={<MyPageModify/>}/>
+            <Route path='/mypagehistory' element={<MyPageHistory/>}/>
+            <Route path='/mymbtihistory' element={<MyMBTIHistory/>}/>
+            <Route path='/myposthistory' element={<MyPostHistory/>}/>
+            <Route path='/mycommenthistory' element={<MyCommentHistory/>}/>
+            <Route path='/myhearthistory' element={<MyHeartHistory/>}/>
+            <Route path='/mysnackhistory' element={<MySnackHistory/>}/> 
+            <Route path='/imagegame-result' element={<ImageGameResult/>}/>
+            <Route path="/snackmain" element={<SnackMain />} />
+            <Route path="/balancegameregist" element={<BalanceGameRegist />} />
+            <Route path="/balancegame" element={<BalanceGameMain />} />
+            <Route path="/balancegamepost" element={<BalanceGamePost />} />
+            <Route path="/imagegame" element={<ImageGameMain />} />
+          </Routes>
+        </BrowserRouter> 
+      </VoteProvider>
     </AuthProvider>
   );
 };

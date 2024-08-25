@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { VoteContext } from '../../context/VoteContext';
+import mbtiData from '../../mbtiData/mbtiData';
+import Badge from '../../components/badge/badge';
 import './ImageGameResult.css';
-
-import AppContainer from '../../components/AppContainer';
-import Header from '../../components/Header';
-import CommentUserInfoContainer from '../../components/CommentUserInfoContainer';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
+import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
+import { useNavigate } from 'react-router-dom';
 
 const AppContainerComponent = () => {
     return (
@@ -18,28 +21,43 @@ const HeaderComponent = () => {
 };
 
 const ImgResultContainer = () => {
+    const { votes, removeVote } = useContext(VoteContext); // VoteContext에서 votes와 removeVote 가져오기
     const [title, setTitle] = useState('');
     const [voteCount, setVoteCount] = useState(0);
-    const [votes, setVotes] = useState(Array(16).fill(0)); // 16개의 투표 후보
     const [topThree, setTopThree] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const totalVotes = votes.reduce((acc, vote) => acc + vote, 0);
+        const totalVotes = Object.values(votes).reduce((acc, vote) => acc + vote, 0);
         setVoteCount(totalVotes);
 
-        const votePercentages = votes.map(vote => (totalVotes ? (vote / totalVotes) * 100 : 0));
+        const votePercentages = Object.entries(votes).map(([mbti, vote]) => ({
+            mbti,
+            percentage: totalVotes ? (vote / totalVotes) * 100 : 0
+        }));
+
         const sortedVotes = votePercentages
-            .map((percentage, index) => ({ index, percentage }))
+            // .map((percentage, index) => ({ index, percentage }))
             .sort((a, b) => b.percentage - a.percentage)
             .slice(0, 3);
 
         setTopThree(sortedVotes);
     }, [votes]);
 
+    const handleResetVote = () => {
+        const votedMbti = localStorage.getItem('votedMbti');
+        if (votedMbti) {
+            removeVote(votedMbti);
+            localStorage.removeItem('votedMbti');
+        }
+        localStorage.removeItem('voted');
+        navigate('/imagegame-page');
+    };
+
     return (
         <div className="img-game-result-container">
             <div className="img-game-result-title-section">
-                <div className="img-game-result-title"> {title} MBIT를 제일 잘 믿을 것 같은 MBTI는? </div>
+                <div className="img-game-result-title"> {title} MBTI를 제일 잘 믿을 것 같은 MBTI는? </div>
                 <div className="img-game-result-title-writer"> 작성자 : 치와와 </div>
             </div>
 
@@ -47,21 +65,25 @@ const ImgResultContainer = () => {
                 <div className="img-game-result-content-title"> 총 {voteCount}명이 투표했어요! </div>
                 <div className="img-game-result-ranking">
                     {topThree.map((item, index) => {
-                        let text;
                         let className;
                         if (index === 0) {
-                            text = `투표율: ${item.percentage.toFixed(2)}%, 압도적 1위를 달리는 중!`;
                             className = 'img-game-result-first';
                         } else if (index === 1) {
-                            text = `투표율: ${item.percentage.toFixed(2)}%, 콩콩콩! 2위!`;
                             className = 'img-game-result-second';
                         } else if (index === 2) {
-                            text = `투표율: ${item.percentage.toFixed(2)}%, 3위 방어중!`;
                             className = 'img-game-result-third';
                         }
                         return (
-                            <div key={index} className={className}>
-                                {text}
+                            <div key={index} className={`img-game-result-item ${className}`}>
+                                <Badge mbtiType={item.mbti} color={mbtiData[item.mbti].color} />
+                                <div className="img-game-result-text">
+                                    <div className="img-game-result-percentage">투표율: {item.percentage.toFixed(2)}%</div>
+                                    <div className="img-game-result-index">
+                                        {index === 0 && ' 압도적 1위를 달리는 중!'}
+                                        {index === 1 && ' 콩콩콩! 2위!'}
+                                        {index === 2 && ' 3위 방어중!'}
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}
@@ -76,6 +98,9 @@ const ImgResultContainer = () => {
                 <div className="img-game-result-post-comment-section">
                     <div className="img-game-result-post-comment-img">💬</div>
                     <div className="img-game-result-post-comment-count">100</div>
+                </div>
+                <div className="img-game-reset-button-container">
+                    <button className="img-game-reset-button" onClick={handleResetVote}>투표 초기화</button>
                 </div>
             </div>
         </div>
@@ -132,7 +157,7 @@ const CommentContainer = () => {
                     className="img-game-result-comment-input-field"
                 />
                 <div className="img-game-result-comment-send-button" onClick={handleSend}>
-                    <img src="send-img.png" alt="댓글 보내기" />
+                    <img src="/public-img/send-img.png" alt="댓글 보내기" />
                 </div>
             </div>
             <div className="img-game-result-comment-pagination">

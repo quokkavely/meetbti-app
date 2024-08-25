@@ -36,7 +36,7 @@ const Filter = ({ setSelectedMBTI }) => {
         const fetchFilteredContent = async () => {
             try {
                 const response = await fetch(`http:localhost:8000/mbti-result/${selectedMBTI}`); //MBTI에 따라 API호출
-                const data = await response.json();
+                const mbtiData = await response.json();
  
             } catch (error) {
                 console.error('컨텐츠 가져오기 실패', error);
@@ -48,7 +48,7 @@ const Filter = ({ setSelectedMBTI }) => {
     return (
         <div className="filter-mbtmi">
             <div className="mbtmi-dropdown-title">
-                <h3>내 MBTI의 TIM는?!</h3>
+                <h3>MBTI별 TMI 대방출!!</h3>
             </div>
             <div className="dropdown-mbtmi">
                 <button className="filter-mbtmi-btn" onClick={toggleMBTIDropdown}>▼ {selectedMBTI} </button>
