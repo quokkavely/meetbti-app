@@ -10,6 +10,8 @@ import CommentUserInfoContainer from '../../components/user_info_container/Comme
 import AlertModal from '../../components/modal/AlertModal';
 import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import { useAuth } from '../../auth/AuthContext';
+import sendPostCommentRequest from '../../requests/PostCommentRequest';
+import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 
 // 포스트 컨텐츠 컴포넌트
 const PostPageContent = ({ post }) => {
@@ -115,13 +117,13 @@ const CommentItem = ({ text, time }) => {
 };
 
 // 댓글 섹션 컴포넌트
-const CommentSection = () => {
-  const comments = [
+const CommentSection = ({ comments }) => {
+  /* const comments = [
     { id: 1, username: '김러키', text: '우린 다르지', time: '2024.08.12. 22:25', likes: 22 },
     { id: 2, username: 'lovelyJ', text: 'P들이나 그렇게 살지', time: '2024.08.12. 22:25', likes: 27 },
     { id: 3, username: '리사수', text: '야 이재용은 열심히 살아야지', time: '2024.08.12. 22:25', likes: 171 },
     { id: 4, username: '젠손황', text: '삼성오너면 나도 열심히 산다. 나한테 500억만 줘봐라. 누구보다 열심히 살지.', time: '2024.08.12. 22:25', likes: 53 },
-  ];
+  ]; */
 
   return (
     <div className="comment-section">
@@ -139,17 +141,21 @@ const CommentSection = () => {
 };
 
 // 댓글 입력 컴포넌트
-const CommentInput = () => {
+const CommentInput = ({ state, postId }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
+    /* console.log(e.target.value); */
     setInputValue(e.target.value);
   };
 
   const handleSend = () => {
     // 댓글 전송 로직 추가
-    console.log('댓글 전송:', inputValue);
-    setInputValue('');
+    if(inputValue === ''){
+      alert('댓글 내용을 입력해주세요');
+      return;
+    }
+    sendPostCommentRequest(state, postId, inputValue);
   };
 
   return (
@@ -162,7 +168,7 @@ const CommentInput = () => {
         className="comment-input-field"
       />
       <div className="comment-send-button" onClick={handleSend}>
-        <img src="public-img/send-img.png" alt="댓글 보내기" />
+        <img src="public-img/send-img.png" alt="댓글 보내기"/>
       </div>
     </div>
   );
@@ -177,16 +183,6 @@ const PostPage = () => {
   const [loading, setLoading] = useState(true);
   const [postData, setPostData] = useState({});
 
-  const post = {
-    title: "이재용도 이렇게 열심히 사는데...",
-    date: "2024.08.20. 23:20",
-    views: 242,
-    likes: 0,
-    comments: 5,
-    image: "public-img/Mrsamsung.jpg",
-    text: "너네가 뭐라고 그렇게 대충 사냐? 반성해라"
-  };
-
   useEffect(() => {
     sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData);
   }, [state]);
@@ -195,12 +191,12 @@ const PostPage = () => {
     <div className="app">
       <AppContainer />
       <Header />
-      <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>
+      {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
       {!loading && <PostPageContent post={postData.data} />}
       {!loading && <PostActions likes={postData.data.heartCount} />}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
-      <CommentSection />
-      <CommentInput />
+      {!loading && <CommentSection comments={postData.data.comments}/>}
+      {!loading && <CommentInput state = {state} postId = {postData.data.postId}/>}
     </div>
   );
 };

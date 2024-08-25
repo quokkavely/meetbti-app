@@ -1,0 +1,28 @@
+const sendPostCommentRequest = async(state, postId, content) => {
+    try{
+        console.log('state: ', state);
+        console.log('postId: ', postId);
+        console.log('content: ', content);
+        const response = await fetch(`http://localhost:8080/posts/${postId}/comments`,
+            {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                    'Authorization': `${state.token}`,
+                },
+                body: JSON.stringify({
+                    content: content
+                }),
+            }
+            
+        );
+        if(response.ok){
+            console.log('댓글 등록 성공');
+        }else{
+            console.log('댓글 등록 실패: ', response.status);
+        }
+    } catch (error){
+        console.error('댓글 등록 실패', error);
+    }
+}
+export default sendPostCommentRequest;
