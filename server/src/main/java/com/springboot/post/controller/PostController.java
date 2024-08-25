@@ -2,6 +2,8 @@ package com.springboot.post.controller;
 
 import com.springboot.auth.utils.Principal;
 import com.springboot.comment.mapper.CommentMapper;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
 import com.springboot.helper.S3Service;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
@@ -53,6 +55,9 @@ public class PostController {
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
+        if(findMember.getTestResults().size() - 1 < 0) {
+            throw new BusinessLogicException(ExceptionCode.MBTI_TEST_REQUIRED);
+        }
         createDto.setCategory(findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti());
 
         Post post = postMapper.postCreateDtoToPost(createDto);

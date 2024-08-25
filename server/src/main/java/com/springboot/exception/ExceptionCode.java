@@ -18,7 +18,8 @@ public enum ExceptionCode {
     REPORT_NOT_FOUND(404,"Report Not Found"),
     REPORT_ALREADY_EXISTS(409, "It's already reported"),
     INVALID_REPORT_TARGET(400, "Report target is invalid"),
-    CANNOT_REPORT_YOURSELF(400,"You cannot report yourself." );
+    CANNOT_REPORT_YOURSELF(400,"You cannot report yourself"),
+    MBTI_TEST_REQUIRED(403, "You must complete the MBTI test before you gain access");
 
     @Getter
     private int status;
