@@ -188,7 +188,7 @@ const MBTIBoard = () => {
     const updateMyData = (data)=> {
         setMyData(data);
         if(category === ''){
-            setCategory(data.data.mbti);
+            setCategory(data.data.mbti === 'NONE' ? 'ALL' : data.data.mbti);
         }
     }
 
