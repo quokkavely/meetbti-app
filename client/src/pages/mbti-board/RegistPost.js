@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './RegistPost.css';
+import sendPostPostRequest from '../../requests/PostPostRequest';
+import { useAuth } from '../../auth/AuthContext';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -10,10 +12,10 @@ const Header = () => {
       <header className="header">
         <div className="logo-box">
           <div className='logo-img' onClick={() => navigate('/')}>
-            <img src="/Main-logo.png" alt='메인로고'/>
+            <img src="public-img/Main-logo.png" alt='메인로고'/>
           </div>
           <div className="back-icon" onClick={() => navigate(-1)}>
-            <img src="back(grey).png" alt='뒤로 가기' />
+            <img src="public-img/back(grey).png" alt='뒤로 가기' />
           </div>
         </div>
         <div className="logo-text">
@@ -47,13 +49,13 @@ const PostContent = ({ setContent }) => {
                 <button className="text-italic" onClick={() => document.execCommand('italic', false, '')}>𝐼</button>
                 <button className="text-underline" onClick={() => document.execCommand('underline', false, '')}>𝖴</button>
                 <button onClick={() => document.execCommand('justifyLeft', false, '')}>
-                    <img src="align-left.png" alt="좌측 정렬" className='align-left'/>
+                    <img src="public-img/align-left.png" alt="좌측 정렬" className='align-left'/>
                 </button>
                 <button onClick={() => document.execCommand('justifyCenter', false, '')}>
-                    <img src="align-center.png" alt="가운데 정렬" className='align-center'/>
+                    <img src="public-img/align-center.png" alt="가운데 정렬" className='align-center'/>
                 </button>
                 <button onClick={() => document.execCommand('justifyRight', false, '')}>
-                    <img src="align-right.png" alt="우측 정렬" className='align-right'/>
+                    <img src="public-img/align-right.png" alt="우측 정렬" className='align-right'/>
                 </button>
                 <input type="color" className='text-color' onChange={(e) => document.execCommand('foreColor', false, e.target.value)} />
                 <button className="text-link" onClick={() => {
@@ -105,11 +107,21 @@ const AttachImage = ({ setFileName }) => {
         </div>
     );
 };
+const submitPost = (state, navigate, title, content, category, image) => {
+    if(title === ''){
+        alert('제목을 입력해주세요');
+    }
+    if(content === ''){
+        alert('본문을 입력해주세요');
+    }
+    const contentObject = {title: title, content: content, category: category, image: 'image'};
+    sendPostPostRequest(state, contentObject, navigate);
+}
 
-const RegistButton = ({ onSubmit }) => {
+const RegistButton = (props) => {
     return (
         <div className='regist-button'>
-            <button onClick={onSubmit}>등록</button>
+            <button onClick={() => submitPost(props.state, props.navigate, props.title, props.content, props.params.get('category'))}>등록</button>
         </div>
     );
 };
@@ -117,7 +129,10 @@ const RegistButton = ({ onSubmit }) => {
 
   // 게시판 페이지 컴포넌트
 const RegistPostPage = () => {
+    const { login } = useAuth();
+    const { state } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [fileName, setFileName] = useState('');
@@ -140,7 +155,7 @@ const RegistPostPage = () => {
         <PostTitle setTitle={setTitle} />
         <PostContent setContent={setContent} />
         <AttachImage setFileName={setFileName} />
-        <RegistButton onSubmit={handleSubmit} />
+        <RegistButton state = {state} navigate = {navigate} title = {title} content = {content} params = {new URLSearchParams(location.search)} />
       </div>
     );
   };

@@ -183,7 +183,7 @@
 
 .write-btn {
     padding: 10px 20px;
-    background-color: #e3ccf6;
+    background-color: blueviolet;
     border: none;
     border-radius: 20px;
     color: #fff;
@@ -198,7 +198,9 @@
     align-items: center;
     margin-bottom: 15px;
   } 
-
+  .write-btn:hover{
+    background-color: #b16fe7;
+  }
 
 /* 페이지네이션 컴포넌트 */
 .pagination {

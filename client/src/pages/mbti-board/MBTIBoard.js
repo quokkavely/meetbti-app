@@ -92,16 +92,9 @@ const dummyData = [
 
 // 게시판 컴포넌트
 const Board = () => {
-    const { state } = useAuth();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState({data:[]});
-    const [myData, setMyData] = useState({data:{mbti:'ALL'}});
+    
 
-    useEffect(() => {
-        sendGetMyinfoRequest(state, setMyData);
-        sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
-    }, []);
     return (
         <div className="board">
             <div className="posts">
@@ -122,11 +115,17 @@ const Board = () => {
 
 
 // 글쓰기 버튼 컴포넌트
-const WriteButton = () => {
+const WriteButton = (props) => {
     const navigate = useNavigate();
     return (
         <div className="write-section">
-            <button className="write-btn" onClick={() => navigate('/registPost')}>글쓰기</button>
+            <button className="write-btn" onClick={() => {
+                if(props.category === 'NONE' || props.category === 'ALL'){
+                    alert('글쓰기 권한이 없어요');
+                    return;
+                }
+                navigate(`/registPost?category=${props.category}`);
+                }}>글쓰기</button>
         </div>
     );
 };
@@ -148,14 +147,24 @@ const PageNation = () => {
 
 // 게시판 페이지 컴포넌트
 const MBTIBoard = () => {
+    const { state } = useAuth();
     const navigate = useNavigate();
+    const [myData, setMyData] = useState({data:{mbti:'ALL'}});
+    const [category, setCategory] = useState('ALL');
+    const [loading, setLoading] = useState(true);
+    const [posts, setPosts] = useState({data:[]});
+
+    useEffect(() => {
+        sendGetMyinfoRequest(state, setMyData);
+        sendGetPostsRequest(state, 1, 6, myData.data.mbti, 'createdAt', setLoading, setPosts);
+    }, []);
     
     return (
       <div className="app">
         <Header />
         <Filter />
         <Board />
-        <WriteButton />
+        <WriteButton category={myData.data.mbti}/>
         <PageNation />
       </div>
     );
