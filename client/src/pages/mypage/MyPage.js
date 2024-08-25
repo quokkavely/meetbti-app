@@ -59,7 +59,7 @@ const MyPageMyMBTIButton = (props) => {
             <button className="mypage-my-mbti-button" onClick={() => {
                 console.log('myMbti: ', props.myMbti);
                 if(props.myMbti === 'NONE'){
-                    if(window.confirm('MBTI가 없어요. 테스트 화면으로 이동하시겠어요?')){
+                    if(window.confirm('MBTI가 없어요. 첫 테스트를 진행하시겠어요?')){
                         navigate('/TestMain');
                     }                   
                     return;
