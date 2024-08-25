@@ -4,10 +4,12 @@ import com.springboot.auth.utils.JwtAuthorityUtils;
 import com.springboot.exception.BusinessLogicException;
 import com.springboot.exception.ExceptionCode;
 import com.springboot.helper.email.VerificationDto;
+import com.springboot.helper.event.RegistrationEvent;
 import com.springboot.member.entity.Member;
 import com.springboot.member.repository.MemberRepository;
 import com.springboot.redis.RedisUtil;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,13 +27,15 @@ public class MemberService {
     private final JwtAuthorityUtils jwtAuthorityUtils;
     private final RedisUtil redisUtil;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ApplicationEventPublisher publisher;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils, RedisUtil redisUtil, RedisTemplate<String, Object> redisTemplate) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtAuthorityUtils jwtAuthorityUtils, RedisUtil redisUtil, RedisTemplate<String, Object> redisTemplate, ApplicationEventPublisher publisher) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtAuthorityUtils = jwtAuthorityUtils;
         this.redisUtil = redisUtil;
         this.redisTemplate = redisTemplate;
+        this.publisher = publisher;
     }
 
     //회원을 생성하는 메서드
@@ -41,6 +45,7 @@ public class MemberService {
 
         String key = member.getEmail() + ":email";
         redisUtil.setHashValueWithExpire(key, "memberInfo", member, 600);
+        publisher.publishEvent(new RegistrationEvent(member));
     }
 
     //  인증코드 확인 후 회원 등록 여부 결정
