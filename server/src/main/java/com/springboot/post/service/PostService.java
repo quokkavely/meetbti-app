@@ -52,6 +52,9 @@ public class PostService {
         if (principal.getMemberId() != findPost.getMember().getMemberId()) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
+        if (post.getPostStatus() == Post.PostStatus.DELETED) {
+            throw new BusinessLogicException(ExceptionCode.POST_NOT_FOUND);
+        }
 
         Optional.ofNullable(post.getTitle())
                 .ifPresent(title -> findPost.setTitle(title));

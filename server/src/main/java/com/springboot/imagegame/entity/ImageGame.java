@@ -29,7 +29,7 @@ public class ImageGame {
     @Column(nullable = false, length = 10)
     private String nickName;
 
-    @Column
+    @Column(updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "imageGame")
