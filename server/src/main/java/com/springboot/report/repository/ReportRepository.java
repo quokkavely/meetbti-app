@@ -9,5 +9,4 @@ public interface ReportRepository extends JpaRepository <Report, Long> {
     boolean existsByComment_CommentIdAndStatusNot(Long commentId, Report.ReportStatus reportStatus);
     boolean existsByPost_PostId(Long postId);
     boolean existsByComment_CommentId(Long commentId);
-    void deleteByComment_CommentId(Long commentId);
 }

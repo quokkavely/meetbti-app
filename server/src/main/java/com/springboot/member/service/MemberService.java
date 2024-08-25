@@ -9,10 +9,12 @@ import com.springboot.member.repository.MemberRepository;
 import com.springboot.redis.RedisUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -166,4 +168,27 @@ public class MemberService {
         member.setNickname(RandomStringUtils.randomAlphanumeric(8));
         return memberRepository.save(member);
     }
+
+    public void setBanMember(Member member) {
+        Member findMember = findVerifiedMember(member.getMemberId());
+        findMember.setMemberStatus(Member.MemberStatus.BAN);
+        findMember.setBanExpiration(LocalDateTime.now().plusDays(7));
+        memberRepository.save(findMember);
+    }
+
+    @Scheduled(fixedRate = 43200000) //12시간마다
+    public void manageBanMemberStatus() {
+        List<Member> banMembers = memberRepository.findByMemberStatus(Member.MemberStatus.BAN);
+        for(Member confirmMemberStatus : banMembers) {
+           if(confirmMemberStatus.getBanExpiration() != null &&
+                   confirmMemberStatus.getBanExpiration().isBefore(LocalDateTime.now())) {
+                confirmMemberStatus.setMemberStatus(Member.MemberStatus.ACTIVE);
+                confirmMemberStatus.setBanExpiration(null);
+                memberRepository.save(confirmMemberStatus);
+            }
+    }
+
+}
+
+
 }
