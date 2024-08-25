@@ -99,14 +99,14 @@ const CommentCount = ({ comments }) => {
 
 
 // CommentItem 컴포넌트 정의
-const CommentItem = ({ username, mbti, content, createdAt }) => {
+const CommentItem = ({ username, mbti, content, createdAt, postAuthor }) => {
   return (
     <div className="comments">
       <div className="comment-section">
         <CommentUserInfoContainer username={username} mbti={mbti}/>
       </div>
       <div className="comment-content">
-        <div className="comment-text">{content}</div>
+        <div className="comment-text" style={{color: username === postAuthor ? '#a155d3' : 'black'}}>{content}</div>
         <div className="comment-time">{createdAt}</div>
       </div>
       {/* <div className="comment-subcontent ">
@@ -117,13 +117,7 @@ const CommentItem = ({ username, mbti, content, createdAt }) => {
 };
 
 // 댓글 섹션 컴포넌트
-const CommentSection = ({ comments }) => {
-  /* const comments = [
-    { id: 1, username: '김러키', text: '우린 다르지', time: '2024.08.12. 22:25', likes: 22 },
-    { id: 2, username: 'lovelyJ', text: 'P들이나 그렇게 살지', time: '2024.08.12. 22:25', likes: 27 },
-    { id: 3, username: '리사수', text: '야 이재용은 열심히 살아야지', time: '2024.08.12. 22:25', likes: 171 },
-    { id: 4, username: '젠손황', text: '삼성오너면 나도 열심히 산다. 나한테 500억만 줘봐라. 누구보다 열심히 살지.', time: '2024.08.12. 22:25', likes: 53 },
-  ]; */
+const CommentSection = ({ comments, postAuthor }) => {
   console.log(comments);
 
   return (
@@ -134,6 +128,7 @@ const CommentSection = ({ comments }) => {
           mbti={comment.mbti} 
           content={comment.content} 
           createdAt={comment.createdAt} 
+          postAuthor = {postAuthor}
           // likes={comment.likes} 
         />
       ))}
@@ -196,7 +191,7 @@ const PostPage = () => {
       {!loading && <PostPageContent post={postData.data} />}
       {!loading && <PostActions likes={postData.data.heartCount} />}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
-      {!loading && <CommentSection comments={postData.data.comments}/>}
+      {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
       {!loading && <CommentInput state = {state} postId = {postData.data.postId} params={params} setLoading={setLoading} setPostData={setPostData}/>}
     </div>
   );
