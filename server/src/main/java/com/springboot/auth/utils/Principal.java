@@ -13,4 +13,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class Principal {
     private long memberId;
+    private String username;
+
+    public String getName() {
+        return this.username;
+    }
 }
