@@ -8,6 +8,8 @@ import ModalCheck from '../../components/modal/ModalCheck.js';
 import sendVerifyRequest from '../../requests/VerifyRequest.js';
 import sendRegistrationRequest from '../../requests/RegistrationRequest.js';
 import validateInput from '../../validation/ValidateInput.js';
+import sendEmailDuplCheckRequest from '../../requests/EmailDuplCheckRequest.js';
+import sendNicknameDuplCheckRequest from '../../requests/NicknameDuplCheckRequest.js';
 
 function WelcomeText(){
     return (
@@ -19,6 +21,15 @@ function WelcomeText(){
 }
 function RegisterInput(props){
     const buttomContent = '중복 확인' + (props.duplChecked ? ' ✔' : '');
+    const executeAfter = ()=> {
+        props.duplCheck(true);
+        props.getModalMessage(`사용 가능한 ${props.title}이에요`);
+        props.openModal(props.modalMessage);
+    }
+    const executeAfterFailed = ()=> {
+        props.getModalMessage(`이미 사용중인 ${props.title}이에요`);
+        props.openModal(props.modalMessage);
+    }
 
     return (
         <div className="register-input-container">
@@ -33,9 +44,12 @@ function RegisterInput(props){
                         props.getModalMessage('올바른 형식으로 입력해주세요😢');
                         props.openModal();
                     }else{
-                        props.duplCheck(true);
-                        props.getModalMessage(`사용 가능한 ${props.title}이에요`);
-                        props.openModal(props.modalMessage);
+                        if(props.title === '닉네임'){
+                            sendNicknameDuplCheckRequest(props.content, executeAfter, executeAfterFailed);
+                        }
+                        if(props.title === '이메일'){
+                            sendEmailDuplCheckRequest(props.content, executeAfter, executeAfterFailed);
+                        }
                     }
                  }}
                  style={{ '--dupl-button-color': `${props.duplChecked ? '#b972fc' : '#d1d1d1'}` }}
@@ -99,7 +113,7 @@ const onChangePasswordCheck = (content, setContent, opponentInput, setError) => 
 
 
 const RegistrationPage = (props) => {
-    const { login } = useAuth();
+    const { state, login } = useAuth();
     const navigate = useNavigate();
     const [emailInput, setEmailInput] = useState('');
     const [emailError, setEmailError] = useState(false);
@@ -153,7 +167,7 @@ const RegistrationPage = (props) => {
               setState={setEmailInput} regex = '^.+$' setError={setEmailError}
               duplChecked = {emailDuplChecked} duplCheck={(dupl) => setEmailDuplChecked(dupl)}
               openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {(message) => setModalMessage(message)}
-              content = {emailInput}
+              content = {emailInput} state = {state}
               >
             </RegisterInput>
 
@@ -163,7 +177,7 @@ const RegistrationPage = (props) => {
             setError={setNicknameError}
             duplChecked = {nicknameDuplChecked} duplCheck={(dupl) => setNicknameDuplChecked(dupl)}
             openModal = {() => setDuplCheckModalOn(true)} getModalMessage = {(message) => setModalMessage(message)}
-            content = {nicknameInput}
+            content = {nicknameInput} state = {state}
             >
             </RegisterInput>
 

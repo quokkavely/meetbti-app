@@ -1,4 +1,4 @@
-const sendPostDeleteRequest = async(state, category, postId, navigate) => {
+const sendDeletePostRequest = async(state, category, postId, navigate) => {
     try{
         const response = await fetch(`http://localhost:8080/posts/${postId}`,
             {
@@ -19,4 +19,4 @@ const sendPostDeleteRequest = async(state, category, postId, navigate) => {
         console.error('게시글 삭제 실패', error);
     }
 }
-export default sendPostDeleteRequest;
+export default sendDeletePostRequest;
