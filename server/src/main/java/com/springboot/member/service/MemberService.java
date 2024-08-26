@@ -176,10 +176,17 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public void setBanMember(Member member) {
+    public void setBanMember(Member member, int day) {
         Member findMember = findVerifiedMember(member.getMemberId());
-        findMember.setMemberStatus(Member.MemberStatus.BAN);
-        findMember.setBanExpiration(LocalDateTime.now().plusDays(7));
+
+        if(findMember.getMemberStatus().equals(Member.MemberStatus.BAN)) {
+            findMember.setBanExpiration(findMember.getBanExpiration().plusDays(day));
+
+        } else {
+            findMember.setMemberStatus(Member.MemberStatus.BAN);
+            findMember.setBanExpiration(LocalDateTime.now().plusDays(day));
+        }
+
         memberRepository.save(findMember);
     }
 

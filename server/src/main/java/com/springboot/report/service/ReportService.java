@@ -12,6 +12,7 @@ import com.springboot.report.entity.Report;
 import com.springboot.report.repository.ReportRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -68,27 +69,42 @@ public class ReportService {
 
     //신고글 대해 관리자가 승인을 눌렀을 때 로직.
     @Transactional
-    public Report approveReport(Long reportId, Authentication authentication) {
+    public Report determineReport(Long reportId, Authentication authentication, int day, String status) {
         // 회원상태 변경 -계정 정지 기간 7일로 설정. 신고되었을때 @Scheduled 사용해서 처리.
         // 승인 되었을때는 게시글의 상태가 변경되어야 함.
         Report report = findVerifiedReport(reportId);
         //게시글 신고처리
-        if (report.getPost() != null) {
-            memberService.setBanMember(report.getPost().getMember());
+        if (report.getPost() != null && status.equalsIgnoreCase("ACCEPTED")) {
+            memberService.setBanMember(report.getPost().getMember(), day);
             report.getPost().setPostStatus(Post.PostStatus.DELETED);
+            report.setStatus(Report.ReportStatus.ACCEPTED);
         // 댓글 신고처리
-        } else if (report.getComment() != null) {
-            memberService.setBanMember(report.getComment().getMember());
+        } else if (report.getComment() != null && status.equalsIgnoreCase("ACCEPTED")) {
+            memberService.setBanMember(report.getComment().getMember(), day);
             commentService.deleteComment(report.getComment().getCommentId(), authentication);
             report.setComment(null);
+            report.setStatus(Report.ReportStatus.ACCEPTED);
+
+        } else if (status.equalsIgnoreCase("REJECTED") && report.getPost() != null || report.getComment() != null) {
+            report.setStatus(Report.ReportStatus.REJECTED);
+
+        } else {
+            throw new BusinessLogicException(ExceptionCode.CONFIRM_REQUEST);
         }
-        report.setStatus(Report.ReportStatus.ACCEPTED);
+
         return reportRepository.save(report);
 
     }
 
-    public Page<Report> findReports(int page, int size) {
-        return reportRepository.findAll(PageRequest.of(page, size, Sort.Direction.DESC, "reportId"));
+    public Page<Report> findReports(int page, int size, Report.ReportStatus status) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        if (status != null) {
+            return reportRepository.findAllByStatus(status, pageable);
+        } else {
+            return reportRepository.findAll(pageable);
+        }
     }
 
     private Report findVerifiedReport(Long reportId) {
