@@ -13,6 +13,7 @@ import { useAuth } from '../../auth/AuthContext';
 import sendPostCommentRequest from '../../requests/PostCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendPostHeartOnPostRequest from '../../requests/PostHeartOnPost';
+import sendReportPostRequest from '../../requests/ReportPostRequest';
 
 // 포스트 컨텐츠 컴포넌트
 const PostPageContent = ({ post }) => {
@@ -33,7 +34,7 @@ const PostPageContent = ({ post }) => {
 
 
 // 포스트 액션 컴포넌트
-const PostActions = ({ state, postId, likes, propsliked, setLoading, setPostData }) => {
+const PostActions = ({ state, postId, postAuthor, username, likes, propsliked, setLoading, setPostData }) => {
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(propsliked);
   const [showModal, setShowModal] = useState(false);
@@ -62,9 +63,18 @@ const PostActions = ({ state, postId, likes, propsliked, setLoading, setPostData
   };
 
   const handleReport = () => {
-    console.log('신고 사유:', selectedReason);
+    /* console.log('신고 사유:', selectedReason); */
+    sendReportPostRequest(state, postId, selectedReason);
     closeModal();
   };
+  const isReportable = () => {
+    console.log('postAuthor: ', postAuthor);
+    console.log('username: ', username);
+    if(postAuthor === username || postAuthor === '관리자' || postAuthor === '운영자'){
+      return false;
+    }
+    return true;
+  }
 
   return (
     <div className="post-actions">
@@ -75,9 +85,9 @@ const PostActions = ({ state, postId, likes, propsliked, setLoading, setPostData
       >
         ❤️ 좋아요 {likeCount}
       </button>
-      <button className="alert-button-main" onClick={handleAlert}>
+      {isReportable() && <button className="alert-button-main" onClick={handleAlert}>
         <img src="public-img/alert-img.png" alt="신고하기" />
-      </button>
+      </button>}
       <AlertModal
         showModal={showModal}
         closeModal={closeModal}
@@ -180,8 +190,10 @@ const PostPage = () => {
   const params = new URLSearchParams(location.search);
   const [loading, setLoading] = useState(true);
   const [postData, setPostData] = useState({});
+  const [myData, setMyData] = useState({data:{}});
 
   useEffect(() => {
+    sendGetMyinfoRequest(state, setMyData);
     sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData);
   }, [state]);
 
@@ -191,7 +203,7 @@ const PostPage = () => {
       <Header />
       {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
       {!loading && <PostPageContent post={postData.data} />}
-      {!loading && <PostActions state={state} postId={postData.data.postId} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
+      {!loading && <PostActions state={state} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
       {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading} setPostData={setPostData}/>}
