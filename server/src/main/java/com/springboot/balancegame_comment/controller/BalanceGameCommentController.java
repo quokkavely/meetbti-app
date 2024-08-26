@@ -32,7 +32,7 @@ public class BalanceGameCommentController {
         this.balanceGameCommentMapper = balanceGameCommentMapper;
     }
 
-    @PostMapping("/balancegame/{balancegame-id}/balancegame-comments")
+    @PostMapping("/balancegames/{balancegame-id}/balancegame-comments")
     public ResponseEntity postComment(@PathVariable("balancegame-id") @Positive long gameId,
                                       @Valid @RequestBody BalanceGameCommentDto.Post postDto,
                                       Authentication authentication) {
