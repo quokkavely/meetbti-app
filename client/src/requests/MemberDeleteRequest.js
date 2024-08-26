@@ -1,6 +1,6 @@
 const sendMemberDeleteRequest = async(state, logout, navigate) => {
     try{
-        const response = await fetch('http://localhost:8080/members/me',
+        const response = await fetch('http://localhost:8080/members/mypage',
             {
                 method: 'DELETE',
                 headers: {

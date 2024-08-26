@@ -1,7 +1,7 @@
 const sendGetMyinfoRequest = async (state, setMyData, setLoading) => {
     try{
         console.log('회원 정보 GET요청 전송');
-        const response = await fetch('http://localhost:8080/members/me',
+        const response = await fetch('http://localhost:8080/members/mypage',
             {
                 method: 'GET',
                 headers: {
