@@ -48,7 +48,7 @@ public class BalanceGameResultController {
 
         BalanceGameResult result = balanceGameResultService.createResult(balanceGameResultMapper.postDtoToResult(postDto), authentication);
 
-        BalanceGame game = balanceGameService.findGame(result.getBalanceGame().getBalanceGameId());
+        BalanceGame game = balanceGameService.findGame(result.getBalanceGame().getBalanceGameId(), authentication);
 
         return new ResponseEntity<>(new SingleResponseDto<>(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper)), HttpStatus.CREATED);
     }

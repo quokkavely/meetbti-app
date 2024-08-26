@@ -47,7 +47,7 @@ public class ImageGameResultController {
 
         ImageGameResult result = imageGameResultService.createResult(imageGameResultMapper.postDtoToResult(postDto), authentication);
 
-        ImageGame game = imageGameService.findGame(result.getImageGame().getImageGameId());
+        ImageGame game = imageGameService.findGame(result.getImageGame().getImageGameId(), authentication);
 
         return new ResponseEntity<>(new SingleResponseDto<>(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper)), HttpStatus.CREATED);
     }

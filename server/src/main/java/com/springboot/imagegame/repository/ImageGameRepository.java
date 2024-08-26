@@ -7,5 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageGameRepository extends JpaRepository<ImageGame, Long> {
+
     Page<ImageGame> findByGameStatusNot(Pageable pageable, GameStatus gameStatus);
+    Page<ImageGame> findByGameStatus(Pageable pageable, GameStatus gameStatus);
 }
