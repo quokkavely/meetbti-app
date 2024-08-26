@@ -14,6 +14,7 @@ import sendPostCommentRequest from '../../requests/PostCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendPostHeartOnPostRequest from '../../requests/PostHeartOnPost';
 import sendReportPostRequest from '../../requests/ReportPostRequest';
+import sendDeletePostRequest from '../../requests/DeletePostRequest';
 
 // 포스트 컨텐츠 컴포넌트
 const PostPageContent = ({ post }) => {
@@ -34,7 +35,7 @@ const PostPageContent = ({ post }) => {
 
 
 // 포스트 액션 컴포넌트
-const PostActions = ({ state, navigate, postId, postAuthor, username, likes, propsliked, setLoading, setPostData }) => {
+const PostActions = ({ state, navigate, postId, postAuthor, username, myMbti, likes, propsliked, setLoading, setPostData }) => {
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(propsliked);
   const [showModal, setShowModal] = useState(false);
@@ -100,7 +101,11 @@ const PostActions = ({ state, navigate, postId, postAuthor, username, likes, pro
       </div>
       {postAuthor === username && <div className='post-modify-container'>
         <button className='post-modify-button' onClick={() => navigate(`/registPost?postId=${postId}&action=modify`)}>수정</button>
-        <button className='post-modify-button'>삭제</button>
+        <button className='post-modify-button' onClick={() => {
+          if(window.confirm('게시글을 삭제하시겠어요?')){
+            sendDeletePostRequest(state, myMbti, postId, navigate);
+          }
+          }}>삭제</button>
       </div>}
     </div>
   );
@@ -211,7 +216,7 @@ const PostPage = () => {
       <Header />
       {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
       {!loading && <PostPageContent post={postData.data} />}
-      {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
+      {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} myMbti={myData.data.mbti} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
       {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading} setPostData={setPostData}/>}
