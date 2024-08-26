@@ -1,8 +1,11 @@
 import './MbtmiPage.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { state, useAuth } from '../../auth/AuthContext';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import mbtiData from '../../mbtiData/mbtiData';
+import getMyInfo from '../../requests/GetMyInfo';
 
 
 const AppContainerComponent = () => {
@@ -18,8 +21,11 @@ const HeaderComponent = () => {
 };
 
 const Filter = ({ setSelectedMBTI }) => {
+    const { isAuthenticated } = useAuth().state;
+    const { state } = useAuth();
     const [isMBTIDropdownOpen, setMBTIDropdownOpen] = useState(false);
-    const [selectedMBTI, setSelectedMBTIState] = useState('INFJ');
+    const [myData, setMyData] = useState({data:{mbti:'NONE'}}); // 사용자 데이터를 저장할 상태
+    const [selectedMBTI, setSelectedMBTIState] = useState(myData.data.mbti || 'INFJ');
 
     const toggleMBTIDropdown = () => {
         setMBTIDropdownOpen(!isMBTIDropdownOpen);
@@ -32,17 +38,25 @@ const Filter = ({ setSelectedMBTI }) => {
     };
 
     useEffect(() => {
+        if (myData.data.mbti) {
+            setSelectedMBTIState(myData.data.mbti); // myData가 업데이트되면 selectedMBTI 설정
+            setSelectedMBTI(myData.data.mbti); // 부모 컴포넌트의 상태 업데이트
+        }
+    }, [myData]);
+
+    useEffect(() => {
         // 선택한 MBTI에 해당하는 컨텐츠 가져오기
+        console.log("MBTMI 페이지 로드");
         const fetchFilteredContent = async () => {
             try {
-                const response = await fetch(`http:localhost:8000/mbti-result/${selectedMBTI}`); //MBTI에 따라 API호출
-                const mbtiData = await response.json();
- 
+                await getMyInfo(state, setMyData);
             } catch (error) {
                 console.error('컨텐츠 가져오기 실패', error);
             }
         };
-        fetchFilteredContent();
+        if(state.isAuthenticated) {
+            fetchFilteredContent();
+        }
     }, [selectedMBTI]); //  선택된 MBTI가 변경될 때마다 useEffect 실행
         
     return (
@@ -72,7 +86,7 @@ const MbtmiDetails = ({ selectedMBTI }) => {
     const mbtiInfo = mbtiData[selectedMBTI];
 
     if (!mbtiInfo || !mbtiInfo.mbtmi) {
-        return <div>선택한 MBTI에 대한 TMI 정보를 찾을 수 없습니다.</div>;
+        return <div> MBTI들의 TMI가 궁금하다면 <br /> 오른쪽 위의 NONE을 눌러 보고싶은 MBTI를 선택해주세요!</div>;
     }
 
     const { mbtmi } = mbtiInfo;

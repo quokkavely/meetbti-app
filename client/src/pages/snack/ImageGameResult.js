@@ -7,6 +7,9 @@ import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
+import axios from 'axios';
+import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 
 const AppContainerComponent = () => {
     return (
@@ -26,6 +29,9 @@ const ImgResultContainer = () => {
     const [voteCount, setVoteCount] = useState(0);
     const [topThree, setTopThree] = useState([]);
     const navigate = useNavigate();
+    const { state } = useAuth();
+    const [HeartCount, setHeartCount] = useState(0);
+    const [CommentCount, setCommentCount] = useState(0);
 
     useEffect(() => {
         const totalVotes = Object.values(votes).reduce((acc, vote) => acc + vote, 0);
@@ -42,7 +48,22 @@ const ImgResultContainer = () => {
             .slice(0, 3);
 
         setTopThree(sortedVotes);
-    }, [votes]);
+
+        // 유저의 닉네임을 가져오는 로직 추가
+        const fetchUserNickname = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/users/nickname', {
+                    headers: {
+                        'Authorization': `Bearer ${state.token}`
+                    }
+                });
+            } catch (error) {
+                console.error('유저 정보 가져오기 실패', error);
+            }
+        };
+
+        fetchUserNickname();
+    }, [votes, state.nickName]);
 
     const handleResetVote = () => {
         const votedMbti = localStorage.getItem('votedMbti');
@@ -57,8 +78,8 @@ const ImgResultContainer = () => {
     return (
         <div className="img-game-result-container">
             <div className="img-game-result-title-section">
-                <div className="img-game-result-title"> {title} MBTI를 제일 잘 믿을 것 같은 MBTI는? </div>
-                <div className="img-game-result-title-writer"> 작성자 : 치와와 </div>
+                <div className="img-game-result-title"> {title} </div>
+                <div className="img-game-result-title-writer"> 작성자 : {state.nickName} </div>
             </div>
 
             <div className="img-game-result-content-section">
@@ -81,7 +102,7 @@ const ImgResultContainer = () => {
                                     <div className="img-game-result-index">
                                         {index === 0 && ' 압도적 1위를 달리는 중!'}
                                         {index === 1 && ' 콩콩콩! 2위!'}
-                                        {index === 2 && ' 3위 방어중!'}
+                                        {index === 2 && ' 아슬아슬 3위 방어중!'}
                                     </div>
                                 </div>
                             </div>
@@ -93,11 +114,11 @@ const ImgResultContainer = () => {
             <div className="img-game-result-post-count">
                 <div className="img-game-result-post-heart-count-section">
                     <div className="img-game-result-post-heart-img">❤️</div>
-                    <div className="img-game-result-post-heart-count">100</div>
+                    <div className="img-game-result-post-heart-count">{HeartCount}</div>
                 </div>
                 <div className="img-game-result-post-comment-section">
                     <div className="img-game-result-post-comment-img">💬</div>
-                    <div className="img-game-result-post-comment-count">100</div>
+                    <div className="img-game-result-post-comment-count">{CommentCount}</div>
                 </div>
                 <div className="img-game-reset-button-container">
                     <button className="img-game-reset-button" onClick={handleResetVote}>투표 초기화</button>
@@ -109,23 +130,54 @@ const ImgResultContainer = () => {
 
 const CommentContainer = () => {
     
-    const [comments, setComments] = useState([
-        { text: '첫 번째 댓글입니다.', time: '2023-10-01 12:00:00' },
-        { text: '두 번째 댓글입니다.', time: '2023-10-02 13:30:00' },
-        { text: '세 번째 댓글입니다.', time: '2023-10-03 14:45:00' }
-    ]);
+    const [comments, setComments] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const commentsPerPage = 10;
+    const { state } = useAuth();
+    const [myData, setMyData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        // const fetchComments = async () => {
+        //     try {
+        //         const response = await axios.get('imagegame-comments', {
+        //             headers: {
+        //                 'Authorization': `Bearer ${state.token}`,
+        //                 'Content-Type': 'application/json'
+        //             }
+        //         });
+        //     } catch (error) {
+        //         console.error('댓글 가져오기 실패', error);
+        //     }
+        // };
+        // fetchComments();\
+        sendGetMyinfoRequest(state, setMyData, setLoading);
+    }, [state.token]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
+
         if (inputValue.trim() === '') return; // 빈 입력 방지
         setComments([...comments, { text: inputValue, time: new Date().toLocaleTimeString() }]);
         setInputValue('');
+
+        try {
+            const newComment = {
+                content: inputValue,
+            };
+            const response = await axios.post('imagegames/{imagegame-id}/imagegame-comments', newComment, {
+                headers: {
+                    'Authorization': `Bearer ${state.token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('댓글 전송 성공', newComment);
+        } catch (error) {
+            console.error('댓글 전송 실패', error);
+        }
     };
 
     const handlePageChange = (pageNumber) => {
