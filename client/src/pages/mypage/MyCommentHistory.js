@@ -6,6 +6,7 @@ import Header from '../../components/basic_css/Header';
 import sendGetMyCommentsRequest from '../../requests/GetMyCommentsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 const AppContainerComponent = () => {
@@ -40,27 +41,33 @@ const Historyrecenttext = () => {
 const HistorySection = () => {
     const { state } = useAuth();
     const [page, setPage] = useState(1);
-    const observer = useRef();
     const [myComments, setMyComments] = useState({data:[]});
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        sendGetMyCommentsRequest(state, page, 9999, setMyComments, setIsLoading);
+        sendGetMyCommentsRequest(state, page, 6, setMyComments, setIsLoading);
     }, []);
 
 
     return (
         <div className="history-section">
-            {myComments.data.length === 0 ? <div>작성한 댓글이 없어요.</div> : myComments.data.map((item, index) => (
-                <div
-                    className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
-                    onClick={() => navigate(`/postpage?postId=${item.postId}`)}
-                >
-                    <div className="history-content-text">{item.title}</div>
-                    <div className="history-content-date">{item.date}</div>
-                </div>
-            ))}
+            <div className='histories-container'>
+                {myComments.data.length === 0 ? <div>작성한 댓글이 없어요.</div> : myComments.data.map((item, index) => (
+                    <div
+                        className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
+                        onClick={() => navigate(`/postpage?postId=${item.postId}`)}
+                    >
+                        <div className="history-content-text">{item.content}</div>
+                        <div className="history-content-date">{item.date}</div>
+                    </div>
+                ))}
+            </div>
+            {myComments.data.length === 0 ? <div></div> : 
+            <PageContainer
+                currentPage={page} pageInfo={myComments.pageInfo}
+                getPage={(page) => sendGetMyCommentsRequest(state, page, 6, setMyComments, setIsLoading)}
+            ></PageContainer>}
         </div>
     );
 };

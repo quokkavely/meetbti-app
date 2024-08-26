@@ -60,6 +60,9 @@
     justify-content: space-between; */
     align-items: center;
 }
+.histories-container{
+    min-height: 480px;
+}
 .latest-mark{
     margin-left: 130px;
     background-color: #b368fa;

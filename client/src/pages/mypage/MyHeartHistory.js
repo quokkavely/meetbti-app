@@ -6,6 +6,7 @@ import Header from '../../components/basic_css/Header';
 import sendGetMyHeartsRequest from '../../requests/GetMyHeartsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 const AppContainerComponent = () => {
@@ -47,7 +48,7 @@ const HistorySection = () => {
 
 
     useEffect(() => {
-        sendGetMyHeartsRequest(state, page, 9999, type, setMyHearts, setIsLoading);
+        sendGetMyHeartsRequest(state, page, 6, type, setMyHearts, setIsLoading);
     }, [type]);
     const handleDropdownChange = (event) => {
         setType(event.target.value);
@@ -61,16 +62,23 @@ const HistorySection = () => {
                 <option value='BALANCE_GAME'>밸런스게임</option>
                 <option value='IMAGE_GAME'>이미지게임</option>
             </select>
-            
-            {myHearts.data.length === 0 ? <div>좋아요 이력이 없어요</div> : myHearts.data.map((item, index) => (
-                <div
-                    className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
-                    /* onClick={() => navigate(`postpage?postId`)} */
-                >
-                    <div className="history-content-text">{item.title}</div>
-                    <div className="history-content-date">{item.date}</div>
-                </div>
-            ))}
+            <div className='histories-container'>
+                {myHearts.data.length === 0 ? <div>좋아요 이력이 없어요</div> : myHearts.data.map((item, index) => (
+                    <div
+                        className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
+                        /* onClick={() => navigate(`postpage?postId`)} */
+                    >
+                        <div className="history-content-text">{item.title}</div>
+                        <div className="history-content-date">{item.date}</div>
+                    </div>
+                ))}
+            </div>
+            {myHearts.data.length === 0 ? <div></div> : 
+            <PageContainer
+                currentPage={page} pageInfo={myHearts.pageInfo}
+                getPage={(page) => sendGetMyHeartsRequest(state, page, 6, type, setMyHearts, setIsLoading)}
+            >
+            </PageContainer>}
         </div>
     );
 };
