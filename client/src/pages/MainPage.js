@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { state, useAuth } from '../auth/AuthContext';
 import getMyInfo from '../requests/GetMyInfo';
+import sendLogoutRequest from '../requests/LogoutRequest';
 
 // 헤더 컴포넌트
 const Header = (props) => {
@@ -23,6 +24,11 @@ const Header = (props) => {
           </div>
           <img src="/public-img/profile.png" alt="사용자 아이콘" onClick={() => navigate(props.login ? '/mypage' : '/login')}/>
         </div>
+        {props.state.isAuthenticated && <button className = 'logout-button' onClick={() => {
+          if(window.confirm('로그아웃하시겠어요?')){
+            sendLogoutRequest(props.state, props.logout)
+          }         
+          }}>로그아웃</button>}
       </div>
       <div className="logo-text">
         <h1>본격 MBTI 커뮤니티!</h1>
@@ -179,7 +185,7 @@ const MainContent = (props) => {
 // 앱 컴포넌트
 const MainPage = () => {
   const { isAuthenticated } = useAuth().state;
-  const { state } = useAuth();
+  const { state, logout } = useAuth();
   const [myData, setMyData] = useState({data:{mbti:'NONE'}});
   const [loading, setLoading] = useState(true);
   const [nickname, setNickname] = useState('Unknown');
@@ -214,6 +220,8 @@ const MainPage = () => {
       <Header 
         login = {isAuthenticated}
         userNickname={state.isAuthenticated ? nickname : 'Unknown'}
+        state = {state}
+        logout = {logout}
       />
       <MainContent login = {isAuthenticated} myMbti = {myData.data.mbti}/>
     </div>

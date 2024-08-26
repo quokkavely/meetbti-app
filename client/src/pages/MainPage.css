@@ -45,7 +45,7 @@
   margin-left: auto;
   width: auto;
   height: 36px;
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -90,10 +90,21 @@
   justify-content: center; */
 }
 
-
 .user-icon-container img {
   width: 30px;
   height: 36px;
+}
+.logout-button{
+  background-color: rgb(212, 171, 250);
+  color: white;
+  border: none;
+  padding: 3px;
+  border-radius: 8px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.logout-button:hover{
+  background-color: rgb(183, 124, 238);
 }
 
 .logo-text {
