@@ -29,7 +29,12 @@ const ReportPage = ()=> {
             <ReportItem type={value.post.title} time={value.post.createdAt} checkbox={value.checkbox}
             onClick = {() => navigate(`/report-detail?reportId=${value.reportId}`)}
             ></ReportItem>)}
-            <PageContainer pages={[1,2,3,4,5]}></PageContainer>
+            {reports.data.length === 0 ? <div></div> : 
+            <PageContainer 
+                currentPage={page}
+                pageInfo={reports.pageInfo}
+                getPage={(page) => sendGetReportsRequest(state, page, 5, 'PENDING', setReports, setIsLoading)}
+            ></PageContainer>}
         </div>
     );
 }
