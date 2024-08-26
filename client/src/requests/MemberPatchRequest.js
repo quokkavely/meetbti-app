@@ -1,6 +1,6 @@
 const sendMemberPatchRequest = async(state, patchBody) => {
     try{
-        const response = await fetch('http://localhost:8080/members/me',
+        const response = await fetch('http://localhost:8080/members/mypage',
             {
                 method: 'PATCH',
                 headers: {
