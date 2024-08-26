@@ -26,12 +26,10 @@ import java.util.List;
 public class TestResultController {
     private final TestResultService testResultService;
     private final TestResultMapper testResultMapper;
-    private final MemberService memberService;
 
-    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper, MemberService memberService) {
+    public TestResultController(TestResultService testResultService, TestResultMapper testResultMapper) {
         this.testResultService = testResultService;
         this.testResultMapper = testResultMapper;
-        this.memberService = memberService;
     }
     @PostMapping
     public ResponseEntity createTestResult(@Valid @RequestBody TestResultDto.Create createDto,
@@ -47,9 +45,8 @@ public class TestResultController {
     @GetMapping
     public ResponseEntity getTestResults(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size,
-                                         /*@Positive @RequestParam(name = "member-id") Long memberId,*/
                                          Authentication authentication) {
-        /*if (memberId == null) throw new IllegalArgumentException("Member ID is required");*/
+
         Principal principal = (Principal) authentication.getPrincipal();
 
         Page<TestResult> pageTestResult = testResultService.findTestResults(page - 1, size, authentication);
@@ -58,15 +55,4 @@ public class TestResultController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults), pageTestResult), HttpStatus.OK);
     }
-
-//    @GetMapping("/me")
-//    public ResponseEntity getLatestTestResult(Authentication authentication) {
-//
-//        Principal principal = (Principal) authentication.getPrincipal();
-//        Member member = memberService.findMember(principal.getMemberId());
-//
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(member.getTestResults().get(member.getTestResults().size() -1)), HttpStatus.OK);
-//    }
-
 }

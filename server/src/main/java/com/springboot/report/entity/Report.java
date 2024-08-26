@@ -55,7 +55,6 @@ public class Report {
     }
     public enum ReportStatus {
         PENDING("대기중"),
-        REVIEW("검토중"),
         ACCEPTED("신고 수락"),
         REJECTED("신고 거절");
 

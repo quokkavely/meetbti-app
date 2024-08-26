@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,9 +68,11 @@ public class ReportController {
     // 신고내역
     @GetMapping("/reports")
     public ResponseEntity getReports(@Positive @RequestParam int page,
-                                     @Positive@RequestParam int size,
+                                     @Positive @RequestParam int size,
+                                     @RequestParam(required = false) Report.ReportStatus status,
                                      Authentication authentication) {
-        Page<Report> pageReports = reportService.findReports(page -1, size);
+
+        Page<Report> pageReports = reportService.findReports(page -1, size, status);
         List<Report> reports = pageReports.getContent();
 
         return new ResponseEntity(new MultiResponseDto(reportMapper.reportToReportResponseDtos(reports),pageReports), HttpStatus.OK );
@@ -79,8 +80,11 @@ public class ReportController {
 
     //게시글 승인시 적용 필요 - 회원 정지 및 해당 content 삭제
     @PatchMapping("/reports/{reportId}")
-    public ResponseEntity updateReport(@Positive @PathVariable Long reportId, Authentication authentication) {
-        reportService.approveReport(reportId, authentication);
+    public ResponseEntity updateReport(@Positive @PathVariable Long reportId,
+                                       @RequestParam String status,
+                                       @RequestParam int day,
+                                       Authentication authentication) {
+        reportService.determineReport(reportId, authentication, day, status);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
