@@ -7,6 +7,7 @@ import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import { useRef } from 'react';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -166,7 +167,8 @@ const MBTIBoard = () => {
     const [myData, setMyData] = useState({data:{mbti:'ALL'}});
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState({data:[]});
+    const [posts, setPosts] = useState({data:[], pageInfo:{}});
+    const [page, setPage] = useState(1);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
 
@@ -193,7 +195,18 @@ const MBTIBoard = () => {
         <Filter navigate = {navigate} filterBy = {category} setFilterBy = {setCategory} myMbti = {myData.data.mbti}/>
         <Board loading = {loading} posts = {posts.data}/>
         <WriteButton category={myData.data.mbti} params = {params}/>
-        <PageNation />
+        {myData.data.length === 0 ? <div></div> : 
+        <PageContainer
+            currentPage={page} pageInfo={posts.pageInfo}
+            getPage={(page) => {
+                let param = params.get('category');
+                if(param === 'NONE'){
+                    param = 'ALL';
+                }
+                sendGetMyinfoRequest(state, updateMyData);
+                sendGetPostsRequest(state, page, 6, param, 'createdAt', setLoading, setPosts);
+            }}
+        ></PageContainer>}
       </div>
     );
   };

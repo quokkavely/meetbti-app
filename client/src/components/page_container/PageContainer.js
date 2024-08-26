@@ -1,13 +1,52 @@
+import { useEffect, useState } from 'react';
 import './PageContainer.css';
 
-const PageContainer = (props) => {
+const PageContainer = ({ currentPage, pageInfo, getPage }) => {
+    const [page, setPage] = useState(currentPage);
+    let pages = [page];
+    if(page > 1){
+        pages.push(page - 1);
+    }
+    if(page > 2){
+        pages.push(page - 2);
+    }
+    for(let i = page + 1; i <= pageInfo.totalPage; i++){
+        pages.push(i);
+    }
+    pages.sort((a,b) => a - b);
+
+    useEffect(() => {
+
+    }, )
+
+
     return (
         <div className="page-container">
-            <button className='page-button'>{'<'}</button>
+            <button className='page-button' onClick={() => {
+                if(page > 1){
+                    getPage(page - 1);
+                    setPage(page - 1);
+                }
+                }}>{'<'}</button>
             <div>
-                {props.pages.map((value)=> <button className="page-button">{value}</button>)}
+                {pages.map((value)=> <button 
+                className="page-button" 
+                onClick={() => {
+                    if(page === value){
+                        return;
+                    }
+                    getPage(value);
+                    setPage(value);
+                }}
+                style={{color: page === value ? '#a883b5' : 'black', fontWeight: page === value ? 'bold' : 100}}
+                >{value}</button>)}
             </div>
-            <button className='page-button'>{'>'}</button>
+            <button className='page-button' onClick={() => {
+                if(page < pageInfo.totalPage){
+                    getPage(page + 1);
+                    setPage(page + 1);
+                }
+                }}>{'>'}</button>
         </div>
     );
 }

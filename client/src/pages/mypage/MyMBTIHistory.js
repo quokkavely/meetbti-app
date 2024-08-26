@@ -6,6 +6,7 @@ import Header from '../../components/basic_css/Header';
 import { useNavigate } from 'react-router-dom';
 import sendMbtiTestResultsRequest from '../../requests/MbtiTestResultsRequest';
 import { useAuth } from '../../auth/AuthContext';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 const AppContainerComponent = () => {
@@ -42,23 +43,11 @@ const HistorySection = () => {
     const [historyData, setHistoryData] = useState({data:[]});
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
-    const observer = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
         sendMbtiTestResultsRequest(state, 1, 8, setLoading, setHistoryData);
     }, []);
-
-    const dummyData = [
-        { mbti: 'INTJ', date: '2023-01-01 12:00' },
-        { mbti: 'ENTP', date: '2023-01-02 13:00' },
-        { mbti: 'INFJ', date: '2023-01-03 14:00' },
-        { mbti: 'ENFP', date: '2023-01-04 15:00' },
-        { mbti: 'ISTJ', date: '2023-01-05 16:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
-        { mbti: 'ISFP', date: '2023-01-06 17:00' },
-    ];
 
     const NoContentContainer = () => {
         return (
@@ -72,21 +61,25 @@ const HistorySection = () => {
 
     return (
         <div className="history-section">
-            {historyData.data.map((item, index) => (
-                <div
-                    className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
-                    key={index}
-                >
-                    <div className='history-content-container-container'>
-                        <div className='history-content-container'>
-                            <div className="history-content-text">{item.mbti}</div>
-                            <div className="history-content-date">{item.createdAt}</div>
+            <div className='histories-container'>
+                {historyData.data.map((item, index) => (
+                    <div
+                        className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
+                        key={index}
+                    >
+                        <div className='history-content-container-container'>
+                            <div className='history-content-container'>
+                                <div className="history-content-text">{item.mbti}</div>
+                                <div className="history-content-date">{item.createdAt}</div>
+                            </div>
+                            {index + (historyData.pageInfo.page-1) * historyData.pageInfo.size === historyData.pageInfo.totalElements - 1 && <div className='latest-mark'>LATEST</div>}
                         </div>
-                        {index === historyData.data.length - 1 && <div className='latest-mark'>LATEST</div>}
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
             {(historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}
+            {historyData.data.length === 0 ? <div></div> : <PageContainer currentPage = {page} pageInfo = {historyData.pageInfo}
+             getPage = {(page) => sendMbtiTestResultsRequest(state, page, 6, setLoading, setHistoryData)}></PageContainer>}
         </div>
     );
 };

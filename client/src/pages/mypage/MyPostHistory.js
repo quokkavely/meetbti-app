@@ -6,6 +6,7 @@ import Header from '../../components/basic_css/Header';
 import sendGetPostsRequest from '../../requests/GetPostsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 const AppContainerComponent = () => {
@@ -53,7 +54,7 @@ const HistorySection = () => {
     }
 
     useEffect(() => {
-        sendGetPostsRequest(state, 1, 99999, 'MY', 'createdAt', setIsLoading, setHistoryData);
+        sendGetPostsRequest(state, 1, 6, 'MY', 'createdAt', setIsLoading, setHistoryData);
     }, []);
 
     return (
@@ -67,6 +68,10 @@ const HistorySection = () => {
                     <div className="history-content-date">{item.createdAt}</div>
                 </div>
             )) : <NoContent></NoContent>}
+            {historyData.data.length === 0 ? <div></div> : 
+            <PageContainer currentPage={page} pageInfo={historyData.pageInfo}
+            getPage = {(page) => sendGetPostsRequest(state, 1, 6, 'MY', 'createdAt', setIsLoading, setHistoryData)}
+            ></PageContainer>}
         </div>
     );
 };
