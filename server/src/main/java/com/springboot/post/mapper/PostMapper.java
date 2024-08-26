@@ -1,6 +1,7 @@
 package com.springboot.post.mapper;
 
 import com.springboot.comment.mapper.CommentMapper;
+import com.springboot.heart.entity.Heart;
 import com.springboot.post.dto.PostDto;
 import com.springboot.post.entity.Post;
 import org.mapstruct.Mapper;
@@ -14,7 +15,14 @@ public interface PostMapper {
 //    @Mapping(source = "memberId", target = "member.memberId")
     Post postUpdateDtoToPost(PostDto.Update update);
     PostDto.PatchResponse postToPostPatchResponseDto(Post post);
-    default PostDto.GetResponse postToPostGetResponseDto(Post post, CommentMapper commentMapper) {
+    default PostDto.GetResponse postToPostGetResponseDto(Post post, CommentMapper commentMapper, long requesterId) {
+        boolean liked = false;
+        for(Heart heart : post.getHearts()){
+            if(heart.getMember().getMemberId() == requesterId){
+                liked = true;
+                break;
+            }
+        }
         PostDto.GetResponse.GetResponseBuilder response = PostDto.GetResponse.builder();
             response.postId(post.getPostId());
             response.title(post.getTitle());
@@ -28,12 +36,13 @@ public interface PostMapper {
             response.viewCount(post.getViews().size());
             response.commentCount(post.getComments().size());
             response.comments(commentMapper.commentsToCommentDetailedResponseDtos(post.getComments()));
+            response.liked(liked);
 
             return response.build();
     }
-   default List<PostDto.GetResponse> postsToPostResponseDtos(List<Post> posts, CommentMapper commentMapper) {
+   default List<PostDto.GetResponse> postsToPostResponseDtos(List<Post> posts, CommentMapper commentMapper, long requesterId) {
        return posts.stream()
-               .map(post -> postToPostGetResponseDto(post,commentMapper))
+               .map(post -> postToPostGetResponseDto(post,commentMapper, requesterId))
                .collect(Collectors.toList());
    }
 }

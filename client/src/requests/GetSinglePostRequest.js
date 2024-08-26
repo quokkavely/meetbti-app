@@ -1,4 +1,4 @@
-const sendGetSinglePostsRequest = async(state, postId, setLoading, setPost) => {
+const sendGetSinglePostsRequest = async(state, postId, setLoading, setPost, setLikeCount) => {
     try{
         console.log('단일 게시글 정보 GET요청 전송');
         console.log('postId: ', postId);
@@ -16,8 +16,13 @@ const sendGetSinglePostsRequest = async(state, postId, setLoading, setPost) => {
             console.log('data: ', data);
             setPost(data);
 
-            console.log('단일 게시글 정보 로딩 완료')
-            setLoading(false);
+            console.log('단일 게시글 정보 로딩 완료');
+            if(setLoading !== undefined){
+                setLoading(false);
+            }    
+            if(setLikeCount !== undefined){
+                setLikeCount();
+            }      
             return data;
         }else{
             console.log('단일 게시글 정보 GET요청 실패: ', response.status);

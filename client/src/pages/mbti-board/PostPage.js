@@ -12,6 +12,7 @@ import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendPostCommentRequest from '../../requests/PostCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import sendPostHeartOnPostRequest from '../../requests/PostHeartOnPost';
 
 // 포스트 컨텐츠 컴포넌트
 const PostPageContent = ({ post }) => {
@@ -21,8 +22,8 @@ const PostPageContent = ({ post }) => {
       <div className="post-meta">
         <span>{post.createdAt}</span>
         <span>조회 {post.viewCount}</span>
-        <span>❤️ {post.heartCount}</span> 
-        <span>💬 {post.comments.length}</span> 
+        {/* <span>❤️ {post.heartCount}</span> 
+        <span>💬 {post.comments.length}</span>  */}
       </div>
       {post.image !== null && <img src={post.image} alt="post" className="post-image" />}
       <div className="post-text">{post.content}</div>
@@ -32,9 +33,9 @@ const PostPageContent = ({ post }) => {
 
 
 // 포스트 액션 컴포넌트
-const PostActions = ({ likes }) => {
+const PostActions = ({ state, postId, likes, propsliked, setLoading, setPostData }) => {
   const [likeCount, setLikeCount] = useState(likes);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(propsliked);
   const [showModal, setShowModal] = useState(false);
   const [selectedReason, setSelectedReason] = useState('');
 
@@ -45,6 +46,7 @@ const PostActions = ({ likes }) => {
       setLikeCount(likeCount + 1);
     }
     setLiked(!liked);
+    sendPostHeartOnPostRequest(state, postId, () => sendGetSinglePostsRequest(state, postId, setLoading, setPostData));
   };
 
   const handleAlert = () => {
@@ -137,7 +139,7 @@ const CommentSection = ({ comments, postAuthor }) => {
 };
 
 // 댓글 입력 컴포넌트
-const CommentInput = ({ state, postId, params, setLoading, setPostData}) => {
+const CommentInput = ({ state, postId, setLoading, setPostData}) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
@@ -151,7 +153,7 @@ const CommentInput = ({ state, postId, params, setLoading, setPostData}) => {
       alert('댓글 내용을 입력해주세요');
       return;
     }
-    sendPostCommentRequest(state, postId, inputValue, setInputValue, ()=> sendGetSinglePostsRequest(state, params.get('postId'), setLoading, setPostData));
+    sendPostCommentRequest(state, postId, inputValue, setInputValue, ()=> sendGetSinglePostsRequest(state, postId, setLoading, setPostData));
   };
 
   return (
@@ -189,10 +191,10 @@ const PostPage = () => {
       <Header />
       {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
       {!loading && <PostPageContent post={postData.data} />}
-      {!loading && <PostActions likes={postData.data.heartCount} />}
+      {!loading && <PostActions state={state} postId={postData.data.postId} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
-      {!loading && <CommentInput state = {state} postId = {postData.data.postId} params={params} setLoading={setLoading} setPostData={setPostData}/>}
+      {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading} setPostData={setPostData}/>}
     </div>
   );
 };

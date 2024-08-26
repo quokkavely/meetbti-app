@@ -50,6 +50,7 @@ public class PostDto {
         private int heartCount;
         private int viewCount;
         private int commentCount;
+        private boolean liked;
         private List<CommentDto.DetailedResponse> comments;
     }
 }
