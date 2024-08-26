@@ -69,3 +69,11 @@
     color: #808080;
     margin-left: 20px;
 }
+.select-type{
+    width: 120px;
+    height: 30px;
+    background-color: #e8d0ff;
+    border-radius: 10px;
+    border: 5px solid rgb(222, 186, 255);
+    outline: none;
+}
