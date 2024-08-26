@@ -23,11 +23,13 @@ public interface ReportMapper {
                 responseDto.reason(report.getReason());
                 responseDto.status(report.getStatus());
                 responseDto.post(report.getPost());
+                responseDto.reportId(report.getReportId());
             } else {
                 responseDto.nickname(report.getComment().getMember().getNickname());
                 responseDto.reason(report.getReason());
                 responseDto.status(report.getStatus());
                 responseDto.comment(report.getComment());
+                responseDto.reportId(report.getReportId());
             }
             return responseDto.build();
         }

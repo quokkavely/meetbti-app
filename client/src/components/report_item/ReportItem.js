@@ -2,7 +2,7 @@ import './ReportItem.css';
 
 function ReportItem(props){
     return (
-        <div className="report-item">
+        <div className="report-item" onClick={props.onClick}>
             <div className="report-info">
                 <div className="report-title">{props.type}</div>
                 <div className="report-time">{props.time}</div>
