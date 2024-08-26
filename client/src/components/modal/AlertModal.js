@@ -100,21 +100,21 @@ const AlertModal = ({ showModal, closeModal, handleRadioChange, handleReport, se
                 <input
                   type="radio"
                   name="reportReason"
-                  value="abuse"
-                  checked={selectedReason === 'abuse'}
+                  value="SPAM"
+                  checked={selectedReason === 'SPAM'}
                   onChange={handleRadioChange}
                 />
-                욕설 및 비방
+                광고 또는 반복적인 게시물
               </label>
               <label>
                 <input
                   type="radio"
                   name="reportReason"
-                  value="malicious"
-                  checked={selectedReason === 'malicious'}
+                  value="MISINFORMATION"
+                  checked={selectedReason === 'MISINFORMATION'}
                   onChange={handleRadioChange}
                 />
-                악의적 게시
+                허위 정보
               </label>
             </div>
             <div style={styles.checkboxGroup}>
@@ -122,21 +122,21 @@ const AlertModal = ({ showModal, closeModal, handleRadioChange, handleReport, se
                 <input
                   type="radio"
                   name="reportReason"
-                  value="sexual"
-                  checked={selectedReason === 'sexual'}
+                  value="INAPPROPRIATE"
+                  checked={selectedReason === 'INAPPROPRIATE'}
                   onChange={handleRadioChange}
                 />
-                성적인 발언
+                부적절한 컨텐츠
               </label>
               <label>
                 <input
                   type="radio"
                   name="reportReason"
-                  value="repetitive"
-                  checked={selectedReason === 'repetitive'}
+                  value="PROFANITY"
+                  checked={selectedReason === 'PROFANITY'}
                   onChange={handleRadioChange}
                 />
-                같은 내용 반복
+                욕설 및 비방
               </label>
             </div>
           </div>
