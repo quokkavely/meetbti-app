@@ -9,6 +9,7 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404,"Member Not Found"),
     POST_NOT_FOUND(404,"Post Not Found"),
     COMMENT_NOT_FOUND(404,"Comment Not Found"),
+    FILE_NOT_FOUND(404,"File Not Found"),
     TEST_RESULT_NOT_FOUND(404,"TestResult Not Found"),
     GAME_NOT_FOUND(404,"Game Not Found"),
     CONTENT_NOT_FOUND(404,"Content Not Found"),

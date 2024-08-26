@@ -1,6 +1,9 @@
 package com.springboot.member.controller;
 
 import com.springboot.auth.utils.Principal;
+import com.springboot.exception.BusinessLogicException;
+import com.springboot.exception.ExceptionCode;
+import com.springboot.helper.S3Service;
 import com.springboot.helper.email.EmailService;
 import com.springboot.helper.email.VerificationDto;
 import com.springboot.member.dto.MemberDto;
@@ -15,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -29,12 +33,14 @@ public class MemberController {
     private final EmailService emailService;
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final RedisTemplate<String, Object> redisTemplate;
+    private final S3Service s3Service;
 
-    public MemberController(MemberService memberService, MemberMapper memberMapper, EmailService emailService, RedisTemplate<String, Object> redisTemplate) {
+    public MemberController(MemberService memberService, MemberMapper memberMapper, EmailService emailService, RedisTemplate<String, Object> redisTemplate, S3Service s3Service) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.emailService = emailService;
         this.redisTemplate = redisTemplate;
+        this.s3Service = s3Service;
     }
     @PostMapping
     public ResponseEntity postMember(@RequestBody @Valid MemberDto.Post postDto) {
@@ -70,6 +76,16 @@ public class MemberController {
         );
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND);
+        }
+
+        String imageUrl = s3Service.uploadFile(file);
+
+        return ResponseEntity.ok(imageUrl);
     }
     @PatchMapping("/mypage")
     public ResponseEntity patchMember(@Valid @RequestBody MemberDto.Patch patchDto,

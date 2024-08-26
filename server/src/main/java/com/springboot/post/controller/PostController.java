@@ -49,7 +49,6 @@ public class PostController {
     }
     @PostMapping
     public ResponseEntity createPost(@Valid @ModelAttribute PostDto.Create createDto,
-                                     @RequestParam(value = "file", required = false) MultipartFile file,
                                      Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -60,18 +59,21 @@ public class PostController {
         }
         createDto.setCategory(findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti());
 
-        Post post = postMapper.postCreateDtoToPost(createDto);
-
-        if (file != null && !file.isEmpty()) {
-            String imageUrl = s3Service.uploadFile(file);
-            post.setImage(imageUrl);
-        }
-
-        Post createdPost = postService.createPost(post, authentication);
+        Post createdPost = postService.createPost(postMapper.postCreateDtoToPost(createDto), authentication);
 
         URI location = UriCreator.createUri(POST_DEFAULT_URL, createdPost.getPostId());
 
         return ResponseEntity.created(location).build();
+    }
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND);
+        }
+
+        String imageUrl = s3Service.uploadFile(file);
+
+        return ResponseEntity.ok(imageUrl);
     }
     @PatchMapping("{post-id}")
     public ResponseEntity updatePost(@PathVariable("post-id") @Positive long postId,
