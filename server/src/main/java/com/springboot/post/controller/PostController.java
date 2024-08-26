@@ -89,9 +89,11 @@ public class PostController {
     @GetMapping("{post-id}")
     public ResponseEntity getPost(@PathVariable("post-id") @Positive long postId,
                                   Authentication authentication) {
+        Principal principal = (Principal) authentication.getPrincipal();
+
         Post post = postService.findPost(postId,authentication);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(postMapper.postToPostGetResponseDto(post, commentMapper, principal.getMemberId())), HttpStatus.OK);
     }
 
     @GetMapping
@@ -119,7 +121,7 @@ public class PostController {
 
         List<Post> posts = pagePosts.getContent();
 
-        return new ResponseEntity<>(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper), pagePosts),HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper, principal.getMemberId()), pagePosts),HttpStatus.OK);
     }
 
     @DeleteMapping("{post-id}")
