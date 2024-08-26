@@ -25,7 +25,7 @@ const MyPageUserInfoContainer = (props) => {
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
-                <img src="/public-img/catprofile.png" alt="mypage-user-info-img" />
+                <img src="/MBTI-img/INFJ.png" alt="mypage-user-info-img" />
             </div>
             <div className="mypage-user-info-section">
                 <div className="mypage-user-info-section-badge"> {props.mbti} </div>

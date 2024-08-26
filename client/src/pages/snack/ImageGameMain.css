@@ -14,7 +14,7 @@
   font-size: 22px;
   font-weight: bold;
   color: #2D0057;
-  height: 60px;
+  height: 530px;
   margin-top: 10px;
   padding-left: 10px;
   padding-top: 4px;
@@ -34,6 +34,7 @@ margin-bottom: 36px;
 border: 1px solid #c8adf4;
 border-radius: 15px;
 box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+margin-top: 20px;
 }
 
 .image-game-title{

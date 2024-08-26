@@ -5,26 +5,21 @@ import sendGetPostsRequest from '../../requests/GetPostsRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import { useRef } from 'react';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
-const Header = () => {
-  const navigate = useNavigate();
-  return (
-    <header className="header">
-      <div className="logo-box">
-        <div className='logo-img' onClick={() => navigate('/')}>
-          <img src="public-img/Main-logo.png" alt='메인로고'/>
-        </div>
-        <div className="back-icon" onClick={() => navigate(-1)}>
-          <img src="public-img/back(grey).png" alt='뒤로 가기' />
-        </div>
-      </div>
-      <div className="logo-text">
-        <h1>본격 MBTI 커뮤니티!</h1>
-      </div>
-    </header>
-  );
+const AppContainerComponent = () => {
+    return (
+        <AppContainer />
+    );
+};
+
+const HeaderComponent = () => {
+    return (
+        <Header />
+    );
 };
 
 // 필터 컴포넌트
@@ -193,7 +188,8 @@ const MBTIBoard = () => {
     
     return (
       <div className="app">
-        <Header />
+        <AppContainerComponent />
+        <HeaderComponent />
         <Filter navigate = {navigate} filterBy = {category} setFilterBy = {setCategory} myMbti = {myData.data.mbti}/>
         <Board loading = {loading} posts = {posts.data}/>
         <WriteButton category={myData.data.mbti} params = {params}/>

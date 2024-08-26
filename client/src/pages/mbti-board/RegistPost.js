@@ -5,27 +5,23 @@ import sendPostPostRequest from '../../requests/PostPostRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import sendPatchPostRequest from '../../requests/PatchPostRequest';
+import AppContainer from '../../components/basic_css/AppContainer';
+import Header from '../../components/basic_css/Header';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
-const Header = () => {
-    const navigate = useNavigate();
+const AppContainerComponent = () => {
     return (
-      <header className="header">
-        <div className="logo-box">
-          <div className='logo-img' onClick={() => navigate('/')}>
-            <img src="public-img/Main-logo.png" alt='메인로고'/>
-          </div>
-          <div className="back-icon" onClick={() => navigate(-1)}>
-            <img src="public-img/back(grey).png" alt='뒤로 가기' />
-          </div>
-        </div>
-        <div className="logo-text">
-          <h1>본격 MBTI 커뮤니티!</h1>
-        </div>
-      </header>
+        <AppContainer />
     );
-  };
+};
+
+const HeaderComponent = () => {
+    return (
+        <Header />
+    );
+};
+
 
 // document.execCommand 사용하면 안됨. 리액트 문법 사용해야 함.
 const PostTitle = ({setTitle, value}) => {
@@ -184,7 +180,8 @@ const RegistPostPage = () => {
     
     return (
       <div className="app">
-        <Header />
+        <AppContainerComponent />
+        <HeaderComponent />
         <PostTitle setTitle={setTitle} value={title}/>
         <PostContent setContent={setContent} value={content}/>
         <AttachImage setFileName={setFileName} />

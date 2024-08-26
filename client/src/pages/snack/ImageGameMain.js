@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ImageGameMain.css';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import sendGetImageGameRequest from '../../requests/GetPostImageGameRequest';
+import sendGetPostImageGameRequest from '../../requests/GetPostImageGameRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -14,6 +17,43 @@ const AppContainerComponent = () => {
 const HeaderComponent = () => {
     return (
         <Header />
+    );
+};
+
+const ImageGameList = (props) => {
+    const navigate = useNavigate();
+    return (
+        <div className="image-game-container">
+            <div className="image-game-container-title">
+                이건 바로 너! 이미지 게임
+                {!props.loading && props.games.map((game, index) => (
+                    <div key={`${game.id}-${index}`} className="image-game-selectbox">
+                        <div className="image-game-title" onClick={() => navigate(`/imagegame-page?gameId=${game.gameId}`)}>{game.topic}</div>
+                        <div className="image-game-selectbox-count">
+                            <div className="image-heart-count">❤️ {game.heartCount}</div>
+                            <div className="image-comment-count">💬 {game.comments.length}</div>
+                            <div className="image-status">{game.isParticipated ? '참여완료' : '미참여'}</div>
+                        </div>
+                    </div>
+                ))}
+                {props.games.length === 0 && <div>등록된 게임이 없어요.</div>}
+            </div>
+        </div>
+    );
+};
+
+const ImageGameSuggestButton = (props) => {
+    const navigate = useNavigate();
+    return (
+        <button className="image-suggest-button" onClick={() => {
+            if(props.category === 'NONE'){
+                if(window.confirm('MBTI가 없어요. 첫 테스트를 진행하시겠어요?')){
+                    navigate('/mbti-test');
+                };
+                return;
+            }
+            navigate('/imagegame-registration')
+            }}>주제 제안하기</button>
     );
 };
 
@@ -40,7 +80,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
             </button>
             {paginationRange.map((page) => (
                 <button 
-                    key={page} 
+                    key={page}
                     className="page-number" 
                     onClick={() => setCurrentPage(page)}
                 >
@@ -57,75 +97,43 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
     );
 };
 
-// ImageGameList 컴포넌트에서 games 데이터를 props로 받도록 수정
-const ImageGameList = ({ games, currentPage, itemsPerPage }) => {
-    const navigate = useNavigate();
-
-    // 최신순으로 정렬
-    const sortedGames = [...games].sort((a, b) => b.id - a.id);
-
-    // 현재 페이지에 맞는 게임 목록 가져오기
-    const currentGames = sortedGames.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-    const handleGameClick = (gameId) => {
-        const votedGames = JSON.parse(localStorage.getItem('votedGames')) || [];
-        if (votedGames.includes(gameId)) {
-            navigate(`/imagegame-result`);
-        } else {
-            navigate(`/imagegame-page`);
-        }
-    };
-    
-    return (
-        <div className="image-game-container">
-            <div className="image-game-container-title">
-                이건 바로 너! 이미지 게임
-            </div>
-            <div className="image-game-question-container">
-                {currentGames.map(game => (
-                    <div key={game.id} className="image-game-selectbox" onClick={() => handleGameClick(game.id)}>
-                        <div className="image-game-title">{game.title}</div>
-                        <div className="image-game-selectbox-count">
-                            <div className="image-heart-count">❤️ {game.heartCount}</div>
-                            <div className="image-comment-count">💬 {game.commentCount}</div>
-                            <div className="image-status">{game.isParticipated ? '참여완료' : '미참여'}</div>
-                        </div>
-                    </div>   
-                ))}
-            </div>
-
-            <button className="image-suggest-button" onClick={() => navigate('/imagegame-registration')}>주제 제안하기</button>
-        </div>
-    );
-};
-
 const ImageGameMain = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
-
-    // 게임 데이터를 상태로 정의
-    const [games, setGames] = useState([]);
+    const { state } = useAuth();
+    const [games, setGames] = useState({data:[]});
+    const [totalPages, setTotalPages] = useState(0);
+    const location = useLocation();
+    const [myData, setMyData] = useState('');
+    const params = new URLSearchParams(location.search);
+    const [loading, setLoading] = useState(true);
+    const [postImageGame, setPostImageGame] = useState([]);
+    
+    const updateMyData = (data) => {
+        setMyData(data);
+    }
 
     useEffect(() => {
-        let storedGames = [];
-        const storedGamesString = localStorage.getItem('games');
-        if (storedGamesString) {
-            try {
-                storedGames = JSON.parse(storedGamesString);
-            } catch (error) {
-                console.error('로컬 스토리지에서 게임 데이터를 파싱하는 중 오류가 발생했습니다:', error);
-            }
-        }
-        setGames(storedGames);
+        const param = params.get('gameId'); // 'param' 변수를 올바르게 초기화
+        sendGetMyinfoRequest(state, updateMyData);
+        sendGetImageGameRequest(state, 1, 3, setLoading, setGames, param);
+        sendGetPostImageGameRequest(state, 1, 3, setLoading, setPostImageGame, param); // 'page', 'size', 'gameId' 변수 수정
+        console.log("이미지 게임 페이지 로딩 완료");
     }, []);
 
-    const totalPages = Math.ceil(games.length / itemsPerPage); 
+    useEffect(() => {
+        // 페이지 변경 시 데이터를 다시 로드
+        const param = params.get('gameId');
+        sendGetImageGameRequest(state, currentPage, itemsPerPage, setLoading, setGames, param);
+        sendGetPostImageGameRequest(state, currentPage, itemsPerPage, setLoading, setPostImageGame, param);
+    }, [currentPage]);
 
     return (
         <div className="app">
             <AppContainerComponent />
             <HeaderComponent />
-            <ImageGameList games={games} currentPage={currentPage} itemsPerPage={itemsPerPage} />
+            <ImageGameList games={games.data} loading={loading}/>
+            <ImageGameSuggestButton />
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
         </div>
     );
