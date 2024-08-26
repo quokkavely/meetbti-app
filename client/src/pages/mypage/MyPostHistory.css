@@ -45,6 +45,7 @@
     width: 440px;
     height: 80px;
     padding-left: 10px;
+    cursor: pointer;
 }
 
 .history-section-content.white-background {

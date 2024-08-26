@@ -1,8 +1,8 @@
 const sendGetPostsRequest = async(state, page, size, category, sortBy, setLoading, setPosts) => {
     try{
-        console.log('게시글 페이지 GET요청 전송');
-        console.log(`category: ${category}, sortBy: ${sortBy}`);
-        const response = await fetch(`http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}`,
+        /* console.log(`category: ${category}, sortBy: ${sortBy}`);
+        console.log('state: ', state); */
+        const response = await fetch(`http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}&member-id=${state.memberId}`,
             {
                 method: 'GET',
                 headers: {
