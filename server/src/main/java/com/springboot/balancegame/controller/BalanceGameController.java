@@ -59,7 +59,7 @@ public class BalanceGameController {
     @GetMapping("/{game-id}")
     public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId,
                                   Authentication authentication) {
-        BalanceGame game = balanceGameService.findGame(gameId);
+        BalanceGame game = balanceGameService.findGame(gameId, authentication);
 
         return new ResponseEntity<>(new SingleResponseDto<>(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper)), HttpStatus.OK);
     }
@@ -68,10 +68,27 @@ public class BalanceGameController {
     public ResponseEntity getGames(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size,
                                    Authentication authentication) {
-        Page<BalanceGame> pageBalanceGames = balanceGameService.findGames(page - 1, size);
+
+        Page<BalanceGame> pageBalanceGames = balanceGameService.findGames(page - 1, size, authentication);
 
         List<BalanceGame> balanceGames = pageBalanceGames.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(balanceGameMapper.gamesToResponseDtos(balanceGames, authentication, balanceGameCommentMapper), pageBalanceGames), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{game-id}")
+    public ResponseEntity updateStatusGame(@Positive @PathVariable("game-id") long gameId,
+                                            Authentication authentication) {
+        BalanceGame game = balanceGameService.acceptGame(gameId, authentication);
+        return new ResponseEntity<>(new SingleResponseDto<>(balanceGameMapper.gameToGameResponseDto(game, authentication, balanceGameCommentMapper)), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping ("/{game-id}")
+    public ResponseEntity deleteGame(@Positive @PathVariable("game-id") long gameId,
+                                           Authentication authentication) {
+        balanceGameService.deleteGame(gameId, authentication);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 }

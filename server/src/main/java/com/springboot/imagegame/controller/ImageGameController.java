@@ -1,6 +1,7 @@
 package com.springboot.imagegame.controller;
 
 import com.springboot.auth.utils.Principal;
+import com.springboot.balancegame.entity.BalanceGame;
 import com.springboot.imagegame.dto.ImageGameDto;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame.mapper.ImageGameMapper;
@@ -60,7 +61,7 @@ public class ImageGameController {
     public ResponseEntity getGame(@PathVariable("game-id") @Positive long gameId,
                                   Authentication authentication){
 
-        ImageGame game = imageGameService.findGame(gameId);
+        ImageGame game = imageGameService.findGame(gameId, authentication);
 
         return new ResponseEntity<>(new SingleResponseDto<>(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper)), HttpStatus.OK);
     }
@@ -69,10 +70,26 @@ public class ImageGameController {
     public ResponseEntity getGames(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size,
                                    Authentication authentication) {
-        Page<ImageGame> pageImageGames = imageGameService.findGames(page - 1, size);
+        Page<ImageGame> pageImageGames = imageGameService.findGames(page - 1, size, authentication);
 
         List<ImageGame> imageGames = pageImageGames.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(imageGameMapper.gamesToGameResponseDtos(imageGames, authentication,imageGameCommentMapper), pageImageGames), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{game-id}")
+    public ResponseEntity updateStatusGame(@Positive @PathVariable("game-id") long gameId,
+                                           Authentication authentication) {
+        ImageGame game = imageGameService.acceptGame(gameId, authentication);
+        return new ResponseEntity<>(new SingleResponseDto<>(imageGameMapper.gameToGameResponseDto(game, authentication, imageGameCommentMapper)), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping ("/{game-id}")
+    public ResponseEntity deleteGame(@Positive @PathVariable("game-id") long gameId,
+                                     Authentication authentication) {
+        imageGameService.deleteGame(gameId, authentication);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 }
