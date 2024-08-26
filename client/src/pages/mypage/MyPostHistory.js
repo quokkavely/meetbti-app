@@ -44,8 +44,6 @@ const HistorySection = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
-    /* const displayData = historyData.length > 0 ? historyData : dummyData; */
-
     const NoContent = () => {
         return (
             <div className='no-content white-background'>
@@ -55,7 +53,7 @@ const HistorySection = () => {
     }
 
     useEffect(() => {
-        sendGetPostsRequest(state, 1, 99999, '', 'createdAt', setIsLoading, setHistoryData);
+        sendGetPostsRequest(state, 1, 99999, 'MY', 'createdAt', setIsLoading, setHistoryData);
     }, []);
 
     return (

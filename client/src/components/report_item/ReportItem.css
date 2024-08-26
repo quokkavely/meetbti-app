@@ -6,6 +6,7 @@
     padding-bottom: 25px;
     padding-left: 8%;
     padding-right: 8%;
+    cursor: pointer;
 }
 .report-title{
     font-size: 17px;

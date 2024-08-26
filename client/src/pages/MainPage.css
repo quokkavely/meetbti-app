@@ -21,6 +21,19 @@
   padding: 10px;
   margin-top: 26px;
 }
+.main-login-button{
+  width: 90px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #a882ff;
+  color: white;
+  border: 3px solid rgb(223, 169, 255);
+  cursor: pointer;
+  outline: none;
+}
+.main-login-button:hover{
+  background-color: #bea2ff;
+}
 
 .logo-box {
   display: flex;

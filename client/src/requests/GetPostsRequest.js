@@ -2,7 +2,9 @@ const sendGetPostsRequest = async(state, page, size, category, sortBy, setLoadin
     try{
         /* console.log(`category: ${category}, sortBy: ${sortBy}`);
         console.log('state: ', state); */
-        const response = await fetch(`http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}&member-id=${state.memberId}`,
+        const url = category === 'MY' ? `http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}&member-id=${state.memberId}` :
+            `http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}`;
+        const response = await fetch(url,
             {
                 method: 'GET',
                 headers: {

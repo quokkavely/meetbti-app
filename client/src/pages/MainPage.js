@@ -17,13 +17,15 @@ const Header = (props) => {
         <div className='logo-img' onClick={() => navigate('/')}>
           <img src="/public-img/Main-logo.png" alt='메인로고'/>
         </div>
+        {!props.login ? <button className='main-login-button' onClick={() => navigate('/login')}>로그인</button> : 
         <div className="user-icon-container">
           <div className='user-nickname'>
               <div className='user-name-box'>{props.userNickname} 님</div>
               <div className='user-welcome'>반갑습니다!</div>
           </div>
-          <img src="/public-img/profile.png" alt="사용자 아이콘" onClick={() => navigate(props.login ? '/mypage' : '/login')}/>
-        </div>
+          <img src="/public-img/profile.png" alt="사용자 아이콘" 
+            onClick={() => navigate(props.state.email.email === 'admin@gmail.com' ? '/report' : '/mypage')}/>
+        </div>}
         {props.state.isAuthenticated && <button className = 'logout-button' onClick={() => {
           if(window.confirm('로그아웃하시겠어요?')){
             sendLogoutRequest(props.state, props.logout)
@@ -190,7 +192,7 @@ const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [nickname, setNickname] = useState('Unknown');
 
-  /* console.log('state: ', state); */
+  console.log('state: ', state);
 
   useEffect(() => {
     console.log('메인 페이지 로드!')

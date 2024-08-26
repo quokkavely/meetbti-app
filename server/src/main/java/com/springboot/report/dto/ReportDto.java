@@ -33,6 +33,7 @@ public class ReportDto {
         private Report.ReportStatus status;
         private Post post;
         private Comment comment;
+        private long reportId;
     }
 
 }

@@ -65,7 +65,7 @@ const HistorySection = () => {
             {myHearts.data.length === 0 ? <div>좋아요 이력이 없어요</div> : myHearts.data.map((item, index) => (
                 <div
                     className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
-                    /* onClick={navigate(`postpage?postId`)} */
+                    /* onClick={() => navigate(`postpage?postId`)} */
                 >
                     <div className="history-content-text">{item.title}</div>
                     <div className="history-content-date">{item.date}</div>

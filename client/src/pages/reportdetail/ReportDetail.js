@@ -2,43 +2,58 @@ import ReportItem from "../../components/report_item/ReportItem";
 import Header from "../../components/basic_css/Header";
 import './ReportDetail.css';
 import Dropdown from "../../components/dropdown/Dropdown";
+import { useEffect, useState } from "react";
+import sendGetSingleReportRequest from "../../requests/GetSingleReportRequest";
+import { useAuth } from '../../auth/AuthContext';
+import { useLocation, useNavigate } from "react-router-dom";
+import sendPatchReportRequest from "../../requests/PatchReportRequest";
 
-function ReporterAndTarget(props){
-    return (
-        <div className="reporter-target">
-            <div className="reporter-item">
-                <span className="type">신고자</span>
-                <span className="name">{props.reporter}</span>
-            </div>
-            <div className="report-arrow">{'>'}</div>
-            <div className="target-item">
-                <span className="type">대상</span>
-                <span className="name">{props.target}</span>
-            </div>
-        </div>
-    );
-}
-
-function ReportButtonContainer(){
+function ReportButtonContainer({ state, navigate, reportId, nickname, banDay, setBanDay }){
     return (
         <div className="ban-button-container">
-            <Dropdown description='정지 기간 선택' option={['3일 정지', '7일 정지', '30일 정지']}></Dropdown>
-            <button className="ban-button">제재 승인</button>
+            <Dropdown 
+            description='정지 기간' 
+            option={['3일', '7일', '30일']}
+            setBanDay = {setBanDay}
+            ></Dropdown>
+            <button className="ban-button" onClick={() => {
+                if(window.confirm(`${nickname} 회원을 ${banDay}일간 제재하시겠어요?`)){
+                    sendPatchReportRequest(state, reportId, 'accepted', banDay, navigate);
+                }
+            }}>제재 승인</button>
+            <button className="ban-button" onClick={() => {
+                if(window.confirm(`별도의 제재 없이 신고를 삭제하시겠어요?`)){
+                    sendPatchReportRequest(state, reportId, 'rejected', '0', navigate);
+                }
+            }}>기각</button>
         </div>
     );
 }
 
 const ReportDetail = () => {
-const currentTime = new Date().toLocaleString();
+    const currentTime = new Date().toLocaleString();
+    const { state } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const [reportData, setReportData] = useState({data:{}});
+    const [isLoading, setLoading] = useState(true);
+    const [banDay, setBanDay] = useState(3);
+
+    useEffect(() => {
+        sendGetSingleReportRequest(state, params.get('reportId'), setReportData, setLoading);
+    }, []);
     return (
         <div className="app">
             <Header></Header>
-            <div className="report">
-                <ReportItem type='치와와 신고' time={currentTime} checkbox={false}></ReportItem>
+            {isLoading ? <div></div> : <div className="report">
+                <ReportItem type={reportData.post.title} time={currentTime} checkbox={false}></ReportItem>
                 {/* <ReporterAndTarget reporter='옥결' target='치와와'></ReporterAndTarget> */}
-                <div className="report-content">그냥 신고하고 싶어요. 제재시켜 주세요.</div>
-            </div>
-            <ReportButtonContainer></ReportButtonContainer>
+                <div>{reportData.post.content}</div>
+                <div className="report-content">{'신고 사유: ' + reportData.reason}</div>
+            </div>}
+            <ReportButtonContainer state = {state} navigate = {navigate} nickname = {reportData.nickname} reportId = {reportData.reportId} 
+            banDay = {banDay} setBanDay = {setBanDay}></ReportButtonContainer>
         </div>
     );
 }
