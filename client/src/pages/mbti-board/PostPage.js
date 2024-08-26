@@ -34,7 +34,7 @@ const PostPageContent = ({ post }) => {
 
 
 // 포스트 액션 컴포넌트
-const PostActions = ({ state, postId, postAuthor, username, likes, propsliked, setLoading, setPostData }) => {
+const PostActions = ({ state, navigate, postId, postAuthor, username, likes, propsliked, setLoading, setPostData }) => {
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(propsliked);
   const [showModal, setShowModal] = useState(false);
@@ -65,6 +65,7 @@ const PostActions = ({ state, postId, postAuthor, username, likes, propsliked, s
   const handleReport = () => {
     /* console.log('신고 사유:', selectedReason); */
     sendReportPostRequest(state, postId, selectedReason);
+    alert('신고가 접수되었어요')
     closeModal();
   };
   const isReportable = () => {
@@ -77,24 +78,30 @@ const PostActions = ({ state, postId, postAuthor, username, likes, propsliked, s
   }
 
   return (
-    <div className="post-actions">
-      <button
-        className="like-button"
-        onClick={handleLike}
-        style={{ backgroundColor: liked ? '#e3ccf6' : '#ccc' }}
-      >
-        ❤️ 좋아요 {likeCount}
-      </button>
-      {isReportable() && <button className="alert-button-main" onClick={handleAlert}>
-        <img src="public-img/alert-img.png" alt="신고하기" />
-      </button>}
-      <AlertModal
-        showModal={showModal}
-        closeModal={closeModal}
-        handleRadioChange={handleRadioChange}
-        handleReport={handleReport}
-        selectedReason={selectedReason}
-      />
+    <div>
+      <div className="post-actions">
+        <button
+          className="like-button"
+          onClick={handleLike}
+          style={{ backgroundColor: liked ? '#e3ccf6' : '#ccc' }}
+        >
+          ❤️ 좋아요 {likeCount}
+        </button>
+        {isReportable() && <button className="alert-button-main" onClick={handleAlert}>
+          <img src="public-img/alert-img.png" alt="신고하기" />
+        </button>}
+        <AlertModal
+          showModal={showModal}
+          closeModal={closeModal}
+          handleRadioChange={handleRadioChange}
+          handleReport={handleReport}
+          selectedReason={selectedReason}
+        />
+      </div>
+      {postAuthor === username && <div className='post-modify-container'>
+        <button className='post-modify-button' onClick={() => navigate(`/registPost?postId=${postId}&action=modify`)}>수정</button>
+        <button className='post-modify-button'>삭제</button>
+      </div>}
     </div>
   );
 };
@@ -186,6 +193,7 @@ const CommentInput = ({ state, postId, setLoading, setPostData}) => {
 
 const PostPage = () => {
   const { state } = useAuth();
+  const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const [loading, setLoading] = useState(true);
@@ -203,7 +211,7 @@ const PostPage = () => {
       <Header />
       {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
       {!loading && <PostPageContent post={postData.data} />}
-      {!loading && <PostActions state={state} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
+      {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
       {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading} setPostData={setPostData}/>}

@@ -104,16 +104,6 @@ const Filter = (props) => {
     );
 };
 
-// 포스트 컴포넌트
-const dummyData = [
-    { title: "경범이는 치와와", views: 24200, likes: 2234, comments: 3254 },
-    { title: "원일이의 은밀한 사생활 썰 푼다.", views: 97245, likes: 9999, comments: 9999 },
-    { title: "광희랑 민준이랑 구글 갔냐?", views: 92, likes: 1, comments: 23 },
-    { title: "(실시간) 경범이 제주도 대저택 사진", views: 42875, likes: 4234, comments: 5254 },
-    { title: "럭키, 바닐라, 라떼는 사실...", views: 3855, likes: 271, comments: 2872 },
-    { title: "프로젝트 원래 이렇게 힘든거냐 ㅠㅠ", views: 74207, likes: 6754, comments: 7735 },
-];
-
 // 게시판 컴포넌트
 const Board = (props) => {
     const navigate = useNavigate();
@@ -153,7 +143,7 @@ const WriteButton = (props) => {
                     alert('다른 MBTI게시판에는 게시글을 등록할 수 없어요');
                     return;
                 }
-                navigate(`/registPost?category=${props.category}`);
+                navigate(`/registPost?category=${props.category}&action=post`);
                 }}>글쓰기</button>
         </div>
     );

@@ -198,3 +198,22 @@
   width: 40px;
   height: 36px;
 }
+
+.post-modify-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.post-modify-button{
+  width: 68px;
+  margin-left: 7px;
+  margin-right: 7px;
+  height: 20px;
+  border: none;
+  border-radius: 7px;
+  background-color: rgb(211, 183, 238);
+  color: white;
+}
+.post-modify-button:hover{
+  background-color: rgb(197, 139, 252);
+}

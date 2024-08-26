@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './RegistPost.css';
 import sendPostPostRequest from '../../requests/PostPostRequest';
 import { useAuth } from '../../auth/AuthContext';
+import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
+import sendPatchPostRequest from '../../requests/PatchPostRequest';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -26,20 +28,20 @@ const Header = () => {
   };
 
 // document.execCommand 사용하면 안됨. 리액트 문법 사용해야 함.
-const PostTitle = ({setTitle}) => {
+const PostTitle = ({setTitle, value}) => {
     return (
     <div className='input-post-title'>
-        <input type="text" placeholder='제목을 입력하세요' className='title-input' 
+        <input type="text" value = {value} placeholder='제목을 입력하세요' className='title-input' 
         onChange={(e) => setTitle(e.target.value)}/>
     </div>
     );
   };
 
-const PostContent = ({ setContent }) => {
+const PostContent = ({ setContent, value }) => {
     const editorRef = useRef(null);
   
     const handleContentChange = (e) => {
-        setContent(e.target.innerHTML);
+        setContent(e.target.value);
     };
     
     return (
@@ -65,15 +67,16 @@ const PostContent = ({ setContent }) => {
                     }
                 }}>🔗</button>
             </div>
-            <div 
+            <textarea 
                 className="editor"
+                value = {value}
                 ref={editorRef}
                 contentEditable={true}
-                onInput={handleContentChange}
+                onChange={handleContentChange}
                 placeholder={`# 사진은 1장까지 첨부가 가능합니다.
 # 남을 비방하거나 욕설이 섞인 게시물은 삭제될 수 있습니다.`}
                 style={{width: '100%', maxWidth: '480px'}}
-            ></div>
+            ></textarea>
         </div>
     );
 };
@@ -107,23 +110,37 @@ const AttachImage = ({ setFileName }) => {
         </div>
     );
 };
-const submitPost = (state, navigate, title, content, category, image) => {
+const submitPost = (state, navigate, memberId, title, content, params, image) => {
     if(title === ''){
         alert('제목을 입력해주세요');
+        return;
     }
     if(content === ''){
         alert('본문을 입력해주세요');
+        return;
     }
-    if(window.confirm('게시글을 등록하시겠어요?')){
-        const contentObject = {title: title, content: content, category: category, image: 'image'};
-        sendPostPostRequest(state, contentObject, navigate);
-    } 
+    if(params.get('action') === 'post'){
+        if(window.confirm('게시글을 등록하시겠어요?')){
+            const contentObject = {title: title, content: content, category: params.get('category'), image: 'image'};
+            sendPostPostRequest(state, contentObject, navigate);
+            return;
+        } 
+    }
+    if(params.get('action') === 'modify'){
+        if(window.confirm('게시글을 수정하시겠어요?')){
+            const contentObject = {title: title, content: content, category: params.get('category'), image: 'image'};
+            sendPatchPostRequest(state, params.get('postId'), memberId, title, content, navigate);
+            return;
+        }
+    }
 }
 
-const RegistButton = (props) => {
+const RegistButton = ({ state, navigate, memberId, title, content, params, image }) => {
     return (
         <div className='regist-button'>
-            <button onClick={() => submitPost(props.state, props.navigate, props.title, props.content, props.params.get('category'))}>등록</button>
+            <button onClick={() => submitPost(state, navigate, state.memberId, title, 
+            content, params, image           
+            )}>등록</button>
         </div>
     );
 };
@@ -135,9 +152,23 @@ const RegistPostPage = () => {
     const { state } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [fileName, setFileName] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if(params.get('action') === 'modify'){
+            sendGetSinglePostsRequest(state, params.get('postId'), setLoading, 
+            (data) => {
+                console.log('게시글 정보 적용중...');
+                setTitle(data.data.title); 
+                setContent(data.data.content);
+                setFileName(data.data.image);
+            }, undefined);
+        }
+    }, []);
 
     const handleSubmit = () => {
         // 게시글 등록 로직 추가
@@ -154,10 +185,17 @@ const RegistPostPage = () => {
     return (
       <div className="app">
         <Header />
-        <PostTitle setTitle={setTitle} />
-        <PostContent setContent={setContent} />
+        <PostTitle setTitle={setTitle} value={title}/>
+        <PostContent setContent={setContent} value={content}/>
         <AttachImage setFileName={setFileName} />
-        <RegistButton state = {state} navigate = {navigate} title = {title} content = {content} params = {new URLSearchParams(location.search)} />
+        <RegistButton
+         state = {state}
+         navigate = {navigate} 
+         title = {title} 
+         content = {content} 
+         params = {new URLSearchParams(location.search)}
+         image= {fileName}
+         />
       </div>
     );
   };
