@@ -59,6 +59,13 @@ public class JwtVerifiedFilter extends OncePerRequestFilter {
         Map<String, Object> claims = jwtTokenizer.getClaims(jws,base64EncodedSecretKey).getBody();
         return claims;
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String authorization = request.getHeader("Authorization");
+        return authorization == null || !authorization.startsWith("Bearer");
+    }
+
     private void setAuthenticationToContext (Map<String,Object> claims) {
 
         Integer memberId = (Integer) claims.get("memberId");

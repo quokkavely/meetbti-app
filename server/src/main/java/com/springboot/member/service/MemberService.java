@@ -114,12 +114,13 @@ public class MemberService {
     }
 
     //email을 통해 회원이 DB에 존재하는지 확인하는 메서드
-    private void verifiedExistEmail(String email) {
+    public boolean verifiedExistEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
 
         if (optionalMember.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.EMAIL_ALREADY_EXIST);
         }
+        return false;
     }
 
     //닉네임이 중복되는지 확인하는 메서드
@@ -129,9 +130,10 @@ public class MemberService {
         if (optionalMember.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.NICKNAME_ALREADY_EXIST);
         }
-
         return false;
     }
+
+
 
     //OAuth2에서 memberId를 반환하는 메서드
     public long findMemberIdByOauth2User(OAuth2User oAuth2User) {

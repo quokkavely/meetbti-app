@@ -50,6 +50,7 @@ public class TestResultController {
                                          /*@Positive @RequestParam(name = "member-id") Long memberId,*/
                                          Authentication authentication) {
         /*if (memberId == null) throw new IllegalArgumentException("Member ID is required");*/
+        Principal principal = (Principal) authentication.getPrincipal();
 
         Page<TestResult> pageTestResult = testResultService.findTestResults(page - 1, size, authentication);
 
@@ -58,14 +59,14 @@ public class TestResultController {
         return new ResponseEntity<>(new MultiResponseDto<>(testResultMapper.testResultsToTestResultResponseDtos(testResults), pageTestResult), HttpStatus.OK);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity getLatestTestResult(Authentication authentication) {
-
-        Principal principal = (Principal) authentication.getPrincipal();
-        Member member = memberService.findMember(principal.getMemberId());
-
-
-        return new ResponseEntity<>(new SingleResponseDto<>(member.getTestResults().get(member.getTestResults().size() -1)), HttpStatus.OK);
-    }
+//    @GetMapping("/me")
+//    public ResponseEntity getLatestTestResult(Authentication authentication) {
+//
+//        Principal principal = (Principal) authentication.getPrincipal();
+//        Member member = memberService.findMember(principal.getMemberId());
+//
+//
+//        return new ResponseEntity<>(new SingleResponseDto<>(member.getTestResults().get(member.getTestResults().size() -1)), HttpStatus.OK);
+//    }
 
 }

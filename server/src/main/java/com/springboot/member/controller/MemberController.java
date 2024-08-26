@@ -57,7 +57,7 @@ public class MemberController {
         }
         return ResponseEntity.created(location).build();
     }
-    @PostMapping("/me/change-password")
+    @PostMapping("/mypage/password")
     public ResponseEntity changePassword(@RequestBody @Valid MemberDto.ChangePw changePwDto,
                                          Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
@@ -71,7 +71,7 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PatchMapping("/me")
+    @PatchMapping("/mypage")
     public ResponseEntity patchMember(@Valid @RequestBody MemberDto.Patch patchDto,
                                       Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
@@ -88,7 +88,12 @@ public class MemberController {
         boolean isDuplicate = memberService.verifiedExistNickname(nickName);
         return ResponseEntity.ok(isDuplicate);
     }
-    @GetMapping("/me")
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmailDuplicate(@RequestParam String email) {
+        boolean isDuplicate = memberService.verifiedExistEmail(email);
+        return ResponseEntity.ok(isDuplicate);
+    }
+    @GetMapping("/mypage")
     public ResponseEntity getMember(Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -96,7 +101,7 @@ public class MemberController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberToResponseDto(member)), HttpStatus.OK);
     }
-    @DeleteMapping("/me")
+    @DeleteMapping
     public ResponseEntity deleteMember(Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
