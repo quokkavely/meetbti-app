@@ -1,6 +1,6 @@
 package com.springboot.auth.filter;
 
-import src/main/java/com/springboot/balancegame/controller/BalanceGameController.javacom.springboot.auth.jwt.JwtTokenizer;
+import com.springboot.auth.jwt.JwtTokenizer;
 import com.springboot.auth.utils.JwtAuthorityUtils;
 import com.springboot.auth.utils.Principal;
 import io.jsonwebtoken.ExpiredJwtException;
