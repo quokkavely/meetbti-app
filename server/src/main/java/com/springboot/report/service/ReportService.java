@@ -99,7 +99,7 @@ public class ReportService {
     public Page<Report> findReports(int page, int size, Report.ReportStatus status) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-
+        
         if (status != null) {
             return reportRepository.findAllByStatus(status, pageable);
         } else {
