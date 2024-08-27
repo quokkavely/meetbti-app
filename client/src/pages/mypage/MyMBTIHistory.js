@@ -58,11 +58,11 @@ const HistorySection = () => {
             </div>
         );
     }
-
+    console.log('page: ', page);
     return (
         <div className="history-section">
             <div className='histories-container'>
-                {historyData.data.map((item, index) => (
+                {historyData.data.slice().reverse().map((item, index) => (
                     <div
                         className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                         key={index}
@@ -72,13 +72,15 @@ const HistorySection = () => {
                                 <div className="history-content-text">{item.mbti}</div>
                                 <div className="history-content-date">{item.createdAt}</div>
                             </div>
-                            {index + (historyData.pageInfo.page-1) * historyData.pageInfo.size === historyData.pageInfo.totalElements - 1 && <div className='latest-mark'>LATEST</div>}
+                            {/* index + (historyData.pageInfo.page-1) * historyData.pageInfo.size === historyData.pageInfo.totalElements - 1 */
+                            (index === 0 && page === 1)
+                             && <div className='latest-mark'>LATEST</div>}
                         </div>
                     </div>
                 ))}
             </div>
             {(historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}
-            {historyData.data.length === 0 ? <div></div> : <PageContainer currentPage = {page} pageInfo = {historyData.pageInfo}
+            {historyData.data.length === 0 ? <div></div> : <PageContainer currentPage = {page} pageInfo = {historyData.pageInfo} setPageOriginal={setPage}
              getPage = {(page) => sendMbtiTestResultsRequest(state, page, 6, setLoading, setHistoryData)}></PageContainer>}
         </div>
     );

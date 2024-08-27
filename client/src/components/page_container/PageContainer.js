@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './PageContainer.css';
 
-const PageContainer = ({ currentPage, pageInfo, getPage }) => {
+const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
     const [page, setPage] = useState(currentPage);
     let pages = [page];
     if(page > 1){
@@ -26,6 +26,7 @@ const PageContainer = ({ currentPage, pageInfo, getPage }) => {
                 if(page > 1){
                     getPage(page - 1);
                     setPage(page - 1);
+                    setPageOriginal(page - 1);
                 }
                 }}>{'<'}</button>
             <div>
@@ -37,6 +38,7 @@ const PageContainer = ({ currentPage, pageInfo, getPage }) => {
                     }
                     getPage(value);
                     setPage(value);
+                    setPageOriginal(value);
                 }}
                 style={{color: page === value ? '#a883b5' : 'black', fontWeight: page === value ? 'bold' : 100}}
                 >{value}</button>)}
@@ -45,6 +47,7 @@ const PageContainer = ({ currentPage, pageInfo, getPage }) => {
                 if(page < pageInfo.totalPage){
                     getPage(page + 1);
                     setPage(page + 1);
+                    setPageOriginal(page + 1);
                 }
                 }}>{'>'}</button>
         </div>

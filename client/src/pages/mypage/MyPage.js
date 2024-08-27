@@ -22,10 +22,11 @@ const HeaderComponent = () => {
 
 // 마이페이지 유저 정보 컴포넌트
 const MyPageUserInfoContainer = (props) => {
+    const profile = props.profileImg === undefined ? `/mbti-img/${props.mbti}.png` : props.profileImg;
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
-                <img src="/MBTI-img/INFJ.png" alt="mypage-user-info-img" />
+                <img src={`/mbti-img/${props.mbti}.png`} alt="mypage-user-info-img" />
             </div>
             <div className="mypage-user-info-section">
                 <div className="mypage-user-info-section-badge"> {props.mbti} </div>
