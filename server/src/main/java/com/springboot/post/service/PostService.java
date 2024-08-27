@@ -91,7 +91,7 @@ public class PostService {
             return postRepository.findByCategoryAndPostStatusNot(pageable, category, Post.PostStatus.DELETED);
         }
     }
-    public Page<Post> findPostsByMember(int page, int size, long memberId, String standard, String category) {
+    public Page<Post> findPostsByMember(int page, int size, long memberId, String standard) {
         Pageable pageable = createPageable(page, size, standard);
 
         Member findMember = memberService.findMember(memberId);
