@@ -5,8 +5,8 @@ import { useAuth } from '../../auth/AuthContext';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
-import sendGetImageGameRequest from '../../requests/GetPostImageGameRequest';
-import sendGetPostImageGameRequest from '../../requests/GetPostImageGameRequest';
+import sendGetImageGameRequest from '../../requests/GetImageGamesRequest';
+import sendGetImageGamesRequest from '../../requests/GetImageGamesRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -117,7 +117,7 @@ const ImageGameMain = () => {
         const param = params.get('gameId'); // 'param' 변수를 올바르게 초기화
         sendGetMyinfoRequest(state, updateMyData);
         sendGetImageGameRequest(state, 1, 3, setLoading, setGames, param);
-        sendGetPostImageGameRequest(state, 1, 3, setLoading, setPostImageGame, param); // 'page', 'size', 'gameId' 변수 수정
+        sendGetImageGamesRequest(state, 1, 3, setLoading, setPostImageGame, param); // 'page', 'size', 'gameId' 변수 수정
         console.log("이미지 게임 페이지 로딩 완료");
     }, []);
 
@@ -125,7 +125,7 @@ const ImageGameMain = () => {
         // 페이지 변경 시 데이터를 다시 로드
         const param = params.get('gameId');
         sendGetImageGameRequest(state, currentPage, itemsPerPage, setLoading, setGames, param);
-        sendGetPostImageGameRequest(state, currentPage, itemsPerPage, setLoading, setPostImageGame, param);
+        sendGetImageGamesRequest(state, currentPage, itemsPerPage, setLoading, setPostImageGame, param);
     }, [currentPage]);
 
     return (
