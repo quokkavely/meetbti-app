@@ -42,6 +42,11 @@ public class TestResultController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)), HttpStatus.CREATED);
     }
+
+    /*@GetMapping
+    public ResponseEntity getLastTestResult(Authentication authentication){
+        testResultService.fi
+    }*/
     @GetMapping
     public ResponseEntity getTestResults(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size,

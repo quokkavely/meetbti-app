@@ -340,10 +340,7 @@ const TestResult = () => {
   // 실제로는 API 호출 등을 통해 mbtiResult 값을 설정할 수 있습니다.
   useEffect(() => {
     // 예시로 setTimeout을 사용하여 2초 후에 결과값을 변경
-    setTimeout(() => {
-      setFirstMbtiResult('INFJ');
-      setSecondMbtiResult('INFP');
-    }, 1000);
+    
   }, []);
 
   console.log('TestResult 렌더링');

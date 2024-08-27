@@ -47,6 +47,15 @@ public class TestResultService {
 
         return testResultRepository.save(testResult);
     }
+    public TestResult findLastResult(Authentication authentication){
+        Principal principal = (Principal) authentication.getPrincipal();
+        Member findMember = memberService.findMember(principal.getMemberId());
+        if(findMember.getTestResults().isEmpty()){
+            throw new BusinessLogicException(ExceptionCode.TEST_RESULT_NOT_FOUND);
+        }
+        List<TestResult> testResults = findMember.getTestResults();
+        return verifiedExistTestResult(testResults.get(testResults.size() - 1).getTestResultId());
+    }
     public Page<TestResult> findTestResults(int page, int size, Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
