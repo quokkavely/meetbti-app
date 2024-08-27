@@ -12,27 +12,6 @@
   box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
 }
 
-/* 오버레이 섹션(반짝이 느낌) */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 92%;
-  background: linear-gradient(105deg,
-  transparent 40%,
-  rgba(255, 255, 255, 0.8) 45%,
-  rgba(198, 246, 227, 0.6) 50%,
-  rgba(196, 248, 255, 0.6) 54%,    
-  transparent 45%);
-  filter: brightness(0.8) opacity(0.6);
-  mix-blend-mode: color-dodge;
-  background-size: 150% 150%;
-  background-position: 100%;
-  pointer-events: none;
-  transition: all 0.1s;
-}
-
 
 /* 결과 특징 섹션 */
 
@@ -258,18 +237,19 @@
 .second-mbti {
 }
 
-.logo-icon {
+.logo-icon-result {
   display: flex;
   justify-content: center;
-  align-items: center;    
-  width: 80px;
-  height: auto;
-  overflow: hidden;
+  align-items: center; 
+  padding-top: 120px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
 }
 
-.logo-icon img {
-  width: 100%;
-  height: auto;
+.logo-icon-result img {
+  width: 150px;
+  height: 150px;
 }
 
 /* 네비게이션 버튼 섹션 */
