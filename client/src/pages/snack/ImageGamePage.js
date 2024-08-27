@@ -4,7 +4,6 @@ import './ImageGamePage.css';
 import { VoteContext } from '../../context/VoteContext';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendGetSingleImageGameRequest from '../../requests/GetSingleImageGameRequest';
 
 const mbtiButtonsA = [{id:'ENFP'}, {id:'ESFJ'}, {id:'ISFP'}, {id:'ESFP'}, {id:'ESTP'}, {id:'ISTJ'}, {id:'INTJ'}, {id:'ENTP'}];
@@ -16,6 +15,8 @@ function MbtiButton(props){
     const navigate = useNavigate();
     const { gameId } = useParams();
     const [isVoted, setIsVoted] = useState(false);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
 
     useEffect(() => {
         const votedGames = JSON.parse(localStorage.getItem('votedGames')) || [];  // 로컬 스토리지에서 투표한 게임 목록을 가져옴
@@ -32,10 +33,10 @@ function MbtiButton(props){
         }
         addVote(props.name); // 투표 기능 호출
         const votedGames = JSON.parse(localStorage.getItem('votedGames')) || [];
-        votedGames.push(gameId); // 투표한 게임 목록에 현재 게임 추가
+        votedGames.push(gameId) // 투표한 게임 목록에 현재 게임 추가
         localStorage.setItem('votedGames', JSON.stringify(votedGames)); // 로컬 스토리지에 투표한 게임 목록 저장
-        localStorage.setItem('votedMbti', props.imageGameId); // 로컬 스토리지에 투표한 MBTI 저장
-        navigate('/imagegame-result'); // 결과 페이지로 이동
+        localStorage.setItem('votedMbti', props.name); // 로컬 스토리지에 투표한 MBTI 저장
+        navigate(`/imagegame-result?gameId=${params.get("gameId")}`); // 결과 페이지로 이동
     };
 
     return (
@@ -50,38 +51,34 @@ function MbtiButton(props){
     );
 }
 
-
-
-const ImageGamePage = (props) => {
+const ImageGamePage = ( ) => {
     const { state } = useAuth(); // 인증 상태를 가져옴
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const [imageGameData, setImageGameData] = useState({data:{}});
+    const gameId = params.get("gameId");
+    const [imageGameData, setImageGameData] = useState({data:{}}); // 초기값 빈 객체
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     //서버에서 가져오는 부분
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await sendGetSingleImageGameRequest(state, params.get("gameId"), () => setImageGameData, setLoading); // state를 인자로 전달
-            // 데이터를 받아와서 상태를 업데이트하는 로직 추가 가능
-            setImageGameData(data)
-        };
-        fetchData();
-        console.log("이미지 게임 페이지 로딩 완료");
-    }, [state]); // state가 변경될 때마다 useEffect 실행
+        sendGetSingleImageGameRequest(state, gameId, setImageGameData, setLoading, navigate);
+    }, []);
 
     return (
         <div className="app">
             <Header></Header>
             {loading ? <div /> : <div className="imagegame-title">{imageGameData.data.topic}</div>}
             {/* {!loading && <h2 className="imagegame-title">{imageGameData.data.topic}</h2>} */}
-            <div className="imagegame-author">작성자: {imageGameData.data.nickName} </div>
+            <div className="imagegame-author">작성자: {""} </div>
             <div className="imagegame-button-container-container">
                 <div className="imagegame-button-container">
-                    {mbtiButtonsA.map((value) => <MbtiButton key={value.id} name={value.id}></MbtiButton>)}
+                    {mbtiButtonsA.map((value) => (
+                        <MbtiButton key={value.id} name={value.id}></MbtiButton>))}
                 </div>
                 <div className="imagegame-button-container">
-                    {mbtiButtonsB.map((value) => <MbtiButton key={value.id} name={value.id}></MbtiButton>)}
+                    {mbtiButtonsB.map((value) => (
+                        <MbtiButton key={value.id} name={value.id}></MbtiButton>))}
                 </div>
             </div>
         </div>
