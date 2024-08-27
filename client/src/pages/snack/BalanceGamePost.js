@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import sendPostBalanceGameCommentRequest from '../../requests/PostBalanceGameCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendPostBalancegameResultRequest from '../../requests/PostBalanceGameResultRequest';
+import sendPostHeartRequest from '../../requests/PostHeartRequest';
 
 
 const AppContainerComponent = () => {
@@ -48,8 +49,8 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
         if(myData.data.mbti === 'NONE'){
             if(window.confirm('MBTI가 없어서 댓글을 등록할 수 없어요. 첫 테스트를 하러 가시겠어요?')){
                 navigate('/mbti-test');
-                return;
             }
+            return;
         }
         sendPostBalanceGameCommentRequest(state, params.get('gameId'), inputValue, setInputValue, 
         () => sendGetSingleBalanceGameRequest(state, params.get('gameId'), setGameData, setIsLoading)
@@ -60,25 +61,15 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
         if(myData.data.mbti === 'NONE'){
             if(window.confirm('MBTI가 없어서 투표할 수 없어요. 첫 테스트를 하러 가시겠어요?')){
                 navigate('/mbti-test');
-                return;
             }
+            return;
+        }
+        if(gameData.data.voted){
+            alert('이미 투표하셨어요');
+            return;
         }
         sendPostBalancegameResultRequest(state, params.get('gameId'), option, setSelectedOption,
         () => sendGetSingleBalanceGameRequest(state, params.get('gameId'), setGameData, setIsLoading));
-
-        /* if (selectedOption === null) {
-            setSelectedOption(option);
-            setVotes((prevVotes) => ({
-                ...prevVotes,
-                [option]: prevVotes[option] + 1
-            }));
-            // MBTI 투표 로직 추가
-            const userMbti = 'INTJ'; // 예시 MBTI, 실제로는 유저의 MBTI를 받아와야 함
-            setMbtiVotes((prevMbtiVotes) => ({
-                ...prevMbtiVotes,
-                [userMbti]: (prevMbtiVotes[userMbti] || 0) + 1
-            }));
-        } */
     };
 
     const totalVotes = gameData.data.lcount + gameData.data.rcount; //총 투표 수계산 (왼쪽 + 오른쪽 합)
@@ -124,7 +115,9 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
             </div>
 
             <div className="balance-post-count">
-                <div className="balance-post-heart-count-section">
+                <div className="balance-post-heart-count-section" onClick={() => sendPostHeartRequest(state, gameData.data.gameId, 'balancegames', 
+                    () => sendGetSingleBalanceGameRequest(state, params.get('gameId'), setGameData, setIsLoading)
+                )}>
                     <div className="balance-post-heart-img">❤️</div>
                     <div className="balance-post-heart-count">{gameData.data.heartCount}</div>
                 </div>

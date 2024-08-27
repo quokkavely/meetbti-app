@@ -1,8 +1,5 @@
-const sendPostBalanceGameCommentRequest = async(state, gameId, content, setInputValue, resetPostData) => {
+const sendUploadPostImageRequest = async(state, gameId, content, setInputValue, postPost) => {
     try{
-        /* console.log('state: ', state);
-        console.log('postId: ', gameId);
-        console.log('content: ', content); */
         const response = await fetch(`${process.env.REACT_APP_API_URL}/balancegames/${gameId}/balancegame-comments`,
             {
                 method: 'POST',
@@ -29,4 +26,4 @@ const sendPostBalanceGameCommentRequest = async(state, gameId, content, setInput
         console.error('댓글 등록 실패', error);
     }
 }
-export default sendPostBalanceGameCommentRequest;
+export default sendUploadPostImageRequest;

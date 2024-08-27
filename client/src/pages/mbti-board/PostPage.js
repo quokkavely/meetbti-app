@@ -12,7 +12,7 @@ import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import { useAuth } from '../../auth/AuthContext';
 import sendPostCommentRequest from '../../requests/PostCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
-import sendPostHeartOnPostRequest from '../../requests/PostHeartOnPost';
+import sendPostHeartRequest from '../../requests/PostHeartRequest';
 import sendReportPostRequest from '../../requests/ReportPostRequest';
 import sendDeletePostRequest from '../../requests/DeletePostRequest';
 
@@ -48,7 +48,7 @@ const PostActions = ({ state, navigate, postId, postAuthor, username, myMbti, li
       setLikeCount(likeCount + 1);
     }
     setLiked(!liked);
-    sendPostHeartOnPostRequest(state, postId, () => sendGetSinglePostsRequest(state, postId, setLoading, setPostData));
+    sendPostHeartRequest(state, postId, 'posts');
   };
 
   const handleAlert = () => {
