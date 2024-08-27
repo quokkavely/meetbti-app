@@ -177,3 +177,75 @@
     height: 140px;
     border-radius: 10px;
 }
+
+.profile-img-modify-button{
+    margin-left: 100px;
+    position: absolute;
+    margin-top: 60px;
+    border-radius: 5px;
+    border: 1px solid rgb(177, 159, 110);
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background-color: rgb(255, 231, 199);
+    cursor: pointer;
+}
+
+.image-input-modal-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.image-input-modal{
+    width: 500px;
+    height: 540px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    position: relative;
+}
+
+.close-button {
+    background: none;
+    color: #000000;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.profile-placeholder{
+    width: 290px;
+    margin-top: 80px;
+    margin-left: 105px;
+    border-radius: 150px;
+}
+.input-description{
+    color: gray;
+    font-size: 13px;
+    margin-top: 30px;
+    text-align: center;
+}
+.file-input-button{
+    margin-top: 15px;
+    margin-left: 85px;
+}
+.change-profile-confirm-button{
+    width: 80px;
+    height: 30px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(222, 187, 255);
+}
+.change-profile-confirm-button:hover{
+    background-color: #cd9df7;
+}
