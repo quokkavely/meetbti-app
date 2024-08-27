@@ -27,7 +27,7 @@ const PostPageContent = ({ post }) => {
         {/* <span>❤️ {post.heartCount}</span> 
         <span>💬 {post.comments.length}</span>  */}
       </div>
-      {post.image !== null && <img src={post.image} alt="post" className="post-image" />}
+      {post.postImage !== null && <img src={post.postImage} alt="post" className="post-image" />}
       <div className="post-text">{post.content}</div>
     </div>
   );

@@ -47,6 +47,7 @@ public class PostDto {
         private String image;
         private String nickName;
         private String mbti;
+        private String postImage;
         private int heartCount;
         private int viewCount;
         private int commentCount;

@@ -7,6 +7,7 @@ import sendGetSinglePostsRequest from '../../requests/GetSinglePostRequest';
 import sendPatchPostRequest from '../../requests/PatchPostRequest';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import sendUploadPostImageRequest from '../../requests/UploadPostImageRequest';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -77,15 +78,19 @@ const PostContent = ({ setContent, value }) => {
     );
 };
 
-const AttachImage = ({ setFileName }) => {
+const AttachImage = ({ setFileName, setImageFile }) => {
     const [fileName, setLocalFileName] = useState('');
+    
 
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
             const name = e.target.files[0].name;
             setLocalFileName(name);
             setFileName(name);
+            setImageFile(e.target.files[0]);
+            console.log('file: ', e.target.files[0]);
         }
+
     };
 
     return (
@@ -117,14 +122,16 @@ const submitPost = (state, navigate, memberId, title, content, params, image) =>
     }
     if(params.get('action') === 'post'){
         if(window.confirm('게시글을 등록하시겠어요?')){
-            const contentObject = {title: title, content: content, category: params.get('category'), image: 'image'};
-            sendPostPostRequest(state, contentObject, navigate);
+
+            const contentObject = {title: title, content: content, category: params.get('category')};
+            
+            sendUploadPostImageRequest(state, image, (data) => sendPostPostRequest(state, contentObject, navigate, data));
             return;
         } 
     }
     if(params.get('action') === 'modify'){
         if(window.confirm('게시글을 수정하시겠어요?')){
-            const contentObject = {title: title, content: content, category: params.get('category'), image: 'image'};
+            const contentObject = {title: title, content: content, category: params.get('category')};
             sendPatchPostRequest(state, params.get('postId'), memberId, title, content, navigate);
             return;
         }
@@ -153,6 +160,7 @@ const RegistPostPage = () => {
     const [content, setContent] = useState('');
     const [fileName, setFileName] = useState('');
     const [loading, setLoading] = useState(true);
+    const [imageFile, setImageFile] = useState(null);
 
     useEffect(() => {
         if(params.get('action') === 'modify'){
@@ -165,18 +173,6 @@ const RegistPostPage = () => {
             }, undefined);
         }
     }, []);
-
-    const handleSubmit = () => {
-        // 게시글 등록 로직 추가
-        const postData = {
-            title,
-            content,
-            fileName,
-        };
-        console.log('게시글 등록:', postData);
-        // 등록 후 페이지 이동
-        navigate('/MBTIBoard');
-    };
     
     return (
       <div className="app">
@@ -184,14 +180,14 @@ const RegistPostPage = () => {
         <HeaderComponent />
         <PostTitle setTitle={setTitle} value={title}/>
         <PostContent setContent={setContent} value={content}/>
-        <AttachImage setFileName={setFileName} />
+        <AttachImage setFileName={setFileName} setImageFile={setImageFile} />
         <RegistButton
          state = {state}
          navigate = {navigate} 
          title = {title} 
          content = {content} 
          params = {new URLSearchParams(location.search)}
-         image= {fileName}
+         image= {imageFile}
          />
       </div>
     );

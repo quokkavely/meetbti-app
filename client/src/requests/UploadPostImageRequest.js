@@ -1,29 +1,36 @@
-const sendUploadPostImageRequest = async(state, gameId, content, setInputValue, postPost) => {
+const sendUploadPostImageRequest = async(state, imageFile, executeAfter) => {
     try{
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/balancegames/${gameId}/balancegame-comments`,
+        console.log('imageFile: ', imageFile);
+
+        const formData = new FormData();
+        formData.append('file', imageFile);
+
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/upload-image`,
             {
                 method: 'POST',
                 headers: {
-                    'content-Type': 'application/json',
+                    // 'content-Type': 'multipart/form-data',
                     'Authorization': `${state.token}`,
                 },
-                body: JSON.stringify({
+                /* body: JSON.stringify({
                     content: content
-                }),
+                }), */
+                body: formData,
             }
             
         );
         if(response.ok){
-            console.log('댓글 등록 성공');
-            setInputValue('');
-            if(resetPostData !== undefined){
-                resetPostData();
-            }
+            console.log('이미지 첨부 성공');
+            const data = await response.text();
+            console.log('data: ', data);
+            
+            executeAfter(data);
+
         }else{
-            console.log('댓글 등록 실패: ', response.status);
+            console.log('이미지 첨부 실패: ', response.status);
         }
     } catch (error){
-        console.error('댓글 등록 실패', error);
+        console.error('이미지 첨부 실패', error);
     }
 }
 export default sendUploadPostImageRequest;

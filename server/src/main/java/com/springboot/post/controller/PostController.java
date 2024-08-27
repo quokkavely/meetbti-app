@@ -48,7 +48,7 @@ public class PostController {
         this.s3Service = s3Service;
     }
     @PostMapping
-    public ResponseEntity createPost(@Valid @ModelAttribute PostDto.Create createDto,
+    public ResponseEntity createPost(@Valid @RequestBody PostDto.Create createDto,
                                      Authentication authentication) {
         Principal principal = (Principal) authentication.getPrincipal();
 
@@ -66,7 +66,7 @@ public class PostController {
         return ResponseEntity.created(location).build();
     }
     @PostMapping("/upload-image")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestParam(value = "file",required = false) MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND);
         }
