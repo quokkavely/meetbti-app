@@ -48,7 +48,7 @@
     height: 280px;
     border-radius: 10px;
     border: none;
-    background-color: #eeeeee;
+    background-color: #dad9db;
     margin: 0 10px;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -62,6 +62,7 @@
 
 .selected {
     background-color: #F5EAFF;
+    border: 7px solid rgb(206, 161, 248);
 }
 
 .compressed {

@@ -29,7 +29,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
     const { state } = useAuth();
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState(gameData.data.selectedOption);
     const [votes, setVotes] = useState({ left: 0, right: 0 });
     const [mbtiVotes, setMbtiVotes] = useState({});
     const location = useLocation();
@@ -44,6 +44,11 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
     useEffect(() => {
         sendGetMyinfoRequest(state, setMyData);
     }, []);
+    useEffect(() => {
+        if (gameData.data.selectedOption) {
+            setSelectedOption(gameData.data.selectedOption);
+        }
+    }, [gameData.data.selectedOption]);
 
     const handleSend = () => {
         if(myData.data.mbti === 'NONE'){
@@ -64,7 +69,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
             }
             return;
         }
-        if(gameData.data.voted){
+        if(gameData.data.selectedOption !== ''){
             alert('이미 투표하셨어요');
             return;
         }
@@ -85,7 +90,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
 
             <div className="balance-post-content">
                 <button 
-                    className={`balance-post-left ${selectedOption === 'left' ? 'selected' : ''} ${selectedOption === 'left' ? 'compressed' : ''} ${selectedOption !== null ? 'compressed' : ''}`} 
+                    className={`balance-post-left ${selectedOption === 'L' ? 'selected' : ''} ${selectedOption === '' ? 'compressed' : ''}`} 
                     onClick={() => handleVote('L')}
                 >
                     {gameData.data.leftOption}
@@ -99,7 +104,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
                     )}
                 </button>
                 <button 
-                    className={`balance-post-right ${selectedOption === 'right' ? 'selected' : ''} ${selectedOption === 'right' ? 'compressed' : ''} ${selectedOption !== null ? 'compressed' : ''}`} 
+                    className={`balance-post-right ${selectedOption === '' ? 'compressed' : ''}`} 
                     onClick={() => handleVote('R')}
                 >
                     {gameData.data.rightOption}

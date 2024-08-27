@@ -20,26 +20,7 @@ const HeaderComponent = () => {
     );
 };
 
-const BalanceGameContainer = (props) => {
-  const navigate = useNavigate();
-  return (
-    <div className='balancegame-component'>
-      <div className="balance-game-question">{props.title}</div>
-        <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
-            <div className="left-option-title"> {props.leftOption} </div>
-            <div className="vs"> vs </div>
-            <div className="right-option-title"> {props.rightOption} </div>
-          </div>
-         <div className="selectbox-count">
-            <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
-            <div className="balance-comment-count"> 💬 {props.commentCount} </div>
-            <div className="balance-status"> {props.isParticipated ? '참여완료' : '미참여'} </div>
-          </div>
-        </div>
-    </div>
-  );
-}
+
 
 const BalanceGame = ({ state, balancegames, navigate}) => {
 
@@ -56,7 +37,7 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
          <div className="selectbox-count">
             <div className="balance-heart-count"> ❤️ {props.heartCount} </div>
             <div className="balance-comment-count"> 💬 {props.commentCount} </div>
-            <div className="balance-status"> {props.isParticipated ? '참여완료' : '미참여'} </div>
+            <div className="balance-status"> {props.selectedOption === '' ? '미참여' : '참여완료'} </div>
           </div>
         </div>
       </div>
@@ -69,7 +50,7 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
       </div>
       <div className="balance-game-question-container">
         {balancegames.data.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
-        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated} gameId = {value.gameId}/>)}
+        heartCount={value.heartCount} commentCount={value.commentCount} selectedOption={value.selectedOption} gameId = {value.gameId}/>)}
         
       </div>
       <button className="suggest-button" onClick={() => navigate('/balancegameregist')}> 주제 제안하기 </button>

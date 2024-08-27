@@ -71,10 +71,10 @@ public interface BalanceGameMapper {
                 .orElse("NONE")
                 ;
         // 게임 참여했는지 여부
-        boolean voted = false;
+        String selectedOption = "";
         for(BalanceGameResult result : game.getResults()){
             if(principal.getMemberId() == result.getMember().getMemberId()){
-                voted = true;
+                selectedOption = result.getSelectedOption().toString();
                 break;
             }
         }
@@ -92,7 +92,7 @@ public interface BalanceGameMapper {
                 game.getComments().size(),
                 game.getHearts().size(),
                 game.getNickname(),
-                voted
+                selectedOption
         );
     };
     default List<BalanceGameDto.Response> gamesToResponseDtos(List<BalanceGame> games, Authentication authentication, BalanceGameCommentMapper commentMapper) {
