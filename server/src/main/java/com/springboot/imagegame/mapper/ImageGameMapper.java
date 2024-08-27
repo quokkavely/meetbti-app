@@ -42,6 +42,7 @@ public interface ImageGameMapper {
         }
 
         return new ImageGameDto.Response(
+                game.getImageGameId(),
                 game.getTopic(),
                 game.getNickName(),
                 game.getResults().size(),

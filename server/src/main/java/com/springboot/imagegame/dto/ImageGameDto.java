@@ -23,6 +23,7 @@ public class ImageGameDto {
     @Getter
     @AllArgsConstructor
     public static class Response {
+        private long gameId;
         private String topic;
         private String nickName;
         private int totalVotes;
