@@ -28,3 +28,25 @@
     border-radius: 10px;
     background-color: blueviolet;
 }
+.backoffice-radio{
+    display: flex;
+    justify-content: center;
+}
+.backoffice-radio-button{
+    width: 130px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border: 1px solid rgb(232, 209, 253);
+
+    background-color: rgb(210, 187, 253);
+    cursor: pointer;
+}
+.backoffice-radio-button-selected{
+    width: 130px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border: 1px solid rgb(232, 209, 253);
+
+    background-color: rgb(176, 157, 214);
+    cursor: pointer;
+}

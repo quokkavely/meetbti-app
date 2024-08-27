@@ -7,7 +7,7 @@ function ReportItem(props){
                 <div className="report-title">{props.type}</div>
                 <div className="report-time">{props.time}</div>
             </div>
-            {props.checkbox && <input type="checkbox" className="report-checkbox"></input>}
+            {/* {props.checkbox && <input type="checkbox" className="report-checkbox"></input>} */}
         </div>
     );
 }

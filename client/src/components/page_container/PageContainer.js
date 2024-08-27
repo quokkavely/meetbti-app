@@ -26,7 +26,9 @@ const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
                 if(page > 1){
                     getPage(page - 1);
                     setPage(page - 1);
-                    setPageOriginal(page - 1);
+                    if(setPageOriginal !== undefined){
+                        setPageOriginal(page - 1);
+                    } 
                 }
                 }}>{'<'}</button>
             <div>
@@ -38,7 +40,9 @@ const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
                     }
                     getPage(value);
                     setPage(value);
-                    setPageOriginal(value);
+                    if(setPageOriginal !== undefined){
+                        setPageOriginal(value);
+                    }
                 }}
                 style={{color: page === value ? '#a883b5' : 'black', fontWeight: page === value ? 'bold' : 100}}
                 >{value}</button>)}
@@ -47,7 +51,9 @@ const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
                 if(page < pageInfo.totalPage){
                     getPage(page + 1);
                     setPage(page + 1);
-                    setPageOriginal(page + 1);
+                    if(setPageOriginal !== undefined){
+                        setPageOriginal(page + 1);
+                    }
                 }
                 }}>{'>'}</button>
         </div>
