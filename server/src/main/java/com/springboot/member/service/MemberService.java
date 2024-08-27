@@ -115,9 +115,8 @@ public class MemberService {
 
     //email을 통해 회원이 DB에 존재하는지 확인하는 메서드
     public boolean verifiedExistEmail(String email) {
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
 
-        if (optionalMember.isPresent()) {
+        if (memberRepository.existsByEmail(email)) {
             throw new BusinessLogicException(ExceptionCode.EMAIL_ALREADY_EXIST);
         }
         return false;
@@ -125,9 +124,8 @@ public class MemberService {
 
     //닉네임이 중복되는지 확인하는 메서드
     public Boolean verifiedExistNickname(String nickname) {
-        Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
 
-        if (optionalMember.isPresent()) {
+        if (memberRepository.existsByNickname(nickname)) {
             throw new BusinessLogicException(ExceptionCode.NICKNAME_ALREADY_EXIST);
         }
         return false;

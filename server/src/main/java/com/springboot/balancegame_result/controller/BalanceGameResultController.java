@@ -41,10 +41,10 @@ public class BalanceGameResultController {
     }
 
     @PostMapping("/balancegames/{balancegame-id}/balancegame-results")
-    public ResponseEntity postResult(@PathVariable("balancegame-id") @Positive long gameid,
+    public ResponseEntity postResult(@PathVariable("balancegame-id") @Positive long gameId,
                                      @Valid @RequestBody BalanceGameResultDto.Post postDto,
                                      Authentication authentication) {
-        postDto.setGameId(gameid);
+        postDto.setGameId(gameId);
 
         BalanceGameResult result = balanceGameResultService.createResult(balanceGameResultMapper.postDtoToResult(postDto), authentication);
 

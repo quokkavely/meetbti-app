@@ -80,10 +80,10 @@ public class HeartService {
                         .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
             case IMAGE_GAME:
                 return imageGameRepository.findById(contentId)
-                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.GAME_NOT_FOUND));
             case BALANCE_GAME:
                 return balanceGameRepository.findById(contentId)
-                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.GAME_NOT_FOUND));
             default:
                 throw new IllegalArgumentException("Unsupported content type: " + contentType);
         }
