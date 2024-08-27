@@ -38,6 +38,6 @@ public class BalanceGameDto {
         private int commentCount;
         private int heartCount;
         private String nickName;
-        private boolean voted;
+        private String selectedOption;
     }
 }
