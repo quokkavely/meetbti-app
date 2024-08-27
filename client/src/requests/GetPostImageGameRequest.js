@@ -2,7 +2,7 @@ const sendGetPostImageGameRequest = async(state, page, size, setLoading, setPost
     try {
         setLoading(true); // 로딩 상태를 true로 설정
         console.log('이미지 게임 페이지 GET요청 전송');
-        const response = await fetch(`http://localhost:8080/imagegames?page=${page}&size=${size}&gameId=${gameId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/imagegames?page=${page}&size=${size}&gameId=${gameId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `${state.token}`,

@@ -34,7 +34,7 @@ const getQuestions = async(setLoading, setQuestion, state) => {
 
     let data = [];
     try{
-        const response = await fetch('http://localhost:8080/questions',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/questions`,
             {
                 method: 'GET',
                 headers: {
@@ -76,7 +76,7 @@ const sendResponses = async(responses, state, navigate) =>{
     console.log(state);
     console.log(state.token);
     try{
-        const response = await fetch('http://localhost:8080/mbti-test',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/mbti-test`,
             {
                 method: 'POST',
                 headers: {

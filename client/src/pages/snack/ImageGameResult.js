@@ -52,7 +52,7 @@ const ImgResultContainer = () => {
         // 유저의 닉네임을 가져오는 로직 추가
         const fetchUserNickname = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/users/nickname', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/nickname`, {
                     headers: {
                         'Authorization': `Bearer ${state.token}`
                     }

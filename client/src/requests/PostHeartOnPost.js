@@ -1,6 +1,6 @@
 const sendPostHeartOnPostRequest = async(state, postId) => {
     try{
-        const response = await fetch(`http://localhost:8080/posts/${postId}/hearts`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}/hearts`,
             {
                 method: 'POST',
                 headers: {

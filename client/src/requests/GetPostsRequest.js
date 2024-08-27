@@ -2,8 +2,8 @@ const sendGetPostsRequest = async(state, page, size, category, sortBy, setLoadin
     try{
         /* console.log(`category: ${category}, sortBy: ${sortBy}`);
         console.log('state: ', state); */
-        const url = category === 'MY' ? `http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}&member-id=${state.memberId}` :
-            `http://localhost:8080/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}`;
+        const url = category === 'MY' ? `${process.env.REACT_APP_API_URL}/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}&member-id=${state.memberId}` :
+            `${process.env.REACT_APP_API_URL}/posts?page=${page}&size=${size}&category=${category}&standard=${sortBy}`;
         const response = await fetch(url,
             {
                 method: 'GET',

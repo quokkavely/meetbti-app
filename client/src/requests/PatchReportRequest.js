@@ -3,9 +3,7 @@ const sendPatchReportRequest = async(state, reportId, status, day, navigate) => 
         console.log('status: ', status);
         console.log('day: ', day);
 
-        /* const url = status === 'ACCEPTED' ? `http://localhost:8080/reports/${reportId}?status=ACCEPTED&day=${day}` :
-            `http://localhost:8080/reports/${reportId}?status=REJECTED&day=${day}` */
-        const response = await fetch(`http://localhost:8080/reports/${reportId}?status=${status}&day=${day}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/reports/${reportId}?status=${status}&day=${day}`,
             {
                 method: 'PATCH',
                 headers: {

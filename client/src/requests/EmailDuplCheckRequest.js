@@ -1,7 +1,7 @@
 const sendEmailDuplCheckRequest = async(email, executeAfter, executeAfterFailed) => {
     try{
         /* console.log(email); */
-        const response = await fetch(`http://localhost:8080/members/check-email?email=${email}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/members/check-email?email=${email}`,
             {
                 method: 'GET',
                 headers: {

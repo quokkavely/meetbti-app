@@ -2,7 +2,7 @@ const sendGetSinglePostsRequest = async(state, postId, setLoading, setPost, setL
     try{
         console.log('단일 게시글 정보 GET요청 전송');
         console.log('postId: ', postId);
-        const response = await fetch(`http://localhost:8080/posts/${postId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}`,
             {
                 method: 'GET',
                 headers: {

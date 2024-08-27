@@ -2,7 +2,7 @@ const sendGetSingleReportRequest = async (state, reportId, setReport, setLoading
     try{
         console.log('state: ', state);
         console.log('reportId: ', reportId);
-        const response = await fetch(`http://localhost:8080/reports/${reportId}?reportId=${reportId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/reports/${reportId}?reportId=${reportId}`,
             {
                 method: 'GET',
                 headers: {

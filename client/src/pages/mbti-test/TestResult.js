@@ -29,7 +29,7 @@ const MBTITestResult = () => {
     console.log('결과 가져오는 중...');
     try {
       // API 호출을 통해 MBTI 결과를 가져옴
-        const response = await fetch('http://localhost:8080/mbti-result/me', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/mbti-result/me`, {
             method: 'GET', // HTTP GET 메서드를 사용하여 요청
             headers: {
                 'Content-Type': 'application/json',

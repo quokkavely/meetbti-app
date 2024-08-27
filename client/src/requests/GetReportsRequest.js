@@ -1,6 +1,6 @@
 const sendGetReportsRequest = async (state, page, size, status, setReports, setLoading) => {
     try{
-        const response = await fetch(`http://localhost:8080/reports?page=${page}&size=${size}&status=${status}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/reports?page=${page}&size=${size}&status=${status}`,
             {
                 method: 'GET',
                 headers: {

@@ -1,6 +1,6 @@
 const sendGetMyHeartsRequest = async(state, page, size, type, setMyHearts, setIsLoading) => {
     try{
-        const response = await fetch(`http://localhost:8080/hearts?page=${page}&size=${size}&type=${type}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/hearts?page=${page}&size=${size}&type=${type}`,
             {
                 method: 'GET',
                 headers: {

@@ -1,7 +1,7 @@
 const sendGetSingleImageGameRequest = async(state, imageGameId, setImageGameData, setLoading) => { //requestBody를 참고
     try {
         console.log('단일 게시글 정보 GET요청 전송');
-        const response = await fetch(`http://localhost:8080/imagegames/${imageGameId}`, // gameId를 state에서 가져옴
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/imagegames/${imageGameId}`, // gameId를 state에서 가져옴
             {
                 method: 'GET',
                 headers: {

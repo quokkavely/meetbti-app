@@ -9,7 +9,7 @@ const sendPostImageGameRequest = async(state, topic, navigate) => {
     };
 
     try {
-        const response = await fetch('http://localhost:8080/imagegames', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/imagegames`, {
             method: 'POST',
             headers: {
                 'Authorization': `${state.token}`,

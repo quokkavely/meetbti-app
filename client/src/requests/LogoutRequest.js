@@ -2,7 +2,7 @@ const sendLogoutRequest = async(state, logout) => {
     try{
         console.log('로그아웃 POST요청 전송');
 
-        const response = await fetch(`http://localhost:8080/auth/logout`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/logout`,
             {
                 method: 'POST',
                 headers: {
