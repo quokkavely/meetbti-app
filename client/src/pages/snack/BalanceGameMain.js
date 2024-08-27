@@ -3,6 +3,9 @@ import './BalanceGameMain.css';
 import { useNavigate } from 'react-router-dom';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import sendGetBalanceGamesRequest from '../../requests/GetBalancegamesRequest';
+import { useAuth } from '../../auth/AuthContext';
+import PageContainer from '../../components/page_container/PageContainer';
 
 
 const AppContainerComponent = () => {
@@ -38,24 +41,7 @@ const BalanceGameContainer = (props) => {
   );
 }
 
-const BalanceGame = () => {
-  const navigate = useNavigate();
-  const [heartCount, setHeartCount] = useState(2234); //더미데이터
-  const [commentCount, setCommentCount] = useState(3254); //더미데이터
-  const [isParticipated, setIsParticipated] = useState(true); // 유저 참여 여부
-
-  const dummyGames = [
-    {title:'일 할래, 놀래?', leftOption: '월 500 받고 매일 야근하기', rightOption: '월 100 받고 백수 생활하기', heartCount: 1, commentCount:3, isParticipated: false}
-  ];
-
-  const [dbDummyGames, setDbDummyGames] = useState([]);
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/balancegames`)
-      .then(response => response.json())
-      .then(data => setDbDummyGames(data))
-      .catch(error => console.error(error))
-  }, []);
+const BalanceGame = ({ state, balancegames, navigate}) => {
 
   function GameContainer(props){
     return (
@@ -76,60 +62,17 @@ const BalanceGame = () => {
       </div>
     );
   }
-
   return (
     <div className="balance-game-container">
       <div className="balance-game-title">
         황금밸런스! 밸런스 게임
       </div>
       <div className="balance-game-question-container">
-        {/* {dummyGames.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
-        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated}/>)} */}
-        {Array.isArray(dbDummyGames) && dbDummyGames.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
+        {balancegames.data.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
         heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated}/>)}
-        {/* <div className="balance-game-question"> Q. 일 할래, 놀래? </div>
-        <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
-            <div className="left-option-title"> 월 500 받고 매일 야근하기 </div>
-            <div className="vs"> vs </div>
-            <div className="right-option-title"> 월 100 받고 백수 생활하기 </div>
-          </div>
-         <div className="selectbox-count">
-            <div className="balance-heart-count"> ❤️ {heartCount} </div>
-            <div className="balance-comment-count"> 💬 {commentCount} </div>
-            <div className="balance-status"> {isParticipated ? '미참여' : '참여완료'} </div>
-          </div>
-        </div>
-
-        <div className="balance-game-question"> Q. 삼격살 후식은 냉면 </div>
-        <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
-            <div className="left-option-title"> 평생 탄수화물 안먹기 </div>
-            <div className="vs"> vs </div>
-            <div className="right-option-title"> 평생 단백질 안먹기 </div>
-          </div>
-         <div className="selectbox-count">
-         <div className="balance-heart-count"> ❤️ {heartCount} </div>
-            <div className="balance-comment-count"> 💬 {commentCount} </div>
-            <div className="balance-status"> {isParticipated ? '미참여' : '참여완료'} </div>
-         </div>
-        </div>
-
-        <div className="balance-game-question"> Q. 나한테 왜 그래요? </div>
-        <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
-            <div className="left-option-title"> 평생 불편하게 잠자기 </div>
-            <div className="vs"> vs </div>
-            <div className="right-option-title"> 평생 맛없는 음식만 먹기</div>
-          </div>
-           <div className="selectbox-count">
-           <div className="balance-heart-count"> ❤️ {heartCount} </div>
-            <div className="balance-comment-count"> 💬 {commentCount} </div>
-            <div className="balance-status"> {isParticipated ? '미참여' : '참여완료'} </div>
-          </div>
-        </div> */}
+        
       </div>
-      <button className="suggest-button"> 주제 제안하기 </button>
+      <button className="suggest-button" onClick={() => navigate('/balancegameregist')}> 주제 제안하기 </button>
     </div>
   );
 };
@@ -147,12 +90,27 @@ const PageNation = () => {
 };
 
 const BalanceGameMain = () => {
+  const { state } = useAuth();
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [balancegames, setBalancegames] = useState({data:[]});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    sendGetBalanceGamesRequest(state, page, 3, setBalancegames, setIsLoading);
+  }, []);
+
   return (
       <div className="app">
         <AppContainerComponent />
         <HeaderComponent />
-        <BalanceGame />
-        <PageNation />
+        <BalanceGame state = {state} balancegames={balancegames} navigate={navigate}/>
+        {isLoading ? <div></div> : 
+        <PageContainer
+         currentPage={page} 
+         pageInfo={balancegames.pageInfo}
+         getPage={(page) => sendGetBalanceGamesRequest(state, page, 3, setBalancegames, setIsLoading)}
+         ></PageContainer>}
       </div>
     );
   };

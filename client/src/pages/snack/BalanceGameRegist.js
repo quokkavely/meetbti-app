@@ -3,6 +3,9 @@ import './BalanceGameRegist.css';
 
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import sendPostBalancegameRequest from '../../requests/PostBalanceGameRequest';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 
 
 const AppContainerComponent = () => {
@@ -36,7 +39,7 @@ const NoticeSection = () => {
 };
 
 
-const BalanceGamePostContent = ({ setBalanceGameContent }) => {
+const BalanceGamePostContent = ({ setLeftOption, setRightOption }) => {
   const [firstSelect, setFirstSelect] = useState('');
   const [secondSelect, setSecondSelect] = useState('');
   const [IsNullNotice, setIsNullNotice] = useState(false);
@@ -46,14 +49,14 @@ const BalanceGamePostContent = ({ setBalanceGameContent }) => {
     const value = e.target.value;
     setFirstSelect(value);
     setIsNullNotice(value.trim() === '');
-    setBalanceGameContent(value);
+    setLeftOption(value);
   };
 
   const handleSecondSelectChange = (e) => {
     const value = e.target.value;
     setSecondSelect(value);
     setAlsoNullNotice(value.trim() === '');
-    setBalanceGameContent(value);
+    setRightOption(value);
   };
 
   return (
@@ -92,19 +95,18 @@ const BalanceGameRegistButton = ({ onSubmit }) => {
 
   // 게시판 페이지 컴포넌트
 const RegistBalanceGame = () => {
-    // const navigate = useNavigate();
+    const { state } = useAuth();
+    const navigate = useNavigate();
     const [balanceGameTitle, setBalanceGameTitle] = useState('');
-    const [balanceGameContent, setBalanceGameContent] = useState('');
+    const [leftOption, setLeftOption] = useState('');
+    const [rightOption, setRightOption] = useState('');
 
     const handleSubmit = () => {
         // 게시글 등록 로직 추가
-        const postData = {
-            balanceGameTitle,
-            balanceGameContent,
-        };
-        console.log('게시글 등록:', postData);
-        // 등록 후 페이지 이동
-        // navigate('/BalanceGame');
+
+        if(window.confirm('등록 요청하시겠어요?')){
+          sendPostBalancegameRequest(state, balanceGameTitle, leftOption, rightOption, navigate);
+        }
     };
     
     return (
@@ -113,7 +115,7 @@ const RegistBalanceGame = () => {
         <HeaderComponent />
         <BalanceGamePostTitle setBalanceGameTitle={setBalanceGameTitle} />
         <NoticeSection />
-        <BalanceGamePostContent setBalanceGameContent={setBalanceGameContent} />
+        <BalanceGamePostContent setLeftOption={setLeftOption} setRightOption={setRightOption} />
         <BalanceGameRegistButton onSubmit={handleSubmit} />
       </div>
     );
