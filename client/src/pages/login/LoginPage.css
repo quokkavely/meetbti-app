@@ -167,7 +167,8 @@
     margin-left: 20px;
     margin-right: 20px;
     width: 60px;
-    height: 60px
+    height: 60px;
+    cursor: pointer;
 }
 .right{
     margin-top: 40px;

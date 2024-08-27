@@ -122,9 +122,14 @@ const submitPost = (state, navigate, memberId, title, content, params, image) =>
     }
     if(params.get('action') === 'post'){
         if(window.confirm('게시글을 등록하시겠어요?')){
-
+            
             const contentObject = {title: title, content: content, category: params.get('category')};
             
+            // 이미지 없이 업로드
+            if(image === null){
+                sendPostPostRequest(state, contentObject, navigate);
+                return;
+            }
             sendUploadPostImageRequest(state, image, (data) => sendPostPostRequest(state, contentObject, navigate, data));
             return;
         } 
