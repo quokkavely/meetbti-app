@@ -1,24 +1,22 @@
-const sendPostPostRequest = async(state, contentObject, navigate) => {
+const sendPostPostRequest = async(state, contentObject, navigate, data) => {
     console.log('token: ', state.token);
-    console.log('content: ', contentObject);
+    console.log('contentObject: ', contentObject);
+    console.log('image: ', data);
 
-    const formData = new FormData();
-    formData.append('title', contentObject.title);
-    formData.append('content', contentObject.content);
-    formData.append('category', contentObject.category);
-    if(contentObject.image instanceof File){
-        formData.append('file', contentObject.image);
-    }
     try{
         const response = await fetch(`${process.env.REACT_APP_API_URL}/posts`,
             {
                 method: 'POST',
                 headers: {
-                    /* 'content-Type': 'application/json', */
+                    'content-Type': 'application/json',
                     'Authorization': `${state.token}`,
                 },
-                /* body: JSON.stringify(contentObject), */
-                body: formData,
+                body: JSON.stringify({
+                    title: contentObject.title,
+                    content: contentObject.content,
+                    category: contentObject.category,
+                    image: data,
+                }),
             }
             
         );

@@ -37,6 +37,7 @@ public interface PostMapper {
             response.commentCount(post.getComments().size());
             response.comments(commentMapper.commentsToCommentDetailedResponseDtos(post.getComments()));
             response.liked(liked);
+            response.postImage(post.getImage());
 
             return response.build();
     }
