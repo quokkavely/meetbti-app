@@ -67,7 +67,6 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET,"/h2").permitAll()
                         .antMatchers(HttpMethod.POST,"/h2/**").permitAll()
                         .antMatchers(HttpMethod.GET,"/h2/**").permitAll()
-                        .antMatchers(HttpMethod.POST,"/*/signup").permitAll()
                         .antMatchers(HttpMethod.POST,"/*/verify").permitAll()
                         .antMatchers(HttpMethod.POST, "/login").permitAll()
                         .antMatchers(HttpMethod.GET,"/reports").hasRole("ADMIN")
@@ -105,8 +104,8 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST,"/imagegames/*/hearts").hasAnyRole("USER","ADMIN")
                         .antMatchers(HttpMethod.GET,"/hearts/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET,"/comments/**").hasAnyRole("USER","ADMIN")
-                        .antMatchers(HttpMethod.POST,"/post/*/report").hasAnyRole("USER","ADMIN")
-                        .antMatchers(HttpMethod.POST,"/comments/*/report").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.POST,"/posts/*/reports").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.POST,"/comments/*/reports").hasAnyRole("USER","ADMIN")
                         // - 관리자가 회원의 부적절한 게시글을 삭제할 수 있다.
                         .anyRequest().permitAll()
                 ).oauth2Login(oauth2 -> oauth2
