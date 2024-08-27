@@ -133,7 +133,7 @@ const MbtiTestPage = () => {
     return (
         <div className="app">
             <Header></Header>
-            {questionReady() && <Question number = {stage} title={questions[stage-1].content}
+            {questionReady() && <Question number = {stage} title={questions[stage-1].content} // 여기때문에 터짐...
             answer = {questions[stage-1].answers} respond = {(buttonIndex) => respond(buttonIndex, stage, setStage, questions, responses, setResponses, state, navigate)}
             stage = {stage}>
             </Question>}

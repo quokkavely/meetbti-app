@@ -2,14 +2,17 @@ import React, { useEffect, useState, useContext } from 'react';
 import { VoteContext } from '../../context/VoteContext';
 import mbtiData from '../../mbtiData/mbtiData';
 import Badge from '../../components/badge/badge';
+import { useLocation } from 'react-router-dom';
 import './ImageGameResult.css';
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import axios from 'axios';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import sendImageGameCommentRequest from '../../requests/ImageGameCommentRequest';
+import sendGetSingleImageGameRequest from '../../requests/GetSingleImageGameRequest';
+import sendPostHeartRequest from '../../requests/PostHeartRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -23,8 +26,8 @@ const HeaderComponent = () => {
     );
 };
 
-const ImgResultContainer = () => {
-    const { votes, removeVote } = useContext(VoteContext); // VoteContext에서 votes와 removeVote 가져오기
+const ImgResultContainer = ({ gameData, setGameData }) => {
+    const { votes, removeVote } = useContext(VoteContext);
     const [title, setTitle] = useState('');
     const [voteCount, setVoteCount] = useState(0);
     const [topThree, setTopThree] = useState([]);
@@ -32,6 +35,49 @@ const ImgResultContainer = () => {
     const { state } = useAuth();
     const [HeartCount, setHeartCount] = useState(0);
     const [CommentCount, setCommentCount] = useState(0);
+    const [comments, setComments] = useState([]);
+    const [myData, setMyData] = useState({ data: {} });
+    const [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
+    const [currentPage, setCurrentPage] = useState(1);
+    const commentsPerPage = 10;
+    const indexOfLastComment = currentPage * commentsPerPage;
+    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+    const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
+    const totalPages = Math.ceil(comments.length / commentsPerPage);
+
+    useEffect(() => {
+        sendGetMyinfoRequest(state, setMyData);
+    }, [state]);
+
+    useEffect(() => {
+        if (gameData.data.comments) {
+            setComments(gameData.data.comments);
+        }
+    }, [gameData]);
+
+    const [gameId, setGameId] = useState(null);
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const id = params.get('gameId');
+        setGameId(id);
+        if (id) {
+            sendGetSingleImageGameRequest(state, id, setGameData, setIsLoading);
+        }
+    }, [location.search, state]);
+
+    const handleSend = () => {
+        if (myData.data.mbti === 'NONE') {
+            if (window.confirm('MBTI가 없어서 댓글을 등록할 수 없어요. 첫 테스트를 하러 가시겠어요?')) {
+                navigate('/mbti-test');
+                return;
+            }
+        }
+        sendImageGameCommentRequest(state, gameId, inputValue, setInputValue,
+            () => sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading));
+    };
 
     useEffect(() => {
         const totalVotes = Object.values(votes).reduce((acc, vote) => acc + vote, 0);
@@ -43,27 +89,10 @@ const ImgResultContainer = () => {
         }));
 
         const sortedVotes = votePercentages
-            // .map((percentage, index) => ({ index, percentage }))
             .sort((a, b) => b.percentage - a.percentage)
             .slice(0, 3);
-
         setTopThree(sortedVotes);
-
-        // 유저의 닉네임을 가져오는 로직 추가
-        const fetchUserNickname = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/nickname`, {
-                    headers: {
-                        'Authorization': `Bearer ${state.token}`
-                    }
-                });
-            } catch (error) {
-                console.error('유저 정보 가져오기 실패', error);
-            }
-        };
-
-        fetchUserNickname();
-    }, [votes, state.nickName]);
+    }, [votes]);
 
     const handleResetVote = () => {
         const votedMbti = localStorage.getItem('votedMbti');
@@ -73,6 +102,14 @@ const ImgResultContainer = () => {
         }
         localStorage.removeItem('voted');
         navigate('/imagegame-page');
+    };
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
     };
 
     return (
@@ -110,132 +147,82 @@ const ImgResultContainer = () => {
                     })}
                 </div>
             </div>
-
+            {/* 좋아요, 댓글 수 */}
             <div className="img-game-result-post-count">
-                <div className="img-game-result-post-heart-count-section">
+                <div className="img-game-result-post-heart-count-section" onClick={() => sendPostHeartRequest(state, gameId, 'imagegames',
+                    () => sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading)
+                )}>
                     <div className="img-game-result-post-heart-img">❤️</div>
-                    <div className="img-game-result-post-heart-count">{HeartCount}</div>
+                    <div className="img-game-result-post-heart-count">{gameData.data.heartCount}</div>
                 </div>
                 <div className="img-game-result-post-comment-section">
                     <div className="img-game-result-post-comment-img">💬</div>
-                    <div className="img-game-result-post-comment-count">{CommentCount}</div>
+                    <div className="img-game-result-post-comment-count">{gameData.data.commentCount}</div>
                 </div>
                 <div className="img-game-reset-button-container">
                     <button className="img-game-reset-button" onClick={handleResetVote}>투표 초기화</button>
                 </div>
             </div>
-        </div>
-    );
-};
 
-const CommentContainer = () => {
-    
-    const [comments, setComments] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const commentsPerPage = 10;
-    const { state } = useAuth();
-    const [myData, setMyData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        // const fetchComments = async () => {
-        //     try {
-        //         const response = await axios.get('imagegame-comments', {
-        //             headers: {
-        //                 'Authorization': `Bearer ${state.token}`,
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         });
-        //     } catch (error) {
-        //         console.error('댓글 가져오기 실패', error);
-        //     }
-        // };
-        // fetchComments();\
-        sendGetMyinfoRequest(state, setMyData, setLoading);
-    }, [state.token]);
-
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value);
-    };
-
-    const handleSend = async () => {
-
-        if (inputValue.trim() === '') return; // 빈 입력 방지
-        setComments([...comments, { text: inputValue, time: new Date().toLocaleTimeString() }]);
-        setInputValue('');
-
-        try {
-            const newComment = {
-                content: inputValue,
-            };
-            const response = await axios.post('imagegames/{imagegame-id}/imagegame-comments', newComment, {
-                headers: {
-                    'Authorization': `Bearer ${state.token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log('댓글 전송 성공', newComment);
-        } catch (error) {
-            console.error('댓글 전송 실패', error);
-        }
-    };
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const indexOfLastComment = currentPage * commentsPerPage;
-    const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-    const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
-    const totalPages = Math.ceil(comments.length / commentsPerPage);
-
-    return (
-        <div className="img-game-result-comment-container">
-            {currentComments.map((comment, index) => (
-                <div key={index} className="img-game-result-comment-list">
-                    <CommentUserInfoContainer />
-                    <div className="img-game-result-comment-section">
-                        <div className="img-game-result-comment-text">{comment.text}</div>
-                        <div className="img-game-result-comment-time">{comment.time}</div>
+            <div className="img-game-result-comment-container">
+                {gameData.data.comments.map((comment, index) => (
+                    <div key={index} className="img-game-result-comment-list">
+                        <CommentUserInfoContainer />
+                        <div className="img-game-result-comment-section">
+                            <div className="img-game-result-comment-text">{comment.content}</div>
+                            <div className="img-game-result-comment-time">{comment.createdAt}</div>
+                        </div>
+                    </div>
+                ))}
+                <div className="img-game-result-comment-input">
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        placeholder="댓글을 입력하세요..."
+                        className="img-game-result-comment-input-field"
+                    />
+                    <div className="img-game-result-comment-send-button" onClick={handleSend}>
+                        <img src="/public-img/send-img.png" alt="댓글 보내기" />
                     </div>
                 </div>
-            ))}
-            <div className="img-game-result-comment-input">
-                <input 
-                    type="text" 
-                    value={inputValue} 
-                    onChange={handleInputChange} 
-                    placeholder="댓글을 입력하세요..."
-                    className="img-game-result-comment-input-field"
-                />
-                <div className="img-game-result-comment-send-button" onClick={handleSend}>
-                    <img src="/public-img/send-img.png" alt="댓글 보내기" />
-                </div>
-            </div>
-            <div className="img-game-result-comment-pagination">
-                {[...Array(totalPages)].map((_, index) => (
-                    <button 
-                        key={index} 
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`img-pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
+                {/* <div className="img-game-result-comment-pagination">
+                    {[...Array(totalPages)].map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`img-pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div> */}
             </div>
         </div>
     );
 };
 
-const ImageGameResult = () => {  
+const ImageGameResult = () => {
+    const [gameData, setGameData] = useState({ data: { comments: [] } });
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const { state } = useAuth(); // useAuth 훅을 사용하여 state를 가져옴
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const gameId = params.get('gameId');
+        if (gameId) {
+            sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading);
+        }
+    }, [location.search, state]);
+
     return (
         <div className="app">
-          <AppContainerComponent />
-          <HeaderComponent />
-          <ImgResultContainer />
-          <CommentContainer />
+            <AppContainerComponent />
+            <HeaderComponent />
+            <ImgResultContainer gameData={gameData} setGameData={setGameData} />
         </div>
-      );
+    );
 };
-  
+
 export default ImageGameResult;
