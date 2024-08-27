@@ -26,14 +26,16 @@ const Header = (props) => {
           <img src="/public-img/profile.png" alt="사용자 아이콘" 
             onClick={() => navigate(props.state.email.email === 'admin@gmail.com' ? '/report' : '/mypage')}/>
         </div>}
+      </div>
+      <div className="logo-text-logout">
+        <div className="logo-text">
+          <h1>본격 MBTI 커뮤니티!</h1>
+        </div>
         {props.state.isAuthenticated && <button className = 'logout-button' onClick={() => {
           if(window.confirm('로그아웃하시겠어요?')){
             sendLogoutRequest(props.state, props.logout)
           }         
-          }}>로그아웃</button>}
-      </div>
-      <div className="logo-text">
-        <h1>본격 MBTI 커뮤니티!</h1>
+        }}>로그아웃</button>}
       </div>
     </header>
   )
@@ -111,7 +113,7 @@ const MainContent = (props) => {
 
   const cards2 = [
     { image: "/public-img/Image-img.jpeg", title: "이미지 게임", description: "가장 ~~ 할 것 같은 MBTI는?" },
-    { image: "/public-img/balance-img.jpeg", title: "밸런스 게임", description: "말해 Yes or No" },
+    { image: "/public-img/balance-img.jpeg", title: "밸런스 게임", description: "말해 Yes or No!" },
     { image: "/public-img/MBTMI-img.png", title: "MBTMI", description: "MBTI의 TMI 대방출!" }
   ];
 

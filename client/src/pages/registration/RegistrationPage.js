@@ -132,23 +132,25 @@ const RegistrationPage = (props) => {
     const [modalMessage, setModalMessage] = useState('');
 
     const registration = async (openEmailAuthModal) => {
-        
-
         if(!emailDuplChecked){
-            alert('이메일 중복 확인을 진행해주세요')
+            setModalMessage('이메일 중복 확인을 진행해주세요');
+            setDuplCheckModalOn(true);
             return;
         }
         if(!nicknameDuplChecked){
-            alert('닉네임 중복 확인을 진행해주세요')
+            setModalMessage('닉네임 중복 확인을 진행해주세요');
+            setDuplCheckModalOn(true);
             return;
         }
         if(passwordInput === '' || passwordError){
-            alert('비밀번호를 확인해주세요')
+            setModalMessage('비밀번호를 확인해주세요');
+            setDuplCheckModalOn(true);
             setPasswordError(true);
             return;
         }
         if(passwordCheckInput === '' || passwordCheckError){
-            alert('비밀번호를 한번 더 확인해주세요')
+            setModalMessage('비밀번호를 한번 더 확인해주세요');
+            setDuplCheckModalOn(true);
             setPasswordCheckError(true);
             return;
         }

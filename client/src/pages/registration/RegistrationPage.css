@@ -88,10 +88,12 @@
     justify-content: space-between;
 }
 .input-error-message{
+    margin-top: 6px;
     color: red;
     font-size: 12px;
 }
 .password-error-message{
+    margin-top: 6px;
     color: red;
     font-size: 12px;
 }
