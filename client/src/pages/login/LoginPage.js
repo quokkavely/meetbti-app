@@ -92,16 +92,17 @@ function FindPasswordContainer(){
         </div>
     );
 }
-function OAuthContainer(){
+function OAuthContainer({ navigate }){
     return (
         <div className="oauth-container">
-            <img src="/public-img/google.png" className="oauth-logo"></img>
+            <img src="/public-img/google.png" className="oauth-logo" onClick={() => window.open(`${process.env.REACT_APP_API_URL}/oauth2/authorization/google`)}></img>
             <img src="/public-img/kakao.png" className="oauth-logo"></img>
             <img src="/public-img/naver.png" className="oauth-logo"></img>
         </div>
     );
 }
 const LoginPage = () => {
+    const navigate = useNavigate();
     return (
       <div className="app">
         <Header></Header>
@@ -110,7 +111,7 @@ const LoginPage = () => {
         <InputContainer></InputContainer>
         <FindPasswordContainer></FindPasswordContainer>
         <h2 className="or"> 또는 </h2>
-        <OAuthContainer></OAuthContainer>
+        <OAuthContainer navigate = {navigate}></OAuthContainer>
         <h2 className="right">MeetBTI all rights reserved</h2>
       </div>
     );

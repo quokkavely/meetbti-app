@@ -29,6 +29,7 @@ const Filter = (props) => {
     const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
     const mbtiDropdownRef = useRef(null);
     const sortDropdownRef = useRef(null);
+    
 
     const toggleMBTIDropdown = () => {
         setMBTIDropdownOpen(!isMBTIDropdownOpen);
@@ -38,25 +39,17 @@ const Filter = (props) => {
         setSortDropdownOpen(!isSortDropdownOpen);
     };
 
-    const handleClickOutside = (event) => {
-        if(mbtiDropdownRef.current && !mbtiDropdownRef.current.contains(event.target)){
-            setMBTIDropdownOpen(false);
-        }
-        if(sortDropdownRef.current && !sortDropdownRef.current.contains(event.target)){
-            setSortDropdownOpen(false);
-        }
-    }
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        }
-    }, [])
-
-    const selectOption = (option) => {
-        props.navigate(`/MBTIBoard?category=${option}`);
+    const selectCategory = (option) => {
+        props.navigate(`/MBTIBoard?category=${option}&standard=${props.sortBy}`);
         setMBTIDropdownOpen(false);
         props.setFilterBy(option);
+    }
+
+    const selectSortBy = (option, name) => {
+        props.navigate(`/MBTIBoard?category=${props.filterBy}&standard=${option}`);
+        setSortDropdownOpen(false);
+        props.setSortBy(option);
+        props.setSortName(name);
     }
 
     return (
@@ -65,34 +58,34 @@ const Filter = (props) => {
                 <button className="filter-btn" onClick={toggleMBTIDropdown}>{`▼ ${props.filterBy}`}</button>
                 {isMBTIDropdownOpen && (
                     <div className="dropdown-menu">
-                        <button className="dropdown-item" onClick={() => selectOption('ALL')}>ALL</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ENTJ')}>{props.myMbti === 'ENTJ' ? 'ENTJ (me)' : 'ENTJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ENTP')}>{props.myMbti === 'ENTP' ? 'ENTP (me)' : 'ENTP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ENFJ')}>{props.myMbti === 'ENFJ' ? 'ENFJ (me)' : 'ENFJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ENFP')}>{props.myMbti === 'ENFP' ? 'ENFP (me)' : 'ENFP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ESTJ')}>{props.myMbti === 'ESTJ' ? 'ESTJ (me)' : 'ESTJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ESTP')}>{props.myMbti === 'ESTP' ? 'ESTP (me)' : 'ESTP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ESFJ')}>{props.myMbti === 'ESFJ' ? 'ESFJ (me)' : 'ESFJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ESFP')}>{props.myMbti === 'ESFP' ? 'ESFP (me)' : 'ESFP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('INTJ')}>{props.myMbti === 'INTJ' ? 'INTJ (me)' : 'INTJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('INTP')}>{props.myMbti === 'INTP' ? 'INTP (me)' : 'INTP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('INFJ')}>{props.myMbti === 'INFJ' ? 'INFJ (me)' : 'INFJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('INFP')}>{props.myMbti === 'INFP' ? 'INFP (me)' : 'INFP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ISTJ')}>{props.myMbti === 'ISTJ' ? 'ISTJ (me)' : 'ISTJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ISTP')}>{props.myMbti === 'ISTP' ? 'ISTP (me)' : 'ISTP'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ISFJ')}>{props.myMbti === 'ISFJ' ? 'ISFJ (me)' : 'ISFJ'}</button>
-                        <button className="dropdown-item" onClick={() => selectOption('ISFP')}>{props.myMbti === 'ISFP' ? 'ISFP (me)' : 'ISFP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ALL')}>ALL</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ENTJ')}>{props.myMbti === 'ENTJ' ? 'ENTJ (me)' : 'ENTJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ENTP')}>{props.myMbti === 'ENTP' ? 'ENTP (me)' : 'ENTP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ENFJ')}>{props.myMbti === 'ENFJ' ? 'ENFJ (me)' : 'ENFJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ENFP')}>{props.myMbti === 'ENFP' ? 'ENFP (me)' : 'ENFP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ESTJ')}>{props.myMbti === 'ESTJ' ? 'ESTJ (me)' : 'ESTJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ESTP')}>{props.myMbti === 'ESTP' ? 'ESTP (me)' : 'ESTP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ESFJ')}>{props.myMbti === 'ESFJ' ? 'ESFJ (me)' : 'ESFJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ESFP')}>{props.myMbti === 'ESFP' ? 'ESFP (me)' : 'ESFP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('INTJ')}>{props.myMbti === 'INTJ' ? 'INTJ (me)' : 'INTJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('INTP')}>{props.myMbti === 'INTP' ? 'INTP (me)' : 'INTP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('INFJ')}>{props.myMbti === 'INFJ' ? 'INFJ (me)' : 'INFJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('INFP')}>{props.myMbti === 'INFP' ? 'INFP (me)' : 'INFP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ISTJ')}>{props.myMbti === 'ISTJ' ? 'ISTJ (me)' : 'ISTJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ISTP')}>{props.myMbti === 'ISTP' ? 'ISTP (me)' : 'ISTP'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ISFJ')}>{props.myMbti === 'ISFJ' ? 'ISFJ (me)' : 'ISFJ'}</button>
+                        <button className="dropdown-item" onClick={() => selectCategory('ISFP')}>{props.myMbti === 'ISFP' ? 'ISFP (me)' : 'ISFP'}</button>
                     </div>
                 )}
             </div>
             <div className="dropdown" ref={sortDropdownRef}>
-                <button className="filter-btn" onClick={toggleSortDropdown}>▼ 최신순</button>
+                <button className="filter-btn" onClick={toggleSortDropdown}>▼ {props.sortName}</button>
                 {isSortDropdownOpen && (
                     <div className="dropdown-menu">
-                        <button className="dropdown-item">최신순</button>
-                        <button className="dropdown-item">인기순</button>
-                        <button className="dropdown-item">조회순</button>
-                        <button className="dropdown-item">댓글많은순</button>
+                        <button className="dropdown-item" onClick={() => selectSortBy('createdAt', '최신순')}>최신순</button>
+                        <button className="dropdown-item" onClick={() => selectSortBy('hearts', '인기순')}>인기순</button>
+                        <button className="dropdown-item" onClick={() => selectSortBy('views', '조회순')}>조회순</button>
+                        <button className="dropdown-item" onClick={() => selectSortBy('comments', '댓글많은순')}>댓글많은순</button>
                     </div>
                 )}
             </div>
@@ -146,26 +139,14 @@ const WriteButton = (props) => {
 };
 
 
-// 페이지 네이션 컴포넌트
-const PageNation = () => {
-    return (
-        <div className="pagination">
-                <button className="previous-page">{"<"}</button>
-                {[1, 2, 3, 4, 5].map((num) => (
-                    <button key={num} className="page-number">{num}</button>
-                ))}
-                <button className="next-page">{">"}</button>
-            </div>
-    );
-};
-
-
 // 게시판 페이지 컴포넌트
 const MBTIBoard = () => {
     const { state } = useAuth();
     const navigate = useNavigate();
     const [myData, setMyData] = useState({data:{mbti:'ALL'}});
     const [category, setCategory] = useState('');
+    const [sortBy, setSortBy] = useState('createdAt');
+    const [sortName, setSortName] = useState('최신순');
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState({data:[], pageInfo:{}});
     const [page, setPage] = useState(1);
@@ -185,14 +166,15 @@ const MBTIBoard = () => {
             param = 'ALL';
         }
         sendGetMyinfoRequest(state, updateMyData);
-        sendGetPostsRequest(state, 1, 6, param, 'createdAt', setLoading, setPosts);
-    }, [category]);
+        sendGetPostsRequest(state, 1, 6, param, sortBy, setLoading, setPosts);
+    }, [category, sortBy]);
     
     return (
       <div className="app">
         <AppContainerComponent />
         <HeaderComponent />
-        <Filter navigate = {navigate} filterBy = {category} setFilterBy = {setCategory} myMbti = {myData.data.mbti}/>
+        <Filter navigate = {navigate} filterBy = {category} setFilterBy = {setCategory} myMbti = {myData.data.mbti}
+        sortBy = {sortBy} setSortBy = {setSortBy} sortName = {sortName} setSortName={setSortName}/>
         <Board loading = {loading} posts = {posts.data}/>
         <WriteButton category={myData.data.mbti} params = {params}/>
         {myData.data.length === 0 ? <div></div> : 
@@ -204,7 +186,7 @@ const MBTIBoard = () => {
                     param = 'ALL';
                 }
                 sendGetMyinfoRequest(state, updateMyData);
-                sendGetPostsRequest(state, page, 6, param, 'createdAt', setLoading, setPosts);
+                sendGetPostsRequest(state, page, 6, param, sortBy, setLoading, setPosts);
             }}
         ></PageContainer>}
       </div>
