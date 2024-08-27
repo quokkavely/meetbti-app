@@ -6,6 +6,7 @@ import getMyInfo from '../../requests/GetMyInfo';
 // 컴포넌트 임포트
 import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
+import ImageInputModal from '../../components/modal/ImageInputModal';
 import { useAuth } from '../../auth/AuthContext';
 
 const AppContainerComponent = () => {
@@ -23,15 +24,26 @@ const HeaderComponent = () => {
 // 마이페이지 유저 정보 컴포넌트
 const MyPageUserInfoContainer = (props) => {
     const profile = props.profileImg === undefined ? `/mbti-img/${props.mbti}.png` : props.profileImg;
+    const [isModalOpen,  setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    }
+    const closeModal = () => {
+        setModalOpen(false);
+    }
+
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
                 <img src={`/mbti-img/${props.mbti}.png`} alt="mypage-user-info-img" />
             </div>
+            <button className='profile-img-modify-button' onClick={openModal}>✏️</button>
             <div className="mypage-user-info-section">
                 <div className="mypage-user-info-section-badge"> {props.mbti} </div>
                 <div className="mypage-user-info-section-name"> {props.nickname} </div>
             </div>
+            {isModalOpen && <ImageInputModal isOpen = {isModalOpen} closeModal = {closeModal}></ImageInputModal>}
         </div>
     );
 };
