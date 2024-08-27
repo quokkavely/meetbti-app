@@ -123,7 +123,7 @@ public class PostController {
 
         List<Post> posts = pagePosts.getContent();
 
-        return new ResponseEntity<>(new MultiResponseDto<>(postMapper.postsToPostResponseDtos(posts, commentMapper, principal.getMemberId()), pagePosts),HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(postMapper.postsToPostGetResponseDtos(posts, commentMapper, principal.getMemberId()), pagePosts),HttpStatus.OK);
     }
 
     @DeleteMapping("{post-id}")
