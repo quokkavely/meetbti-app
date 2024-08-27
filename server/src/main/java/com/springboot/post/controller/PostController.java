@@ -111,7 +111,7 @@ public class PostController {
 
         String mbti;
 
-        if (findMember.getTestResults().size() == 0) {
+        if (findMember.getTestResults().isEmpty()) {
             mbti = "all";
         } else {
             mbti = findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
