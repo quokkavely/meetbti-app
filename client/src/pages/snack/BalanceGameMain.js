@@ -48,7 +48,7 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
       <div className="balancegame-component">
         <div className="balance-game-question">{props.title}</div>
         <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate('/balancegamepost')}>
+          <div className="selectbox-button" onClick={() => navigate(`/balancegamepost?gameId=${props.gameId}`)}>
             <div className="left-option-title"> {props.leftOption} </div>
             <div className="vs"> vs </div>
             <div className="right-option-title"> {props.rightOption} </div>
@@ -69,23 +69,11 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
       </div>
       <div className="balance-game-question-container">
         {balancegames.data.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
-        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated}/>)}
+        heartCount={value.heartCount} commentCount={value.commentCount} isParticipated={value.isParticipated} gameId = {value.gameId}/>)}
         
       </div>
       <button className="suggest-button" onClick={() => navigate('/balancegameregist')}> 주제 제안하기 </button>
     </div>
-  );
-};
-
-const PageNation = () => {
-  return (
-      <div className="pagination">
-              <button className="previous-page">{"<"}</button>
-              {[1, 2, 3, 4, 5].map((num) => (
-                  <button key={num} className="page-number">{num}</button>
-              ))}
-              <button className="next-page">{">"}</button>
-          </div>
   );
 };
 
