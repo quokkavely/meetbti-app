@@ -11,7 +11,7 @@ const sendUploadPostImageRequest = async(state, gameId, content, setInputValue, 
                     content: content
                 }),
             }
-            
+
         );
         if(response.ok){
             console.log('댓글 등록 성공');
