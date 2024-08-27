@@ -9,6 +9,7 @@ import sendGetSingleBalanceGameRequest from '../../requests/GetSingleBalancegame
 import { useLocation, useNavigate } from 'react-router-dom';
 import sendPostBalanceGameCommentRequest from '../../requests/PostBalanceGameCommentRequest';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
+import sendPostBalancegameResultRequest from '../../requests/PostBalanceGameResultRequest';
 
 
 const AppContainerComponent = () => {
@@ -27,7 +28,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
     const { state } = useAuth();
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState('');
     const [votes, setVotes] = useState({ left: 0, right: 0 });
     const [mbtiVotes, setMbtiVotes] = useState({});
     const location = useLocation();
@@ -47,6 +48,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
         if(myData.data.mbti === 'NONE'){
             if(window.confirm('MBTI가 없어서 댓글을 등록할 수 없어요. 첫 테스트를 하러 가시겠어요?')){
                 navigate('/mbti-test');
+                return;
             }
         }
         sendPostBalanceGameCommentRequest(state, params.get('gameId'), inputValue, setInputValue, 
@@ -55,7 +57,16 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
     };
 
     const handleVote = (option) => {
-        if (selectedOption === null) {
+        if(myData.data.mbti === 'NONE'){
+            if(window.confirm('MBTI가 없어서 투표할 수 없어요. 첫 테스트를 하러 가시겠어요?')){
+                navigate('/mbti-test');
+                return;
+            }
+        }
+        sendPostBalancegameResultRequest(state, params.get('gameId'), option, setSelectedOption,
+        () => sendGetSingleBalanceGameRequest(state, params.get('gameId'), setGameData, setIsLoading));
+
+        /* if (selectedOption === null) {
             setSelectedOption(option);
             setVotes((prevVotes) => ({
                 ...prevVotes,
@@ -67,48 +78,46 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
                 ...prevMbtiVotes,
                 [userMbti]: (prevMbtiVotes[userMbti] || 0) + 1
             }));
-        }
+        } */
     };
 
-    const totalVotes = votes.left + votes.right; //총 투표 수계산 (왼쪽 + 오른쪽 합)
-    const leftPercentage = totalVotes ? (votes.left / totalVotes) * 100 : 0; //왼쪽 투표 비율
-    const rightPercentage = totalVotes ? (votes.right / totalVotes) * 100 : 0; //오른쪽 투표 비율
-    const mostVotedMbti = Object.keys(mbtiVotes).reduce((a, b) => 
-        mbtiVotes[a] > mbtiVotes[b] ? a : b, ''); //가장 많이 선택한 MBTI 유형
+    const totalVotes = gameData.data.lcount + gameData.data.rcount; //총 투표 수계산 (왼쪽 + 오른쪽 합)
+    const leftPercentage = totalVotes ? (gameData.data.lcount / totalVotes) * 100 : 0; //왼쪽 투표 비율
+    const rightPercentage = totalVotes ? (gameData.data.rcount / totalVotes) * 100 : 0; //오른쪽 투표 비율
 
     return (
         <div className="balance-post-container">
             <div className="balance-post-header">
                 <div className="balance-post-title">{gameData.data.title}</div>
-                <div className="balance-post-writer">{`작성자: ${gameData.nickName}`}</div>
+                <div className="balance-post-writer">{`작성자: ${gameData.data.nickName}`}</div>
             </div>
 
             <div className="balance-post-content">
                 <button 
                     className={`balance-post-left ${selectedOption === 'left' ? 'selected' : ''} ${selectedOption === 'left' ? 'compressed' : ''} ${selectedOption !== null ? 'compressed' : ''}`} 
-                    onClick={() => handleVote('left')}
+                    onClick={() => handleVote('L')}
                 >
                     {gameData.data.leftOption}
                     {selectedOption && (
                         <div className="vote-details">
-                            <div className="vote-percentage">{leftPercentage.toFixed(2)}%</div> 
-                            <div className="vote-count">{votes.left}표</div> 
+                            <div className="vote-percentage">{leftPercentage.toFixed(1)}%</div> 
+                            <div className="vote-count">{gameData.data.lcount}표</div> 
                             <div className="vote-mbti-title">가장 많이 선택한 MBTI</div>
-                            <div className="vote-mbti">🏅{mostVotedMbti}</div>
+                            <div className="vote-mbti">🏅{gameData.data.leftMostMbti}</div>
                         </div>
                     )}
                 </button>
                 <button 
                     className={`balance-post-right ${selectedOption === 'right' ? 'selected' : ''} ${selectedOption === 'right' ? 'compressed' : ''} ${selectedOption !== null ? 'compressed' : ''}`} 
-                    onClick={() => handleVote('right')}
+                    onClick={() => handleVote('R')}
                 >
                     {gameData.data.rightOption}
                     {selectedOption && (
                         <div className="vote-details">
                             <div className="vote-percentage">{rightPercentage.toFixed(2)}%</div> 
-                            <div className="vote-count">{votes.right}표</div> 
+                            <div className="vote-count">{gameData.data.rcount}표</div> 
                             <div className="vote-mbti-title">가장 많이 선택한 MBTI</div>
-                            <div className="vote-mbti">🏅{mostVotedMbti}</div>
+                            <div className="vote-mbti">🏅{gameData.data.rightMostMbti}</div>
                         </div>
                     )}
                 </button>
