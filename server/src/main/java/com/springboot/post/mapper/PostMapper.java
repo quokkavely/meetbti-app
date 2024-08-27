@@ -1,5 +1,6 @@
 package com.springboot.post.mapper;
 
+import com.springboot.comment.dto.CommentDto;
 import com.springboot.comment.mapper.CommentMapper;
 import com.springboot.heart.entity.Heart;
 import com.springboot.post.dto.PostDto;
@@ -41,8 +42,9 @@ public interface PostMapper {
 
             return response.build();
     }
-   default List<PostDto.GetResponse> postsToPostResponseDtos(List<Post> posts, CommentMapper commentMapper, long requesterId) {
+   default List<PostDto.GetResponse> postsToPostGetResponseDtos(List<Post> posts, CommentMapper commentMapper, long requesterId) {
        return posts.stream()
+               .distinct()
                .map(post -> postToPostGetResponseDto(post,commentMapper, requesterId))
                .collect(Collectors.toList());
    }

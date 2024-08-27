@@ -59,12 +59,9 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(tokens);
-
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonResponse);
+
     }
 }

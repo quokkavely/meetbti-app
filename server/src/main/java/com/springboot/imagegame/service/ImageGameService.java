@@ -47,7 +47,7 @@ public class ImageGameService {
         Pageable pageable = PageRequest.of(page, size);
 
         if(!isAdmin(authentication)) {
-            imageGameRepository.findByGameStatusNot(pageable, GameStatus.PENDING);
+            return imageGameRepository.findByGameStatusNot(pageable, GameStatus.PENDING);
         }
 
         return imageGameRepository.findByGameStatus(pageable, GameStatus.PENDING);
