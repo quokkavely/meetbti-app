@@ -57,7 +57,7 @@ const Filter = ({ setSelectedMBTI }) => {
         if(state.isAuthenticated) {
             fetchFilteredContent();
         }
-    }, [selectedMBTI]); //  선택된 MBTI가 변경될 때마다 useEffect 실행
+    }, []); //  선택된 MBTI가 변경될 때마다 useEffect 실행
         
     return (
         <div className="filter-mbtmi">

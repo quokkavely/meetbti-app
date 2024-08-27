@@ -161,7 +161,7 @@ const CommentSection = ({ comments, postAuthor }) => {
 };
 
 // 댓글 입력 컴포넌트
-const CommentInput = ({ state, postId, setLoading, setPostData}) => {
+const CommentInput = ({ state, postId, setLoading, setPostData, myData, navigate }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
@@ -175,6 +175,12 @@ const CommentInput = ({ state, postId, setLoading, setPostData}) => {
       alert('댓글 내용을 입력해주세요');
       return;
     }
+    if(myData.data.mbti === 'NONE'){
+      if(window.confirm('MBTI가 없어요. 첫 테스트를 진행하시겠어요?')){
+        navigate('TestMain');
+      }
+    }
+  
     sendPostCommentRequest(state, postId, inputValue, setInputValue, ()=> sendGetSinglePostsRequest(state, postId, setLoading, setPostData));
   };
 
@@ -219,7 +225,8 @@ const PostPage = () => {
       {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} myMbti={myData.data.mbti} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}
-      {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading} setPostData={setPostData}/>}
+      {!loading && <CommentInput state = {state} postId = {postData.data.postId} setLoading={setLoading}
+       setPostData={setPostData} myData={myData} navigate={navigate}/>}
     </div>
   );
 };
