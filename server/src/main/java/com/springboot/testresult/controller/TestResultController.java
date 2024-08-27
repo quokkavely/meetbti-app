@@ -43,10 +43,11 @@ public class TestResultController {
         return new ResponseEntity<>(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(testResult)), HttpStatus.CREATED);
     }
 
-    /*@GetMapping
+    @GetMapping("/mypage")
     public ResponseEntity getLastTestResult(Authentication authentication){
-        testResultService.fi
-    }*/
+        TestResult lastResult = testResultService.findLastResult(authentication);
+        return new ResponseEntity(new SingleResponseDto<>(testResultMapper.testResultToTestResultResponseDto(lastResult)), HttpStatus.OK);
+    }
     @GetMapping
     public ResponseEntity getTestResults(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size,
