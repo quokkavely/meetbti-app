@@ -1,6 +1,6 @@
 const sendDeletePostRequest = async(state, category, postId, navigate) => {
     try{
-        const response = await fetch(`http://localhost:8080/posts/${postId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/${postId}`,
             {
                 method: 'DELETE',
                 headers: {

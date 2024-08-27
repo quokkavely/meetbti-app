@@ -1,6 +1,6 @@
 const sendAuthcodeRequest = async (emailInput)=> {
     try{
-        const response = await fetch('http://localhost:8080/send-mail/email',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/send-mail/email`,
             {
                 method: 'POST',
                 headers: {

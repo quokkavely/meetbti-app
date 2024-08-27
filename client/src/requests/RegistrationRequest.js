@@ -2,7 +2,7 @@ import sendAuthcodeRequest from "./AuthcodeRequest";
 
 const sendRegistrationRequest = async(emailInput, nicknameInput, passwordInput) => {
     try{
-        const response = await fetch('http://localhost:8080/members',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/members`,
             {
                 method: 'POST',
                 headers: {

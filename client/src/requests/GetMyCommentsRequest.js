@@ -1,6 +1,6 @@
 const sendGetMyCommentsRequest = async(state, page, size, setMyComments, setIsLoading) => {
     try{
-        const response = await fetch(`http://localhost:8080/comments?page=${page}&size=${size}&member-id=${state.memberId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/comments?page=${page}&size=${size}&member-id=${state.memberId}`,
             {
                 method: 'GET',
                 headers: {

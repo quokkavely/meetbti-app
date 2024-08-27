@@ -3,7 +3,7 @@ const sendReportPostRequest = async(state, postId, reason) => {
         console.log('state: ', state);
         console.log('postId: ', postId);
         console.log('reason: ', reason);
-        const response = await fetch(`http://localhost:8080/posts/${postId}/reports?postId=${postId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}/reports?postId=${postId}`,
             {
                 method: 'POST',
                 headers: {

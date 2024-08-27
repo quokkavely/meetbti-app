@@ -1,7 +1,7 @@
 const sendPatchPostRequest = async (state, postId, memberId, title, content, navigate) => {
     try{
         console.log('postId: ', postId);
-        const response = await fetch(`http://localhost:8080/posts/${postId}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}`,
             {
                 method: 'PATCH',
                 headers: {

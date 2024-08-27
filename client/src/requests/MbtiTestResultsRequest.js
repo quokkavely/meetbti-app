@@ -3,7 +3,7 @@ const sendMbtiTestResultsRequest = async(state, page, size, setLoading, setHisto
         console.log('MBTI 테스트 이력 GET요청 전송');
         /* console.log('page: ', page);
         console.log('size: ', size); */
-        const response = await fetch(`http://localhost:8080/mbti-test?page=${page}&size=${size}`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/mbti-test?page=${page}&size=${size}`,
             {
                 method: 'GET',
                 headers: {

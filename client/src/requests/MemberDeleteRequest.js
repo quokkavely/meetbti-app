@@ -1,6 +1,6 @@
 const sendMemberDeleteRequest = async(state, logout, navigate) => {
     try{
-        const response = await fetch('http://localhost:8080/members/mypage',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/members/mypage`,
             {
                 method: 'DELETE',
                 headers: {

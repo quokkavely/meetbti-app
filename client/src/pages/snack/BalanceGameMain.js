@@ -51,7 +51,7 @@ const BalanceGame = () => {
   const [dbDummyGames, setDbDummyGames] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/balancegames')
+    fetch(`${process.env.REACT_APP_API_URL}/balancegames`)
       .then(response => response.json())
       .then(data => setDbDummyGames(data))
       .catch(error => console.error(error))

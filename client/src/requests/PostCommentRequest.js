@@ -3,7 +3,7 @@ const sendPostCommentRequest = async(state, postId, content, setInputValue, rese
         console.log('state: ', state);
         console.log('postId: ', postId);
         console.log('content: ', content);
-        const response = await fetch(`http://localhost:8080/posts/${postId}/comments`,
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}/comments`,
             {
                 method: 'POST',
                 headers: {

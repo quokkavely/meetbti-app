@@ -2,7 +2,7 @@ import sendLoginRequest from "./LoginRequest";
 
 const sendVerifyRequest = async(emailInput, authCodeInput, passwordInput, login, navigate) => {
     try{
-        const response = await fetch('http://localhost:8080/members/verify',
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/members/verify`,
             {
                 method: 'POST',
                 headers: {
