@@ -25,17 +25,22 @@ const HeaderComponent = () => {
 // MBTI 테스트 컴포넌트
 const MBTITestResult = ({ mbti }) => {
   const [resultImage, setResultImage] = useState(`mbti-img/${mbti}.gif`);
-  
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setResultImage(`mbti-img/${mbti}.png`);
+    }, 6000);
+
+    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+  }, [mbti]);
   console.log('resultImg: ', resultImage);
+
   return (
     <div className="ResultImg">
       <img  
         src={resultImage} 
         alt="Test Result" 
         className="mbti-test-result-image"/>
-      {/* <div 
-        ref={overlayRef} 
-        className="overlay"></div> */}
     </div>
   )
 };
@@ -136,8 +141,8 @@ const MBTITestResultSecond = ({ mbti, secondMbti }) => {
           <div className="first-mbti-keyword2">{mbtiKeywords[mbti].keywords.keyword2}</div>
           <div className="first-mbti-keyword3">{mbtiKeywords[mbti].keywords.keyword3}</div>
         </div>
-        <div className="logo-icon">
-          <img src="/public-img/logo-icon.png" alt="myMbti"/>
+        <div className="logo-icon-result">
+          <img src="/public-img/img-testreult.png" alt="myMbti"/>
         </div>
         <div className="second-mbti">
           <div className="second-mbti-type">{secondMbti}</div> {/* 2순위 결과값 */}

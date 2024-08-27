@@ -8,7 +8,7 @@ const ResultWaiting = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('/testresult');
-        }, 8000);
+        }, 6000);
     
     
     return () => clearTimeout(timer);

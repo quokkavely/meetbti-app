@@ -3,12 +3,16 @@
     align-content: center;
     /* margin-left: 525px; */
     justify-content: center;
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+    
 }
 
 .test-box{
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 20px;
     align-self: center;
     width: 400px;
     height: 200px;
@@ -19,10 +23,12 @@
 .test-number{
     align-self: end;
     margin-right: 50px;
+    font-size: 14px;
+    color: #5e5e5e;
 }
 .test-content-box{
     align-self: center;
-    margin-top: 20px;
+    margin-top: 40px;
     /* border: 1px solid black; */
     width: 250px;
 }
@@ -53,7 +59,7 @@
     margin-right: 50px;
     width: var(--goal-width);
     height: 10px;
-    background-color: pink;
+    background-color: #e3ccf6;
     position: relative;
     /* left: var(--left); */
     left: -10px;
@@ -63,17 +69,21 @@
     border-radius: 15px;
     border: none;
     align-self: center;
-    margin-top: 30px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: bold;
     width: 350px;
     height: 50px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #353535;
+    background-color: rgb(246, 246, 246);
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
 }
 .test-response:hover{
     background-color: blueviolet;
 }
 .test-response-container{
-    margin-top: 50px;
+    margin-top: 0px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
 }

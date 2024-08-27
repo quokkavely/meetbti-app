@@ -84,18 +84,20 @@
   
   .mbti-button {
     position: absolute;
-    bottom: 180px;
+    bottom: 150px;
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
     height: 55px;
-    background-color: #6a3da9;
+    background-color: #9d5cf8;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 20px;
     cursor: pointer;
+    font-weight: bold;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
   }
   
   .mbti-button:hover {

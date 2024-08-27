@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ onBackClick }) => {
     const navigate = useNavigate();
     return (
       <header style={styles.Header} className="header">
@@ -9,7 +9,7 @@ const Header = () => {
           <div style={styles.logoImg} className='logo-img' onClick={() => navigate('/')}>
             <img src="/public-img/Main-logo.png" alt='메인로고'/>
           </div>
-          <div style={styles.backIcon} className="back-icon" onClick={() => navigate(-1)}>
+          <div style={styles.backIcon} className="back-icon" onClick={onBackClick || (() => navigate(-1))}>
             <img src="/public-img/back(grey).png" alt='뒤로 가기' />
           </div>
         </div>
