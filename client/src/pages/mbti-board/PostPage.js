@@ -178,6 +178,7 @@ const CommentInput = ({ state, postId, setLoading, setPostData, myData, navigate
     if(myData.data.mbti === 'NONE'){
       if(window.confirm('MBTI가 없어요. 첫 테스트를 진행하시겠어요?')){
         navigate('TestMain');
+        return;
       }
     }
   
