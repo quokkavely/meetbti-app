@@ -109,14 +109,22 @@ public class PostController {
 
         Member findMember = memberService.findMember(principal.getMemberId());
 
+        String mbti;
+
+        if (findMember.getTestResults().size() == 0) {
+            mbti = "all";
+        } else {
+            mbti = findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
+        }
+
         String selectStandard = standard != null ? standard : "createdAt";
 
-        String selectCategory = category != null ? category : findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
+        String selectCategory = category != null ? category : mbti;
 
         Page<Post> pagePosts;
 
         if (memberId != null) {
-            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard, selectCategory);
+            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard);
         }else {
             pagePosts = postService.findPosts(page - 1, size, selectStandard, selectCategory);
         }
