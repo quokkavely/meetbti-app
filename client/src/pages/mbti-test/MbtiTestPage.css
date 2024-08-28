@@ -19,6 +19,7 @@
     border-radius: 20px;
     /* border: 1px solid black; */
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+    /* font-family: 'BlackHanSans'; */
 }
 .test-number{
     align-self: end;

@@ -37,16 +37,17 @@
 }
 
 .mbti-type {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
   margin-bottom: 10px;
   margin-left: 30px;
   margin-right: 10px;
+  font-family: 'jua';
 }
 
 .my-mbti-type-title {
   margin-left: 30px;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 10px;
   margin-left: 10px;
 }
@@ -57,7 +58,8 @@
   margin-left: 30px;
   margin-right: 30px;
   height: 400px;
-  background-color: #ececec;   
+  background-color: #f2f2f2;   
+  padding: 14px;
 }
 
 /* 구분 선 */
@@ -231,10 +233,12 @@
   border-radius: 8px;
 }
 
-.first-mbti {
+.first-mbti-type {
+  background-color: #ddb7fa;
 }
 
-.second-mbti {
+.second-mbti-type {
+  background-color: #fad2b7;
 }
 
 .logo-icon-result {
