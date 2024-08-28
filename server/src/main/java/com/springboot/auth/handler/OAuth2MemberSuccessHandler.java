@@ -1,9 +1,11 @@
 package com.springboot.auth.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.auth.jwt.JwtTokenizer;
 import com.springboot.auth.utils.JwtAuthorityUtils;
 import com.springboot.member.entity.Member;
 import com.springboot.member.service.MemberService;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -61,9 +63,24 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         System.out.println("Access Token: " + accessToken);
         System.out.println("Refresh Token: " + refreshToken);
 
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("accessToken", accessToken);
+        responseBody.put("refreshToken", refreshToken);
+        responseBody.put("memberId", memberId);
+        responseBody.put("email", email);
+
         // 클라이언트로 토큰을 보내기 위해 리다이렉트
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
+
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(responseBody);
+
+        response.getWriter().write(jsonResponse);
+        response.getWriter().flush();
     }
 
     private URI createURI(String accessToken, String refreshToken) {
@@ -75,7 +92,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-                .path("/receive-token.html")
+                .port("3000")
+                .path("/oauth2")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
