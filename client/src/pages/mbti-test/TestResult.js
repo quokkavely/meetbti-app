@@ -6,6 +6,7 @@ import Header from '../../components/basic_css/Header';
 import { useAuth } from '../../auth/AuthContext';
 import mbtiData from '../../mbtiData/mbtiData';
 import sendGetLastTestResultRequest from '../../requests/GetTestResult';
+import KakaoShare from '../../share/KakaoShare';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
@@ -185,9 +186,10 @@ const NavigateSection = () => {
             <button className="navigate-button" 
             onClick={() => navigate('/')}>
               <img src="/public-img/logo-home(pink).png" alt="home"/></button>
-            <button className="navigate-button" 
+            <KakaoShare></KakaoShare>
+            {/* <button className="navigate-button" 
             onClick={handleShare}>
-          <img src="/public-img/logo-share(pink).png" alt="share"/></button>
+          <img src="/public-img/logo-share(pink).png" alt="share"/></button> */}
         </div>
     </div>
   );
