@@ -103,7 +103,18 @@ const RegistBalanceGame = () => {
 
     const handleSubmit = () => {
         // 게시글 등록 로직 추가
-
+        if(balanceGameTitle === ''){
+          alert('제목을 입력해주세요');
+          return;
+        }
+        if(leftOption === ''){
+          alert('첫 번쨰 항목을 입력해주세요');
+          return;
+        }
+        if(rightOption === ''){
+          alert('두 번째 항목을 입력해주세요');
+          return;
+        }
         if(window.confirm('등록 요청하시겠어요?')){
           sendPostBalancegameRequest(state, balanceGameTitle, leftOption, rightOption, navigate);
         }
