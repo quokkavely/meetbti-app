@@ -59,9 +59,9 @@ const HistorySection = () => {
                 <button className="filter-btn-heart" onClick={toggleDropdown}>{`▼ ${type}`}</button>
                 {isDropdownOpen && (
                     <div className="dropdown-menu-heart">
-                        <button className="dropdown-item-heart" onClick={() => selectType('POST')}>게시글</button>
-                        <button className="dropdown-item-heart" onClick={() => selectType('BALANCE_GAME')}>밸런스게임</button>
-                        <button className="dropdown-item-heart" onClick={() => selectType('IMAGE_GAME')}>이미지게임</button>
+                        <button className="dropdown-item-heart" onClick={() => selectType('게시글')}>게시글</button>
+                        <button className="dropdown-item-heart" onClick={() => selectType('밸런스게임')}>밸런스게임</button>
+                        <button className="dropdown-item-heart" onClick={() => selectType('이미지게임')}>이미지게임</button>
                     </div>
                 )}
             </div>
@@ -71,7 +71,7 @@ const HistorySection = () => {
                         className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                         /* onClick={() => navigate(`postpage?postId`)} */
                     >
-                        <div className="history-content-text">{type === "IMAGE_GAME" ? item.topic : item.title}</div>
+                        <div className="history-content-text">{type === "이미지게임" ? item.topic : item.title}</div>
                         <div className="history-content-date">{item.createdAt}</div>
                     </div>
                 ))}

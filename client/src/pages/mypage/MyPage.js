@@ -37,7 +37,9 @@ const MyPageUserInfoContainer = (props) => {
             <div className="mypage-user-info-container-inner">
                 <img src={props.profileImg === null ? `/mbti-img/${props.mbti}.png` : props.profileImg} alt="mypage-user-info-img" />
             </div>
-            <button className='profile-img-modify-button' onClick={openModal}>✏️</button>
+            <button className='profile-img-modify-button' onClick={openModal}>
+                <img src="/public-img/post-img.png" alt="modify-icon" />
+            </button>
             <div className="mypage-user-info-section">
                 <div className="mypage-user-info-section-badge"> {props.mbti} </div>
                 <div className="mypage-user-info-section-name"> {props.nickname} </div>

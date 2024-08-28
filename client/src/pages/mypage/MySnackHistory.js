@@ -33,17 +33,33 @@ const SnackHistoryTitle = () => {
 };
 
 
-const Historyrecenttext = ( { setCategory, state, page, setResults, setLoading, setPage}) => {
+const Historyrecenttext = ({ setCategory, state, page, setResults, setLoading, setPage }) => {
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const [category, setCategoryState] = useState('선택');
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    };
+
+    const selectCategory = (option) => {
+        setCategory(option);
+        setCategoryState(option);
+        setPage(1);
+        setDropdownOpen(false);
+    };
+
     return (
         <div className="history-recenttext">
-            <select onChange={(e) => {
-                setCategory(e.target.value);
-                setPage(1);
-                }}>
-                <option disabled>선택</option>
-                <option>이미지게임</option>
-                <option>밸런스게임</option>
-            </select>
+            <div className="dropdown-snack" ref={dropdownRef}>
+                <button className="filter-btn-snack" onClick={toggleDropdown}>{`▼ ${category}`}</button>
+                {isDropdownOpen && (
+                    <div className="dropdown-menu-snack">
+                        <button className="dropdown-item-snack" onClick={() => selectCategory('이미지게임')}>이미지게임</button>
+                        <button className="dropdown-item-snack" onClick={() => selectCategory('밸런스게임')}>밸런스게임</button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

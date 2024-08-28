@@ -6,9 +6,7 @@ const mbtiData = {
         color: "#6f8ca7",
         keywords: { keyword1: "ENFJ1형", keyword2: "ENFJ2형", keyword3: "ENFJ3형" },
         mbtmi: {
-            images: "/mbti-img/ENFJ.png",
-            images2: "/mbti-img/ENFJ.png",
-            images3: "/mbti-img/ENFJ.png",
+            images: "/mbti-img/meetbti-enfj.png",
         },
     },
     ENFP: {
@@ -18,9 +16,7 @@ const mbtiData = {
         color: "#fdc4f9",
         keywords: { keyword1: "ENFP1형", keyword2: "ENFP2형", keyword3: "ENFP3형" },
         mbtmi: {
-            images: "/mbti-img/ENFP.png",
-            images2: "/mbti-img/ENFP.png",
-            images3: "/mbti-img/ENFP.png",
+            images: "/mbti-img/meetbti-enfp.png",
         },
     },
     ENTJ: {
@@ -30,9 +26,7 @@ const mbtiData = {
         color: "#f8e534",
         keywords: { keyword1: "ENTJ1형", keyword2: "ENTJ2형", keyword3: "ENTJ3형" },
         mbtmi: {
-            images: "/mbti-img/ENTJ.png",
-            images2: "/mbti-img/ENTJ.png",
-            images3: "/mbti-img/ENTJ.png",
+            images: "/mbti-img/meetbti-entj.png",
         },
     },
     ENTP: {
@@ -42,9 +36,7 @@ const mbtiData = {
         color: "#cf8053",
         keywords: { keyword1: "ENTP1형", keyword2: "ENTP2형", keyword3: "ENTP3형" },
         mbtmi: {
-            images: "/mbti-img/ENTP.png",
-            images2: "/mbti-img/ENTP.png",
-            images3: "/mbti-img/ENTP.png",
+            images: "/mbti-img/meetbti-entp.png",
         },
     },
     ESFJ: {
@@ -54,9 +46,7 @@ const mbtiData = {
         color: "#3b3b3b",
         keywords: { keyword1: "ESFJ1형", keyword2: "ESFJ2형", keyword3: "ESFJ3형" },
         mbtmi: {
-            images: "/mbti-img/ESFJ.png",
-            images2: "/mbti-img/ESFJ.png",
-            images3: "/mbti-img/ESFJ.png",
+            images: "/mbti-img/meetbti-esfj.png",
         },
     },
     ESFP: {
@@ -66,9 +56,7 @@ const mbtiData = {
         color: "#fa6060;",
         keywords: { keyword1: "ESFP1형", keyword2: "ESFP2형", keyword3: "ESFP3형" },
         mbtmi: {
-            images: "/mbti-img/ESFP.png",
-            images2: "/mbti-img/ESFP.png",
-            images3: "/mbti-img/ESFP.png",
+            images: "/mbti-img/meetbti-esfp.png",
         },
     },
     ESTJ: {
@@ -78,9 +66,7 @@ const mbtiData = {
         color: "#787cff",
         keywords: { keyword1: "ESTJ1형", keyword2: "ESTJ2형", keyword3: "ESTJ3형" },
         mbtmi: {
-            images: "/mbti-img/ESTJ.png",
-            images2: "/mbti-img/ESTJ.png",
-            images3: "/mbti-img/ESTJ.png",
+            images: "/mbti-img/meetbti-estj.png",
         },
     },
     ESTP: {
@@ -90,9 +76,7 @@ const mbtiData = {
         color: "#454b86",
         keywords: { keyword1: "ESTP1형", keyword2: "ESTP2형", keyword3: "ESTP3형" },
         mbtmi: {
-            images: "/mbti-img/ESTP.png",
-            images2: "/mbti-img/ESTP.png",
-            images3: "/mbti-img/ESTP.png",
+            images: "/mbti-img/meetbti-estp.png",
         },
     },
     INFJ: {
@@ -102,9 +86,7 @@ const mbtiData = {
         color: "#A2D0E0",
         keywords: { keyword1: "INFJ1형", keyword2: "INFJ2형", keyword3: "INFJ3형" },
         mbtmi: {
-            images: "/mbti-img/INFJ.png",
-            images2: "/mbti-img/INFJ.png",
-            images3: "/mbti-img/INFJ.png",
+            images: "/mbti-img/meetbti-infj.png",
         },
     },
     INFP: {
@@ -114,9 +96,7 @@ const mbtiData = {
         color: "#56d36b",
         keywords: { keyword1: "INFP1형", keyword2: "INFP2형", keyword3: "INFP3형" },
         mbtmi: {
-            images: "/mbti-img/INFP.png",
-            images2: "/mbti-img/INFP.png",
-            images3: "/mbti-img/INFP.png",
+            images: "/mbti-img/meetbti-infj.png",
         },
     },
     INTJ: {
@@ -126,9 +106,7 @@ const mbtiData = {
         color: "#AEA9A9",
         keywords: { keyword1: "INTJ1형", keyword2: "INTJ2형", keyword3: "INTJ3형" },
         mbtmi: {
-            images: "/mbti-img/INTJ.png",
-            images2: "/mbti-img/INTJ.png",
-            images3: "/mbti-img/INTJ.png",
+            images: "/mbti-img/meetbti-intj.png",
         },
     },
     INTP: {
@@ -138,9 +116,7 @@ const mbtiData = {
         color: "#ffc53f",
         keywords: { keyword1: "INTP1형", keyword2: "INTP2형", keyword3: "INTP3형" },
         mbtmi: {
-            images: "/mbti-img/INTP.png",
-            images2: "/mbti-img/INTP.png",
-            images3: "/mbti-img/INTP.png",
+            images: "/mbti-img/meetbti-intp.png",
         },
     },
     ISFJ: {
@@ -150,9 +126,7 @@ const mbtiData = {
         color: "#78d4ff",
         keywords: { keyword1: "ISFJ1형", keyword2: "ISFJ2형", keyword3: "ISFJ3형" },
         mbtmi: {
-            images: "/mbti-img/ISFJ.png",
-            images2: "/mbti-img/ISFJ.png",
-            images3: "/mbti-img/ISFJ.png",
+            images: "/mbti-img/meetbti-isfj.png",
         },
     },
     ISFP: {
@@ -162,9 +136,7 @@ const mbtiData = {
         color: "#FFADAD",
         keywords: { keyword1: "ISFP1형", keyword2: "ISFP2형", keyword3: "ISFP3형" },
         mbtmi: {
-            images: "/mbti-img/ISFP.png",
-            images2: "/mbti-img/ISFP.png",
-            images3: "/mbti-img/ISFP.png",
+            images: "/mbti-img/meetbti-isfp.png",
         },
     },
     ISTJ: {
@@ -174,9 +146,7 @@ const mbtiData = {
         color: "#c484f8",
         keywords: { keyword1: "ISTJ1형", keyword2: "ISTJ2형", keyword3: "ISTJ3형" },
         mbtmi: {
-            images: "/mbti-img/ISTJ.png",
-            images2: "/mbti-img/ISTJ.png",
-            images3: "/mbti-img/ISTJ.png",
+            images: "/mbti-img/meetbti-istj.png",
         },
     },
     ISTP: {
@@ -186,9 +156,7 @@ const mbtiData = {
         color: "#986b5e",
         keywords: { keyword1: "ISTP1형", keyword2: "ISTP2형", keyword3: "ISTP3형" },
         mbtmi: {
-            images: "/mbti-img/ISTP.png",
-            images2: "/mbti-img/ISTP.png",
-            images3: "/mbti-img/ISTP.png",
+            images: "/mbti-img/meetbti-istp.png",
         },
     },
 };

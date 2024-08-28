@@ -249,3 +249,18 @@
 .change-profile-confirm-button:hover{
     background-color: #cd9df7;
 }
+
+.profile-img-modify-button {
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: none;
+    background-color: #ffffff;
+    opacity: 70%;
+}
+
+.profile-img-modify-button img {
+    width: 34px;
+    height: 32px;
+    padding-bottom: 2px;
+}

@@ -11,32 +11,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 420px;
     height: auto;
     margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #c8adf4;
+    border-radius: 10px;
+    
 }
 
 .img-game-result-title-section {
-  width: 420px;
+  width: 400px;
   height: 80px;
   align-items: center;
   font-family: 'Jua-Regular', sans-serif;
 }
 
 .img-game-result-title {
-  width: 420px;
+  width: 400px;
   height: 60px;
-  font-size: 24px;
-  text-align: left;
+  font-size: 22px;
+  text-align: center;
   padding: 10px;
+  padding-top: 20px;
   color: #646465; 
   font-family: 'Jua-Regular', sans-serif;
 }
 
 .img-game-result-title-writer {
-  width: 420px;
+  width: 400px;
   height: 20px;
-  font-size: 16px;
+  font-size: 14px;
   text-align: right;
   padding-right: 30px;
   color: #858585;
@@ -44,15 +48,15 @@
 }
 
 .img-game-result-content-section {
-  width: 420px;
+  width: 400px;
   height: auto;
   margin-top: 20px;
 }
 
 .img-game-result-content-title {
-  width: 420px;
+  width: 400px;
   height: 50px;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -63,7 +67,7 @@
 
 /* 랭킹 */
 .img-game-result-ranking {
-  width: 420px;
+  width: 380px;
   height: auto;
 }
 
@@ -74,7 +78,7 @@
 }
 
 .img-game-result-first, .img-game-result-second, .img-game-result-third {
-  width: 400px;
+  width: 380px;
   height: 140px;
   display: flex;
   flex-direction: column;
@@ -127,7 +131,7 @@
 
 /* 좋아요, 댓글 수*/
 .img-game-result-post-count {
-    width: 420px;
+    width: 400px;
     height: 70px;
     display: flex;
     justify-content: flex-start;
@@ -135,7 +139,7 @@
     padding-left: 10px;
     gap: 10px;
     padding: 10px;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .img-game-result-post-heart-count-section, .img-game-result-post-comment-section  {
@@ -178,7 +182,7 @@
     font-size: 14px;
     color: #545454;
     text-align: left;
-    padding-left: 6px;
+    /* padding-left: 6px; */
     width: 100%;
     /* max-height: 400px;
     overflow-y: auto; */
@@ -186,7 +190,7 @@
 
   .img-game-result-comment-list{
     display: flex;
-    width: 420px;
+    width: 400px;
     height: 60px;
     flex-direction: row;
     border-top: 1px solid #ccc;
@@ -270,7 +274,7 @@
 /* 댓글 입력 */
 .img-game-result-comment-input {
     display: flex;
-    width: 420px;
+    width: 400px;
     height: 40px;
     padding: 10px;
     padding-top: 35px;
@@ -281,7 +285,7 @@
   
 .img-game-result-comment-input-field {
     display: flex;
-    width: 370px;
+    width: 360px;
     height: 40px;
     border: 1px solid #ccc;
     border-radius: 15px;

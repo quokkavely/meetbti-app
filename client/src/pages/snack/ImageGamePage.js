@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import AppContainer from '../../components/basic_css/AppContainer';
 import Header from "../../components/basic_css/Header";
 import './ImageGamePage.css';
 import { VoteContext } from '../../context/VoteContext';
@@ -62,20 +63,23 @@ const ImageGamePage = ( ) => {
 
     return (
         <div className="app">
-            <Header></Header>
+            <AppContainer />
+            <Header />
+            <div className="imagegame-all-container">
             {isLoading ? <div /> : <div className="imagegame-title">{gameData.data.topic}</div>}
             {/* {!loading && <h2 className="imagegame-title">{imageGameData.data.topic}</h2>} */}
             <div className="imagegame-author">작성자: {""} </div>
-                <div className="imagegame-button-container-container">
-                    <div className="imagegame-button-container">
-                        {mbtiButtonsA.map((value) => (
-                            <button className = 'imagegame-vote-button' id={value.id} onClick = {() => handleVote(value.id)}>{value.id}</button>))}
-                    </div>
-                    <div className="imagegame-button-container">
-                        {mbtiButtonsB.map((value) => (
-                            <button className = 'imagegame-vote-button' id={value.id} onClick = {() => handleVote(value.id)}>{value.id}</button>))}
-                    </div>
+            <div className="imagegame-button-container-container">
+                <div className="imagegame-button-container">
+                    {mbtiButtonsA.map((value) => (
+                    <button className = 'imagegame-vote-button' id={value.id} onClick = {() => handleVote(value.id)}>{value.id}</button>))}
                 </div>
+                <div className="imagegame-button-container">
+                        {mbtiButtonsB.map((value) => (
+                    <button className = 'imagegame-vote-button' id={value.id} onClick = {() => handleVote(value.id)}>{value.id}</button>))}
+                </div>
+            </div>
+            </div>
         </div>
     );
 }

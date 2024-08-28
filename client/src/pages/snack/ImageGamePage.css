@@ -5,38 +5,64 @@
     font-style: normal;
   }
 
+.imagegame-all-container{
+    width: 400px;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #c8adf4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* display: flex; */
+}
+
 .imagegame-title{
-    font-size: 34px;
+    width: 100%;
+    font-size: 24px;
     text-align: center;
     color: #626262;
     margin-top: 30px;
+    padding: 10px;
+    height: 50px;
     font-family: 'Jua-Regular', sans-serif;
 }
 .imagegame-author{
     text-align: end;
     margin-top: 10px;
     font-size: 16px;
+    margin-right: 20px;
     color: #626262;
     font-family: 'Jua-Regular', sans-serif;
 }
+
+.img-game-result-content-section{
+    margin: 40px auto 0; /* 수정된 부분 */
+    display: flex; /* 추가된 부분 */
+    flex-direction: column; /* 추가된 부분 */
+    align-items: center; /* 추가된 부분 */
+}
+
 .imagegame-button-container-container{
     display: flex;
     /* justify-content: center; */
     width: 100%;
     height: 100%;
+    margin: 0px;
     margin-bottom: 50px;
 }
 .imagegame-button-container{
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-    /* justify-content: center; */
-    width: 50%;
+    margin: 40px auto 0; /* 수정된 부분 */
+    justify-content: center;
+    align-items: center;
+    width: 45%;
     height: 500px;
-    /* border: 1px solid black; */
+    /* border: 1px solid rgb(140, 140, 140); */
 }
 .imagegame-vote-button{
     margin: 9px;
+    width: 100%;
     height: 44px;
     border-radius: 10px;
     border: none;
