@@ -33,16 +33,12 @@ const SnackHistoryTitle = () => {
 };
 
 
-const Historyrecenttext = ( { setCategory, state, page, setResults, setLoading}) => {
+const Historyrecenttext = ( { setCategory, state, page, setResults, setLoading, setPage}) => {
     return (
         <div className="history-recenttext">
             <select onChange={(e) => {
                 setCategory(e.target.value);
-                if(e.target.value === '이미지게임'){
-                    sendGetImagegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
-                } else if(e.target.value === '밸런스게임'){
-                    sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
-                }
+                setPage(1);
                 }}>
                 <option disabled>선택</option>
                 <option>이미지게임</option>
@@ -64,8 +60,12 @@ const MySnackHistory = () => {
 
     useEffect(() => {
         sendGetMyInfoRequest(state, setMyData);
-        sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
-    }, []);
+        if(category === '이미지게임'){
+            sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
+        } else if(category === '밸런스게임'){
+            sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
+        }
+    }, [page, category]);
 
     const getContents = () => {
         if(category === '이미지게임'){
@@ -108,7 +108,7 @@ const MySnackHistory = () => {
         <HeaderComponent />
         <SnackHistoryTitle />
         <Historyrecenttext setCategory={setCategory} state={state} page={page}
-        setResults={setHistoryData} setLoading={setIsLoading}/>
+        setResults={setHistoryData} setLoading={setIsLoading} setPage={setPage}/>
         <div className="history-section">
             <div className="image-game-container">
                 <div className="image-game-container-title">
