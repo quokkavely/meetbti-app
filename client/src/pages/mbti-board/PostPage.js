@@ -17,15 +17,23 @@ import sendReportPostRequest from '../../requests/ReportPostRequest';
 import sendDeletePostRequest from '../../requests/DeletePostRequest';
 
 // 포스트 컨텐츠 컴포넌트
-const PostPageContent = ({ post }) => {
+const PostPageContent = ({ post, postAuthor, username, state, myMbti, postId, navigate }) => {
   return (
     <div className="post-page-content">
       <div className="post-title">{post.title}</div>
       <div className="post-meta">
         <span>{post.createdAt}</span>
         <span>조회 {post.viewCount}</span>
-        {/* <span>❤️ {post.heartCount}</span> 
-        <span>💬 {post.comments.length}</span>  */}
+        {postAuthor === username && (
+          <div className='post-modify-container'>
+            <button className='post-modify-button' onClick={() => navigate(`/registPost?postId=${postId}&action=modify`)}>수정</button>
+            <button className='post-modify-button' onClick={() => {
+              if(window.confirm('게시글을 삭제하시겠어요?')){
+                sendDeletePostRequest(state, myMbti, postId, navigate);
+              }
+            }}>삭제</button>
+          </div>
+        )}
       </div>
       {post.postImage !== null && <img src={post.postImage} alt="post" className="post-image" />}
       <div className="post-text">{post.content}</div>
@@ -99,14 +107,6 @@ const PostActions = ({ state, navigate, postId, postAuthor, username, myMbti, li
           selectedReason={selectedReason}
         />
       </div>
-      {postAuthor === username && <div className='post-modify-container'>
-        <button className='post-modify-button' onClick={() => navigate(`/registPost?postId=${postId}&action=modify`)}>수정</button>
-        <button className='post-modify-button' onClick={() => {
-          if(window.confirm('게시글을 삭제하시겠어요?')){
-            sendDeletePostRequest(state, myMbti, postId, navigate);
-          }
-          }}>삭제</button>
-      </div>}
     </div>
   );
 };

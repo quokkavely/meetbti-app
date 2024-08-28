@@ -1,17 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-
-.app {
-    max-width: 480px; /* 모바일 크기 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 20px; /* 패딩 추가 */
-  }
-
- /* 헤더 */
+/* 헤더 */
 .header {
     display: flex;
     flex-direction: column;
@@ -47,13 +34,6 @@
     height: auto;
   }
 
-.logo-text {
-    text-align: center;
-    margin-right: auto;
-    font-size: 10px;
-    color:#3C3C3C
-  }
-
 
 /* 제목 입력 영역 */
 .input-post-title {
@@ -74,7 +54,6 @@
     border: none;
     font-size: 16px;
     margin-left: 5px;
-    margin-top: 40px;
 }
 
 .title-input::placeholder {
@@ -166,7 +145,7 @@
     font-size: 14px;
     width: 100%;
     max-width: 480px;
-    min-height: 150px;
+    min-height: 300px;
     border: 1px solid #ccc;
     padding: 10px;
 }
@@ -205,14 +184,14 @@
     height: 25px;
     border-radius: 10%;
     padding: 10px 20px;
-    background-color: #e7e7e7;
+    background-color: #e0e0e0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 11px;
-    color: #5d5d5d;
+    color: #535353;
     padding-left: 20px;
     margin-left: 30px;
 }
@@ -234,10 +213,11 @@
   }
 
 .regist-button button {
-    width: 400px;
+    width: 220px;
     height: 40px;
     border: none;
-    background-color: blueviolet;
+    background-color: #a882ff;
+    font-size: 17px;
     color: #fff;
     cursor: pointer;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

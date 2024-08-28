@@ -36,6 +36,7 @@
 .test-content{
     font-size: 20px;
     font-weight: bold;
+    color:#373737;
 }
 .progression-bar{
     display: flex;
@@ -75,7 +76,7 @@
     font-weight: bold;
     width: 350px;
     height: 50px;
-    color: #353535;
+    color: #5d5d5d;
     background-color: rgb(246, 246, 246);
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
 }

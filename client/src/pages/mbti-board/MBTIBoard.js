@@ -79,7 +79,13 @@ const Filter = (props) => {
                 )}
             </div>
             <div className="dropdown" ref={sortDropdownRef}>
-                <button className="filter-btn" onClick={toggleSortDropdown}>▼ {props.sortName}</button>
+                <button 
+                    className="filter-btn" 
+                    onClick={toggleSortDropdown} 
+                    style={props.sortBy === 'comments' ? { fontSize: '12px' } : {}}
+                >
+                    ▼ {props.sortName}
+                </button>
                 {isSortDropdownOpen && (
                     <div className="dropdown-menu">
                         <button className="dropdown-item" onClick={() => selectSortBy('createdAt', '최신순')}>최신순</button>
