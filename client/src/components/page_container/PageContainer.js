@@ -16,10 +16,10 @@ const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
     pages.sort((a,b) => a - b);
 
     useEffect(() => {
+        setPage(currentPage);
+    }, [currentPage] );
 
-    }, )
-
-
+    console.log('page: ', page);
     return (
         <div className="page-container">
             <button className='page-button' onClick={() => {
@@ -38,6 +38,7 @@ const PageContainer = ({ currentPage, pageInfo, getPage, setPageOriginal }) => {
                     if(page === value){
                         return;
                     }
+                    console.log('value: ', value);
                     getPage(value);
                     setPage(value);
                     if(setPageOriginal !== undefined){
