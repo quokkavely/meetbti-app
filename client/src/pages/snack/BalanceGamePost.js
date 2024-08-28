@@ -135,7 +135,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
             <div className="balance-comment-container">
                 {gameData.data.comments.map((comment, index) => (
                     <div key={index} className="balance-comment-list">
-                        <CommentUserInfoContainer mbti={comment.mbti} username={comment.nickName}/>
+                        <CommentUserInfoContainer mbti={comment.mbti} username={comment.nickName} profileImage = {comment.image}/>
                         <div className="balance-comment-section">
                             <div className="balance-comment-text">{comment.content}</div>
                             <div className="balance-comment-time">{comment.createdAt}</div>

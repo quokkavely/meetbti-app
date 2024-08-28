@@ -13,6 +13,7 @@ import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendImageGameCommentRequest from '../../requests/ImageGameCommentRequest';
 import sendGetSingleImageGameRequest from '../../requests/GetSingleImageGameRequest';
 import sendPostHeartRequest from '../../requests/PostHeartRequest';
+import sendPostImageGameCommentRequest from '../../requests/PostImagegameCommentRequest';
 
 const AppContainerComponent = () => {
     return (
@@ -40,33 +41,13 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const [currentPage, setCurrentPage] = useState(1);
     const commentsPerPage = 10;
     const indexOfLastComment = currentPage * commentsPerPage;
     const indexOfFirstComment = indexOfLastComment - commentsPerPage;
     const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
     const totalPages = Math.ceil(comments.length / commentsPerPage);
-
-    useEffect(() => {
-        sendGetMyinfoRequest(state, setMyData);
-    }, [state]);
-
-    useEffect(() => {
-        if (gameData.data.comments) {
-            setComments(gameData.data.comments);
-        }
-    }, [gameData]);
-
-    const [gameId, setGameId] = useState(null);
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const id = params.get('gameId');
-        setGameId(id);
-        if (id) {
-            sendGetSingleImageGameRequest(state, id, setGameData, setIsLoading);
-        }
-    }, [location.search, state]);
 
     const handleSend = () => {
         if (myData.data.mbti === 'NONE') {
@@ -75,24 +56,13 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
                 return;
             }
         }
-        sendImageGameCommentRequest(state, gameId, inputValue, setInputValue,
-            () => sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading));
+        if(inputValue === ''){
+            alert('내용을 입력해주세요');
+            return;
+        }
+        sendPostImageGameCommentRequest(state, params.get('gameId'), inputValue, setInputValue,
+            () => sendGetSingleImageGameRequest(state, params.get('gameId'), setGameData, setIsLoading));
     };
-
-    useEffect(() => {
-        const totalVotes = Object.values(votes).reduce((acc, vote) => acc + vote, 0);
-        setVoteCount(totalVotes);
-
-        const votePercentages = Object.entries(votes).map(([mbti, vote]) => ({
-            mbti,
-            percentage: totalVotes ? (vote / totalVotes) * 100 : 0
-        }));
-
-        const sortedVotes = votePercentages
-            .sort((a, b) => b.percentage - a.percentage)
-            .slice(0, 3);
-        setTopThree(sortedVotes);
-    }, [votes]);
 
     const handleResetVote = () => {
         const votedMbti = localStorage.getItem('votedMbti');
@@ -115,14 +85,14 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
     return (
         <div className="img-game-result-container">
             <div className="img-game-result-title-section">
-                <div className="img-game-result-title"> {title} </div>
-                <div className="img-game-result-title-writer"> 작성자 : {state.nickName} </div>
+                <div className="img-game-result-title"> {gameData.data.topic} </div>
+                <div className="img-game-result-title-writer"> 작성자 : {gameData.data.nickName} </div>
             </div>
 
             <div className="img-game-result-content-section">
-                <div className="img-game-result-content-title"> 총 {voteCount}명이 투표했어요! </div>
+                <div className="img-game-result-content-title"> 총 {gameData.data.totalVotes}명이 투표했어요! </div>
                 <div className="img-game-result-ranking">
-                    {topThree.map((item, index) => {
+                    {Object.entries(gameData.data.mbtis || {}).map(([key, value], index) => {
                         let className;
                         if (index === 0) {
                             className = 'img-game-result-first';
@@ -133,9 +103,9 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
                         }
                         return (
                             <div key={index} className={`img-game-result-item ${className}`}>
-                                <Badge mbtiType={item.mbti} color={mbtiData[item.mbti].color} />
+                                <Badge mbtiType={key} color={mbtiData[key].color} />
                                 <div className="img-game-result-text">
-                                    <div className="img-game-result-percentage">투표율: {item.percentage.toFixed(2)}%</div>
+                                    <div className="img-game-result-percentage">투표율: {value.toFixed(2)}%</div>
                                     <div className="img-game-result-index">
                                         {index === 0 && ' 압도적 1위를 달리는 중!'}
                                         {index === 1 && ' 콩콩콩! 2위!'}
@@ -149,8 +119,8 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
             </div>
             {/* 좋아요, 댓글 수 */}
             <div className="img-game-result-post-count">
-                <div className="img-game-result-post-heart-count-section" onClick={() => sendPostHeartRequest(state, gameId, 'imagegames',
-                    () => sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading)
+                <div className="img-game-result-post-heart-count-section" onClick={() => sendPostHeartRequest(state, gameData.data.gameId, 'imagegames',
+                    () => sendGetSingleImageGameRequest(state, gameData.data.gameId, setGameData, setIsLoading)
                 )}>
                     <div className="img-game-result-post-heart-img">❤️</div>
                     <div className="img-game-result-post-heart-count">{gameData.data.heartCount}</div>
@@ -159,15 +129,12 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
                     <div className="img-game-result-post-comment-img">💬</div>
                     <div className="img-game-result-post-comment-count">{gameData.data.commentCount}</div>
                 </div>
-                <div className="img-game-reset-button-container">
-                    <button className="img-game-reset-button" onClick={handleResetVote}>투표 초기화</button>
-                </div>
             </div>
 
             <div className="img-game-result-comment-container">
                 {gameData.data.comments.map((comment, index) => (
                     <div key={index} className="img-game-result-comment-list">
-                        <CommentUserInfoContainer />
+                        <CommentUserInfoContainer username={comment.nickName} mbti={comment.mbti} profileImage={comment.image}/>
                         <div className="img-game-result-comment-section">
                             <div className="img-game-result-comment-text">{comment.content}</div>
                             <div className="img-game-result-comment-time">{comment.createdAt}</div>
@@ -182,7 +149,7 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
                         placeholder="댓글을 입력하세요..."
                         className="img-game-result-comment-input-field"
                     />
-                    <div className="img-game-result-comment-send-button" onClick={handleSend}>
+                    <div className="img-game-result-comment-send-button" onClick={handleSend} gameId = {gameData.data.gameId}>
                         <img src="/public-img/send-img.png" alt="댓글 보내기" />
                     </div>
                 </div>
@@ -208,13 +175,11 @@ const ImageGameResult = () => {
     const params = new URLSearchParams(location.search);
     const { state } = useAuth(); // useAuth 훅을 사용하여 state를 가져옴
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const gameId = params.get('gameId');
-        if (gameId) {
-            sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading);
-        }
-    }, [location.search, state]);
+        sendGetSingleImageGameRequest(state, params.get('gameId'), setGameData, setIsLoading, navigate);
+    }, []);
 
     return (
         <div className="app">
