@@ -124,9 +124,9 @@ public class PostController {
         Page<Post> pagePosts;
 
         if (memberId != null) {
-            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard.toLowerCase());
+            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard);
         }else {
-            pagePosts = postService.findPosts(page - 1, size, selectStandard.toLowerCase(), selectCategory);
+            pagePosts = postService.findPosts(page - 1, size, selectStandard, selectCategory);
         }
 
         List<Post> posts = pagePosts.getContent();
