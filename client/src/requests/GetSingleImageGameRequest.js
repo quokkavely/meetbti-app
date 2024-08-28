@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const sendGetSingleImageGameRequest = async(state, imageGameId, setImageGameData, setLoading, navigate, location) => { //requestBody를 참고
+const sendGetSingleImageGameRequest = async(state, imageGameId, setImageGameData, setLoading, navigate) => { //requestBody를 참고
     try {
         console.log('단일 게시글 정보 GET요청 전송');
         console.log(imageGameId);
@@ -25,9 +25,6 @@ const sendGetSingleImageGameRequest = async(state, imageGameId, setImageGameData
             if(state.setLoading !== undefined){ // setLoading을 state에서 가져옴
                 state.setLoading(false);
             }    
-            if(location === 'imagegame-main' && data.data.selectedOption !== ''){
-                navigate(`/imagegame-result?gameId=${data.data.gameId}`);
-            }
             // if(state.setLikeCount !== undefined){ // setLikeCount를 state에서 가져옴
             //     state.setLikeCount();
             // }      

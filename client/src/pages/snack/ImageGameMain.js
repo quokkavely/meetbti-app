@@ -27,7 +27,7 @@ const ImageGameList = (props) => {
             <div className="image-game-container-title">
                 이건 바로 너! 이미지 게임
                 {!props.loading && props.games.map((game, index) => (
-                    <div key={`${game.id}-${index}`} className="image-game-selectbox" onClick={() => navigate(`/imagegame-page?gameId=${game.gameId}`)}>
+                    <div key={`${game.id}-${index}`} className="image-game-selectbox" onClick={() => navigate((game.selectedOption === '' ? `/imagegame-page?gameId=${game.gameId}` : `/imagegame-result?gameId=${game.gameId}`))}>
                         <div className="image-game-title">{game.topic}</div>
                         <div className="image-game-selectbox-count">
                             <div className="image-heart-count">❤️ {game.heartCount}</div>

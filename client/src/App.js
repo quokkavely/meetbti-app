@@ -50,6 +50,7 @@ import ReportDetail from './pages/reportdetail/ReportDetail';
 
 /* MBTI 데이터 */
 import mbtiData from './mbtiData/mbtiData';
+import GoogleOAuthSucceed from './pages/oauth/GoogleOAuthSucceed';
 
 const App = () => {
   return (
@@ -88,6 +89,7 @@ const App = () => {
             <Route path="/balancegame" element={<BalanceGameMain />} />
             <Route path="/balancegamepost" element={<BalanceGamePost />} />
             <Route path="/imagegame" element={<ImageGameMain />} />
+            <Route path='/oauth2' element={<GoogleOAuthSucceed />} />
           </Routes>
         </BrowserRouter> 
       </VoteProvider>

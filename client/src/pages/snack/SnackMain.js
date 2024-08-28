@@ -33,7 +33,7 @@ const SnackMainContent = () => {
                 <div className="overlay-text">Image Game</div>
             </div>
             <div className="balancegame" onClick={() => navigate('/balancegame')}>
-                <img src="/public-img/balance-img.jpeg" alt='balancegame' />
+                <img src="/public-img/Balance-img.jpeg" alt='balancegame' />
                 <div className="overlay-text">Balance Game</div>
             </div>
             <div className="MBTMI" onClick={() => navigate('/MBTMI')}>

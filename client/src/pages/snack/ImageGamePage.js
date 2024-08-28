@@ -32,7 +32,7 @@ const ImageGamePage = ( ) => {
     //서버에서 가져오는 부분
     useEffect(() => {
         sendGetMyinfoRequest(state, setMyData);
-        sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading, navigate, 'imagegame-main');
+        sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading, navigate);
     }, []);
 
     const handleSend = () => {
