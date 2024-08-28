@@ -32,6 +32,15 @@ public interface ImageGameMapper {
                 mbtis.put(mbti, 1);
             }
         }
+        // 상위 3개만 남김
+        mbtis = mbtis.entrySet().stream()
+                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .limit(3)
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey(),
+                        entry -> entry.getValue(),
+                        (e1, e2) -> e1
+                ));
         // 게임 참여했는지 여부
         String selectedOption = "";
         for(ImageGameResult result : game.getResults()){

@@ -83,12 +83,29 @@ public class PostService {
     }
     //게시글 전부를 조회하는 메서드
     public Page<Post> findPosts(int page, int size, String standard, String category) {
-        Pageable pageable = createPageable(page, size, standard);
+        Pageable pageable = PageRequest.of(page,size);
 
-        if (category.equals("ALL")) {
-            return postRepository.findByPostStatusNot(pageable, Post.PostStatus.DELETED);
-        } else {
-            return postRepository.findByCategoryAndPostStatusNot(pageable, category, Post.PostStatus.DELETED);
+        if ("ALL".equals(category)) {
+            switch (standard) {
+                case "comments":
+                    return postRepository.findByPostStatusNotOrderByComments(pageable, Post.PostStatus.DELETED);
+                case "hearts":
+                    return postRepository.findByPostStatusNotOrderByHearts(pageable, Post.PostStatus.DELETED);
+                case "views":
+                    return postRepository.findByPostStatusNotOrderByViews(pageable, Post.PostStatus.DELETED);
+                default:
+                    return postRepository.findByPostStatusNotOrderByCreatedAt(pageable, Post.PostStatus.DELETED);
+            }
+        }
+        switch (standard) {
+            case "comments":
+                return postRepository.findByCategoryAndPostStatusNotOrderByComments(pageable, category, Post.PostStatus.DELETED);
+            case "hearts":
+                return postRepository.findByCategoryAndPostStatusNotOrderByHearts(pageable, category, Post.PostStatus.DELETED);
+            case "views":
+                return postRepository.findByCategoryAndPostStatusNotOrderByViews(pageable, category, Post.PostStatus.DELETED);
+            default:
+                return postRepository.findByCategoryAndPostStatusNotOrderByCreatedAt(pageable, category, Post.PostStatus.DELETED);
         }
     }
     public Page<Post> findPostsByMember(int page, int size, long memberId, String standard) {
