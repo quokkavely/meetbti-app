@@ -28,8 +28,8 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
     return (
       <div className="balancegame-component">
         <div className="balance-game-question">{props.title}</div>
-        <div className="balance-game-selectbox">
-          <div className="selectbox-button" onClick={() => navigate(`/balancegamepost?gameId=${props.gameId}`)}>
+        <div className="balance-game-selectbox" onClick={() => navigate(`/balancegamepost?gameId=${props.gameId}`)}>
+          <div className="selectbox-button">
             <div className="left-option-title"> {props.leftOption} </div>
             <div className="vs"> vs </div>
             <div className="right-option-title"> {props.rightOption} </div>

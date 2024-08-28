@@ -19,34 +19,52 @@
     outline: none;
 }
 .report-handling-button:hover{
-    background-color: blueviolet;
+    background-color: rgb(85, 62, 106);
     color: white;
     border: 2px solid white;
 }
 .report-checkbox{
     width: 20px;
     border-radius: 10px;
-    background-color: blueviolet;
+    background-color: rgb(67, 28, 104);
 }
 .backoffice-radio{
     display: flex;
     justify-content: center;
 }
 .backoffice-radio-button{
-    width: 130px;
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
     margin-left: 1px;
     margin-right: 1px;
     border: 1px solid rgb(232, 209, 253);
-
-    background-color: rgb(210, 187, 253);
+    color: #575757;
+    background-color: rgb(226, 212, 253);
     cursor: pointer;
 }
 .backoffice-radio-button-selected{
-    width: 130px;
+    width: 140px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
     margin-left: 1px;
     margin-right: 1px;
     border: 1px solid rgb(232, 209, 253);
-
-    background-color: rgb(176, 157, 214);
+    color: #ffffff;
+    background-color: rgb(165, 126, 243);
     cursor: pointer;
+}
+
+.report-info{
+    width: 300px;
+    height: 36px;
+}
+
+.report-title{
+    font-size: 18px;
+}
+
+.report-time{
+
 }

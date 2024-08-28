@@ -15,7 +15,7 @@ const Header = (props) => {
     <header className="header">
       <div className="logo-box">
         <div className='logo-img' onClick={() => navigate('/')}>
-          <img src="/public-img/Main-logo.png" alt='메인로고'/>
+          <img src="/public-img/Main-logo-light.png" alt='메인로고'/>
         </div>
         {!props.login ? <button className='main-login-button' onClick={() => navigate('/login')}>로그인</button> : 
         <div className="user-icon-container">
@@ -129,11 +129,11 @@ const MainContent = (props) => {
     <main className="main-content">
       <MBTITest login={props.login} />
       <div className="other-mbti">
-        <div className="other-mbti-container">
+        <div className="other-mbti-container" onClick={() => navigate(props.login ? `/MBTIBoard?category=${props.myMbti}` : '/login')}>
           다른 MBTI들의 생각은?!
         </div>
         <div className="go-point">
-          <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? `/MBTIBoard?category=${props.myMbti}` : '/login')} />
+          <img src="/public-img/to(pink).png" alt='가기' onClick={() => navigate(props.login ? `/MBTIBoard?category=${props.myMbti}` : '/login')} />
         </div>
       </div>
       <div className="slider-container">
@@ -150,11 +150,11 @@ const MainContent = (props) => {
         </Slider>
       </div>
       <div className="snack">
-        <div className="snack-title">
+        <div className="snack-title" onClick={() => navigate(props.login ? '/snackmain' : '/login')}>
           즐겨보세요, 스낵 컬처!
         </div>
         <div className="go-point">
-          <img src="/public-img/to.png" alt='가기' onClick={() => navigate(props.login ? '/snackmain' : '/login')} />
+          <img src="/public-img/to(pink).png" alt='가기' onClick={() => navigate(props.login ? '/snackmain' : '/login')} />
         </div>
       </div>
       <div className="slider-container2">

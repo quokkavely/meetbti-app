@@ -21,6 +21,7 @@
   font-size: 24px;
   text-align: left;
   padding: 10px;
+  color: #646465; 
 }
 
 .img-game-result-title-writer {
@@ -192,13 +193,15 @@
   }
   
   .img-game-result-comment-text {
-    font-size: 13px;
-    color: #3C3C3C;
+    font-size: 14px;
+    /* font-weight: bold; */
+    color: #616161;
     text-align: left;
     height: 100%;
     width: 230px;
     word-wrap: break-word;
     word-break: break-all;
+    font-family: 'jua';
   }
   
   .img-game-result-comment-time{
