@@ -112,7 +112,7 @@ public class PostController {
         String mbti;
 
         if (findMember.getTestResults().isEmpty()) {
-            mbti = "all";
+            mbti = "ALL";
         } else {
             mbti = findMember.getTestResults().get(findMember.getTestResults().size() - 1).getMbti();
         }
@@ -124,9 +124,9 @@ public class PostController {
         Page<Post> pagePosts;
 
         if (memberId != null) {
-            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard);
+            pagePosts = postService.findPostsByMember(page - 1, size, memberId, selectStandard.toLowerCase());
         }else {
-            pagePosts = postService.findPosts(page - 1, size, selectStandard, selectCategory);
+            pagePosts = postService.findPosts(page - 1, size, selectStandard.toLowerCase(), selectCategory);
         }
 
         List<Post> posts = pagePosts.getContent();

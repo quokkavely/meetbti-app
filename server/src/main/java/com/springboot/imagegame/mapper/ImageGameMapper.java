@@ -1,6 +1,7 @@
 package com.springboot.imagegame.mapper;
 
 import com.springboot.auth.utils.Principal;
+import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.imagegame.dto.ImageGameDto;
 import com.springboot.imagegame.entity.ImageGame;
 import com.springboot.imagegame_comment.mapper.ImageGameCommentMapper;
@@ -32,11 +33,10 @@ public interface ImageGameMapper {
             }
         }
         // 게임 참여했는지 여부
-        boolean voted = false;
-
-        for(ImageGameResult result : game.getResults()) {
+        String selectedOption = "";
+        for(ImageGameResult result : game.getResults()){
             if(principal.getMemberId() == result.getMember().getMemberId()){
-                voted = true;
+                selectedOption = result.getSelectedMbti().toString();
                 break;
             }
         }
@@ -49,7 +49,8 @@ public interface ImageGameMapper {
                 mbtis,
                 game.getHearts().size(),
                 imageGameCommentMapper.commentsToResponseDtos(game.getComments()),
-                voted
+                selectedOption
+
         );
     };
     default List<ImageGameDto.Response> gamesToGameResponseDtos(List<ImageGame> games, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {

@@ -30,6 +30,6 @@ public class ImageGameDto {
         private Map<String, Integer> mbtis;
         private int heartCount;
         private List<ImageGameCommentDto.Response> comments;
-        private boolean voted;
+        private String selectedOption = "";
     }
 }
