@@ -8,6 +8,7 @@ import com.springboot.imagegame_result.dto.ImageGameResultDto;
 import com.springboot.imagegame_result.entity.ImageGameResult;
 import com.springboot.imagegame_result.mapper.ImageGameResultMapper;
 import com.springboot.imagegame_result.service.ImageGameResultService;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -58,10 +59,10 @@ public class ImageGameResultController {
                                      Authentication authentication) {
         if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
 
-        Page<ImageGameResult> pageBalanceGameComment = imageGameResultService.findResults(page - 1, size, memberId, authentication);
+        Page<ImageGameResult> pageImageGameResult = imageGameResultService.findResults(page - 1, size, memberId, authentication);
 
-        List<ImageGameResult> imageGameResults = pageBalanceGameComment.getContent();
+        List<ImageGameResult> imageGameResults = pageImageGameResult.getContent();
 
-        return new ResponseEntity<>(imageGameResultMapper.resultsToResponseDtos(imageGameResults), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(imageGameResultMapper.resultsToResponseDtos(imageGameResults), pageImageGameResult), HttpStatus.OK);
     }
 }

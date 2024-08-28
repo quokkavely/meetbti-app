@@ -8,6 +8,7 @@ import com.springboot.balancegame_result.dto.BalanceGameResultDto;
 import com.springboot.balancegame_result.entity.BalanceGameResult;
 import com.springboot.balancegame_result.mapper.BalanceGameResultMapper;
 import com.springboot.balancegame_result.service.BalanceGameResultService;
+import com.springboot.response.MultiResponseDto;
 import com.springboot.response.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -59,10 +60,10 @@ public class BalanceGameResultController {
                                      Authentication authentication) {
         if (memberId == null)  throw new IllegalArgumentException("Member ID is required");
 
-        Page<BalanceGameResult> pageBalanceGameComment = balanceGameResultService.findResults(page - 1, size, memberId, authentication);
+        Page<BalanceGameResult> pageBalanceGameResult = balanceGameResultService.findResults(page - 1, size, memberId, authentication);
 
-        List<BalanceGameResult> balanceGameResults = pageBalanceGameComment.getContent();
+        List<BalanceGameResult> balanceGameResults = pageBalanceGameResult.getContent();
 
-        return new ResponseEntity<>(balanceGameResultMapper.resultsToResponseDtos(balanceGameResults), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(balanceGameResultMapper.resultsToResponseDtos(balanceGameResults), pageBalanceGameResult), HttpStatus.OK);
     }
 }
