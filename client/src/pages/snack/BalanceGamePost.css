@@ -6,77 +6,121 @@
   }
 
 .balance-post-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    border: 1px solid #c8adf4;
-    border-radius: 16px;
     width: 400px;
     height: auto;
-}
-
-/* 로고 스타일 */
-.logo {
-    position: relative; /* 상대 위치 */
-    z-index: 10; /* 높은 z-index 값 */
-}
-
-/* 기존 스타일 */
-.balance-post-header {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #c8adf4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between; /* 왼쪽과 오른쪽으로 배치 */
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    color: #858585;
-    position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
-    z-index: 1; /* 낮은 z-index 값 */
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    flex-direction: column;
 }
 
 /* 게시글 제목 */
-.balance-post-title {
-    font-size: 20px;
+.balance-game-title {
     font-family: 'Jua-Regular', sans-serif;
-    text-align: left; /* 왼쪽 정렬 */
+    color: #2D0057;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    margin-bottom: 20px;
+}
+
+.balance-game-componenet {
+    width: 340px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.balance-game-question {
+    width: 340px;
+    height: 20px;
+    margin: 0;
+    padding-left: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Jua-Regular', sans-serif;
+}
+
+.balance-game-selectbox {
+    width: 340px;
+    height: 130px;
+    display: flex;
+    margin: 10px auto;
+    margin-bottom: 36px;
+}
+
+.selectbox-button {
+    width: 340px;
+    height: 90px;
+}
+
+.selectbox-count {
+    margin-top: 10px;
+    height: 20px;
+    font-family: 'Jua-Regular', sans-serif;
+}
+
+
+/* 여기까지 선택전*/
+
+.balance-post-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    width: auto; /* 가변 너비 */
-    position: absolute; /* 고정된 위치 */
-    color:#575757;
-    padding: 20px;
+    flex-direction: column;
+    font-family: 'Jua-Regular', sans-serif;
+}
+
+.balance-post-title {
+    width: 360px;
+    height: 20px;
+    padding-left: 14px;
+    font-size: 16px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .balance-post-writer {
     font-size: 12px;
     font-family: 'Jua-Regular', sans-serif;
-    text-align: right; /* 오른쪽 정렬 */
-    position: absolute; /* 고정된 위치 */
-    padding-top: 60px;
-    right: 30px; /* 오른쪽 여백 */
+    text-align: right;
+    position: relative;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: 6px;
+    
 }
 
 /* 버튼 섹션 */
 .balance-post-content {
+    height: 360px;
+    text-overflow: ellipsis;
+    border: 1px solid #c8adf4;
+    border-radius: 15px;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
-    height: 300px;
-    gap: 20px;
-    padding: 6px;
+    width: 360px;
+    gap: 14px;
+    padding: 10px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .balance-post-left, .balance-post-right {
-    width: 160px;
-    height: 280px;
+    width: 140px;
+    height: 320px;
     border-radius: 10px;
     border: none;
     background-color: #eaeaea;
     margin: 0 10px;
-    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
@@ -85,7 +129,10 @@
     padding-right: 10px;
     color:#696868;
     transition: background-color 0.3s;
+    font-family: 'Jua-Regular', sans-serif;
 }
+
+
 
 .selected {
     background-color: #e0d3ff;
@@ -132,14 +179,15 @@
 
 /* 좋아요, 댓글 수*/
 .balance-post-count {
-    width: 100%;
+    width: 360px;
     height: 40px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 34px;
-    margin-top: 14px;
+    margin-left: 10x;
+    margin-top: 20px;
     gap: 10px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .balance-post-heart-count-section, .balance-post-comment-section  {
@@ -164,8 +212,9 @@
     font-size: 14px;
     color: #545454;
     text-align: left;
-    padding-left: 6px;
+    padding-left: 0px;
     width: 100%;
+    font-family: 'Jua-Regular', sans-serif;
   }
 
   .balance-comment-list{
@@ -176,7 +225,6 @@
     border-top: 1px solid #ccc;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 auto;
   }
   
   .balance-comment-section {
@@ -206,15 +254,15 @@
     color: #9d9d9d;
   }
 
-/* .balance-comment-button {
+.balance-comment-button {
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
     height: 100px;
-} */
+}
 
-/* .balance-comment-heart-button {
+.balance-comment-heart-button {
     width: 100px;
     height: 100px;
     border: 1px solid black;
@@ -224,7 +272,7 @@
     width: 100px;
     height: 100px;
     border: 1px solid black;
-} */
+}
 
 
 /* 댓글 입력 */

@@ -104,7 +104,7 @@ const BalancePostContainer = ({ gameData, setGameData }) => {
                     )}
                 </button>
                 <button 
-                    className={`balance-post-right ${selectedOption === '' ? 'compressed' : ''}`} 
+                    className={`balance-post-right ${selectedOption === 'R' ? 'selected' : ''} ${selectedOption === '' ? 'compressed' : ''}`} 
                     onClick={() => handleVote('R')}
                 >
                     {gameData.data.rightOption}

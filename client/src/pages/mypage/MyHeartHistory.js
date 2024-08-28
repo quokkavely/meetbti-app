@@ -30,14 +30,6 @@ const HeartHistoryTitle = () => {
     );
 };
 
-const Historyrecenttext = () => {
-    return (
-        <div className="history-recenttext">
-            최근 좋아요 순
-        </div>
-    );
-};
-
 const HistorySection = () => {
     const [type, setType] = useState('POST');
     const [page, setPage] = useState(1);
@@ -90,7 +82,6 @@ const MyHeartHistory = () => {
         <AppContainerComponent />
         <HeaderComponent />
         <HeartHistoryTitle />
-        <Historyrecenttext />
         <HistorySection />
       </div>
     );

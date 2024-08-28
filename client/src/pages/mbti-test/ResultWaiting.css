@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 /* 기본 초기화 */
 * {
     margin: 0;
@@ -45,6 +52,7 @@
 .waiting-text {
     font-size: 26px;
     margin-bottom: 30px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .waiting-img {

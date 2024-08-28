@@ -51,12 +51,17 @@ const BalanceGame = ({ state, balancegames, navigate}) => {
       <div className="balance-game-question-container">
         {balancegames.data.map((value)=> <GameContainer title={value.title} leftOption={value.leftOption} rightOption={value.rightOption} 
         heartCount={value.heartCount} commentCount={value.commentCount} selectedOption={value.selectedOption} gameId = {value.gameId}/>)}
-        
       </div>
-      <button className="suggest-button" onClick={() => navigate('/balancegameregist')}> 주제 제안하기 </button>
     </div>
   );
 };
+
+const ImageGameSuggestButton = () => {
+  const navigate = useNavigate();
+    return (
+    <button className="suggest-button" onClick={() => navigate('/balancegameregist')}> 주제 제안하기 </button>
+    );
+}
 
 const BalanceGameMain = () => {
   const { state } = useAuth();
@@ -74,12 +79,14 @@ const BalanceGameMain = () => {
         <AppContainerComponent />
         <HeaderComponent />
         <BalanceGame state = {state} balancegames={balancegames} navigate={navigate}/>
-        {isLoading ? <div></div> : 
-        <PageContainer
-         currentPage={page} 
-         pageInfo={balancegames.pageInfo}
-         getPage={(page) => sendGetBalanceGamesRequest(state, page, 3, setBalancegames, setIsLoading)}
-         ></PageContainer>}
+        <ImageGameSuggestButton />
+        {!isLoading && (
+          <PageContainer
+            currentPage={page} 
+            pageInfo={balancegames.pageInfo}
+            getPage={(page) => sendGetBalanceGamesRequest(state, page, 3, setBalancegames, setIsLoading)}
+          />
+        )}
       </div>
     );
   };
