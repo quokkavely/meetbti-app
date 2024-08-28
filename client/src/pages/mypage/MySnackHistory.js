@@ -65,7 +65,7 @@ const MySnackHistory = () => {
         } else if(category === '밸런스게임'){
             sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
         }
-    }, [page]);
+    }, [page, category]);
 
     const getContents = () => {
         if(category === '이미지게임'){
