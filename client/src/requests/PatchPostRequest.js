@@ -1,4 +1,4 @@
-const sendPatchPostRequest = async (state, postId, memberId, title, content, navigate) => {
+const sendPatchPostRequest = async (state, postId, memberId, title, content, navigate, data) => {
     try{
         console.log('postId: ', postId);
         const response = await fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}`,
@@ -9,10 +9,11 @@ const sendPatchPostRequest = async (state, postId, memberId, title, content, nav
                     'Authorization': `${state.token}`,
                 },
                 body: JSON.stringify({
-                    postId: postId,
-                    memberId: memberId,
+                    /* postId: postId,
+                    memberId: memberId, */
                     title: title,
-                    content: content
+                    content: content,
+                    image: data,
                 })
             }        
         );
