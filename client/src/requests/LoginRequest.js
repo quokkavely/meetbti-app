@@ -1,4 +1,4 @@
-const sendLoginRequest = async(email, password, login, navigate) => {
+const sendLoginRequest = async(email, password, login, navigate, whenFailed) => {
 
     try{
         const response = await fetch(`${process.env.REACT_APP_API_URL}/login`,
@@ -25,9 +25,11 @@ const sendLoginRequest = async(email, password, login, navigate) => {
             navigate('/');
         }else{
             console.log('로그인 실패: ', response.status);
+            whenFailed();
         }
     } catch (error){
         console.error('로그인 실패', error);
+        whenFailed();
     }
 }
 export default sendLoginRequest;
