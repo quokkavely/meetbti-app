@@ -7,6 +7,7 @@ import { useAuth } from '../../auth/AuthContext';
 import sendGetSingleImageGameRequest from '../../requests/GetSingleImageGameRequest';
 import CommentUserInfoContainer from '../../components/user_info_container/CommentUserInfoContainer';
 import sendPostBalancegameResultRequest from '../../requests/PostImagegameResultRequest';
+import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 
 const mbtiButtonsA = [{id:'ENFP'}, {id:'ESFJ'}, {id:'ISFP'}, {id:'ESFP'}, {id:'ESTP'}, {id:'ISTJ'}, {id:'INTJ'}, {id:'ENTP'}];
 const mbtiButtonsB = [{id:'ENFJ'}, {id:'INFP'}, {id:'INFJ'}, {id:'ISFJ'}, {id:'ESTJ'}, {id:'ENTJ'}, {id:'ISTP'}, {id:'INTP'}];
@@ -30,12 +31,13 @@ const ImageGamePage = ( ) => {
 
     //서버에서 가져오는 부분
     useEffect(() => {
+        sendGetMyinfoRequest(state, setMyData);
         sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading, navigate, 'imagegame-main');
     }, []);
 
     const handleSend = () => {
         if(myData.data.mbti === 'NONE'){
-            if(window.confirm('MBTI가 없어서 댓글을 등록할 수 없어요. 첫 테스트를 하러 가시겠어요?')){
+            if(window.confirm('MBTI가 없어요. 첫 테스트를 하러 가시겠어요?')){
                 navigate('/mbti-test');
             }
             return;
@@ -47,6 +49,12 @@ const ImageGamePage = ( ) => {
     const handleVote = (selectedOption) => {
         if(gameData.data.selectedOption !== ''){
             alert('이미 투표하셨어요');
+            return;
+        }
+        if(myData.data.mbti === 'NONE'){
+            if(window.confirm('MBTI가 없어요. 첫 테스트를 하러 가시겠어요?')){
+                navigate('/mbti-test');
+            }
             return;
         }
         sendPostBalancegameResultRequest(state, gameId, selectedOption, navigate/* () => sendGetSingleImageGameRequest(state, gameId, setGameData, setIsLoading, navigate) */);
