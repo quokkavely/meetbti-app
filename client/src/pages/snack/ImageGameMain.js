@@ -68,36 +68,6 @@ const getPaginationRange = (currentPage, totalPages) => {
     return range;
 };
 
-const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
-    const paginationRange = getPaginationRange(currentPage, totalPages); // 함수 사용
-
-    return (
-        <div className="pagination">
-            <button 
-                onClick={() => setCurrentPage(currentPage - 1)} 
-                disabled={currentPage === 1}    
-                className="previous-page">
-                {"<"}
-            </button>
-            {paginationRange.map((page) => (
-                <button 
-                    key={page}
-                    className="page-number" 
-                    onClick={() => setCurrentPage(page)}
-                >
-                    {page}
-                </button>
-            ))}
-            <button 
-                onClick={() => setCurrentPage(currentPage + 1)} 
-                disabled={currentPage === totalPages}
-                className="next-page">
-                {">"}
-            </button>
-        </div>
-    );
-};
-
 const ImageGameMain = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
@@ -127,7 +97,6 @@ const ImageGameMain = () => {
             <HeaderComponent />
             {isLoading ? <div></div> : <ImageGameList games={games.data}/>}
             <ImageGameSuggestButton />
-            {/* <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} /> */}
             {isLoading ? <div></div> : <PageContainer currentPage={page} pageInfo={games.pageInfo} 
             getPage={(page) => sendGetImageGamesRequest(state, page, 3, setIsLoading, setGames)}
             setPageOriginal={setPage}

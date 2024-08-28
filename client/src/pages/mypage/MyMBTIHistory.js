@@ -40,7 +40,7 @@ const Historyrecenttext = () => {
 
 const HistorySection = () => {
     const { state } = useAuth();
-    const [historyData, setHistoryData] = useState({data:[]});
+    const [historyData, setHistoryData] = useState({data:[], pageInfo:{}});
     const [isLoading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
