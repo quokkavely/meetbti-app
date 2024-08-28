@@ -47,7 +47,7 @@ const MBTITest = (props) => {
   return (
     <div className="mbti-test-container">
       <div className="mbti-test-card">
-        <img src="/public-img/main-img.png" alt="MBTI Test" className="mbti-image"/>
+        <img src="/public-img/Main-Img.png" alt="MBTI Test" className="mbti-image"/>
         <div className="mbti-test">
           <h2>MBTI TEST</h2>
           <button onClick={() => {
@@ -113,7 +113,7 @@ const MainContent = (props) => {
 
   const cards2 = [
     { image: "/public-img/Image-img.jpeg", title: "이미지 게임", description: "가장 ~~ 할 것 같은 MBTI는?" },
-    { image: "/public-img/balance-img.jpeg", title: "밸런스 게임", description: "말해 Yes or No!" },
+    { image: "/public-img/Balance-img.jpeg", title: "밸런스 게임", description: "말해 Yes or No!" },
     { image: "/public-img/MBTMI-img.png", title: "MBTMI", description: "MBTI의 TMI 대방출!" }
   ];
 
