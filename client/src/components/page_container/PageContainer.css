@@ -1,9 +1,9 @@
 .page-container{
     display: flex;
-    margin-top: 40px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
     justify-content: center;
+    margin-bottom: 30px;
 }
 .page-button{
     background-color: none;

@@ -7,6 +7,7 @@
     justify-content: flex-start;
     align-items: center;
     border-bottom: 1px solid #ddd;
+    padding-left: 12px;
 }
 
 
@@ -60,12 +61,12 @@
   }
 
 .balance-game-regist-button button {
-    width: 400px;
+    width: 220px;
     height: 50px;
     font-size: 16px;
     border: none;
     border-radius: 12px;
-    background-color: #e3ccf6;
+    background-color: #a882ff;
     color: #fff;
     cursor: pointer;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);

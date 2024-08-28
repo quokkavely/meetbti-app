@@ -1,60 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-
-.app {
-    max-width: 480px; /* 모바일 크기 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 20px; /* 패딩 추가 */
-  }
-
- /* 헤더 */
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100px;
-    padding: 10px;
-    margin-top: 10px;
-  }
-  
-.logo-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-.logo-img {
-    display: flex;
-    align-items: center;
-    width: 200px;
-    height: 50px;
-    cursor: pointer;
-  }
-
-.back-icon {
-    width: 45px;
-    height: 38px;
-    cursor: pointer;
-  }
-  
-.back-icon img {
-    max-width: 100%;
-    height: auto;
-  }
-
-.logo-text {
-    text-align: center;
-    margin-right: auto;
-    font-size: 10px;
-    color:#3C3C3C
-  }
-
-
 /* 필터 컴포넌트 */
 .filter {
     display: flex;
@@ -83,15 +26,15 @@
 }
 
 .filter-btn:first-child {  
-    background-color: #d3e9f8;
+    background-color: #abdbfb;
 }
 
 .filter-btn:last-child {  
     /* background-color: #e3ccf6; */
-    background-color: #d3e9f8;
+    background-color: #abdbfb;
 }
 .filter-btn:hover{
-  background-color: #b6ddf7;
+  background-color: #3aadfa;
 }
 
 .dropdown {
@@ -127,7 +70,6 @@
 .board {
     width: 100%;
     height: 100%;
-    min-height: 545px;
 }
 
 .posts {
@@ -189,7 +131,7 @@
 
 .write-btn {
     padding: 10px 20px;
-    background-color: blueviolet;
+    background-color: #a882ff;
     border: none;
     border-radius: 20px;
     color: #fff;
@@ -205,45 +147,6 @@
     margin-bottom: 15px;
   } 
   .write-btn:hover{
-    background-color: #b16fe7;
-  }
+    background-color: #e3ccf6;
 
-/* 페이지네이션 컴포넌트 */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    width: 100%;
-    height: 50px;
-  }
-
-.previous-page {
-    margin-right: 10px;
-    border: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    background: none;
-}
-
-.next-page {
-    margin-left: 10px;
-    border: none;
-    cursor: pointer;
-    width: 40px;
-    height: 30px;
-    font-size: 24px;
-    background: none;
-}
-
-.page-number {
-    border: none;
-    background: none;
-    font-size: 20px;
-    margin: 0 5px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
   }
