@@ -41,7 +41,7 @@ const Historyrecenttext = () => {
 const HistorySection = () => {
     const { state } = useAuth();
     const [historyData, setHistoryData] = useState({data:[]});
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
@@ -79,8 +79,8 @@ const HistorySection = () => {
                     </div>
                 ))}
             </div>
-            {(historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}
-            {historyData.data.length === 0 ? <div></div> : <PageContainer currentPage = {page} pageInfo = {historyData.pageInfo} setPageOriginal={setPage}
+            {(!isLoading && historyData.data.length === 0) && <NoContentContainer></NoContentContainer>}
+            {(!isLoading && historyData.data.length === 0) ? <div></div> : <PageContainer currentPage = {page} pageInfo = {historyData.pageInfo} setPageOriginal={setPage}
              getPage = {(page) => sendMbtiTestResultsRequest(state, page, 6, setLoading, setHistoryData)}></PageContainer>}
         </div>
     );
