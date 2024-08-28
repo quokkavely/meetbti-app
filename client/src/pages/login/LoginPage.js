@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useAuth } from "../../auth/AuthContext";
 import sendLoginRequest from "../../requests/LoginRequest";
+import ModalCheck from '../../components/modal/ModalCheck';
 
 // 헤더(로고, 뒤로가기) 컴포넌트
 const Header = () => {
@@ -25,6 +26,7 @@ function InputContainer(){
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [isErrorModalOpen, setErrorModalOpen] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -54,7 +56,7 @@ function InputContainer(){
             setPasswordError('');
             // 로그인 로직 추가
             /* requestLogin(email, password); */
-            sendLoginRequest(email, password, login, navigate);
+            sendLoginRequest(email, password, login, navigate, () => setErrorModalOpen(true));
         }
     };
     
@@ -79,6 +81,7 @@ function InputContainer(){
             />
             {passwordError && <div className="error-message">{passwordError}</div>}
             <button className="login-button" onClick={handleLogin}>로그인</button>
+            {isErrorModalOpen && <ModalCheck message='로그인에 실패했어요' onClose={() => setErrorModalOpen(false)}></ModalCheck>}
         </div>
     );
 }

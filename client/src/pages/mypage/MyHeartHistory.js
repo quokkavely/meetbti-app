@@ -69,7 +69,7 @@ const HistorySection = () => {
                         /* onClick={() => navigate(`postpage?postId`)} */
                     >
                         <div className="history-content-text">{item.title}</div>
-                        <div className="history-content-date">{item.date}</div>
+                        <div className="history-content-date">{item.createdAt}</div>
                     </div>
                 ))}
             </div>

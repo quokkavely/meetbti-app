@@ -19,6 +19,14 @@
     margin-left: 30px;
 }
 
+.history-content-postTitle{
+    margin-left: 25px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 13px;
+    color: #808080;
+}
+
 .history-recenttext {
     text-align: right;
     margin-top: 12px;
