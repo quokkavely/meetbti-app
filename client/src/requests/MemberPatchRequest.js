@@ -12,7 +12,7 @@ const sendMemberPatchRequest = async(state, patchBody) => {
         );
         if(response.ok){
             console.log(`멤버 PATCH 요청 성공`);
-            alert('닉네임이 성공적으로 변경되었어요');
+            alert('내 정보가 성공적으로 변경되었어요');
         }else{
             console.log('멤버 PATCH 요청 실패', response.status);
         }
