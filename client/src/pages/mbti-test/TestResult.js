@@ -142,7 +142,7 @@ const MBTITestResultSecond = ({ mbti, secondMbti }) => {
           <div className="first-mbti-keyword3">{mbtiKeywords[mbti].keywords.keyword3}</div>
         </div>
         <div className="logo-icon-result">
-          <img src="/public-img/img-testreult.png" alt="myMbti"/>
+          <img src="/public-img/img-testresult.png" alt="myMbti"/>
         </div>
         <div className="second-mbti">
           <div className="second-mbti-type">{secondMbti}</div> {/* 2순위 결과값 */}
@@ -181,13 +181,13 @@ const NavigateSection = () => {
         <div className="button-box">
             <button className="navigate-button" 
             onClick={() => navigate('/TestMain')}>
-              <img src="/public-img/logo-retry.png" alt="retry"/></button>
+              <img src="/public-img/logo-retry(pink).png" alt="retry"/></button>
             <button className="navigate-button" 
             onClick={() => navigate('/')}>
-              <img src="/public-img/logo-home.png" alt="home"/></button>
+              <img src="/public-img/logo-home(pink).png" alt="home"/></button>
             <button className="navigate-button" 
             onClick={handleShare}>
-          <img src="/public-img/logo-share.png" alt="share"/></button>
+          <img src="/public-img/logo-share(pink).png" alt="share"/></button>
         </div>
     </div>
   );

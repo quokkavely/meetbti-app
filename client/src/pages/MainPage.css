@@ -29,7 +29,7 @@
   background-color: #a882ff;
   color: rgb(239, 239, 239);
   border: none;
-  font-weight: bold;
+  font-family: 'jua';
   font-size: 16px;
   box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
 }
@@ -45,14 +45,14 @@
   width: 100%;
 }
 
-.logo-img {
+.logo-img-home {
   display: flex;
   align-items: center;
   width: 200px;
   height: 50px;
 }
 
-.logo-img img {
+.logo-img-home img {
   width: 170px;
   height: 40px;
 }
@@ -87,7 +87,7 @@
   color: #3C3C3C;
   /* min-width: 100px; */
   height: 18px;
-  font-weight: bold;
+  font-family: 'jua';
 }
 
 .user-welcome {
@@ -97,7 +97,7 @@
   min-width: 100px;
   height: 18px;
   text-align: end;
-  font-weight: bold;
+  font-family: 'jua';
   /* text-align: center;
   display: flex; 
   align-items: center;
@@ -112,9 +112,8 @@
 
 .logo-text {
   text-align: left;
-
   font-size: 10px;
-  color:#3C3C3C
+  color:#505050
 }
 
 .logo-text-logout {
@@ -131,7 +130,7 @@
   padding: 3px;
   border-radius: 8px;
   margin-right: 0 auto;
-  font-weight: bold;
+  font-family: 'jua';
 }
 
 .logout-button:hover{
@@ -183,20 +182,22 @@
 
 .mbti-test h2 {
   color: #b966fe;
-  font-size: 24px;
+  font-size: 25px;
   margin: 0;
 }
 
 .mbti-test button {
   margin-top: 10px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 20px;
+  font-family: 'jua';
   color: #fff;
   background-color: #b966fe;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 
@@ -209,8 +210,7 @@
   padding-top: 50px;
   margin-top: 20px;
   font-size: 25px;
-  font-weight: bold;
-  color: #3C3C3C;
+  color: #421157;
   margin-bottom: 20px;
   align-items: center;
 }
@@ -233,8 +233,13 @@
 /* 바로가기 */
 .go-point {
   display: flex;
-  width: 30px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
+  margin-top: 10px;
+}
+.go-point img {
+  width: 24px;
+  height: 24px;
 }
 
  /* 카드 스타일 */
@@ -307,7 +312,8 @@
   font-size: 28px !important;
   font-weight: bold !important;
   padding-right: 10px !important;
-  color: #6009a7 !important;
+  color: #4e177c !important;
+  font-family: 'jua';
 }
 
 .card-description {
@@ -315,12 +321,13 @@
   font-size: 18px !important;
   padding-right: 10px !important;
   color: #747474 !important;
+  font-family: 'jua';
 }
 
 .snack-title-in {
   margin: 0 !important;
   font-size: 28px !important;
-  font-weight: bold !important;
+  font-family: 'jua' !important;
   padding-right: 10px !important;
   color: #6009a7 !important;
 }
@@ -340,6 +347,7 @@
   width: 100%;
   height: 75px;
   text-align: left;
+  font-family: 'jua';
 }
 
 

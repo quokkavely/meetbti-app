@@ -7,10 +7,10 @@ const Header = ({ onBackClick }) => {
       <header style={styles.Header} className="header">
         <div style={styles.logoBox} className="logo-box">
           <div style={styles.logoImg} className='logo-img' onClick={() => navigate('/')}>
-            <img src="/public-img/Main-logo.png" alt='메인로고'/>
+            <img src="/public-img/Main-logo-light.png" alt='메인로고'/>
           </div>
           <div style={styles.backIcon} className="back-icon" onClick={onBackClick || (() => navigate(-1))}>
-            <img src="/public-img/back(grey).png" alt='뒤로 가기' />
+            <img src="/public-img/back(purple).png" alt='뒤로 가기' />
           </div>
         </div>
         {/* <div style={styles.logoText} className="logo-text">
@@ -41,26 +41,11 @@ const Header = ({ onBackClick }) => {
         width: '200px',
         height: '50px',
       },
-      logoImgImg: {
-        width: '170px',
-        height: '40px',
-      },
-      userIconContainer: {
-        marginLeft: 'auto',
-        width: '30px',
+      backIcon: {
+        width: '36px',
         height: '36px',
-        cursor: 'pointer',
-      },
-      userIconContainerImg: {
-        width: '30px',
-        height: '36px',
-      },
-      logoText: {
-        textAlign: 'center',
-        marginRight: 'auto',
-        fontSize: '10px',
-        color: '#3C3C3C',
-      },
+        marginRight: '10px',
+      }
     };
 
   export default Header;

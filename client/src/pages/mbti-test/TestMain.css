@@ -84,7 +84,7 @@
   
   .mbti-button {
     position: absolute;
-    bottom: 150px;
+    bottom: 160px;
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -94,7 +94,7 @@
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
     font-weight: bold;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
