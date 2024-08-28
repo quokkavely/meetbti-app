@@ -23,6 +23,7 @@
     align-items: center;
     text-align: center;
     font-size: 16px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .filter-btn:first-child {  
@@ -60,6 +61,7 @@
     border: none;
     color: #ffffff;
     border-bottom: 1px solid #efefef;
+    font-family: 'Jua-Regular', sans-serif;
 }
 .dropdown-item:hover{
   background-color: #d0acee;
@@ -86,7 +88,7 @@
     margin-left: 10px;
   }
 
-.post-title {
+.post-title1 {
     margin: 0;
     font-size: 18px;
     text-align: left;
@@ -135,7 +137,7 @@
     border: none;
     border-radius: 20px;
     color: #fff;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif;
     cursor: pointer;
     width: 140px;
     height: 40px;

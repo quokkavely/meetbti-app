@@ -81,7 +81,7 @@ const MainContent = (props) => {
     infinite: true,
     speed: 500,
     slidesToShow: 2,
-    slidesToScroll: 1
+    slidesToScroll: 2
   };
 
   const settings2 = {
@@ -122,7 +122,7 @@ const MainContent = (props) => {
     return array.sort(() => Math.random() - 0.5);
   };
 
-  const shuffledCards1 = shuffleArray(cards1).slice(0, 8); // 랜덤으로 섞은 후 8개 선택
+  const shuffledCards1 = shuffleArray(cards1).slice(0, 16); // 랜덤으로 섞은 후 8개 선택
   const shuffledCards2 = shuffleArray(cards2);
 
   return (

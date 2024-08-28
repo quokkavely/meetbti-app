@@ -107,7 +107,7 @@ const Board = (props) => {
             <div className="posts">
                 {!props.loading && props.posts.map((post, index) => (
                     <div key={index} className="post-item">
-                        <div className="post-title" onClick={() => navigate(`/postpage?postId=${post.postId}`)}>{post.title}</div>
+                        <div className="post-title1" onClick={() => navigate(`/postpage?postId=${post.postId}`)}>{post.title}</div>
                         <div className="post-info">
                             <span>조회 {post.viewCount}</span>
                             <span>❤️ {post.heartCount}</span>

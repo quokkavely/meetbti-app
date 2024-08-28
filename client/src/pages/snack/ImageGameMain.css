@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Jua-Regular';
+  src: url('../../font/Jua-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .image-game-container {
   width: 400px;
   height: auto;
@@ -88,7 +95,7 @@ font-size: 14px;
   width: 150px;
   display: block;
   margin-top: 26px;
-  font-family: 'jua';
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .image-suggest-button:hover {

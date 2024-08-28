@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .balance-post-container{
     display: flex;
     flex-direction: column;
@@ -21,30 +28,33 @@
     justify-content: space-between; /* 왼쪽과 오른쪽으로 배치 */
     align-items: center;
     width: 100%;
-    height: 60px;
+    height: 100px;
     color: #858585;
     position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 */
     z-index: 1; /* 낮은 z-index 값 */
     padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* 게시글 제목 */
 .balance-post-title {
     font-size: 20px;
+    font-family: 'Jua-Regular', sans-serif;
     text-align: left; /* 왼쪽 정렬 */
     align-items: center;
     width: auto; /* 가변 너비 */
     position: absolute; /* 고정된 위치 */
-    left: 24px; /* 왼쪽 여백 */
-    color:#575757
+    color:#575757;
+    padding: 20px;
 }
 
 .balance-post-writer {
     font-size: 12px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif;
     text-align: right; /* 오른쪽 정렬 */
     position: absolute; /* 고정된 위치 */
-    padding-top: 34px;
+    padding-top: 60px;
     right: 30px; /* 오른쪽 여백 */
 }
 

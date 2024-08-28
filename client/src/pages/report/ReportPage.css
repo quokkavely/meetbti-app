@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .report-header{
     display: flex;
     flex-direction: row;
@@ -42,18 +49,19 @@
     color: #575757;
     background-color: rgb(226, 212, 253);
     cursor: pointer;
+    font-family: 'Jua-Regular', sans-serif;
 }
 .backoffice-radio-button-selected{
     width: 140px;
     height: 40px;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 17px;
     margin-left: 1px;
     margin-right: 1px;
     border: 1px solid rgb(232, 209, 253);
     color: #ffffff;
     background-color: rgb(165, 126, 243);
     cursor: pointer;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .report-info{
@@ -63,6 +71,7 @@
 
 .report-title{
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .report-time{

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Jua-Regular';
+  src: url('../../font/Jua-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* 헤더 */
 .header {
     display: flex;
@@ -45,6 +52,7 @@
     justify-content: flex-start;
     align-items: center;
     border-bottom: 1px solid #ddd;
+    font-family: 'Jua-Regular', sans-serif; 
 }
 
 .title-input {
@@ -54,6 +62,7 @@
     border: none;
     font-size: 16px;
     margin-left: 5px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .title-input::placeholder {
@@ -94,6 +103,7 @@
     gap: 20px;
     background-color: transparent;
     font-size: 16px;
+    border-bottom: 1px solid #ddd;
 }
 
 .align-center, .align-left, .align-right {
@@ -148,6 +158,7 @@
     min-height: 300px;
     border: 1px solid #ccc;
     padding: 10px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
  
@@ -156,7 +167,7 @@
     height: 380px;
     border: none;
     padding: 5px;
-    border-bottom: 1px solid #ddd;
+    font-family: 'Jua-Regular', sans-serif;
     width: 100%;
     max-width: 400px;
   }
@@ -217,7 +228,8 @@
     height: 40px;
     border: none;
     background-color: #a882ff;
-    font-size: 17px;
+    font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif;
     color: #fff;
     cursor: pointer;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

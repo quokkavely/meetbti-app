@@ -133,7 +133,7 @@ const MBTITestResultSecond = ({ mbti, secondMbti }) => {
 
   return (
     <div className="mbti-test-result-second-container">
-      <h2>나의 본캐, 부캐 MBTI</h2>
+      <div className='mbti-test-result-fs'>나의 본캐, 부캐 MBTI</div>
       <div className="mbti-test-result-second">
         <div className="first-mbti">
           <div className="first-mbti-type">{mbti}</div> {/* 1순위 결과값 */}

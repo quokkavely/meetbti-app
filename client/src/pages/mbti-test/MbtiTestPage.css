@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .testbox-container{
     display: flex;
     align-content: center;
@@ -35,8 +42,9 @@
 }
 .test-content{
     font-size: 20px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif;
     color:#373737;
+    
 }
 .progression-bar{
     display: flex;
@@ -73,7 +81,7 @@
     align-self: center;
     margin-top: 20px;
     font-size: 14px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif;
     width: 350px;
     height: 50px;
     color: #5d5d5d;
@@ -81,7 +89,8 @@
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
 }
 .test-response:hover{
-    background-color: blueviolet;
+    background-color: rgb(158, 85, 226);
+    color: #ffffff;
 }
 .test-response-container{
     margin-top: 0px;

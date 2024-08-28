@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Jua-Regular';
+  src: url('../../font/Jua-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .balance-game-container {
     width: 400px;
     height: 660px;
@@ -10,7 +17,7 @@
   
 .balance-game-title{
   font-size: 22px;
-  font-weight: bold;
+  font-family: 'Jua-Regular', sans-serif;
   color: #2D0057;
   height: 20px;
 }
@@ -34,6 +41,7 @@
 .balance-game-question-container{
   display: flex;
   flex-direction: column;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .selectbox-button{
@@ -54,7 +62,7 @@
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'Jua-Regular', sans-serif;
   padding: 0;
   text-align: center;
   overflow: hidden;
@@ -74,6 +82,7 @@
   gap: 20px;
   height: 40px;
   font-size: 14px;
+  font-family: 'Jua-Regular', sans-serif;
   padding-left: 16px;
   color: #565656;
 }
@@ -91,6 +100,7 @@
     border: none;
     border-radius: 14px;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif;
     cursor: pointer;
     margin: 26px auto;
     width: 150px;

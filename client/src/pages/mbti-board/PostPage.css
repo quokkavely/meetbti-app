@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Jua-Regular';
+  src: url('../../font/Jua-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* 게시글 내용 */
 .post-page-content {
   display: flex;
@@ -30,6 +37,7 @@
   margin-left: 6px;
   border-bottom: 1px solid #ccc;
   height: 50px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .post-image {
@@ -80,6 +88,7 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 14px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .alert-button-main {
@@ -105,6 +114,7 @@
   text-align: left;
   margin-left: 6px;
   margin-top: 50px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 
@@ -220,7 +230,7 @@
   border-radius: 7px;
   background-color: #debdf8;
   color: white;
-  font-weight: bold;
+  font-family: 'Jua-Regular', sans-serif;
 }
 .post-modify-button:hover{
   background-color: rgb(197, 139, 252);

@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Jua-Regular';
+  src: url('../../font/Jua-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 /* MBTI 결과 이미지 섹션 */
 
 .mbti-test-result {
@@ -24,7 +32,7 @@
   margin-top: 20px;
   margin-bottom: 80px;
   font-size: 24px;
-  font-weight: bold;
+  font-family: 'Jua-Regular', sans-serif;
   color: #3C3C3C;
   flex-direction: column;
 }
@@ -36,13 +44,16 @@
   color: #8C2BDE;
 }
 
+.mbti-feature-title {
+  padding-top: 1px;
+}
+
 .mbti-type {
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 24px;
   margin-bottom: 10px;
   margin-left: 30px;
   margin-right: 10px;
-  font-family: 'jua';
+  font-family: 'Jua-Regular', sans-serif; 
 }
 
 .my-mbti-type-title {
@@ -60,6 +71,7 @@
   height: 400px;
   background-color: #f2f2f2;   
   padding: 14px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 /* 구분 선 */
@@ -75,8 +87,8 @@
 /* 그래프 섹션 */
 
 .graph-title {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-family: 'Jua-Regular', sans-serif;
   color: #8C2BDE;
   margin-bottom: 20px;
   margin-top: 20px;
@@ -114,6 +126,7 @@
   flex: 1;
   text-align: center;
   font-size: 14px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .mbti-graph-bar-container {
@@ -173,19 +186,22 @@
 } 
 
 /* 본캐 부캐 섹션 */
-.second-title {
+/* .second-title {
   font-size: 20px;
-  font-weight: bold;
   color: #8C2BDE;
   margin-bottom: 20px;
   margin-left: 10px;
+} */
+
+.mbti-test-result-fs {
+  padding-left: 12px;
 }
 
 .mbti-test-result-second-container {
   width: 100%;
   color: #8C2BDE;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 22px;
+  font-family: 'Jua-Regular', sans-serif;
   margin-top: 20px;
 }
 
@@ -219,6 +235,7 @@
   border-radius: 5px;
   font-size: 20px;
   color: #ffffff;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .first-mbti-keyword1, .first-mbti-keyword2, .first-mbti-keyword3, .second-mbti-keyword1, .second-mbti-keyword2, .second-mbti-keyword3 {
@@ -231,6 +248,7 @@
   box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
   margin: 5px 0;
   border-radius: 8px;
+  font-family: 'Jua-Regular', sans-serif;
 }
 
 .first-mbti-type {

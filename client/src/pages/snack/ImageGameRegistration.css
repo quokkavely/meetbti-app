@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .content-input{
     margin-top: 20px;
     width: 100%;
@@ -19,7 +26,7 @@
 
 .title-input{
     width: 100%;
-    height: 200px;
+    height: 50px;
     max-height: 200px;
     border-bottom: 1px solid rgba(0,0,0,0.25);
 }
@@ -60,7 +67,7 @@
     background-color: #a882ff; 
     color: #ffffff;
     font-size: 18px;
-    font-family: 'jua';
+    font-family: 'Jua-Regular', sans-serif; 
 }
 .game-registration-button:hover{
     background-color: blueviolet;
