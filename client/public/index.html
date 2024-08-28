@@ -5,6 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MeetBTI</title>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+     integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4
+     " crossorigin="anonymous"></script>
+    <script>
+      Kakao.init('c0fb15cf82b69c5f37ccc7fff922633d'); // 사용하려는 앱의 JavaScript 키 입력
+      Kakao.Link.createScrapButton({
+        container: '#kakao-link-btn',
+        requestUrl: 'URL 주소 입력',
+        templateId : 111604
+    });
+    </script>
+
   </head>
   <body>
     <div id="root"></div>
