@@ -82,6 +82,10 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
         setInputValue(e.target.value);
     };
 
+    const getRate = (votes) => {
+        return (100 * votes / gameData.data.totalVotes).toFixed(1);
+    }
+
     return (
         <div className="img-game-result-container">
             <div className="img-game-result-title-section">
@@ -105,7 +109,7 @@ const ImgResultContainer = ({ gameData, setGameData }) => {
                             <div key={index} className={`img-game-result-item ${className}`}>
                                 <Badge mbtiType={key} color={mbtiData[key].color} />
                                 <div className="img-game-result-text">
-                                    <div className="img-game-result-percentage">투표율: {value.toFixed(2)}%</div>
+                                    <div className="img-game-result-percentage">{`${value}표 (${getRate(value)}%),`}</div>
                                     <div className="img-game-result-index">
                                         {index === 0 && ' 압도적 1위를 달리는 중!'}
                                         {index === 1 && ' 콩콩콩! 2위!'}

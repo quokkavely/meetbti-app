@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useAuth } from "../../auth/AuthContext";
 import sendLoginRequest from "../../requests/LoginRequest";
 import ModalCheck from '../../components/modal/ModalCheck';
+import sendGetOAuthTokenRequest from "../../requests/GetOAuthTokenRequest";
 
 // 헤더(로고, 뒤로가기) 컴포넌트
 const Header = () => {
@@ -98,7 +99,8 @@ function FindPasswordContainer(){
 function OAuthContainer({ navigate }){
     return (
         <div className="oauth-container">
-            <img src="/public-img/google.png" className="oauth-logo" onClick={() => window.open(`${process.env.REACT_APP_API_URL}/oauth2/authorization/google`)}></img>
+            {/* <img src="/public-img/google.png" className="oauth-logo" onClick={() => window.open(`${process.env.REACT_APP_API_URL}/oauth2/authorization/google`)}></img> */}
+            <img src="/public-img/google.png" className="oauth-logo" onClick={() => sendGetOAuthTokenRequest()}></img>
             <img src="/public-img/kakao.png" className="oauth-logo"></img>
             <img src="/public-img/naver.png" className="oauth-logo"></img>
         </div>

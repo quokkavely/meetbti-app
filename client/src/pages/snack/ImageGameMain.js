@@ -7,6 +7,7 @@ import Header from '../../components/basic_css/Header';
 import sendGetMyinfoRequest from '../../requests/GetMyInfo';
 import sendGetImageGameRequest from '../../requests/GetImageGamesRequest';
 import sendGetImageGamesRequest from '../../requests/GetImageGamesRequest';
+import PageContainer from '../../components/page_container/PageContainer';
 
 const AppContainerComponent = () => {
     return (
@@ -26,13 +27,13 @@ const ImageGameList = (props) => {
         <div className="image-game-container">
             <div className="image-game-container-title">
                 이건 바로 너! 이미지 게임
-                {!props.loading && props.games.map((game, index) => (
+                {props.games.map((game, index) => (
                     <div key={`${game.id}-${index}`} className="image-game-selectbox" onClick={() => navigate((game.selectedOption === '' ? `/imagegame-page?gameId=${game.gameId}` : `/imagegame-result?gameId=${game.gameId}`))}>
                         <div className="image-game-title">{game.topic}</div>
                         <div className="image-game-selectbox-count">
                             <div className="image-heart-count">❤️ {game.heartCount}</div>
                             <div className="image-comment-count">💬 {game.comments.length}</div>
-                            <div className="image-status">{game.isParticipated ? '참여완료' : '미참여'}</div>
+                            <div className="image-status">{game.selectedOption === '' ? '미참여' : '참여완료'}</div>
                         </div>
                     </div>
                 ))}
@@ -101,13 +102,14 @@ const ImageGameMain = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
     const { state } = useAuth();
-    const [games, setGames] = useState({data:[]});
+    const [games, setGames] = useState({data:[], pageInfo:{}});
     const [totalPages, setTotalPages] = useState(0);
     const location = useLocation();
     const [myData, setMyData] = useState('');
     const params = new URLSearchParams(location.search);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [postImageGame, setPostImageGame] = useState([]);
+    const [page, setPage] = useState(1);
     
     const updateMyData = (data) => {
         setMyData(data);
@@ -116,25 +118,20 @@ const ImageGameMain = () => {
     useEffect(() => {
         const param = params.get('gameId'); // 'param' 변수를 올바르게 초기화
         sendGetMyinfoRequest(state, updateMyData);
-        sendGetImageGameRequest(state, 1, 3, setLoading, setGames, param);
-        sendGetImageGamesRequest(state, 1, 3, setLoading, setPostImageGame, param); // 'page', 'size', 'gameId' 변수 수정
-        console.log("이미지 게임 페이지 로딩 완료");
-    }, []);
-
-    useEffect(() => {
-        // 페이지 변경 시 데이터를 다시 로드
-        const param = params.get('gameId');
-        sendGetImageGameRequest(state, currentPage, itemsPerPage, setLoading, setGames, param);
-        sendGetImageGamesRequest(state, currentPage, itemsPerPage, setLoading, setPostImageGame, param);
-    }, [currentPage]);
+        sendGetImageGamesRequest(state, page, 3, setIsLoading, setGames); // 'page', 'size', 'gameId' 변수 수정
+    }, [page]);
 
     return (
         <div className="app">
             <AppContainerComponent />
             <HeaderComponent />
-            <ImageGameList games={games.data} loading={loading}/>
+            {isLoading ? <div></div> : <ImageGameList games={games.data}/>}
             <ImageGameSuggestButton />
-            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+            {/* <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} /> */}
+            {isLoading ? <div></div> : <PageContainer currentPage={page} pageInfo={games.pageInfo} 
+            getPage={(page) => sendGetImageGamesRequest(state, page, 3, setIsLoading, setGames)}
+            setPageOriginal={setPage}
+             ></PageContainer>}
         </div>
     );
 };
