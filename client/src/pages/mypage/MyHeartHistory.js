@@ -37,23 +37,34 @@ const HistorySection = () => {
     const { state } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         sendGetMyHeartsRequest(state, page, 6, type, setMyHearts, setIsLoading);
     }, [type]);
-    const handleDropdownChange = (event) => {
-        setType(event.target.value);
-    }
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    };
+
+    const selectType = (option) => {
+        setType(option);
+        setDropdownOpen(false);
+    };
 
     return (
         <div className="history-section">
-            <select className='select-type' value={type} onChange={handleDropdownChange}>
-                <option value='' disabled>종류 선택</option>
-                <option value='POST'>게시글</option>
-                <option value='BALANCE_GAME'>밸런스게임</option>
-                <option value='IMAGE_GAME'>이미지게임</option>
-            </select>
+            <div className="dropdown-heart" ref={dropdownRef}>
+                <button className="filter-btn-heart" onClick={toggleDropdown}>{`▼ ${type}`}</button>
+                {isDropdownOpen && (
+                    <div className="dropdown-menu-heart">
+                        <button className="dropdown-item-heart" onClick={() => selectType('POST')}>게시글</button>
+                        <button className="dropdown-item-heart" onClick={() => selectType('BALANCE_GAME')}>밸런스게임</button>
+                        <button className="dropdown-item-heart" onClick={() => selectType('IMAGE_GAME')}>이미지게임</button>
+                    </div>
+                )}
+            </div>
             <div className='histories-container'>
                 {myHearts.data.length === 0 ? <div>좋아요 이력이 없어요</div> : myHearts.data.map((item, index) => (
                     <div
