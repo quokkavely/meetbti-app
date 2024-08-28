@@ -23,7 +23,6 @@ const HeaderComponent = () => {
 
 // 마이페이지 유저 정보 컴포넌트
 const MyPageUserInfoContainer = (props) => {
-    const profile = props.profileImg === undefined ? `/mbti-img/${props.mbti}.png` : props.profileImg;
     const [isModalOpen,  setModalOpen] = useState(false);
 
     const openModal = () => {
@@ -36,7 +35,7 @@ const MyPageUserInfoContainer = (props) => {
     return (
         <div className="mypage-user-info-container">
             <div className="mypage-user-info-container-inner">
-                <img src={props.image === null ? `/mbti-img/${props.mbti}.png` : props.image} alt="mypage-user-info-img" />
+                <img src={props.profileImg === null ? `/mbti-img/${props.mbti}.png` : props.profileImg} alt="mypage-user-info-img" />
             </div>
             <button className='profile-img-modify-button' onClick={openModal}>✏️</button>
             <div className="mypage-user-info-section">

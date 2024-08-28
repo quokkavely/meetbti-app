@@ -123,11 +123,11 @@ const CommentCount = ({ comments }) => {
 
 
 // CommentItem 컴포넌트 정의
-const CommentItem = ({ username, mbti, content, createdAt, postAuthor }) => {
+const CommentItem = ({ username, mbti, content, createdAt, postAuthor, profileImage }) => {
   return (
     <div className="comments">
       <div className="comment-section">
-        <CommentUserInfoContainer username={username} mbti={mbti}/>
+        <CommentUserInfoContainer username={username} mbti={mbti} profileImage = {profileImage}/>
       </div>
       <div className="comment-content">
         <div className="comment-text" style={{color: username === postAuthor ? '#a155d3' : 'black'}}>{content}</div>
@@ -153,6 +153,7 @@ const CommentSection = ({ comments, postAuthor }) => {
           content={comment.content} 
           createdAt={comment.createdAt} 
           postAuthor = {postAuthor}
+          profileImage={comment.image}
           // likes={comment.likes} 
         />
       ))}
@@ -221,7 +222,7 @@ const PostPage = () => {
     <div className="app">
       <AppContainer />
       <Header />
-      {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti}/>}
+      {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti} profileImage={postData.data.image}/>}
       {!loading && <PostPageContent post={postData.data} />}
       {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} myMbti={myData.data.mbti} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}

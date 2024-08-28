@@ -6,9 +6,11 @@ import sendMemberPatchRequest from "../../requests/MemberPatchRequest";
 const ImageInputModal = ({ isOpen, closeModal }) => {
     const { state } = useAuth();
     const [file, setFile] = useState();
+    const [fileUrl, setFileUrl] = useState('');
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
+        setFileUrl(URL.createObjectURL(event.target.files[0]));
     }
 
     const modifyProfileImage = () => {
@@ -26,7 +28,7 @@ const ImageInputModal = ({ isOpen, closeModal }) => {
         <div className="image-input-modal-background">
             <div className="image-input-modal">
                 <button className="close-button" onClick={closeModal}>X</button>
-                <img className='profile-placeholder' src="public-img/catprofile.png"></img>
+                <img className='profile-placeholder' src={fileUrl === '' ? "public-img/catprofile.png" : fileUrl}></img>
                 <div className="input-description">최대 10MB까지의 파일만 등록할 수 있어요</div>
                 <input type="file" className = 'file-input-button' onChange={handleFileChange} />
                 <button className="change-profile-confirm-button" onClick={() => modifyProfileImage()}>등록</button>

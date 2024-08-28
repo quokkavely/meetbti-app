@@ -50,11 +50,12 @@ const styles = {
   }
 };
 
-const CommentUserInfoContain = ({ username, mbti }) => {
+const CommentUserInfoContain = ({ username, mbti, profileImage }) => {
+  console.log(`/mbti-img/${mbti}.png`);
   return (
     <div style={styles.container}>
       <div style={styles.imgContainer}>
-        <img src="/public-img/catprofile.png" alt="catprofile" style={styles.img} />
+        <img src={profileImage === null ? `/mbti-img/${mbti}.png` : profileImage} alt="catprofile" style={styles.img} />
       </div>
       <div style={styles.mbtiContainer}>
         <div style={styles.mbti}>{mbti}</div>

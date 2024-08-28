@@ -44,10 +44,10 @@ const styles = {
     }
 };
 
-const UserInfoContainer = ({ author, mbti }) => {
+const UserInfoContainer = ({ author, mbti, profileImage }) => {
     return (
         <div style={styles.container}>
-            <img src="/public-img/catprofile.png" alt="프로필 이미지" style={styles.profile} />
+            <img src={profileImage===null ? `/mbti-img/${mbti}.png` : profileImage} alt="프로필 이미지" style={styles.profile} />
             <div style={styles.info}>
                 <div style={styles.badge}>{mbti}</div>
                 <div style={styles.name}>{author}</div>
