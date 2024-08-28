@@ -28,7 +28,7 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     Page<Post> findByPostStatusNotOrderByCreatedAt(Pageable pageable, @Param("postStatus") Post.PostStatus postStatus);
 
     // comments 개수로 정렬
-    @Query("SELECT p FROM Post p LEFT JOIN p.comments c WHERE (:category = 'ALL' OR p.category = :category) AND p.postStatus <> :postStatus GROUP BY p.postId ORDER BY COUxNT(c) DESC")
+    @Query("SELECT p FROM Post p LEFT JOIN p.comments c WHERE (:category = 'ALL' OR p.category = :category) AND p.postStatus <> :postStatus GROUP BY p.postId ORDER BY COUNT(c) DESC")
     Page<Post> findByCategoryAndPostStatusNotOrderByComments(Pageable pageable, @Param("category") String category, @Param("postStatus") Post.PostStatus postStatus);
 
     // hearts 개수로 정렬

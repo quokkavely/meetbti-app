@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ImageGameCommentDto {
@@ -12,6 +13,7 @@ public class ImageGameCommentDto {
     @Setter
     public static class Post {
         private long gameId;
+        @NotNull
         private String content;
     }
     @Builder
