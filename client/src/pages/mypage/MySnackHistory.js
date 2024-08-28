@@ -121,7 +121,14 @@ const MySnackHistory = () => {
             <PageContainer 
                 currentPage={page} 
                 pageInfo={historyData.pageInfo} 
-                getPage={(page) => sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading)}
+                getPage={(page) => {
+                    if(category === '이미지게임'){
+                        sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
+                    }else if(category === '밸런스게임'){
+                        sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
+                    }
+                    
+                }}
                 setPageOriginal={setPage}
             ></PageContainer>}
         </div>
