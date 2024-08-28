@@ -42,36 +42,14 @@ const PostContent = ({ setContent, value }) => {
     };
     
     return (
-        // <div className='post-content'>
-        //     <div className="toolbar">
-        //         <button className="text-bold" onClick={() => document.execCommand('bold', false, '')}>𝐁</button>
-        //         <button className="text-italic" onClick={() => document.execCommand('italic', false, '')}>𝐼</button>
-        //         <button className="text-underline" onClick={() => document.execCommand('underline', false, '')}>𝖴</button>
-        //         <button onClick={() => document.execCommand('justifyLeft', false, '')}>
-        //             <img src="public-img/align-left.png" alt="좌측 정렬" className='align-left'/>
-        //         </button>
-        //         <button onClick={() => document.execCommand('justifyCenter', false, '')}>
-        //             <img src="public-img/align-center.png" alt="가운데 정렬" className='align-center'/>
-        //         </button>
-        //         <button onClick={() => document.execCommand('justifyRight', false, '')}>
-        //             <img src="public-img/align-right.png" alt="우측 정렬" className='align-right'/>
-        //         </button>
-        //         <input type="color" className='text-color' onChange={(e) => document.execCommand('foreColor', false, e.target.value)} />
-        //         <button className="text-link" onClick={() => {
-        //             const url = prompt('링크를 입력하세요:');
-        //             if (url) {
-        //                 document.execCommand('createLink', false, url);
-        //             }
-        //         }}>🔗</button>
-        //     </div>
             <textarea 
                 className="editor"
                 value = {value}
                 ref={editorRef}
                 contentEditable={true}
                 onChange={handleContentChange}
-                placeholder={`# 사진은 1장까지 첨부가 가능합니다.
-# 남을 비방하거나 욕설이 섞인 게시물은 삭제될 수 있습니다.`}
+                placeholder={`# 사진은 1장까지 첨부 가능해요.
+# 타인을 비방하거나 욕설이 섞인 게시물은 삭제될 수 있어요.`}
                 style={{width: '100%', maxWidth: '480px'}}
             ></textarea>
         // </div>
@@ -106,7 +84,7 @@ const AttachImage = ({ setFileName, setImageFile }) => {
                 onChange={handleFileChange} 
             />
             <span className="image-info">
-                {fileName ? `첨부된 파일: ${fileName}` : '사진은 5MB 이하까지 가능합니다.'}
+                {fileName ? `첨부된 파일: ${fileName}` : '사진은 10MB 이하까지 첨부할 수 있어요.'}
             </span>
         </div>
     );
@@ -137,7 +115,13 @@ const submitPost = (state, navigate, memberId, title, content, params, image) =>
     if(params.get('action') === 'modify'){
         if(window.confirm('게시글을 수정하시겠어요?')){
             const contentObject = {title: title, content: content, category: params.get('category')};
-            sendPatchPostRequest(state, params.get('postId'), memberId, title, content, navigate);
+
+            if(image === null){
+                sendPatchPostRequest(state, params.get('postId'), memberId, title, content, navigate);
+                return;
+            }
+            sendUploadPostImageRequest(state, image, (data) => sendPatchPostRequest(state, params.get('postId'), memberId, title, content, navigate, data));
+            
             return;
         }
     }

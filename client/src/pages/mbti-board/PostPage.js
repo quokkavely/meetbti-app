@@ -223,7 +223,7 @@ const PostPage = () => {
       <AppContainer />
       <Header />
       {!loading && <UserInfoContainer author = {postData.data.nickName} mbti = {postData.data.mbti} profileImage={postData.data.image}/>}
-      {!loading && <PostPageContent post={postData.data} />}
+      {!loading && <PostPageContent post={postData.data} postAuthor = {postData.data.nickName} username = {myData.data.nickname} state = {state} myMbti={myData.data.mbti} postId={postData.data.postId} navigate={navigate}/>}
       {!loading && <PostActions state={state} navigate={navigate} postId={postData.data.postId} postAuthor={postData.data.nickName} username={myData.data.nickname} myMbti={myData.data.mbti} likes={postData.data.heartCount} propsliked = {postData.data.liked} setLoading = {setLoading} setPostData={setPostData}/>}
       {!loading && <CommentCount comments={postData.data.comments.length} />}
       {!loading && <CommentSection comments={postData.data.comments} postAuthor = {postData.data.nickName}/>}

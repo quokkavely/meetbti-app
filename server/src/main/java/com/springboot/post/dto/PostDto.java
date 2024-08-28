@@ -29,6 +29,7 @@ public class PostDto {
         private long memberId;
         private String title;
         private String content;
+        private String image;
     }
     @Builder
     @Getter

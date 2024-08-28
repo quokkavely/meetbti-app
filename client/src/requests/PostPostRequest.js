@@ -1,7 +1,7 @@
 const sendPostPostRequest = async(state, contentObject, navigate, data) => {
-    console.log('token: ', state.token);
+    /* console.log('token: ', state.token);
     console.log('contentObject: ', contentObject);
-    console.log('image: ', data);
+    console.log('image: ', data); */
 
     try{
         const response = await fetch(`${process.env.REACT_APP_API_URL}/posts`,
