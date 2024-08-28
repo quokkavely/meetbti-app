@@ -1,4 +1,5 @@
 const sendGetImagegameResultsRequest = async(state, page, size, memberId, setResults, setLoading) => {
+    console.log('GET요청의 page: ', page);
     try {
         setLoading(true); // 로딩 상태를 true로 설정
         console.log('이미지 게임 페이지 GET요청 전송');

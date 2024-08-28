@@ -33,8 +33,39 @@ const SnackHistoryTitle = () => {
 };
 
 
-const HistorySection = ({ state, setMyData, page, setPage, setHistoryData, navigate, isLoading, setIsLoading, historyData, category }) => {
-    
+const Historyrecenttext = ( { setCategory, state, page, setResults, setLoading}) => {
+    return (
+        <div className="history-recenttext">
+            <select onChange={(e) => {
+                setCategory(e.target.value);
+                if(e.target.value === '이미지게임'){
+                    sendGetImagegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
+                } else if(e.target.value === '밸런스게임'){
+                    sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
+                }
+                }}>
+                <option disabled>선택</option>
+                <option>이미지게임</option>
+                <option>밸런스게임</option>
+            </select>
+        </div>
+    );
+};
+
+
+const MySnackHistory = () => {
+    const [category, setCategory] = useState('이미지게임');
+    const { state } = useAuth();
+    const navigate = useNavigate();
+    const [historyData, setHistoryData] = useState({data:[]});
+    const [page, setPage] = useState(1);
+    const [myData, setMyData] = useState({data:{}});
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        sendGetMyInfoRequest(state, setMyData);
+        sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
+    }, []);
 
     const getContents = () => {
         if(category === '이미지게임'){
@@ -70,9 +101,14 @@ const HistorySection = ({ state, setMyData, page, setPage, setHistoryData, navig
             );
         } 
     }
-    console.log(category);
-
+    console.log('snackPage: ', page);
     return (
+      <div className="app">
+        <AppContainerComponent />
+        <HeaderComponent />
+        <SnackHistoryTitle />
+        <Historyrecenttext setCategory={setCategory} state={state} page={page}
+        setResults={setHistoryData} setLoading={setIsLoading}/>
         <div className="history-section">
             <div className="image-game-container">
                 <div className="image-game-container-title">
@@ -81,56 +117,14 @@ const HistorySection = ({ state, setMyData, page, setPage, setHistoryData, navig
                     {historyData.length === 0 && <div className="no-games-message">참가한 게임이 없어요</div>}
                 </div>
             </div>
-            {isLoading ? <div></div> : <PageContainer currentPage={page} pageInfo={historyData.pageInfo} getPage={() => sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading)}
-                    setPageOriginal={setPage}
-                ></PageContainer>}
+            {isLoading ? <div></div> : 
+            <PageContainer 
+                currentPage={page} 
+                pageInfo={historyData.pageInfo} 
+                getPage={(page) => sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading)}
+                setPageOriginal={setPage}
+            ></PageContainer>}
         </div>
-    );
-};
-
-const Historyrecenttext = ( { setCategory, state, page, setResults, setLoading}) => {
-    return (
-        <div className="history-recenttext">
-            <select onChange={(e) => {
-                setCategory(e.target.value);
-                if(e.target.value === '이미지게임'){
-                    sendGetImagegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
-                } else if(e.target.value === '밸런스게임'){
-                    sendGetBalancegameResultsRequest(state, page, 3, state.memberId, setResults, setLoading);
-                }
-                }}>
-                <option disabled>선택</option>
-                <option>이미지게임</option>
-                <option>밸런스게임</option>
-            </select>
-        </div>
-    );
-};
-
-
-const MySnackHistory = () => {
-    const [category, setCategory] = useState('이미지게임');
-    const { state } = useAuth();
-    const navigate = useNavigate();
-    const [historyData, setHistoryData] = useState({data:[]});
-    const [page, setPage] = useState(1);
-    const [myData, setMyData] = useState({data:{}});
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        sendGetMyInfoRequest(state, setMyData);
-        sendGetImagegameResultsRequest(state, page, 3, state.memberId, setHistoryData, setIsLoading);
-    }, [page]);
-
-    return (
-      <div className="app">
-        <AppContainerComponent />
-        <HeaderComponent />
-        <SnackHistoryTitle />
-        <Historyrecenttext setCategory={setCategory} state={state} page={page}
-        setResults={setHistoryData} setLoading={setIsLoading}/>
-        <HistorySection category={category} state={state} setMyData = {setMyData} page={page} setHistoryData={setHistoryData} navigate={navigate}
-        isLoading={isLoading} setIsLoading={setIsLoading} historyData={historyData} setPage = {setPage} category = {category}/>
       </div>
     );
   };
