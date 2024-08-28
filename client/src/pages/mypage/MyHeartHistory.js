@@ -71,7 +71,7 @@ const HistorySection = () => {
                         className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                         /* onClick={() => navigate(`postpage?postId`)} */
                     >
-                        <div className="history-content-text">{item.title}</div>
+                        <div className="history-content-text">{type === "IMAGE_GAME" ? item.topic : item.title}</div>
                         <div className="history-content-date">{item.createdAt}</div>
                     </div>
                 ))}
