@@ -132,7 +132,7 @@ const ModifySection = (props) => {
                      >{nicknameDuplChecked ? '중복 확인✓' : '중복 확인'}</button>
                 </div>
                 <button
-                 className='modify-button'
+                 className='modify-button-mynickname'
                  onClick={() => {
                     if(nicknameInput === ''){
                         alert('변경할 닉네임을 입력해주세요');
@@ -170,7 +170,7 @@ const ModifySection = (props) => {
                     )}
                 </div>
             </div>
-            <button className="modify-button" onClick={passwordPatch}>비밀번호 변경</button>
+            <button className="modify-button-myPassword" onClick={passwordPatch}>비밀번호 변경</button>
             <div className="withdrawal-container">
                 <button className="withdrawal-button" onClick={openModal}>회원탈퇴</button>
             </div>

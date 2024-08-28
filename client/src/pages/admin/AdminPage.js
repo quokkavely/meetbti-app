@@ -1,6 +1,7 @@
 import Header from "../../components/basic_css/Header";
 import './AdminPage.css';
 import '../../App.css';
+import { Navigate, useNavigate } from "react-router-dom";
 
 function AdminButton(props){
     return (
@@ -16,16 +17,21 @@ function AdminButton(props){
 }
 
 const AdminPage = () => {
+    const navigate = useNavigate();
     return (
         <div className="app">
             <Header></Header>
-            <h6 className="admin-page-text">🩷관리자 페이지</h6>
-            <div className="admin-button-container">
-                <AdminButton content='신고 내역' img='history-img.png'></AdminButton>
-                <AdminButton content='이미지 게임 관리' img='post-img.png'></AdminButton>
-                <AdminButton content='밸런스 게임 관리' img='comment-img.png'></AdminButton>
+            <div className="admin-title">
+                <div className="admin-page-text"> 
+                    <img src="/public-img/heart-red-img.png" alt="Heart red"/></div>
+                <div> 관리자 페이지</div>
             </div>
-            <img className = 'logo-icon' src="logo-icon.png"></img>
+            <img className = 'logo-icon' src="/public-img/img-testresult.png"></img>
+            <div className="admin-button-container" onClick={() => navigate('/report')}>
+                <AdminButton content='신고 내역' img='/public-img/history-img.png'></AdminButton>
+                <AdminButton content='이미지 게임 관리' img='/public-img/post-img.png'></AdminButton>
+                <AdminButton content='밸런스 게임 관리' img='/public-img/comment-img.png'></AdminButton>
+            </div>
         </div>
     );
 }

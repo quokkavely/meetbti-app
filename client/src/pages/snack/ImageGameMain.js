@@ -27,8 +27,8 @@ const ImageGameList = (props) => {
             <div className="image-game-container-title">
                 이건 바로 너! 이미지 게임
                 {!props.loading && props.games.map((game, index) => (
-                    <div key={`${game.id}-${index}`} className="image-game-selectbox">
-                        <div className="image-game-title" onClick={() => navigate(`/imagegame-page?gameId=${game.gameId}`)}>{game.topic}</div>
+                    <div key={`${game.id}-${index}`} className="image-game-selectbox" onClick={() => navigate(`/imagegame-page?gameId=${game.gameId}`)}>
+                        <div className="image-game-title">{game.topic}</div>
                         <div className="image-game-selectbox-count">
                             <div className="image-heart-count">❤️ {game.heartCount}</div>
                             <div className="image-comment-count">💬 {game.comments.length}</div>
@@ -36,7 +36,7 @@ const ImageGameList = (props) => {
                         </div>
                     </div>
                 ))}
-                {props.games.length === 0 && <div>등록된 게임이 없어요.</div>}
+                {props.games.length === 0 && <div className="no-games-message">등록된 게임이 없어요...</div>}
             </div>
         </div>
     );

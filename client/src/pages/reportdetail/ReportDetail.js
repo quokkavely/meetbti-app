@@ -15,17 +15,18 @@ function ReportButtonContainer({ state, navigate, reportId, nickname, banDay, se
             description='정지 기간' 
             option={['3일', '7일', '30일']}
             setBanDay = {setBanDay}
+            className = 'report-dropdown'
             ></Dropdown>
             <button className="ban-button" onClick={() => {
                 if(window.confirm(`${nickname} 회원을 ${banDay}일간 제재하시겠어요?`)){
                     sendPatchReportRequest(state, reportId, 'accepted', banDay, navigate);
                 }
-            }}>제재 승인</button>
+            }}>승인</button>
             <button className="ban-button" onClick={() => {
                 if(window.confirm(`별도의 제재 없이 신고를 삭제하시겠어요?`)){
                     sendPatchReportRequest(state, reportId, 'rejected', '0', navigate);
                 }
-            }}>기각</button>
+            }}>미승인</button>
         </div>
     );
 }
@@ -47,9 +48,9 @@ const ReportDetail = () => {
         <div className="app">
             <Header></Header>
             {isLoading ? <div></div> : <div className="report">
-                <ReportItem type={reportData.post.title} time={currentTime} checkbox={false}></ReportItem>
+                <ReportItem name={reportData.post.name} type={reportData.post.title} time={currentTime} checkbox={false}></ReportItem>
                 {/* <ReporterAndTarget reporter='옥결' target='치와와'></ReporterAndTarget> */}
-                <div>{reportData.post.content}</div>
+                <div className="report-post-content">{reportData.post.content}</div>
                 <div className="report-content">{'신고 사유: ' + reportData.reason}</div>
             </div>}
             <ReportButtonContainer state = {state} navigate = {navigate} nickname = {reportData.nickname} reportId = {reportData.reportId} 
