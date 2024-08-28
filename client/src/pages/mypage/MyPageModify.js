@@ -108,7 +108,7 @@ const ModifySection = (props) => {
             alert('비밀번호 확인을 진행해주세요');
             return;
         }
-        sendChangePasswordRequest(state, password, confirmPassword);
+        sendChangePasswordRequest(state, password, confirmPassword ,setPassword, setConfirmPassword);
     }
 
     return (
