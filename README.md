@@ -135,3 +135,6 @@
 
 ### API 명세서
 [MeetBTI-API명세서](https://docs.google.com/spreadsheets/d/1j8DFtbTcbUNgJ1bipurqsfqK9-sYht0wjwLPZMCNEuE/edit?gid=300132535#gid=300132535)
+
+### 발표
+[MeetBTI-발표자료](https://www.canva.com/design/DAGPML47h30/yA9OQfHMqb5DKiia8cUnBw/edit?utm_content=DAGPML47h30&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
