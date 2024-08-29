@@ -64,15 +64,14 @@
 }
 
 .mbti-feature-content {
-  font-size: 20px;
+  font-size: 19px;
   justify-content: center; 
   margin-left: 30px;
   margin-right: 30px;
   height: auto;
-  padding: 26px;
   background-color: #f2f2f2;   
+  padding: 14px;
   font-family: 'Jua-Regular', sans-serif;
-  line-height: 1.4;
 }
 
 /* 구분 선 */
@@ -143,36 +142,38 @@
   height: 20px;
 }
 
-.mbti-graph-bar.extraverted {
+.mbti-graph-bar.extraverted-win {
+  background-color: #8bc34a; /* 외향형 색상 */
+}
+.mbti-graph-bar.introverted-win {
   background-color: #8bc34a; /* 외향형 색상 */
 }
 
-.mbti-graph-bar.introverted {
-  background-color: #cfd8dc; /* 내향형 색상 */
+.mbti-graph-bar.intuitive-win {
+  background-color: #ff9800; /* 직관형 색상 */
 }
-
-.mbti-graph-bar.intuitive {
+.mbti-graph-bar.observant-win {
   background-color: #ff9800; /* 직관형 색상 */
 }
 
-.mbti-graph-bar.observant {
-  background-color: #cfd8dc; /* 현실주의형 색상 */
-}
 
-.mbti-graph-bar.thinking {
+.mbti-graph-bar.thinking-win {
+  background-color: #62c7f5; /* 이성적사고형 색상 */
+}
+.mbti-graph-bar.feeling-win {
   background-color: #62c7f5; /* 이성적사고형 색상 */
 }
 
-.mbti-graph-bar.feeling {
-  background-color: #cfd8dc; /* 원칙주의형 색상 */
-}
 
-.mbti-graph-bar.judging {
+.mbti-graph-bar.judging-win {
+  background-color: #ef83a7; /* 계획형 색상 */
+}
+.mbti-graph-bar.prospecting-win {
   background-color: #ef83a7; /* 계획형 색상 */
 }
 
-.mbti-graph-bar.prospecting {
-  background-color: #cfd8dc; /* 탐색형 색상 */
+.mbti-graph-bar.lose {
+  background-color: #cfd8dc; /* 원칙주의형 색상 */
 }
 
 .graph-label {

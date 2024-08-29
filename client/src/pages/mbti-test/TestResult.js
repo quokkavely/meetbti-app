@@ -84,8 +84,8 @@ const GraphBar = ({ rate, leftName, rightName, leftEngName, rightEngName }) => {
           <div className="graph-text">{leftName}</div>
         </div>
         <div className="mbti-graph-bar-container">
-          <div className={`mbti-graph-bar ${leftEngName}`} style={{ width: `${rate}%` }}></div>
-          <div className={`mbti-graph-bar ${rightEngName}`} style={{ width: `${100 - rate}%` }}></div>
+          <div className={rate >= 50 ? `mbti-graph-bar ${leftEngName}-win` : 'mbti-graph-bar lose'} style={{ width: `${rate}%` }}></div>
+          <div className={rate < 50 ? `mbti-graph-bar ${rightEngName}-win` : 'mbti-graph-bar lose'} style={{ width: `${100 - rate}%` }}></div>
         </div>
         <div className="mbti-graph-label">
           <div className="graph-label">{`${100 - rate}%`}</div>
@@ -207,24 +207,21 @@ const TestResult = () => {
     sendGetLastTestResultRequest(state, setIsLoading, setTestResult);
   }, []);
 
-  const mbti = testResult.data.mbti;
-  const mbtiDescription = mbtiData[mbti] ? mbtiData[mbti].description : '설명 없음';
-
   console.log('TestResult 렌더링');
   return (
     <div className="app">
       <AppContainerComponent />
       <HeaderComponent />
-      {isLoading ? <div></div> : <MBTITestResult mbti={mbti} />}
-      <MBTIFeature 
-        mbti={mbti} 
-        description={mbtiDescription} 
-      />
+      {isLoading ? <div></div> : <MBTITestResult mbti = {testResult.data.mbti}/>}
+      {isLoading ? <div></div> : <MBTIFeature 
+        mbti={testResult.data.mbti} 
+        description={mbtiData[testResult.data.mbti].description} 
+      />}
       <Line />
       <GraphTitle />
-      <MBTITestResultPercent mbtiData={testResult.data} />
+      <MBTITestResultPercent mbtiData = {testResult.data}/>
       <Line />
-      {isLoading ? <div></div> : <MBTITestResultSecond mbti={mbti} secondMbti={testResult.data.secondMbti} />}
+      {isLoading ? <div></div> : <MBTITestResultSecond mbti={testResult.data.mbti} secondMbti={testResult.data.secondMbti} />}
       <Line />
       <NavigateSection />
     </div>
