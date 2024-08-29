@@ -18,7 +18,7 @@
 ## 🚩 개요
 - 프로젝트 이름 : MeetBTI
 - 프로젝트 기간 : 2024.08.09 ~ 2024.08.29
-- 배포주소 : [MeetBTI]()
+- 배포주소 : [MeetBTI](http://meetbti.s3-website.ap-northeast-2.amazonaws.com)
 
 <br><br>
 
@@ -103,4 +103,13 @@
 
 <br>
 
+## 개발 문서
 
+### 사용자 기능 정의서
+[MeetBTI-사용자기능정의서](https://docs.google.com/spreadsheets/d/1XMqYRtqulippf7HA2dp9n6sx5ePqxiOyh0XM622ChoM/edit?usp=sharing)
+
+### ERD
+[MeetBTI-ERD](https://www.erdcloud.com/d/2rEQpGQChxisYTNtg)
+
+### API 명세서
+[MeetBTI-API명세서](https://docs.google.com/spreadsheets/d/1j8DFtbTcbUNgJ1bipurqsfqK9-sYht0wjwLPZMCNEuE/edit?gid=300132535#gid=300132535)
