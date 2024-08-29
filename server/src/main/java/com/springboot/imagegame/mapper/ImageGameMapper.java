@@ -26,7 +26,7 @@ public interface ImageGameMapper {
 
         for(ImageGameResult result : game.getResults()){
             List<TestResult> mbtiTests = result.getMember().getTestResults();
-            String mbti = mbtiTests.get(mbtiTests.size() - 1).getMbti();
+            String mbti = mbtiTests.get(mbtiTests.size() - 1).getSecondMbti();
             if(mbtis.containsKey(mbti)){
                 mbtis.put(mbti, mbtis.get(mbti) + 1);
             }else {
