@@ -25,7 +25,7 @@
 
 .mbti-feature {
   display: flex;
-  height: 400px;
+  height: auto;
   width: 440px;
   gap: 15px;
   padding-top: 50px;
@@ -64,11 +64,11 @@
 }
 
 .mbti-feature-content {
-  font-size: 16px;
+  font-size: 19px;
   justify-content: center; 
   margin-left: 30px;
   margin-right: 30px;
-  height: 400px;
+  height: auto;
   background-color: #f2f2f2;   
   padding: 14px;
   font-family: 'Jua-Regular', sans-serif;
@@ -248,6 +248,7 @@
   box-shadow: 10px 10px 10px rgba(36, 36, 36, 0.1);
   margin: 5px 0;
   border-radius: 8px;
+  font-size: 18px;
   font-family: 'Jua-Regular', sans-serif;
 }
 
@@ -270,8 +271,8 @@
 }
 
 .logo-icon-result img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
 }
 
 /* 네비게이션 버튼 섹션 */

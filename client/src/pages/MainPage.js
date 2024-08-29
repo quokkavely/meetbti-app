@@ -93,22 +93,22 @@ const MainContent = (props) => {
   };
 
   const cards1 = [
-    { image: "/mbti-img/ENFP.png", title: "ENFP", description: "선의의 옹호자" },
-    { image: "/mbti-img/ENFJ.png", title: "ENFJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/ENTJ.png", title: "ENTJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/ENTP.png", title: "ENTP", description: "개발자의 MBTI" },
-    { image: "/mbti-img/ESFP.png", title: "ESFP", description: "선의의 옹호자" },
-    { image: "/mbti-img/ESTP.png", title: "ESTP", description: "선의의 옹호자" },
-    { image: "/mbti-img/ESFJ.png", title: "ESFJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/ESTJ.png", title: "ESTJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/INFP.png", title: "INFP", description: "선의의 옹호자" },
-    { image: "/mbti-img/INFJ.png", title: "INFJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/INTP.png", title: "INTP", description: "선의의 옹호자" },
-    { image: "/mbti-img/INTJ.png", title: "INTJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/ISFP.png", title: "ISFP", description: "선의의 옹호자" },
-    { image: "/mbti-img/ISFJ.png", title: "ISFJ", description: "선의의 옹호자" },
-    { image: "/mbti-img/ISTP.png", title: "ISTP", description: "선의의 옹호자" },
-    { image: "/mbti-img/ISTJ.png", title: "ISTJ", description: "선의의 옹호자" },
+    { image: "/mbti-img/ENFP.png", title: "ENFP", description: "인싸중의 핵인싸" },
+    { image: "/mbti-img/ENFJ.png", title: "ENFJ", description: "파티 버프왕" },
+    { image: "/mbti-img/ENTJ.png", title: "ENTJ", description: "계획과 효율" },
+    { image: "/mbti-img/ENTP.png", title: "ENTP", description: "지적호기심 MAX" },
+    { image: "/mbti-img/ESFP.png", title: "ESFP", description: "열린 마인드" },
+    { image: "/mbti-img/ESTP.png", title: "ESTP", description: "적응의 분위기메이커" },
+    { image: "/mbti-img/ESFJ.png", title: "ESFJ", description: "사회력 만렙" },
+    { image: "/mbti-img/ESTJ.png", title: "ESTJ", description: "전통과 규칙" },
+    { image: "/mbti-img/INFP.png", title: "INFP", description: "나만의 이상향" },
+    { image: "/mbti-img/INFJ.png", title: "INFJ", description: "자신만의 내면세계" },
+    { image: "/mbti-img/INTP.png", title: "INTP", description: "고독한 분석가" },
+    { image: "/mbti-img/INTJ.png", title: "INTJ", description: "독립적이고,고고한" },
+    { image: "/mbti-img/ISFP.png", title: "ISFP", description: "자애로운 조화" },
+    { image: "/mbti-img/ISFJ.png", title: "ISFJ", description: "진실된 헌신" },
+    { image: "/mbti-img/ISTP.png", title: "ISTP", description: "현실적인 해결사" },
+    { image: "/mbti-img/ISTJ.png", title: "ISTJ", description: "규칙과 프로세스" },
   ];
 
   const cards2 = [

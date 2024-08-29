@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .modify-section {
     display: flex;
     flex-direction: column;
@@ -14,7 +21,7 @@
 
 .modify-section-title{
     font-size: 22px;
-    font-weight: 600;
+    font-family: 'Jua-Regular', sans-serif; 
     margin-bottom: 30px;
 }
 
@@ -32,6 +39,7 @@
     align-items: left;
     justify-content: left;
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
 }
 
 .nickname-section {
@@ -48,10 +56,12 @@
     border-radius: 8px;
     padding-left: 10px;
     font-size: 14px;
+    
 }
 
 .modify-section-nickname {
-    font-size: 20px;
+    font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
 }
 
 .nickname-check-button {
@@ -60,6 +70,7 @@
     border-radius: 5px;
     border: none;
     font-size: 10px;
+    font-family: 'Jua-Regular', sans-serif; 
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
     color: rgb(64, 64, 64);
     background-color: #a882ff;
@@ -81,11 +92,13 @@
 }
 
 .modify-section-password {
-    font-size: 20px;
+    font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
 } 
 
 .notice {
     font-size: 10px;
+    font-family: 'Jua-Regular', sans-serif; 
     color: red;
     margin-top: 3px;
     margin-left: 10px;
@@ -97,6 +110,7 @@
     border-radius: 8px;
     border: none;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif; 
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
     color: rgb(63, 63, 63); 
     background-color: #a882ff;
@@ -113,6 +127,7 @@
     border-radius: 8px;
     border: none;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif; 
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.3);
     color: rgb(63, 63, 63); 
     background-color: #a882ff;
@@ -148,6 +163,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    /* font-family: 'Jua-Regular', sans-serif;  */
     transform: translate(-50%, -50%);
     background-color: #fff;
     border: 1px solid #ccc;
@@ -159,6 +175,7 @@
     width: 400px;
     height: 500px;
     display: flex;
+    font-family: 'Jua-Regular', sans-serif; 
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -201,6 +218,7 @@
 .withdrawal-modal-text-content {
     width: 200px;
     font-size: 15px;
+    font-family: 'Jua-Regular', sans-serif; 
     margin-top: 10px;
     text-align: center;
     color: #666666;
@@ -226,6 +244,7 @@
     border: none;
     cursor: pointer;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif; 
 }
 
 .withdrawal-modal-button1 {

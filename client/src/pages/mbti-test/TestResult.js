@@ -47,11 +47,13 @@ const MBTITestResult = ({ mbti }) => {
 };
 
 
-const MBTIFeature = ({ type, description}) => {
+const MBTIFeature = ({ mbti, description}) => {
+  const [mbtiDescriprion, setMbtiDescription] = useState(mbtiData);
+  
   return (
     <div className="mbti-feature">
         <div className="mbti-feature-title-box">
-          <div className="mbti-type">{type}</div>
+          <div className="mbti-type">{mbti}</div>
           <div className="mbti-feature-title"> 성격 특징 </div>
         </div>
         <div className="mbti-feature-content">{description}</div>
@@ -212,7 +214,10 @@ const TestResult = () => {
       <AppContainerComponent />
       <HeaderComponent />
       {isLoading ? <div></div> : <MBTITestResult mbti = {testResult.data.mbti}/>}
-      <MBTIFeature type={testResult.data.mbti} description={'설명'}/>
+      <MBTIFeature 
+        mbti={testResult.data.mbti} 
+        description={mbtiData[testResult.data.mbti].description} 
+      />
       <Line />
       <GraphTitle />
       <MBTITestResultPercent mbtiData = {testResult.data}/>
