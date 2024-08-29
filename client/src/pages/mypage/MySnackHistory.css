@@ -13,6 +13,7 @@
     text-align: left;
     color: #555555;
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif;
     align-items: center;
     border-radius: 15px;
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.3);
@@ -32,6 +33,7 @@
     margin-top: 12px;
     margin-right: 10px;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif;
     height: 40px;
 }
 
@@ -75,6 +77,7 @@
 .history-content-date {
     margin-top: 2px;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif;
     color: #808080;
     margin-left: 20px;
 }
@@ -90,7 +93,7 @@
     background-color: #d3e9f8;
     padding: 10px;
     cursor: pointer;
-    color: #ffffff;
+    color: #5c5c5c;
     border: none;
     border-radius: 20px;
     width: 100px;

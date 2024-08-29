@@ -7,7 +7,7 @@
 
 .balance-game-container {
     width: 400px;
-    height: 660px;
+    height: auto;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #c8adf4;

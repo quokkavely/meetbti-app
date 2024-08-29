@@ -117,12 +117,6 @@
   
 }
 
-.logo-text {
-  text-align: left;
-  font-size: 10px;
-  color:#505050
-}
-
 .logo-text-logout {
   width: 100%;
   display: flex;
@@ -143,6 +137,15 @@
 .logout-button:hover{
   background-color: rgb(183, 124, 238);
 }
+
+.logo-text1 {
+  text-align: left;
+  font-family: 'Jua-Regular', sans-serif;
+  color:#565656;
+  font-size: 22px;
+  padding-left: 3px;
+}
+
 
 .main-content {
   margin-top: 30px;
@@ -187,9 +190,10 @@
   margin-bottom: 40px;
 }
 
-.mbti-test h2 {
+.mbti-test-text {
   color: #b966fe;
-  font-size: 25px;
+  font-size: 24px;
+  font-family: 'Jua-Regular', sans-serif; 
   margin: 0;
 }
 
@@ -209,25 +213,27 @@
 
 
 /* 다른 MBTI 섹션 */
-.other-mbti, 
+/* .other-mbti, 
 .snack {
   display: flex;
   height: 75px;
   gap: 15px;
   padding-top: 50px;
   margin-top: 20px;
-  font-size: 25px;
+  font-size: 24px;
   color: #421157;
   margin-bottom: 20px;
   align-items: center;
-}
+} */
 
 .other-mbti-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  color: #838383; 
+  color: #565656;
+  font-size: 23px;
+  font-weight: 100;
   font-family: 'Jua-Regular', sans-serif;
 }
 
@@ -237,7 +243,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  color: #838383;  
+  font-size: 23px;
+  color: #565656;
+  font-weight: 100;
   font-family: 'Jua-Regular', sans-serif;
 }
 

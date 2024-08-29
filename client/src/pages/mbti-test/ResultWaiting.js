@@ -6,12 +6,12 @@ const ResultWaiting = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const randomTime = Math.floor(Math.random() * (6000 - 3000 + 1)) + 3000;
         const timer = setTimeout(() => {
             navigate('/testresult');
-        }, 6000);
+        }, randomTime);
     
-    
-    return () => clearTimeout(timer);
+        return () => clearTimeout(timer);
     }, [navigate]);
 
     return (

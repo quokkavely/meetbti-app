@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .mypage-user-info-container{
     display: flex;
     flex-direction: column;
@@ -14,14 +21,17 @@
 .mypage-user-info-container-inner{
     width: 120px;
     height: 120px;
+    border-radius: 50%;
+    overflow: hidden; 
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .mypage-user-info-container-inner img {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
+    transform: scale(1.2);
+    transform-origin: center;
 }
 
 .mypage-user-info-section {
@@ -38,6 +48,7 @@
     width: 80px;
     height: 23px;
     font-size: 20px;
+    font-family: 'Jua-Regular', sans-serif; 
     border-radius: 10px;
     align-items: center;
     justify-content: center;
@@ -51,7 +62,7 @@
     width: auto;
     height: 24px;
     font-size: 20px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     align-items: center;
     justify-content: center;
     text-align: left;
@@ -80,7 +91,7 @@
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
     border: none;
     font-size: 16px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -102,7 +113,7 @@
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
     border: none;
     font-size: 16px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -134,7 +145,7 @@
     background-color: #a882ff; 
     color: #ffffff;
     font-size: 26px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.4);
     border: none;
     cursor: pointer;
@@ -154,7 +165,7 @@
 
 .mypage-new-notice-container-title{
     font-size: 16px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     margin-top: 10px;
     text-align: left;
     align-self: flex-start;
@@ -187,6 +198,7 @@
     width: 30px;
     height: 30px;
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
     background-color: rgb(255, 231, 199);
     cursor: pointer;
 }

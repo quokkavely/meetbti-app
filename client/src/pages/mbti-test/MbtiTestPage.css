@@ -41,7 +41,7 @@
     width: 250px;
 }
 .test-content{
-    font-size: 20px;
+    font-size: 22.5px;
     font-family: 'Jua-Regular', sans-serif;
     color:#373737;
     
@@ -80,8 +80,9 @@
     border: none;
     align-self: center;
     margin-top: 20px;
-    font-size: 14px;
-    font-family: 'Jua-Regular', sans-serif;
+    font-size: 15.5px;
+    font-weight: bold;
+    /* font-family: 'Jua-Regular', sans-serif; */
     width: 350px;
     height: 50px;
     color: #5d5d5d;

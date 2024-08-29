@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .history-section{
     display: flex;
     flex-direction: column;
@@ -14,7 +21,7 @@
     height: 50px;
     text-align: left;
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Jua-Regular', sans-serif; 
     margin-left: 10px;
     align-items: center;
 }
@@ -42,6 +49,7 @@
     text-align: left;
     color: #555555;
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
     align-items: center;
     border-radius: 15px;
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.3);

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .post-history-title {
     display: flex;
     width: 440px;
@@ -5,6 +12,7 @@
     text-align: left;
     color: #555555;
     font-size: 18px;
+    font-family: 'Jua-Regular', sans-serif; 
     align-items: center;
     border-radius: 15px;
     box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.3);
@@ -24,6 +32,7 @@
     margin-top: 12px;
     margin-right: 10px;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif; 
 }
 
 .history-section {
@@ -60,13 +69,14 @@
     margin-top: 10px;
     font-size: 20px;
     margin-left: 20px;
-    font-style: italic;
+    font-family: 'Jua-Regular', sans-serif; 
     color: #b368fa;
 }
 
 .history-content-date {
     margin-top: 2px;
     font-size: 14px;
+    font-family: 'Jua-Regular', sans-serif; 
     color: #808080;
     margin-left: 20px;
 }

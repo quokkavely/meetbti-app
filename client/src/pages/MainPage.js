@@ -29,7 +29,7 @@ const Header = (props) => {
       </div>
       <div className="logo-text-logout">
         <div className="logo-text">
-          <h1>본격 MBTI 커뮤니티!</h1>
+          <div className='logo-text1'>본격 MBTI 커뮤니티!</div>
         </div>
         {props.state.isAuthenticated && <button className = 'logout-button' onClick={() => {
           if(window.confirm('로그아웃하시겠어요?')){
@@ -49,7 +49,7 @@ const MBTITest = (props) => {
       <div className="mbti-test-card">
         <img src="/public-img/Main-Img.png" alt="MBTI Test" className="mbti-image"/>
         <div className="mbti-test">
-          <h2>MBTI TEST</h2>
+          <div className="mbti-test-text">MBTI TEST</div>
           <button onClick={() => {
             navigate(props.login ? '/TestMain' : '/login');
             console.log(props.login);

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Jua-Regular';
+    src: url('../../font/Jua-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 /* 필터 컴포넌트 */
 .filter-mbtmi {
     display: flex;
@@ -8,6 +15,8 @@
     height: 40px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+    font-family: 'Jua-Regular', sans-serif;
+    font-weight: 100;
 }
 
 .filter-mbtmi-btn {
@@ -24,6 +33,7 @@
     align-items: center;
     text-align: center;
     font-size: 16px;
+    font-family: 'Jua-Regular', sans-serif;
 }
 
 .filter-mbtmi-btn:first-child {  
