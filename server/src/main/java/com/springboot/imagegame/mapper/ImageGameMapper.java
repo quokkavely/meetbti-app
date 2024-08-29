@@ -11,6 +11,7 @@ import org.mapstruct.Mapper;
 import org.springframework.security.core.Authentication;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public interface ImageGameMapper {
     default ImageGameDto.Response gameToGameResponseDto(ImageGame game, Authentication authentication, ImageGameCommentMapper imageGameCommentMapper) {
         Principal principal = (Principal) authentication.getPrincipal();
         // mbti별 득표수를 저장하는 맵
-        Map<String, Integer> mbtis = new HashMap<>();
+        Map<String, Integer> mbtis = new LinkedHashMap<>();
 
         for(ImageGameResult result : game.getResults()){
             List<TestResult> mbtiTests = result.getMember().getTestResults();
@@ -34,12 +35,13 @@ public interface ImageGameMapper {
         }
         // 상위 3개만 남김
         mbtis = mbtis.entrySet().stream()
-                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
-                .limit(3)
+                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))  // 값을 기준으로 내림차순 정렬
+                .limit(3)  // 상위 3개의 항목으로 제한
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey(),
-                        entry -> entry.getValue(),
-                        (e1, e2) -> e1
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new  // 정렬된 순서를 유지하는 LinkedHashMap으로 수집
                 ));
         // 게임 참여했는지 여부
         String selectedOption = "";
