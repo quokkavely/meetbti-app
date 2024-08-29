@@ -207,21 +207,24 @@ const TestResult = () => {
     sendGetLastTestResultRequest(state, setIsLoading, setTestResult);
   }, []);
 
+  const mbti = testResult.data.mbti;
+  const mbtiDescription = mbtiData[mbti] ? mbtiData[mbti].description : '설명 없음';
+
   console.log('TestResult 렌더링');
   return (
     <div className="app">
       <AppContainerComponent />
       <HeaderComponent />
-      {isLoading ? <div></div> : <MBTITestResult mbti = {testResult.data.mbti}/>}
+      {isLoading ? <div></div> : <MBTITestResult mbti={mbti} />}
       <MBTIFeature 
-        mbti={testResult.data.mbti} 
-        description={mbtiData[testResult.data.mbti].description} 
+        mbti={mbti} 
+        description={mbtiDescription} 
       />
       <Line />
       <GraphTitle />
-      <MBTITestResultPercent mbtiData = {testResult.data}/>
+      <MBTITestResultPercent mbtiData={testResult.data} />
       <Line />
-      {isLoading ? <div></div> : <MBTITestResultSecond mbti={testResult.data.mbti} secondMbti={testResult.data.secondMbti} />}
+      {isLoading ? <div></div> : <MBTITestResultSecond mbti={mbti} secondMbti={testResult.data.secondMbti} />}
       <Line />
       <NavigateSection />
     </div>

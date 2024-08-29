@@ -36,7 +36,7 @@ const SnackHistoryTitle = () => {
 const Historyrecenttext = ({ setCategory, state, page, setResults, setLoading, setPage }) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const [category, setCategoryState] = useState('선택');
+    const [category, setCategoryState] = useState('이미지게임');
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
