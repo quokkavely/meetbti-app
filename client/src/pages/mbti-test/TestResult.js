@@ -56,7 +56,9 @@ const MBTIFeature = ({ mbti, description}) => {
           <div className="mbti-type">{mbti}</div>
           <div className="mbti-feature-title"> 성격 특징 </div>
         </div>
-        <div className="mbti-feature-content">{description}</div>
+        <div className="mbti-feature-content" style={{ whiteSpace: 'pre-line' }}>
+          {description}
+        </div>
     </div>
   )
 };
