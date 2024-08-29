@@ -3,8 +3,8 @@ import './PageContainer.css';
 
 const getPageRange = (currentPage, pageInfo) => {
 
-    console.log('currentPage: ', currentPage);
-    console.log('pageInfo: ', pageInfo);
+    /* console.log('currentPage: ', currentPage);
+    console.log('pageInfo: ', pageInfo); */
 
     // currentPage를 중심으로 범위 2칸을 잡는다 가정
     let leftEnd = currentPage - 2;
@@ -19,8 +19,8 @@ const getPageRange = (currentPage, pageInfo) => {
     // 오른쪽 끝이 범위를 벗어나면 자르기
     rightEnd = Math.min(rightEnd, pageInfo.totalPage);
 
-    console.log('leftEnd: ', leftEnd);
-    console.log('rightEnd: ', rightEnd);
+    /* console.log('leftEnd: ', leftEnd);
+    console.log('rightEnd: ', rightEnd); */
 
     let array = [];
 

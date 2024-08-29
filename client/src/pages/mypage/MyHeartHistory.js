@@ -39,24 +39,36 @@ const HistorySection = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const [displayedType, setDisplayedType] = useState('게시글');
 
     useEffect(() => {
         sendGetMyHeartsRequest(state, page, 6, type, setMyHearts, setIsLoading);
-    }, [type]);
+    }, [displayedType]);
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
     };
 
     const selectType = (option) => {
-        setType(option);
+        switch(option){
+            case '게시글':
+                setType('POST'); 
+                break;
+            case '이미지게임':
+                setType('IMAGE_GAME');
+                break;
+            case '밸런스게임':
+                setType('BALANCE_GAME');
+                break;
+        }
+        setDisplayedType(option);
         setDropdownOpen(false);
     };
 
     return (
         <div className="history-section">
             <div className="dropdown-heart" ref={dropdownRef}>
-                <button className="filter-btn-heart" onClick={toggleDropdown}>{`▼ ${type}`}</button>
+                <button className="filter-btn-heart" onClick={toggleDropdown}>{`▼ ${displayedType}`}</button>
                 {isDropdownOpen && (
                     <div className="dropdown-menu-heart">
                         <button className="dropdown-item-heart" onClick={() => selectType('게시글')}>게시글</button>
@@ -71,7 +83,7 @@ const HistorySection = () => {
                         className={`history-section-content ${index % 2 === 0 ? 'white-background' : 'gray-background'}`}
                         /* onClick={() => navigate(`postpage?postId`)} */
                     >
-                        <div className="history-content-text">{type === "이미지게임" ? item.topic : item.title}</div>
+                        <div className="history-content-text">{type === "IMAGE_GAME" ? item.topic : item.title}</div>
                         <div className="history-content-date">{item.createdAt}</div>
                     </div>
                 ))}
