@@ -107,14 +107,13 @@ const MBTITestResultPercent = (mbtiData) => {
       </GraphBar>
       <GraphBar
       rate={mbtiData.mbtiData.scoreSN / 4}
-      leftName='직관형' rightName='현실주의형'
-      leftEngName='intuitive' rightEngName='observant'>
+      leftName='현실주의형' rightName='직관형'
+      leftEngName='observant' rightEngName='intuitive'>
       </GraphBar>
       <GraphBar
       rate={mbtiData.mbtiData.scoreFT / 4}
-      leftName='사고형' rightName='감정형'
-      leftEngName='thinking' rightEngName='feeling'
-      >
+      leftName='감정형' rightName='사고형'
+      leftEngName='feeling' rightEngName='thinking'>
       </GraphBar>
       <GraphBar
       rate={mbtiData.mbtiData.scoreJP / 4}
