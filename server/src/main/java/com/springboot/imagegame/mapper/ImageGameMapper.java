@@ -25,8 +25,7 @@ public interface ImageGameMapper {
         Map<String, Integer> mbtis = new LinkedHashMap<>();
 
         for(ImageGameResult result : game.getResults()){
-            List<TestResult> mbtiTests = result.getMember().getTestResults();
-            String mbti = mbtiTests.get(mbtiTests.size() - 1).getSecondMbti();
+            String mbti = result.getSelectedMbti().toString();
             if(mbtis.containsKey(mbti)){
                 mbtis.put(mbti, mbtis.get(mbti) + 1);
             }else {
