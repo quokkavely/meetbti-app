@@ -108,6 +108,11 @@ public class TestResultService {
         mbti.append(fScore > tScore ? "F" : "T");
         mbti.append(jScore > pScore ? "J" : "P");
 
+        testResult.setScoreEI(eScore);
+        testResult.setScoreSN(sScore);
+        testResult.setScoreFT(fScore);
+        testResult.setScoreJP(jScore);
+
         int minDiff = Math.min(Math.min(eScore, sScore), Math.min(fScore, jScore));
         StringBuilder secondMbti = new StringBuilder(mbti.toString());
 
@@ -122,10 +127,6 @@ public class TestResultService {
         }
         testResult.setMbti(mbti.toString());
         testResult.setSecondMbti(secondMbti.toString());
-        testResult.setScoreEI(Math.max(eScore, iScore));
-        testResult.setScoreSN(Math.max(sScore, nScore));
-        testResult.setScoreFT(Math.max(fScore, tScore));
-        testResult.setScoreJP(Math.max(jScore, pScore));
 
         return testResult;
     }
