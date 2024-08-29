@@ -4,7 +4,7 @@ const { Kakao } = window;
 
 export default () =>{
 	// 배포한 자신의 사이트
-    const realUrl = `${process.env.REACT_APP_API_URL}`
+    const realUrl = `http://meetbti.s3-website.ap-northeast-2.amazonaws.com/testresult`
     // 로컬 주소 (localhost 3000 같은거)
     const resultUrl = window.location.href;
     
