@@ -32,7 +32,7 @@
 
 ## 🔍Page Preview
 
-| 메인 : 일반유저 | 메인 : 관리자 |
+| 메인 : 일반 | 메인 : 자 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
@@ -40,15 +40,15 @@
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
-| 모임글 등록 | 북마크 기능 |
+|  등록 | 기능 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
-| 모임글 수정 | 모임글 삭제 |
+| 수정 | 삭제 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
-| 참여 기능 | 댓글 등록 |
+| 기능 | 댓글 등록 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
@@ -56,11 +56,11 @@
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
-| 후기 등록 | 후기 조회 |
+|  등록 | 후조회 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
-| 후기 수정 삭제 | 관리자 페이지 |
+| 수정 삭제 | 관리자 |
 | :---: | :---: |
 | <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
 
@@ -68,12 +68,39 @@
 | :---: | :---: |
 | <img src="" width="370" height="210"/> | <img src="" width="370" height="200"/> |
 
-| 마이페이지 : 북마크 | 회원 탈퇴 |
+| 마이페이지 : 좋아요 | 회원 탈퇴 |
 | :---: | :---: |
 | <img src="" width="370" height="210"/> | <img src="" width="370" height="200"/> |
 
 
-## 기술스택
+## ✨기술스택
 
+### 공통
+<img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"><img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
+<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
+<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white">
+<br>
+    
+### 백엔드
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"><img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white"><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
+
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![SpringSecurity](https://img.shields.io/badge/SpringSecurity-6DB33F.svg?style=for-the-badge&logo=SpringSecurity&logoColor=white)
+
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"><img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white">
+
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+![Windows](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=macos&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+<br>
+
+### 프론트엔드
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
+
+<br>
 
 
