@@ -30,6 +30,12 @@
 |[블리](https://github.com/quokkavely) (팀장)|[옥결](https://github.com/Ockeee)|[꼬마](https://github.com/KoKyungBeom)|[한조](https://github.com/whgkswo)|
 
 
+
+
+
+
+<br>
+
 ## 🔍Page Preview
 
 | 메인 : 일반 | 메인 : 비로그인 |
@@ -42,7 +48,7 @@
 
 |  MBTI-TEST  | MBTI - 결과 확인 |
 | :---: | :---: |
-| <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/0de2c1a2-5a89-4f4c-aa21-b4a335462c7f" width="370" height="200"/> | <img src="https://github.com/user-attachments/assets/7f46cd4e-ec7c-476b-b68a-d0c1f17a6594" width="370" height="200"/> |
 
 | 게시판 | 게시글 작성 |
 | :---: | :---: |
@@ -138,3 +144,7 @@
 
 ### 발표
 [MeetBTI-발표자료](https://www.canva.com/design/DAGPML47h30/yA9OQfHMqb5DKiia8cUnBw/edit?utm_content=DAGPML47h30&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+
+
+    
