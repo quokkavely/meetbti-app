@@ -31,9 +31,6 @@
 
 
 
-
-
-
 <br>
 
 ## 🔍Page Preview
@@ -56,11 +53,11 @@
 
 | 스낵컬처 : 메인 | MBTMI : 카테고리별 컨텐츠 확인 |
 | :---: | :---: |
-| <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/35b7e0d8-6454-4641-8d39-27244ee4b21b" width="400" height="200"/> | <img src="https://github.com/user-attachments/assets/430752fc-1e2c-40e3-9c2e-4aa09ec9ee51" width="400" height="200"/> |
 
 | 밸런스게임 : 주제 제안 | 이미지게임 : 주제 제안 |
 | :---: | :---: |
-| <img src="" width="370" height="200"/> | <img src="" width="370" height="200"/> |
+| <img src="" width="400" height="200"/> | <img src="" width="400" height="200"/> |
 
 | 밸런스게임 : 참여 및 결과 확인 | 밸런스게임 : 댓글 및 좋아요 |
 | :---: | :---: |
@@ -72,7 +69,7 @@
 
 | 마이페이지 : 프로필 사진 수정| 마이페이지 : 닉네임 수정 |
 | :---: | :---: |
-| <img src="" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/eb18b8b9-60a7-4f78-a19d-38b410a82c1d" width="400" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/7e671c92-c908-4e9f-b6e2-354db1b6224e" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/eb18b8b9-60a7-4f78-a19d-38b410a82c1d" width="400" height="200"/> |
 
 | 마이페이지 : 비밀번호 수정 | 마이페이지 : 활동내역 확인 |
 | :---: | :---: |
@@ -82,17 +79,21 @@
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/87733598-e7f5-4efc-b38b-d56c05bc30dc" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/ff4385b4-b233-4e24-9853-99301ee541ba" width="400" height="200"/> |
 
-| 마이페이지 : 스낵컬처　활동내역 | 마이페이지 : |
+| 마이페이지 : 스낵컬처　활동내역 | 마이 페이지 : 탈퇴|
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/16f5ccb8-f144-4e0e-8a4a-c4e91d8994ca" width="400" height="210"/> | <img src="" width="400" height="200"/> |
 
 | 관리자 페이지 : 회원의 주제 제안 목록 | 관리자 페이지 : 주제 승인 |
 | :---: | :---: |
-| <img src="" width="370" height="210"/> | <img src="" width="370" height="200"/> |
+| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
 
 | 관리자 페이지 : 회원의 신고 목록 | 관리자 페이지 : 신고 승인 |
 | :---: | :---: |
-| <img src="" width="370" height="210"/> | <img src="" width="370" height="200"/> |
+| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
+
+| 로그인 차단: 탈퇴 회원 | 로그인 차단: 계정정지 회원 |
+| :---: | :---: |
+| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
 
 
 
