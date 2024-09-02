@@ -5,6 +5,8 @@
   font-style: normal;
 }
 
+/* @media (max-width: 768px) { */
+
 /* 기본 초기화 */
 * {
   margin: 0;
@@ -14,12 +16,15 @@
 
 /* 앱 컨테이너 */
 .app {
+  width: 100%;
   max-width: 480px; /* 모바일 크기 */
   margin: 0 auto; /* 중앙 정렬 */
   padding: 20px; /* 패딩 추가 */
+  box-sizing: border-box;
 }
 
 /* 헤더 */
+
 .header {
   display: flex;
   flex-direction: column;
@@ -379,3 +384,5 @@
   color: black;
   z-index: 1;
 } */
+
+/* } */
