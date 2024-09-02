@@ -16,7 +16,7 @@
 
 /* 앱 컨테이너 */
 .app {
-  width: 100%;
+  width: 100%; /* 크기 100% 사용 */
   max-width: 480px; /* 모바일 크기 */
   margin: 0 auto; /* 중앙 정렬 */
   padding: 20px; /* 패딩 추가 */
