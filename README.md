@@ -20,6 +20,47 @@
 - 프로젝트 기간 : 2024.08.09 ~ 2024.08.29
 - 배포주소 : [MeetBTI](http://meetbti.s3-website.ap-northeast-2.amazonaws.com)
 
+<br>
+
+> ### 주요 기능
+**1. 회원가입 및 로그인**
+- 닉네임과 이메일 검증 버튼
+- 회원가입 버튼 클릭 시 멤버 정보를 임시로 Redis에 저장, 자동 메일 전송
+- 이메일 인증 코드 입력 후 인증 완료 시 회원가입 완료되고 DB에 회원 정보 저장
+- 로그인 실패 시 알림창 표시
+- 신고 회원 및 탈퇴 회원은 로그인 차단
+    
+**2. MBTI Test** 
+- 질문은 DB에서 더미 데이터로 관리
+- 질문에 대한 답변을 배열로 담아 서버에 전송하여 계산하는 로직
+- MBTI 결과가 있어야 게시판에 글 작성 가능
+    
+**3. MBTI 게시판** 
+- MBTI 테스트 후에 게시판 접근 가능
+- MBTI 테스트 결과에 따라 카테고리 자동 진입
+- 게시글에 제목, 내용, 이미지 업로드 가능
+- 게시글 작성은 해당 MBTI 카테고리에서만 작성 가능
+- 게시글에 대한 댓글은 MBTI Test를 한 모든 사용자는 작성 가능
+- 게시글에 대한 좋아요 및 신고 기능 제공
+ 
+**4. Snack Culture (밸런스게임/이미지게임/MBTMI)** 
+- 회원은 게임 주제 제안 가능, 관리자가 승인시 참여 가능
+- 이미지 게임 참여시 가장 많은 선택을 받은 MBTI의 3순위까지 확인 가능
+- 게임 참여 중복 불가 
+- MBTMI 기능으로 MBTI 관련 정보 확인 가능
+      
+**5. 마이페이지**
+- MBTI 테스트 기록
+- 작성한 게시글 목록
+- 내가 남긴 댓글 목록
+- 좋아요 목록
+- 참여한 게임 확인 가능
+
+**6. 관리자 페이지**
+- 신고된 게시글 확인
+- 신고 승인 시 해당 계정 정지 및 게시글 자동 삭제
+- 회원이 제안한 이미지 게임과 밸런스 게임 주제 승인
+- 승인된 게임 주제는 사용자에게 공개
 <br><br>
 
 ## 🙏Team List
@@ -29,9 +70,10 @@
 |<img src="https://github.com/user-attachments/assets/843e48b3-33ca-4443-9f7a-05a8a504f602" width="150px" height="150px">|<img src="https://github.com/user-attachments/assets/a514e921-e0e5-4f5f-a184-a12559d4a827" width="150px" height="150px"> | <img src="https://github.com/user-attachments/assets/ffdb85b6-47d8-4a3f-8dc6-19dc55d6fe49" width="150px" height="150px"> | <img src="https://github.com/user-attachments/assets/e2aab19f-8287-488c-908a-5040f8d247db" width="150px" height="150px">|
 |[블리](https://github.com/quokkavely) (팀장)|[옥결](https://github.com/Ockeee)|[꼬마](https://github.com/KoKyungBeom)|[한조](https://github.com/whgkswo)|
 
-
-
 <br>
+
+> ### 역할 분담
+<img src = "https://github.com/user-attachments/assets/173a11af-84ca-419b-bb36-bf27abd89510" />
 
 ## 🔍Page Preview
 
@@ -95,7 +137,8 @@
 | :---: | :---: |
 | <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
 
-
+<br> 
+<br> 
 
 
 ## ✨기술스택
@@ -127,8 +170,10 @@
 <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
 
 <br>
+<br> 
 
-## 개발 문서
+
+## 📖 개발 문서
 
 ### 사용자 기능 정의서
 [MeetBTI-사용자기능정의서](https://docs.google.com/spreadsheets/d/1XMqYRtqulippf7HA2dp9n6sx5ePqxiOyh0XM622ChoM/edit?usp=sharing)
@@ -139,8 +184,6 @@
 ### API 명세서
 [MeetBTI-API명세서](https://docs.google.com/spreadsheets/d/1j8DFtbTcbUNgJ1bipurqsfqK9-sYht0wjwLPZMCNEuE/edit?gid=300132535#gid=300132535)
 
-### 발표
-[MeetBTI-발표자료](https://www.canva.com/design/DAGPML47h30/yA9OQfHMqb5DKiia8cUnBw/edit?utm_content=DAGPML47h30&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 
 
