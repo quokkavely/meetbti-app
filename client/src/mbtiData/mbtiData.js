@@ -53,7 +53,7 @@ const mbtiData = {
         type: "ESFP",
         description: "외향-감각-감정-인식.\n\n주변 사람을 기쁘게 해줄 줄 아는 경청능력 MAX, 앵무새 스타일.\n\nESFP는 누구보다 주변환경과 주변 사람들에게 열린 유형입니다. 이들은 활기차고 사교적이며, 주변에서 일어나는 일에 즉각적으로 반응합니다.\n이들은 감정적인 경험을 중요시하며, 타인에게서 느끼는 따뜻함과 친근함을 누구보다 중요하게 여깁니다. 이들은 다양한 사람들과 교류를 즐기는 인싸중의 인싸, 한번보면 우린 친구 스타일!\n다른 사람을 기쁘게 해주는 것을 좋아하며 경청하는 데 재능이 있어 다른 사람들의 문제나 감정에 따뜻하게 공감합니다.\n하지만 때로는 감정과잉… 이로인해 갈등이 생길 수 있으니 조심하세요!",
         image: "../public/mbti-img/ESFP.png",
-        color: "#fa6060;",
+        color: "#fa6060",
         keywords: { keyword1: "따뜻함", keyword2: "인내심부족", keyword3: "과도한표현" },
         mbtmi: {
             images: "/mbti-img/meetbti-esfp.png",
@@ -159,6 +159,12 @@ const mbtiData = {
             images: "/mbti-img/meetbti-istp.png",
         },
     },
+
+    NONE: {
+        type: "NONE",
+        image: "../public/public-img/img-testreult.png",
+        color: "#A9A6A6",
+    }
 };
 
 export default mbtiData;

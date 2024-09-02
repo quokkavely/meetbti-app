@@ -23,9 +23,10 @@ const styles = {
         marginLeft: '15px',
     },
     badge: {
-        width: '60px',
+        width: '54px',
         height: '22px',
         fontSize: '15px',
+        fontWeight: 'bold',
         borderRadius: '10px',
         // alignItems: 'center',
         // justifyContent: 'center',

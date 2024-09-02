@@ -39,9 +39,10 @@ const styles = {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
   },
   badge: {
-    width: '44px',
+    width: '40px',
     height: '16px',
-    fontSize: '12px',
+    fontSize: '11px',
+    fontWeight: 'bold',
     borderRadius: '10px',
     // alignItems: 'center',
     // justifyContent: 'center',
@@ -52,18 +53,19 @@ const styles = {
 },
   name: {
     fontSize: '11px',
-    color: '#242424',
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
+    color: '#585858',
     width: '40px',
     height: '15px',
     textAlign: 'center',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    marginTop: '2px',
   }
 };
 
 const CommentUserInfoContain = ({ username, mbti, profileImage }) => {
-  const mbtiColor = mbti && mbtiData[mbti] ? mbtiData[mbti].color : '#ffffff';
+  const mbtiColor = mbti && mbtiData[mbti] ? mbtiData[mbti].color : 'mbtiData.[mbti].color';
   console.log(`/mbti-img/${mbti}.png`);
   return (
     <div style={styles.container}>

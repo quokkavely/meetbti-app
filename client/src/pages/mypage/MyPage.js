@@ -43,7 +43,7 @@ const MyPageUserInfoContainer = (props) => {
                 <img src="/public-img/post-img.png" alt="modify-icon" />
             </button>
             <div className="mypage-user-info-section">
-                <div className="mypage-user-info-section-badge" style={{ backgroundColor: mbtiColor}} > {props.mbti} </div>
+                <div className="mypage-user-info-section-badge" style={{ backgroundColor: mbtiColor}} > {props.mbti === 'NONE' ? 'NONE' : props.mbti} </div>
                 <div className="mypage-user-info-section-name"> {props.nickname} </div>
             </div>
             {isModalOpen && <ImageInputModal isOpen = {isModalOpen} closeModal = {closeModal}></ImageInputModal>}
