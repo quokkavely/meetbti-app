@@ -1,6 +1,8 @@
 import React from 'react';
+import mbtiData from '../../mbtiData/mbtiData';
 
 const styles = {
+    
     container: {
         display: 'flex',
         alignItems: 'center',
@@ -29,7 +31,7 @@ const styles = {
         justifyContent: 'center',
         paddingTop: '2px',
         textAlign: 'center',
-        backgroundColor: '#f4c0c0',
+        backgroundColor: 'mbtiData.[mbti].color',
         color: '#ffffff',
     },
     name: {
@@ -45,11 +47,14 @@ const styles = {
 };
 
 const UserInfoContainer = ({ author, mbti, profileImage }) => {
+
+    const mbtiColor = mbti && mbtiData[mbti] ? mbtiData[mbti].color : '#ffffff';
+    console.log(mbti, mbtiData[mbti]);
     return (
         <div style={styles.container}>
             <img src={profileImage===null ? `/mbti-img/${mbti}.png` : profileImage} alt="프로필 이미지" style={styles.profile} />
             <div style={styles.info}>
-                <div style={styles.badge}>{mbti}</div>
+                <div style={{ ...styles.badge, backgroundColor: mbtiColor}}>{mbti}</div>
                 <div style={styles.name}>{author}</div>
             </div>
         </div>

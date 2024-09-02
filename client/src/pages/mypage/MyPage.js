@@ -8,6 +8,7 @@ import AppContainer from '../../components/basic_css/AppContainer';
 import Header from '../../components/basic_css/Header';
 import ImageInputModal from '../../components/modal/ImageInputModal';
 import { useAuth } from '../../auth/AuthContext';
+import mbtiData from '../../mbtiData/mbtiData';
 
 const AppContainerComponent = () => {
     return (
@@ -24,6 +25,7 @@ const HeaderComponent = () => {
 // 마이페이지 유저 정보 컴포넌트
 const MyPageUserInfoContainer = (props) => {
     const [isModalOpen,  setModalOpen] = useState(false);
+    const mbtiColor = mbtiData[props.mbti].color;
 
     const openModal = () => {
         setModalOpen(true);
@@ -34,14 +36,14 @@ const MyPageUserInfoContainer = (props) => {
 
     return (
         <div className="mypage-user-info-container">
-            <div className="mypage-user-info-container-inner">
+            <div className="mypage-user-info-container-inner" style={{backgroundColor: mbtiColor}}>
                 <img src={props.profileImg === null ? `/mbti-img/${props.mbti}.png` : props.profileImg} alt="mypage-user-info-img" />
             </div>
             <button className='profile-img-modify-button' onClick={openModal}>
                 <img src="/public-img/post-img.png" alt="modify-icon" />
             </button>
             <div className="mypage-user-info-section">
-                <div className="mypage-user-info-section-badge"> {props.mbti} </div>
+                <div className="mypage-user-info-section-badge" style={{ backgroundColor: mbtiColor}} > {props.mbti} </div>
                 <div className="mypage-user-info-section-name"> {props.nickname} </div>
             </div>
             {isModalOpen && <ImageInputModal isOpen = {isModalOpen} closeModal = {closeModal}></ImageInputModal>}
@@ -111,7 +113,7 @@ const MyPage = () => {
     <div className="app">
         <AppContainerComponent />
         <HeaderComponent />
-        {!loading && <MyPageUserInfoContainer profileImg={myData.data.image} mbti={myData.data.mbti} nickname={myData.data.nickname}/>}
+        {!loading && <MyPageUserInfoContainer profileImg={myData.data.image} mbtiBadge={myData.data.mbtiBadge} mbti={myData.data.mbti} nickname={myData.data.nickname}/>}
         <MyPageUserInfoButton />
         {!loading && <MyPageMyMBTIButton myMbti = {myData.data.mbti}/>}
         <NewNotice />

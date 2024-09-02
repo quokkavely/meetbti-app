@@ -68,7 +68,7 @@ const ImageGamePage = ( ) => {
             <div className="imagegame-all-container">
             {isLoading ? <div /> : <div className="imagegame-title">{gameData.data.topic}</div>}
             {/* {!loading && <h2 className="imagegame-title">{imageGameData.data.topic}</h2>} */}
-            <div className="imagegame-author">작성자: {""} </div>
+            <div className="imagegame-author">작성자: {gameData.data.nickName} </div>
             <div className="imagegame-button-container-container">
                 <div className="imagegame-button-container">
                     {mbtiButtonsA.map((value) => (
