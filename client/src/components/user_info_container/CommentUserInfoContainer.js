@@ -1,4 +1,5 @@
 import React from 'react';
+import mbtiData from '../../mbtiData/mbtiData';
 
 const styles = {
   container: {
@@ -25,7 +26,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '5px',
     marginLeft: '2px',
   },
   mbti: {
@@ -38,6 +38,18 @@ const styles = {
     textAlign: 'center',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
   },
+  badge: {
+    width: '44px',
+    height: '16px',
+    fontSize: '12px',
+    borderRadius: '10px',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    paddingTop: '2px',
+    textAlign: 'center',
+    backgroundColor: 'mbtiData.[mbti].color',
+    color: '#ffffff',
+},
   name: {
     fontSize: '11px',
     color: '#242424',
@@ -51,6 +63,7 @@ const styles = {
 };
 
 const CommentUserInfoContain = ({ username, mbti, profileImage }) => {
+  const mbtiColor = mbti && mbtiData[mbti] ? mbtiData[mbti].color : '#ffffff';
   console.log(`/mbti-img/${mbti}.png`);
   return (
     <div style={styles.container}>
@@ -58,7 +71,7 @@ const CommentUserInfoContain = ({ username, mbti, profileImage }) => {
         <img src={profileImage === null ? `/mbti-img/${mbti}.png` : profileImage} alt="catprofile" style={styles.img} />
       </div>
       <div style={styles.mbtiContainer}>
-        <div style={styles.mbti}>{mbti}</div>
+        <div style={{ ...styles.badge, backgroundColor: mbtiColor}}>{mbti}</div>
         <div style={styles.name}>{username}</div>
       </div>
     </div>
