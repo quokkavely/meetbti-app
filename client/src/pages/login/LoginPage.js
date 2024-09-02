@@ -28,6 +28,7 @@ function InputContainer(){
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+    const [loginErrorMessage, setLoginErrorMessage] = useState('로그인에 실패했어요');
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -57,7 +58,10 @@ function InputContainer(){
             setPasswordError('');
             // 로그인 로직 추가
             /* requestLogin(email, password); */
-            sendLoginRequest(email, password, login, navigate, () => setErrorModalOpen(true));
+            sendLoginRequest(email, password, login, navigate, (errorMessage) => {
+                setErrorModalOpen(true);
+                setLoginErrorMessage(errorMessage);
+            });
         }
     };
     
@@ -82,7 +86,7 @@ function InputContainer(){
             />
             {passwordError && <div className="error-message">{passwordError}</div>}
             <button className="login-button" onClick={handleLogin}>로그인</button>
-            {isErrorModalOpen && <ModalCheck message='로그인에 실패했어요' onClose={() => setErrorModalOpen(false)}></ModalCheck>}
+            {isErrorModalOpen && <ModalCheck message={loginErrorMessage} onClose={() => setErrorModalOpen(false)}></ModalCheck>}
         </div>
     );
 }
