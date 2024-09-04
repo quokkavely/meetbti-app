@@ -97,9 +97,9 @@
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/35b7e0d8-6454-4641-8d39-27244ee4b21b" width="400" height="200"/> | <img src="https://github.com/user-attachments/assets/430752fc-1e2c-40e3-9c2e-4aa09ec9ee51" width="400" height="200"/> |
 
-| 밸런스게임 : 주제 제안 | 이미지게임 : 주제 제안 |
+| 이미지 게임 : 주제 제안 | 이미지게임 : 관리자 승인 후 주제 목록 |
 | :---: | :---: |
-| <img src="" width="400" height="200"/> | <img src="" width="400" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/ff2ed235-f47a-48d4-991a-696dcc8613ab" width="400" height="200"/> | <img src="https://github.com/user-attachments/assets/a1004b1d-07b4-403a-814d-6f1ab44a78c8" width="400" height="200"/> |
 
 | 밸런스게임 : 참여 및 결과 확인 | 밸런스게임 : 댓글 및 좋아요 |
 | :---: | :---: |
@@ -121,21 +121,17 @@
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/87733598-e7f5-4efc-b38b-d56c05bc30dc" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/ff4385b4-b233-4e24-9853-99301ee541ba" width="400" height="200"/> |
 
-| 마이페이지 : 스낵컬처　활동내역 | 마이 페이지 : 탈퇴|
+| 마이페이지 : 스낵컬처　활동내역 | 관리자 페이지 : 회원의 주제 제안 목록 및 승인|
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/16f5ccb8-f144-4e0e-8a4a-c4e91d8994ca" width="400" height="210"/> | <img src="" width="400" height="200"/> |
-
-| 관리자 페이지 : 회원의 주제 제안 목록 | 관리자 페이지 : 주제 승인 |
-| :---: | :---: |
-| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/16f5ccb8-f144-4e0e-8a4a-c4e91d8994ca" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/8d7ae3a8-f23f-4902-8384-ce06a6802852" width="400" height="200"/> |
 
 | 게시글 : 회원의 게시글 신고 | 관리자 페이지 : 회원의 신고 목록 및 승인 |
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/f8430ff2-13d6-42aa-b048-c69f065c7b34" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/29fe7002-b071-469b-a7d9-4d2bbe53db85" width="400" height="200"/> |
 
-| 로그인 차단: 탈퇴 회원 | 로그인 차단: 계정정지 회원 |
-| :---: | :---: |
-| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
+| 로그인 차단: 탈퇴 회원 및 계정 정지 회원 | 
+| :---: |
+| <img src="https://github.com/user-attachments/assets/cfbd48c2-6ac6-4d27-80ae-4aa9b3a1ee46" width="400" height="210"/> |
 
 <br> 
 <br> 
