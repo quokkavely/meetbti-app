@@ -91,7 +91,7 @@
 
 | 댓글 등록 | 게시글 좋아요 및 취소 |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/40a7e4e0-95a4-47cf-b67d-509301778ec0" width="400" height="200"/> | <img src="" width="400" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/40a7e4e0-95a4-47cf-b67d-509301778ec0" width="400" height="200"/> | <img src="https://github.com/user-attachments/assets/a6390cc8-ba95-4fca-adec-a00b9e8262b6" width="400" height="200"/> |
 
 | 스낵컬처 : 메인 | MBTMI : 카테고리별 컨텐츠 확인 |
 | :---: | :---: |
@@ -129,9 +129,9 @@
 | :---: | :---: |
 | <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
 
-| 관리자 페이지 : 회원의 신고 목록 | 관리자 페이지 : 신고 승인 |
+| 게시글 : 회원의 게시글 신고 | 관리자 페이지 : 회원의 신고 목록 및 승인 |
 | :---: | :---: |
-| <img src="" width="400" height="210"/> | <img src="" width="400" height="200"/> |
+| <img src="https://github.com/user-attachments/assets/f8430ff2-13d6-42aa-b048-c69f065c7b34" width="400" height="210"/> | <img src="https://github.com/user-attachments/assets/29fe7002-b071-469b-a7d9-4d2bbe53db85" width="400" height="200"/> |
 
 | 로그인 차단: 탈퇴 회원 | 로그인 차단: 계정정지 회원 |
 | :---: | :---: |
