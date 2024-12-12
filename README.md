@@ -18,7 +18,7 @@
 ## 🚩 개요
 - 프로젝트 이름 : MeetBTI
 - 프로젝트 기간 : 2024.08.09 ~ 2024.08.29
-- 배포주소 : [MeetBTI](http://meetbti.s3-website.ap-northeast-2.amazonaws.com)
+- 배포주소 : [MeetBTI](https://meetbti.com)
 
 <br>
 
