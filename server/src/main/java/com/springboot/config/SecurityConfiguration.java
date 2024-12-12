@@ -64,6 +64,7 @@ public class SecurityConfiguration {
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.GET,"/health").permitAll()
                         .antMatchers(HttpMethod.GET,"/h2").permitAll()
                         .antMatchers(HttpMethod.POST,"/h2/**").permitAll()
                         .antMatchers(HttpMethod.GET,"/h2/**").permitAll()
@@ -116,7 +117,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://meetbti.site","https://www.meetbti.site", "http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("https://meetbti.site", "https://www.meetbti.site", "https://api.meetbti.site", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Authorization","MemberId"));
