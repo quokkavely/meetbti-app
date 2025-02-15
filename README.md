@@ -18,8 +18,7 @@
 ## 🚩 개요
 - 프로젝트 이름 : MeetBTI
 - 프로젝트 기간 : 2024.08.09 ~ 2024.08.29
-- 배포주소 : [MeetBTI](https://meetbti.site)
- (게스트용 id : guest@gmail.com , 비밀번호 : quest1234!)
+- 배포주소 : [MeetBTI](https://meetbti.site) ‼️배포중지
 <br>
 
 
